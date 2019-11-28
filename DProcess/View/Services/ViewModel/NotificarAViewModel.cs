@@ -190,13 +190,13 @@ namespace View.Services.ViewModel
             set
             {
                 _IsOpen = value;
-                NotifyChange("IsOpen");                
+                NotifyChange("IsOpen");
 
                 if (!_IsOpen)
                 {
                     //Obtenemos los usuarios seleccionados y los asignamos a una lista temporal.
                     List<Usuarios> listaAux = ListaUsuarios.Where(x => x.IsSelected).ToList();
-                   
+
                     //Limpiamos la lista.
                     ListaUsuarioANotificar.Clear();
 
@@ -224,6 +224,7 @@ namespace View.Services.ViewModel
                             user.Pathnsf = usuario.Pathnsf;
                             user.IsSelected = true;
                             user.usuario = usuario.IdUsuario;
+                            user.Correo = usuario.Correo;
 
                             // Agregamos al usuarios a la lista para notificar
                             ListaUsuarioANotificar.Add(user);
@@ -486,8 +487,13 @@ namespace View.Services.ViewModel
         {
             if (await validar())
             {
+                // Inicializamos los servicios
                 ServiceEmail SO_Email = new ServiceEmail();
-                
+                DialogService dialog = new DialogService();
+
+                //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+                ProgressDialogController AsyncProgress;
+
                 // Se declara vector de tamaño elementos ListaUsuarioANotificar + 1
                 int l = ListaUsuarioANotificar.Count;
                 string[] usuarios = new string[l + 1];
@@ -512,21 +518,118 @@ namespace View.Services.ViewModel
                     archivos[i] = item.ruta;
                     i++;
                 }
+                IsEnableEditor = false;
 
-                bool respuesta = SO_Email.SendEmailWithAttachment(User.Pathnsf, usuarios, Title, BodyEmail, archivos);
+                //Ejecutamos el método para enviar un mensaje de espera mientras se lee el archivo.
+                AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEnviandoCorreo, "");
+
+                DO_PathMail respuesta = await SO_Email.SendEmailWithAttachment(User.Pathnsf, usuarios, Title, BodyEmail, archivos);
+
+                //Ejecutamos el método para cerrar el mensaje de espera.
+                await AsyncProgress.CloseAsync();
+
+                IsEnableEditor = true;
 
                 DialogService dialogService = new DialogService();
 
                 // Se oculta editor de texto
                 IsEnableEditor = false;
 
-                if (respuesta)
+                if (respuesta.respuesta)
                 {
-                    await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgCorreoEnviadoOK);                    
+                    await dialogService.SendMessage(StringResources.ttlAlerta, respuesta.rutamail);
                 }
                 else
                 {
-                    await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorEnviarCorreo);
+                    if (respuesta.rutamail == "Tu correo no está configurado, ¿deseas configurarlo?")
+                    {
+                        //Configuramos las opciones del mesaje de pregunta.
+                        MetroDialogSettings settings = new MetroDialogSettings();
+                        settings.AffirmativeButtonText = StringResources.lblYes;
+                        settings.NegativeButtonText = StringResources.lblNo;
+
+                        //Preguntamos al usuario si lo quiere configurar en estos momentos.
+                        MessageDialogResult resultMSG = await dialog.SendMessage(StringResources.ttlAtencion, StringResources.msgConfiguracionCorreo, settings, MessageDialogStyle.AffirmativeAndNegative, "Servicio de Correo");
+
+                        //Verificamos la respuesta del usuario, si es afirmativa iniciamos el proceso de configuración.
+                        if (resultMSG == MessageDialogResult.Affirmative)
+                        {
+                            settings = new MetroDialogSettings();
+                            settings.AffirmativeButtonText = StringResources.ttlOkEntiendo;
+
+                            await dialog.SendMessage(User.Nombre + StringResources.msgParaTuInf, StringResources.msgProcesoConfiguracion);
+
+                            ProgressDialogController AsyncProgressConfigEmail;
+
+                            AsyncProgressConfigEmail = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento + User.Nombre + "...", StringResources.msgEstamosConfigurando);
+
+                            ConfigEmailViewModel configEmail = new ConfigEmailViewModel(User);
+
+                            // Se reciben valores de las 2 propiedades del objeto
+                            DO_PathMail respuestaConfigEmail = await configEmail.setEmail();
+
+                            await AsyncProgressConfigEmail.CloseAsync();
+
+                            if (respuestaConfigEmail.respuesta)
+                            {
+                                // Actualizamos el path de usuario en la misma sesión
+                                User.Pathnsf = respuestaConfigEmail.rutamail;
+
+                                settings.AffirmativeButtonText = StringResources.ttlGenial;
+                                await dialog.SendMessage(StringResources.msgPerfecto + User.Nombre, StringResources.msgCuentaConfigurada);
+
+                                //enviarCorreo();
+                                l = ListaUsuarioANotificar.Count;
+                                usuarios = new string[l + 1];
+                                c = 0;
+
+                                // Se itera la lista y se agregan a la lista a notificar
+                                foreach (Usuarios usuario in ListaUsuarioANotificar)
+                                {
+                                    usuarios[c] = usuario.Correo;
+                                    c++;
+                                }
+
+                                // Se agrega al vector el usuario logueado para ser notificado                
+                                usuarios[c] = User.Correo;
+
+                                // Vector con archivos adjuntados
+                                archivos = new string[ListaArchivos.Count];
+                                i = 0;
+
+                                foreach (var item in ListaArchivos)
+                                {
+                                    archivos[i] = item.ruta;
+                                    i++;
+                                }
+                                IsEnableEditor = false;
+
+                                //Ejecutamos el método para enviar un mensaje de espera mientras se lee el archivo.
+                                AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEnviandoCorreo, "");
+
+                                respuesta = await SO_Email.SendEmailWithAttachment(User.Pathnsf, usuarios, Title, BodyEmail, archivos);
+
+                                //Ejecutamos el método para cerrar el mensaje de espera.
+                                await AsyncProgress.CloseAsync();
+
+                                IsEnableEditor = true;
+
+                                dialogService = new DialogService();
+
+                                // Se oculta editor de texto
+                                IsEnableEditor = false;
+
+                                if (respuesta.respuesta)
+                                {
+                                    await dialogService.SendMessage(StringResources.ttlAlerta, respuesta.rutamail);
+                                }
+                            }
+                            else
+                            {
+                                await dialog.SendMessage(StringResources.ttlOcurrioError, StringResources.msgErrorVincular);
+                            }
+                        }
+                    }
                 }
 
                 // Se muestra editor de texto
