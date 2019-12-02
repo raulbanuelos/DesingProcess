@@ -2245,7 +2245,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Your user is not configured to send emails, do you want to start with the configuration process?.
+        ///   Busca una cadena traducida similar a Your user is not configured to send emails, Do you want to start with the configuration process?.
         /// </summary>
         public static string msgConfiguracionCorreo {
             get {
@@ -2326,7 +2326,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a The email does not contain subject, do you want to send it anyway?.
+        ///   Busca una cadena traducida similar a The email does not contain subject, Do you want to send it anyway?.
         /// </summary>
         public static string msgCorreoSinAsunto {
             get {
@@ -2432,6 +2432,15 @@ namespace View.Resources {
         public static string msgDescripcionNoIgual {
             get {
                 return ResourceManager.GetString("msgDescripcionNoIgual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your email is not configured, Do you want to configure it?.
+        /// </summary>
+        public static string msgDeseasConfigCorreo {
+            get {
+                return ResourceManager.GetString("msgDeseasConfigCorreo", resourceCulture);
             }
         }
         

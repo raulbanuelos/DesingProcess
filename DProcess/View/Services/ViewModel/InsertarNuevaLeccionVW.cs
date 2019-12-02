@@ -1130,8 +1130,7 @@ namespace View.Services.ViewModel
                                         else
                                         {
                                             file.rutaIcono = @"/Images/file.png";
-                                        }
-                                        
+                                        }                                        
                                     }
                                 }
 
@@ -1149,7 +1148,7 @@ namespace View.Services.ViewModel
                                     if (c == ListaCentrosDeTrabajoSeleccionados.Count - 1)
                                         nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + ".";
                                     else
-                                        nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + ",";
+                                        nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + ", ";
                                 }
                                 c++;
                             }
@@ -1165,23 +1164,23 @@ namespace View.Services.ViewModel
                                     if (c == ListaNivelesDeCambioSeleccionados.Count - 1)
                                         nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + ".";
                                     else
-                                        nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + ",";
+                                        nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + ", ";
                                 }
                                 c++;
                             }
 
                             body = "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
-                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Componente:</STRONG> " + Componente +"</P>";
-                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No. de Solicitud:</STRONG>" + SolicitudTrabajoIng + "</P>";
-                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descripción:</STRONG>" + DescripcionProblema + "<BR><BR></P>";
-                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo de cambio:</STRONG>" + nivelCambio + "<BR><BR></P>";
+                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Componente:</STRONG> " + Componente + "</P>";
+                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No. de Solicitud:</STRONG> " + SolicitudTrabajoIng + "</P>";
+                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descripción:</STRONG> " + DescripcionProblema + "<BR><BR></P>";
+                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo de cambio:</STRONG> " + nivelCambio + "<BR><BR></P>";
                             if (ListaCentrosDeTrabajoSeleccionados.Count > 0)
                             {
-                                body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operaciones:</STRONG>" + nombresOperaciones + "<BR><BR></P>";
+                                body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operaciones:</STRONG> " + nombresOperaciones + "<BR><BR></P>";
                             }
                             body += "<P>Cualquier duda favor de hacermela saber.</P>";
 
-                            string title = "Diseño del proceso : Ha concludido la solicitud de cambio del componente " + Componente;
+                            string title = "Diseño del proceso ha concluido la solicitud de cambio del componente: " + Componente;
 
                             NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, listaDocumentoA, listaUsuarios, title);
                             WNotificarA ventanaCorreo = new WNotificarA();
@@ -1204,7 +1203,8 @@ namespace View.Services.ViewModel
                         //Si ocurrio un error al insertar la leccion aprendida se notificara al usuario
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
                     }
-                }else
+                }
+                else
                 {
 
                     DatosCambioLeccionAprendida ObjDesc = new DatosCambioLeccionAprendida();
@@ -1243,7 +1243,6 @@ namespace View.Services.ViewModel
 
                             //insertamos los tipos de cambio seleccionados
                             int j = DataManagerControlDocumentos.InsertLeccionesNivelCambio(ObjTipo.ID_TIPO_CAMBIO, ObjTipo.ID_LECCIONAPRENDIDA);
-
                         }
 
                         foreach (var Arc in ListaDocumentos)
@@ -1315,7 +1314,6 @@ namespace View.Services.ViewModel
                                         {
                                             file.rutaIcono = @"/Images/file.png";
                                         }
-
                                     }
                                 }
 
@@ -1338,7 +1336,7 @@ namespace View.Services.ViewModel
                                     }
                                     else
                                     {
-                                        componentes += ListaCambiosDescripcionSimilar[c].Componente + ",";
+                                        componentes += ListaCambiosDescripcionSimilar[c].Componente + ", ";
                                     }
                                 }
                                 c++;
@@ -1355,7 +1353,7 @@ namespace View.Services.ViewModel
                                     if (c == ListaCentrosDeTrabajoSeleccionados.Count - 1)
                                         nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + ".";
                                     else
-                                        nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + ",";
+                                        nombresOperaciones += ListaCentrosDeTrabajoSeleccionados[c].NombreOperacion + ", ";
                                 }
                                 c++;
                             }
@@ -1371,23 +1369,23 @@ namespace View.Services.ViewModel
                                     if (c == ListaNivelesDeCambioSeleccionados.Count - 1)
                                         nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + ".";
                                     else
-                                        nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + ",";
+                                        nivelCambio += ListaNivelesDeCambioSeleccionados[c].NOMBRETIPOCAMBIO + ", ";
                                 }
                                 c++;
                             }
                             
                             body = "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
                             body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>Componentes:</STRONG> " + componentes + "</P>";
-                            body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>No. de Solicitud:</STRONG>" + SolicitudTrabajoIng + "</P>";
-                            body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>Descripción:</STRONG>" + DescripcionProblema + "<BR><BR></P>";
-                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo de cambio:</STRONG>" + nivelCambio + "<BR><BR></P>";
+                            body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>No. de Solicitud:</STRONG> " + SolicitudTrabajoIng + "</P>";
+                            body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>Descripción:</STRONG> " + DescripcionProblema + "<BR><BR></P>";
+                            body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo de cambio:</STRONG> " + nivelCambio + "<BR><BR></P>";
                             if (ListaCentrosDeTrabajoSeleccionados.Count > 0)
                             {
-                                body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operaciones:</STRONG>" + nombresOperaciones + "<BR><BR></P>";
+                                body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operaciones:</STRONG> " + nombresOperaciones + "<BR><BR></P>";
                             }
                             body += "<P>Cualquier duda favor de hacermela saber.</P>";
 
-                            string title = "Diseño del proceso : Ha concludido la solicitud de cambio de los componentes " + componentes;
+                            string title = "Diseño del proceso ha concluido la solicitud de cambio de los componentes: " + componentes;
 
                             NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, listaDocumentoA, listaUsuarios, title);
                             WNotificarA ventanaCorreo = new WNotificarA();
@@ -1404,7 +1402,6 @@ namespace View.Services.ViewModel
                             //cerramos la ventana 
                             window.Close();
                         }
-
                     }
                     else
                     {
@@ -1412,7 +1409,8 @@ namespace View.Services.ViewModel
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
                     }
                 }
-            }else
+            }
+            else
             {
                 //si faltan datos por capturar se manda el mensaje
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);

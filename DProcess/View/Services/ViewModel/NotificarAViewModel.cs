@@ -299,42 +299,7 @@ namespace View.Services.ViewModel
                         listuser.IsSelected = true;
                     }
                 }
-            }
-
-            #region Prueba Correo
-            //string body = "<HTML>";
-            //body += "<head>";
-            //body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
-            //body += "</head>";
-            //body += "<body text=\"white\">";
-            //body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + "Buenas tardes" + "</font> </p>";
-            //body += "<ul>";
-            //body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que " + "Formato especifico" + " con el número <b> " + "W-3571-454AS54AS" + "</b> versión <b> " + "1" + ".0" + " </b> ya se encuentra disponible en el sistema </font> <a href=\"http://sealed/frames.htm\">frames</a> </li>";
-            //body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Adicionalmente informo que se actualizo la matríz.</font></li>";
-            //body += "<br/>";
-            //body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Número : <b>" + "4-3571-ASDASDASD" + "</b></font></li>";
-            //body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Descripción : <b>" + "DESCRIPCIÓN" + "</b></font></li>";
-            //body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Versión : <b>" + "1" + ".0" + "</b></font></li>";
-            ////body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b></font></li>";
-            //body += "</ul>";
-            //body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
-            //body += "<br/>";
-            //body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
-            //body += "<br/>";
-            //body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
-            //body += "<ul>";
-            //body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + "Edgar Raúl " + " " + "Bañuelos" + "</font> </li>";
-            //body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
-            //body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
-            //body += "<li></li>";
-            //body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
-            //body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
-            //body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + "raul.banuelos@mx.mahle.com" + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
-            //body += "</ul>";
-            //body += "</body>";
-            //body += "</HTML>";
-            //BodyEmail = body; 
-            #endregion
+            }            
         }
 
         #endregion
@@ -541,7 +506,7 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    if (respuesta.rutamail == "Tu correo no está configurado, ¿deseas configurarlo?")
+                    if (respuesta.rutamail == StringResources.msgDeseasConfigCorreo)
                     {
                         //Configuramos las opciones del mesaje de pregunta.
                         MetroDialogSettings settings = new MetroDialogSettings();
@@ -575,7 +540,7 @@ namespace View.Services.ViewModel
                                 // Actualizamos el path de usuario en la misma sesión
                                 User.Pathnsf = respuestaConfigEmail.rutamail;
 
-                                settings.AffirmativeButtonText = StringResources.ttlGenial;
+                                // M
                                 await dialog.SendMessage(StringResources.msgPerfecto + User.Nombre, StringResources.msgCuentaConfigurada);
 
                                 //enviarCorreo();

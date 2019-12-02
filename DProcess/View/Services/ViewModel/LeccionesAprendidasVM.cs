@@ -134,11 +134,13 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructor
+
         public LeccionesAprendidasVM(Usuario ModelUsuario)
         {
             user = ModelUsuario;
             Constructor();
         }
+
         #endregion
 
         #region Comandos
