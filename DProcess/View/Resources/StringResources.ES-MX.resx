@@ -1957,7 +1957,7 @@ El documento podría no liberarse correctamente.</value>
   </data>
   <data name="lblAlertaNotificar" xml:space="preserve">
     <value>¡Alerta! 
-No has seleccionado usuarios a notificar...</value>
+No has seleccionado usuarios a notificar.</value>
     <comment>Mensaje cuando no se ha seleccionado usuarios para notificar</comment>
   </data>
   <data name="msgNombreDescripcionNoIgual" xml:space="preserve">

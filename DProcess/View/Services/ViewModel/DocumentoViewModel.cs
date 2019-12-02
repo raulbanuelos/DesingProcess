@@ -3444,14 +3444,14 @@ namespace View.Services.ViewModel
                                         //Verificamos de nuevo que se hayan insertado los tipos de archivos correspondiente al tipo de documento
                                         if (id_tipo == 1015 || id_tipo == 2 || id_tipo == 1002 || id_tipo == 1004)
                                         {
-                                            //si el archivo es de tipo JES se comprueba que se haya insertado una hoja de calculo
+                                            //Se comprueba que se haya insertado una hoja de calculo
                                             if (obj.ext == ".xlsm" || obj.ext == ".xlsx")
                                             {
                                                 ListaDocumentos.Add(obj);
 
                                                 string mensaje;
 
-                                                //Mandamos llamar al método que revisa que la JES este correcta
+                                                //Mandamos llamar al método que revisa que el documento este correcto
                                                 int r = validarArchivo(out mensaje);
 
                                                 //Si el archivo esta incorrecto, se corrige automáticamente

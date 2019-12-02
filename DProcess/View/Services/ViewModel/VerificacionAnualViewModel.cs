@@ -316,25 +316,34 @@ namespace View.Services.ViewModel
                     // Creamos el objeto SLDocument el cual creará el excel
                     SLDocument sl = new SLDocument();
 
-                    // Declaramos contador en 2 para ignorar el encabezado de las columnas
-                    int cont = 2;
+                    // Declaramos contador en 4 para ignorar el encabezado de las columnas y los herramentales a verificar por default
+                    int cont = 4;
 
                     // Definimos el estilo a utilizar
                     SLStyle estilo = new SLStyle();
 
                     // Títulos en negritas y letra 12
                     estilo.Font.Bold = true;
-                    estilo.Font.FontSize = 12;
+                    estilo.Font.FontSize = 12;                                        
 
                     // Aplicamos estilo a las celdas
                     sl.SetCellStyle("A1", estilo);
                     sl.SetCellStyle("B1", estilo);
                     sl.SetCellStyle("C1", estilo);
 
-                    // Asignamos nombre a las celdas
+                    // Asignamos nombre de título a las celdas
                     sl.SetCellValue("A1", "Material");
                     sl.SetCellValue("B1", "Codigo Herramental");
                     sl.SetCellValue("C1", "Descripción");
+
+                    // Asignamos valores de herramentales a verificar por default
+                    sl.SetCellValue("A2", string.Empty);
+                    sl.SetCellValue("B2", "1005296");
+                    sl.SetCellValue("C2", "ARBOR  RL4 - 80  PTE 1  CAM TURN");
+                    // Asignamos valores de herramentales a verificar por default
+                    sl.SetCellValue("A3", string.Empty);
+                    sl.SetCellValue("B3", "1005288");
+                    sl.SetCellValue("C3", "ARBOR AND NUT PTES. 1 Y 2      CAM TURN");
 
                     // Iteramos la lista para empezar a llenar las celdas necesarias
                     foreach (var item in ListaExportar)

@@ -10,7 +10,6 @@ namespace View.Services.ViewModel
 {
     public class ConfigEmailViewModel
     {
-
         private Usuario user;
         private string goodPath;
 
