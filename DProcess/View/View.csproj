@@ -271,6 +271,9 @@
     <Compile Include="Forms\ControlDocumentos\FrmListaUsuarios.xaml.cs">
       <DependentUpon>FrmListaUsuarios.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmMisSuscripciones.xaml.cs">
+      <DependentUpon>FrmMisSuscripciones.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmNuevoTipo.xaml.cs">
       <DependentUpon>FrmNuevoTipo.xaml</DependentUpon>
     </Compile>
@@ -1002,6 +1005,7 @@
     <Compile Include="Services\ViewModel\ListItemViewModel.cs" />
     <Compile Include="Services\ViewModel\LoadingGuideAnillosVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
+    <Compile Include="Services\ViewModel\MisSuscripcionesVM.cs" />
     <Compile Include="Services\ViewModel\ModificarDatosUsuario.cs" />
     <Compile Include="Services\ViewModel\ModificarLeccionVM.cs" />
     <Compile Include="Services\ViewModel\NormasViewModel.cs" />
@@ -1156,6 +1160,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmListaUsuarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmMisSuscripciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

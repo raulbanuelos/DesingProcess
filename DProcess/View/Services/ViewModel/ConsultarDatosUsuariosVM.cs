@@ -221,33 +221,40 @@ namespace View.Services.ViewModel
             if (id_usuario != null)
             {
                 MessageDialogResult resultado = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDelUsuario, botones, MessageDialogStyle.AffirmativeAndNegative);
+
                 if (resultado ==MessageDialogResult.Affirmative)
                 {
                     bool r = DataManagerControlDocumentos.ContarDocumentos(encriptar.encript(id_usuario.usuario));
+
                     if (SelectedItem!=null)
                     {
+                        // Se manda llamar método para eliminar el usuario de la tabla TBL_USER_DETAILS
+                        DataManagerControlDocumentos.Delete_UserDetail(encriptar.encript(id_usuario.usuario));
+
                         if (r == true)
                         {
                             //si el usuario tiene documentos
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgPrivilegiosUsuario);
+
                             Model.DataManager.DeletePrivilegiosUsuario(encriptar.encript(id_usuario.usuario));
                             Model.DataManager.DeLete_PerfilUsuario(encriptar.encript(id_usuario.usuario));
                             DataManagerControlDocumentos.DeleteRol_Usuario(encriptar.encript(id_usuario.usuario));
-                            ConstructorVista();
 
+                            ConstructorVista();
                         }
                         else
                         {
                             //si el usuario no tiene documentos
                             Model.DataManager.DeletePrivilegiosUsuario(encriptar.encript(id_usuario.usuario));
                             Model.DataManager.DeLete_PerfilUsuario(encriptar.encript(id_usuario.usuario));
-                            DataManagerControlDocumentos.DeleteRol_Usuario(encriptar.encript(id_usuario.usuario));
+                            DataManagerControlDocumentos.DeleteRol_Usuario(encriptar.encript(id_usuario.usuario));                            
                             DataManagerControlDocumentos.DeleteUsuarios(id_usuario);
-                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDeleteUsuario);
-                            ConstructorVista();
-                        }
-                    }
 
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDeleteUsuario);
+
+                            ConstructorVista();
+                        }                        
+                    }
                 }
             }
         }

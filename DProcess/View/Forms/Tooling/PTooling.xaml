@@ -11,7 +11,7 @@
       Width="Auto" Height="Auto"
       Title="PTooling">
 
-    <Grid ShowGridLines="True" Background="White">
+    <Grid ShowGridLines="False" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="85"/>
             <RowDefinition Height="85"/>

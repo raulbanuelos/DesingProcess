@@ -531,6 +531,17 @@ namespace View.Services.ViewModel
             }
         }
 
+        /// <summary>
+        /// Comando para ir a la ventana Mis Suscripciones
+        /// </summary>
+        public ICommand IrMisSuscripciones
+        {
+            get
+            {
+                return new RelayCommand(a => irmissuscripciones());
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -722,6 +733,7 @@ namespace View.Services.ViewModel
         {
             FrmDocumentos_Eliminados frm = new FrmDocumentos_Eliminados();
             Documento_EliminadoVM context = new Documento_EliminadoVM();
+
             frm.DataContext = context;
             frm.ShowDialog();
         }
@@ -1388,6 +1400,16 @@ namespace View.Services.ViewModel
                     }
                 );
             }
+
+            // Ver mis suscripciones
+            this.MenuItems.Add(
+                new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FormatListChecks },
+                    Label = StringResources.ttlMisSuscripciones,
+                    Command = IrMisSuscripciones,
+                    Tag = StringResources.ttlMisSuscripciones,
+                });
         }
 
         /// <summary>
@@ -1406,6 +1428,18 @@ namespace View.Services.ViewModel
             TextoBuscar = string.Empty;
             GetDataGrid(string.Empty);
             initSnack();
+        }
+
+        /// <summary>
+        /// Método de navegación para ir a la ventana de Mis Suscripciones
+        /// </summary>
+        public void irmissuscripciones()
+        {
+            FrmMisSuscripciones ventana = new FrmMisSuscripciones();
+            MisSuscripcionesVM contenido = new MisSuscripcionesVM(usuario);
+
+            ventana.DataContext = contenido;
+            ventana.ShowDialog();
         }
         #endregion
     }

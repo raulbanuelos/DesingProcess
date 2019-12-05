@@ -1223,6 +1223,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a List of documents to which you are subscribed..
+        /// </summary>
+        public static string lblListaDocsSuscritos {
+            get {
+                return ResourceManager.GetString("lblListaDocsSuscritos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a List of user availables.
         /// </summary>
         public static string lblListaUsuariosDisponibles {
@@ -2216,9 +2225,9 @@ namespace View.Resources {
         
         /// <summary>
         ///   Busca una cadena traducida similar a Verify that the names of the cells are:
-        ///A1 (MATERIAL/material)
-        ///A2 (CODIGO_HERRAMENTAL/codigo_herramental)
-        ///A3 (DESCRIPCION/descripcion)..
+        ///A1 (COMPONENTE/componente)
+        ///B1 (CODIGO_HERRAMENTAL/codigo_herramental)
+        ///C1 (DESCRIPCION/descripcion)..
         /// </summary>
         public static string msgCellsName {
             get {
@@ -2313,6 +2322,15 @@ namespace View.Resources {
         public static string msgCorrectFile {
             get {
                 return ResourceManager.GetString("msgCorrectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The email was sent successfully..
+        /// </summary>
+        public static string msgCorreoEnviadoExitosamente {
+            get {
+                return ResourceManager.GetString("msgCorreoEnviadoExitosamente", resourceCulture);
             }
         }
         
@@ -4483,6 +4501,15 @@ namespace View.Resources {
         public static string ttlMatrizLeccionesAprendidas {
             get {
                 return ResourceManager.GetString("ttlMatrizLeccionesAprendidas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a My subscriptions.
+        /// </summary>
+        public static string ttlMisSuscripciones {
+            get {
+                return ResourceManager.GetString("ttlMisSuscripciones", resourceCulture);
             }
         }
         

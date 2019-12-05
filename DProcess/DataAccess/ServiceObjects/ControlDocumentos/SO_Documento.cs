@@ -35,7 +35,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      d.ID_DOCUMENTO,
                                      t.ID_TIPO_DOCUMENTO,
                                      d.NOMBRE,
-                                    // d.DESCRIPCION,
+                                     // d.DESCRIPCION,
                                      //d.VERSION_ACTUAL,
                                      d.FECHA_EMISION,
                                      d.FECHA_CREACION,
@@ -688,6 +688,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      v.NO_COPIAS,
                                      DEPARTAMENTO=dep.NOMBRE_DEPARTAMENTO
                                  }).ToList();
+
                     //Se retorna la lista
                     return lista;
                 }

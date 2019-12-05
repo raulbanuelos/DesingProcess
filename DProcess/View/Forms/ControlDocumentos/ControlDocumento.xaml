@@ -117,7 +117,7 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding EditarDocumento}"
-                             CommandParameter="{Binding extension}" />
+                             CommandParameter="{Binding extension}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </DataGrid>
@@ -148,7 +148,7 @@
                     </materialDesign:Snackbar>
                 </Grid>
 
-                <Image x:Name="image"  Height="65"  VerticalAlignment="Top"  Source="/View;component/Images/MahleRight.png"  Grid.Column="1"  Grid.Row="1"  Width="184"  Margin="900,0,0,0"/>
+                <Image x:Name="image" Height="65" VerticalAlignment="Top" Source="/View;component/Images/MahleRight.png" Grid.Column="1" Grid.Row="1" Width="184" Margin="900,0,0,0"/>
             </Grid>
         </ScrollViewer>
     </controls:HamburgerMenu>

@@ -10,7 +10,6 @@ namespace DataAccess.ServiceObjects.Usuario
 {
     public class SO_Usuario
     {
-
         #region Métodos
 
         /// <summary>

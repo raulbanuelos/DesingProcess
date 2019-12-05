@@ -171,7 +171,7 @@ namespace View.Services.ViewModel
                     string A3_Obtenida = sl.GetCellValueAsString(iRow, 3);
 
                     // Nombre que deberán contener dichas celdas
-                    string CellA1 = "Material";
+                    string CellA1 = "Componente";
                     string CellA2 = "Codigo_Herramental";
                     string CellA3 = "Descripcion";
 
@@ -332,7 +332,7 @@ namespace View.Services.ViewModel
                     sl.SetCellStyle("C1", estilo);
 
                     // Asignamos nombre de título a las celdas
-                    sl.SetCellValue("A1", "Material");
+                    sl.SetCellValue("A1", "Componente");
                     sl.SetCellValue("B1", "Codigo Herramental");
                     sl.SetCellValue("C1", "Descripción");
 

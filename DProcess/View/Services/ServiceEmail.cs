@@ -106,7 +106,8 @@ namespace View.Services
                         nDocument.Send(false, recipients);
 
                         Obj.respuesta = true;
-                        Obj.rutamail = StringResources.msgCorreoEnviadoOK;
+                        //Obj.rutamail = StringResources.msgCorreoEnviadoOK;
+                        Obj.rutamail = StringResources.msgCorreoEnviadoExitosamente;
 
                         return Obj;
                     }

@@ -1,0 +1,45 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.ControlDocumentos.FrmMisSuscripciones"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:recursos="clr-namespace:View.Resources"
+        mc:Ignorable="d"
+        Title="FrmMisSuscripciones" Height="500" Width="800" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2"
+              WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DataGrid ItemsSource="{Binding ListaDocSuscritos}" 
+                  SelectedItem="{Binding SelectedDocumento,Mode=TwoWay}"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  Grid.Row="1">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding nombre}" Header="{x:Static recursos:StringResources.lblNombre}"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding descripcion}"  Header="{x:Static recursos:StringResources.lblDescripcion}"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding IrVerDocumento}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+        </DataGrid>
+
+        <Label Margin="5,0,0,0" Grid.Row="0" Content="{x:Static recursos:StringResources.lblListaDocsSuscritos}" FontSize="18" FontWeight="Bold"></Label>
+        
+    </Grid>
+</Controls:MetroWindow>

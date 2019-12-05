@@ -2053,9 +2053,9 @@ Notify to users that the tooling verification is ready.</value>
   </data>
   <data name="msgCellsName" xml:space="preserve">
     <value>Verify that the names of the cells are:
-A1 (MATERIAL/material)
-A2 (CODIGO_HERRAMENTAL/codigo_herramental)
-A3 (DESCRIPCION/descripcion).</value>
+A1 (COMPONENTE/componente)
+B1 (CODIGO_HERRAMENTAL/codigo_herramental)
+C1 (DESCRIPCION/descripcion).</value>
     <comment>Mensaje para verificar nombres de las celdas correctos</comment>
   </data>
   <data name="msgFormatoNoValido" xml:space="preserve">
@@ -2162,5 +2162,17 @@ In a moment you will receive an email confirming your configuration.</value>
   <data name="msgDeseasConfigCorreo" xml:space="preserve">
     <value>Your email is not configured, Do you want to configure it?</value>
     <comment>Mensaje para configurar correo electrónico</comment>
+  </data>
+  <data name="msgCorreoEnviadoExitosamente" xml:space="preserve">
+    <value>The email was sent successfully.</value>
+    <comment>Mensaje cuando se envía el correo exitosamente</comment>
+  </data>
+  <data name="lblListaDocsSuscritos" xml:space="preserve">
+    <value>List of documents to which you are subscribed.</value>
+    <comment>Label lista de documentos suscritos</comment>
+  </data>
+  <data name="ttlMisSuscripciones" xml:space="preserve">
+    <value>My subscriptions</value>
+    <comment>Título mis suscripciones</comment>
   </data>
 </root>
