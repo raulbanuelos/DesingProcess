@@ -1006,7 +1006,7 @@ namespace View.Services.ViewModel
                     //nos vamos a este ELSE si el archivo solo encontraba guardado localmente
                     else
                     {
-                        //si el archivo se removio de la lista de documentos correctamente mandamos un mensaje de confirmacion
+                        //si el archivo se removio de la lista de documentos correctamente mandamos un mensaje de confirmacion.
                         await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgArchivoEliminadoCorrectamente);
                     }
                 }
