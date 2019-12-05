@@ -859,5 +859,11 @@ namespace DProcess.Model.Test
         //{
         //    DataManagerControlDocumentos.Get_UserSuscripDoc(7412);
         //}
+
+        //[TestMethod]
+        //public void PruebaDocPorUsuario()
+        //{
+        //    DataManagerControlDocumentos.Get_DocSuscripcion("¥¶­¤¦oª³¢»°²¶ª");
+        //}
     }
 }

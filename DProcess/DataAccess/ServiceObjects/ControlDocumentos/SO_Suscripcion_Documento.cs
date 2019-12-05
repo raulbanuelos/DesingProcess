@@ -30,8 +30,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                               a.ID_SUSCRIPCION_DOC,
                                               a.ID_USUARIO_SUSCRITO,
                                               a.ID_DOCUMENTO
-                                              //b.Usuario,
-                                              //c.ID_DOCUMENTO
                                           }).ToList();
 
                     // Retornamos la lista
@@ -41,6 +39,55 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             catch (Exception er)
             {
                 // Si hay error retornamos la lista nula
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Consulta para traer los documentos a los que está suscrito cada usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public IList GetDocSuscripcion(string usuario)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var ListaDocSuscripcion = (from d in Conexion.TBL_DOCUMENTO
+                                               join v in Conexion.TBL_VERSION on d.ID_DOCUMENTO equals v.ID_DOCUMENTO
+                                               join a in Conexion.TBL_ARCHIVO on v.ID_VERSION equals a.ID_VERSION
+                                               join dp in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dp.ID_DEPARTAMENTO
+                                               join u in Conexion.Usuarios on v.ID_USUARIO_ELABORO equals u.Usuario
+                                               join uu in Conexion.Usuarios on v.ID_USUARIO_AUTORIZO equals uu.Usuario
+                                               join s in Conexion.TBL_SUSCRIPCION_DOCUMENTO on d.ID_DOCUMENTO equals s.ID_DOCUMENTO
+                                               where s.ID_USUARIO_SUSCRITO == usuario && v.ID_ESTATUS_VERSION == 1 && d.ID_ESTATUS_DOCUMENTO == 5
+                                               select new
+                                               {
+                                                   d.ID_DOCUMENTO,
+                                                   d.NOMBRE,
+                                                   d.ID_TIPO_DOCUMENTO,
+                                                   FECHA_ACTUALIZACION = v.FECHA_VERSION,
+                                                   d.ID_DEPARTAMENTO,
+                                                   v.No_VERSION,
+                                                   v.ID_VERSION,
+                                                   v.NO_COPIAS,
+                                                   DESCRIPCION = v.DESCRIPCION,
+                                                   dp.NOMBRE_DEPARTAMENTO,
+                                                   d.FECHA_EMISION,
+                                                   USUARIO_ELABORO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
+                                                   USUARIO_AUTORIZO = uu.Nombre + " " + uu.APaterno + " " + uu.AMaterno
+
+                                               }).ToList();
+
+                    // Retornamos la lista
+                    return ListaDocSuscripcion;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos nulo
                 return null;
             }
         }
@@ -56,7 +103,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             try
             {
                 // Establecemos conexión a través de EntityFramework
-                using(var Conexion = new EntitiesControlDocumentos())
+                using (var Conexion = new EntitiesControlDocumentos())
                 {
                     var ListaRegistros = (from a in Conexion.TBL_SUSCRIPCION_DOCUMENTO
                                           where a.ID_USUARIO_SUSCRITO == usuario_suscrito

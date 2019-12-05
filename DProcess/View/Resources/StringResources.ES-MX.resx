@@ -2048,9 +2048,9 @@ Notifique a usuarios que la verificación herramental está lista.</value>
   </data>
   <data name="msgCellsName" xml:space="preserve">
     <value>Asegúrese que los nombres de las celdas sean:
-A1 (MATERIAL/material)
-A2 (CODIGO_HERRAMENTAL/codigo_herramental)
-A3 (DESCRIPCION/descripcion).</value>
+A1 (COMPONENTE/componente)
+B1 (CODIGO_HERRAMENTAL/codigo_herramental)
+C1 (DESCRIPCION/descripcion).</value>
     <comment>Mensaje para verificar nombres de las celdas correctos</comment>
   </data>
   <data name="msgFormatoNoValido" xml:space="preserve">
@@ -2157,5 +2157,17 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
   <data name="msgDeseasConfigCorreo" xml:space="preserve">
     <value>Tu correo electrónico no está configurado, ¿Deseas configurarlo?</value>
     <comment>Mensaje para configurar correo electrónico</comment>
+  </data>
+  <data name="msgCorreoEnviadoExitosamente" xml:space="preserve">
+    <value>El correo electrónico fue enviado exitosamente.</value>
+    <comment>Mensaje cuando se envía el correo exitosamente</comment>
+  </data>
+  <data name="lblListaDocsSuscritos" xml:space="preserve">
+    <value>Lista de documentos a los que estás suscrito.</value>
+    <comment>Label lista de documentos suscritos</comment>
+  </data>
+  <data name="ttlMisSuscripciones" xml:space="preserve">
+    <value>Mis suscripciones</value>
+    <comment>Título mis suscripciones</comment>
   </data>
 </root>

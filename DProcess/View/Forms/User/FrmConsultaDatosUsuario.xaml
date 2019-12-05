@@ -58,7 +58,6 @@
                         <TextBlock Text="{x:Static recursos:StringResources.lblApellidoMaterno}" FontSize="14" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         <TextBlock Text="{Binding Path=AMaterno}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="5" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
 
-
                         <TextBlock Text="Rol: " FontSize="14" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="2" Grid.Column="1" Grid.Row="6">
                             <TextBlock Text="{Binding Path=roles}" HorizontalAlignment="Right" Padding="2" Grid.Column="1" Grid.Row="6" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>

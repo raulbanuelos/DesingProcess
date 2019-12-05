@@ -1821,6 +1821,7 @@ namespace Model.ControlDocumentos
             //Retornamos la lista.
             return Lista;
         }
+
         /// <summary>
         /// metodo para buscar un usuario
         /// </summary>
@@ -1990,6 +1991,32 @@ namespace Model.ControlDocumentos
             SO_Usuarios ServicioUsuario = new SO_Usuarios();
 
             return ServicioUsuario.GetPathSnf(idUsuario);
+        }
+
+        /// <summary>
+        /// Manda llamar método para insertar un registro en la tabla TBL_USER_DETAILS
+        /// </summary>
+        /// <param name="Id_Usuario"></param>
+        /// <param name="URL_Foto"></param>
+        /// <param name="Is_Available_Email"></param>
+        /// <returns></returns>
+        public static int Insert_UserDetail(string Id_Usuario, string URL_Foto, bool Is_Available_Email)
+        {
+            SO_UserDetails ServiceDetail = new SO_UserDetails();
+
+            return ServiceDetail.InsertUserDetail(Id_Usuario, URL_Foto, Is_Available_Email);
+        }
+
+        /// <summary>
+        /// Manda llamar método para eliminar registro de la tabla TBL_USER_DETAILS
+        /// </summary>
+        /// <param name="Id_Usuario"></param>
+        /// <returns></returns>
+        public static int Delete_UserDetail(string Id_Usuario)
+        {
+            SO_UserDetails ServiceDetail = new SO_UserDetails();
+
+            return ServiceDetail.DeleteUserDetail(Id_Usuario);
         }
 
         #endregion
@@ -4692,7 +4719,7 @@ namespace Model.ControlDocumentos
                 }
             }
 
-            // Retornamos la lusta con objetos
+            // Retornamos la lista con objetos
             return ListaObtenidaSuscritos;
         }
 
@@ -4743,6 +4770,59 @@ namespace Model.ControlDocumentos
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        ///  Manda llamar la consulta para traerse los documentos suscritos por usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Documento> Get_DocSuscripcion(string usuario)
+        {
+            // Inicializamos los servicios
+            SO_Suscripcion_Documento ServiceSuscripcion = new SO_Suscripcion_Documento();
+
+            // Declaramos la lista con los registros obtenidos de la consulta
+            IList InformacionDB = ServiceSuscripcion.GetDocSuscripcion(usuario);
+
+            // Declaramos una lista para añadir los documentos
+            ObservableCollection<Documento> ListaObtenida = new ObservableCollection<Documento>();
+
+            // Nos aseguramos que la lista no este vacía
+            if (InformacionDB != null)
+            {
+                // Recorremos la lista
+                foreach (var item in InformacionDB)
+                {
+                    // Declaramos el objeto
+                    Documento doc = new Documento();
+
+                    // Declaramos el tipo
+                    Type tipo = item.GetType();
+
+                    // Asignamos los valores                    
+                    doc.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    //doc.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    doc.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    //doc.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    doc.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    doc.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                    doc.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    doc.version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    doc.version.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
+                    doc.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null).ToString().ToUpper();
+                    doc.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
+                    doc.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
+                    doc.version.nombre_usuario_elaboro = (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
+                    doc.version.nombre_usuario_autorizo = (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
+
+                    // Añadimos el objeto a la lista
+                    ListaObtenida.Add(doc);
+                }
+            }
+
+            // Retornamos la lista
+            return ListaObtenida;
         }
 
         #endregion

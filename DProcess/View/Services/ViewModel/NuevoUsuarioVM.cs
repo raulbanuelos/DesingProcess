@@ -20,8 +20,6 @@ namespace View.Services.ViewModel
 {
    public class NuevoUsuarioVM : INotifyPropertyChanged
     {
-
-
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -131,7 +129,6 @@ namespace View.Services.ViewModel
             set { _Correo = value; NotifyChange("Correo"); }
         }
 
-
         private ObservableCollection<Model.ControlDocumentos.Rol> _listaRol = new ObservableCollection<Model.ControlDocumentos.Rol>();
         public ObservableCollection<Model.ControlDocumentos.Rol> ListaRol
         {
@@ -145,7 +142,6 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaRol");
             }
         }
-
 
         #endregion
 
@@ -245,6 +241,15 @@ namespace View.Services.ViewModel
                                 //ejecutamos el método para insertar un registro a la tabla
                                 string usuario = DataManagerControlDocumentos.SetUsuario(objUsuario);
 
+                                // Dclaramos la ruta para asignarle una foto de usuario por default
+                                string url_foto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpg";
+
+                                // Declaramos valor para el campo
+                                bool is_available_email = true;
+
+                                // Ejecutamos el método para insertar los registros a la tabla TBL_USER_DETAILS
+                                DataManagerControlDocumentos.Insert_UserDetail(objUsuario.usuario, url_foto, is_available_email);
+
                                 Usuario _usuario = new Usuario();
                                 _usuario.NombreUsuario = usuario;
 
@@ -318,7 +323,6 @@ namespace View.Services.ViewModel
                                     //agregamos los perfiles y privilegios correspondientes
                                     DataManager.Set_PerfilUsuario(_usuario);
                                     DataManager.Set_PrivilegiosUsuario(_usuario);
-
 
                                     //se muestra un mensaje de cambios realizados.
                                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgUsuarioAlta);

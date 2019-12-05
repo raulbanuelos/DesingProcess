@@ -60,5 +60,73 @@ namespace DataAccess.ServiceObjects.Usuario
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Método para insertar un registro en la tabla TBL_USER_DETAILS
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <param name="url_foto"></param>
+        /// <param name="is_available_email"></param>
+        /// <returns></returns>
+        public int InsertUserDetail(string id_usuario, string url_foto, bool is_available_email)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    // Declaramos el objeto de la tabla
+                    TBL_USERS_DETAILS objdetail = new TBL_USERS_DETAILS();
+
+                    // Asignamos valores
+                    objdetail.ID_USUARIO = id_usuario;
+                    objdetail.URL_PHOTO = url_foto;
+                    objdetail.IS_AVAILABLE_EMAIL = is_available_email;
+
+                    // Agregamos el objeto a la tabla
+                    Conexion.TBL_USERS_DETAILS.Add(objdetail);
+
+                    // Guardamos los cambios
+                    Conexion.SaveChanges();
+
+                    // Retornamos el ID del objeto
+                    return objdetail.ID_USERS_DETAILS;
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay un error, retornamos 0
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método para eliminar un registro de la tabla TBL_USER_DETAILS
+        /// </summary>
+        /// <param name="id_usuario"></param>
+        /// <returns></returns>
+        public int DeleteUserDetail(string id_usuario)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using(var Conexion = new EntitiesUsuario())
+                {
+                    // Declaramos el objeto de la tabla
+                    TBL_USERS_DETAILS objDetail = Conexion.TBL_USERS_DETAILS.Where(x => x.ID_USUARIO == id_usuario).FirstOrDefault();
+
+                    // Eliminamos el registro
+                    Conexion.Entry(objDetail).State = EntityState.Deleted;
+
+                    // Guardamos los cambios
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos 0
+                return 0;
+            }
+        }
     }
 }
