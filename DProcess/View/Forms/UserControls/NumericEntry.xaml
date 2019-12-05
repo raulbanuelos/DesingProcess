@@ -10,6 +10,7 @@
     <Grid>
         <StackPanel Orientation="Horizontal">
             <TextBox materialDesign:HintAssist.Hint="{Binding TextoPresentacion}" ToolTipService.ShowDuration="50000"
+                     x:Name="txtNumber" GotFocus="txtNumber_GotFocus" LostFocus="txtNumber_LostFocus"
                      FontSize="16" TextAlignment="Center" Width="150" Text="{Binding Valor,StringFormat=\{0:0.00000\}}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                 <TextBox.Triggers>

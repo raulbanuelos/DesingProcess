@@ -12,14 +12,14 @@ namespace DataAccess.ServiceObjects.Perfiles
     using System;
     using System.Collections.Generic;
     
-    public partial class TR_PROPIEDAD_PERFIL
+    public partial class TBL_ROLLOS_CAJA_SEGMENTOS
     {
-        public int ID_PROPIEDAD_PERFIL { get; set; }
-        public int ID_PROPIEDAD { get; set; }
-        public int ID_PERFIL { get; set; }
+        public int ID_ROLLOS_CAJA_SEGMENTOS { get; set; }
+        public Nullable<int> ID_NO_CAJA { get; set; }
+        public Nullable<double> DIAMETRO_MIN { get; set; }
+        public Nullable<double> DIAMETRO_MAX { get; set; }
+        public Nullable<int> ROLLOS_CAJA { get; set; }
     
-        public virtual CAT_PERFIL CAT_PERFIL { get; set; }
-        public virtual CAT_PROPIEDAD CAT_PROPIEDAD { get; set; }
-        public virtual CAT_PROPIEDAD CAT_PROPIEDAD1 { get; set; }
+        public virtual TBL_NO_CAJA TBL_NO_CAJA { get; set; }
     }
 }

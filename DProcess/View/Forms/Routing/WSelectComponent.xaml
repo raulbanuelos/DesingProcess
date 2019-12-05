@@ -7,6 +7,8 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="1" BorderBrush="Blue"              
         xmlns:recursos="clr-namespace:View.Resources"
+                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" Title="Select compoent" Height="400" Width="650">
 
     <Grid>
@@ -21,7 +23,19 @@
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="1" Grid.Row="1">
+        <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="28,0,-15,0" Orientation="Vertical">
+
+            <TextBox x:Name="txtBusqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding BuscarComponentes}"
+                                    CommandParameter="{Binding ElementName=txtBusqueda, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            
+            
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" >
                 <DataGrid ItemsSource="{Binding ListaComponentes}" SelectedItem="{Binding ComponenteSeleccionado}" 
                                               ScrollViewer.CanContentScroll="True" 

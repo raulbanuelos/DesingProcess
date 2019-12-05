@@ -42,5 +42,10 @@ namespace DataAccess.ServiceObjects.Perfiles
         public virtual DbSet<TR_PROPIEDAD_BOOL_PERFIL> TR_PROPIEDAD_BOOL_PERFIL { get; set; }
         public virtual DbSet<TR_PROPIEDAD_CADENA_PERFIL> TR_PROPIEDAD_CADENA_PERFIL { get; set; }
         public virtual DbSet<TR_PROPIEDAD_PERFIL> TR_PROPIEDAD_PERFIL { get; set; }
+        public virtual DbSet<TBL_NO_CAJA> TBL_NO_CAJA { get; set; }
+        public virtual DbSet<TBL_PZA_ROLLO_SEGMENTO> TBL_PZA_ROLLO_SEGMENTO { get; set; }
+        public virtual DbSet<TBL_ROLLOS_CAJA_SEGMENTOS> TBL_ROLLOS_CAJA_SEGMENTOS { get; set; }
+        public virtual DbSet<TBL_ESPEC_GAS_NITRIDING_RAILS> TBL_ESPEC_GAS_NITRIDING_RAILS { get; set; }
+        public virtual DbSet<TBL_ESPEC_PVD_RAILS> TBL_ESPEC_PVD_RAILS { get; set; }
     }
 }

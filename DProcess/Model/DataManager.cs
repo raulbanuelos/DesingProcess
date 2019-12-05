@@ -13503,6 +13503,7 @@ namespace Model
             ObservableCollection<string> ListaResultante = new ObservableCollection<string>();
             ListaResultante.Add("ZINC PHOSPHATE");
             ListaResultante.Add("MANGANESE PHOSPHATE");
+            ListaResultante.Add("BLACK OXIDE");
             ListaResultante.Add("NONE");
             return ListaResultante;
         }
@@ -16552,7 +16553,7 @@ namespace Model
 
         #endregion
 
-        #region Colores y Ubicaciones
+        #region Colores y Ubicaciones Y Condiciones de empaque.
 
         public static ObservableCollection<string> GetAllColores()
         {
@@ -16592,6 +16593,41 @@ namespace Model
 
             return ubicaciones;
         }
+
+        public static Empaquetado GetCondicionesEmpaqueSegmentos(double d1, double h1)
+        {
+            Empaquetado empaquetado = new Empaquetado();
+
+            SO_CondicionesEmpaqueSegmentos ServiceEmpaqueSegmentos = new SO_CondicionesEmpaqueSegmentos();
+
+            IList informacionBD = ServiceEmpaqueSegmentos.GetRollosCaja(d1);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    empaquetado.RollosXCaja = Convert.ToInt32(tipo.GetProperty("ROLLOS_CAJA").GetValue(item, null));
+                    empaquetado.CajaNo = Convert.ToString(tipo.GetProperty("NO_CAJA").GetValue(item, null));
+                }
+            }
+
+            informacionBD = ServiceEmpaqueSegmentos.GetPzasRollo(h1);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    empaquetado.PzasXRollo = Convert.ToInt32(tipo.GetProperty("PIEZAS").GetValue(item, null));
+                }
+            }
+
+            return empaquetado;
+        }
+
 
         #endregion
 

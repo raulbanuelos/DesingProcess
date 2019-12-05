@@ -12,14 +12,13 @@ namespace DataAccess.ServiceObjects.Perfiles
     using System;
     using System.Collections.Generic;
     
-    public partial class TR_PROPIEDAD_PERFIL
+    public partial class TBL_ESPEC_PVD_RAILS
     {
-        public int ID_PROPIEDAD_PERFIL { get; set; }
-        public int ID_PROPIEDAD { get; set; }
-        public int ID_PERFIL { get; set; }
-    
-        public virtual CAT_PERFIL CAT_PERFIL { get; set; }
-        public virtual CAT_PROPIEDAD CAT_PROPIEDAD { get; set; }
-        public virtual CAT_PROPIEDAD CAT_PROPIEDAD1 { get; set; }
+        public int ID_ESPEC_PVD_RAILS { get; set; }
+        public string ESPECIFICACION_PVD { get; set; }
+        public Nullable<double> THICKNESS_MIN { get; set; }
+        public Nullable<double> THICKNESS_MAX { get; set; }
+        public string DUREZA { get; set; }
+        public string NO_RECETA { get; set; }
     }
 }

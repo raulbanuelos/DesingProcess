@@ -92,7 +92,7 @@
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
-                                            <TextBox materialDesign:HintAssist.Hint="Espec Treatment " Width="300" FontSize="16" 
+                                            <TextBox materialDesign:HintAssist.Hint="TREATMENT SPECIFICATION" Width="300" FontSize="16" 
                                                          Text="{Binding EspecTreatment}" ToolTip="{Binding DescripcionLarga}"
                                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                                         </StackPanel>
@@ -105,7 +105,8 @@
                                                 <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMin.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
                                                              Width="150" Text="{Binding OvalityMin.Valor,StringFormat=\{0:0.00000\}}" 
                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                             ToolTip="{Binding DescripcionLarga}">
+                                                             ToolTip="{Binding DescripcionLarga}"
+                                                         x:Name="txtOvalityMin" GotFocus="txtOvalityMin_GotFocus" LostFocus="txtOvalityMin_LostFocus">
                                                 </TextBox>
                                                 <Button Width="10" Height="10" Command="{Binding  VerUnidadesOvalityMin}"></Button>
                                             </StackPanel>
@@ -116,7 +117,8 @@
                                                 <TextBox materialDesign:HintAssist.Hint="{Binding OvalityMax.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
                                                              Width="150" Text="{Binding OvalityMax.Valor,StringFormat=\{0:0.00000\}}" 
                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                             ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                                             ToolTip="{Binding DescripcionLarga}"
+                                                         x:Name="txtOvalityMax" GotFocus="txtOvalityMax_GotFocus" LostFocus="txtOvalityMax_LostFocus"></TextBox>
                                                 <Button Width="10" Height="10" Command="{Binding VerUnidadesOvalityMax}"></Button>
                                             </StackPanel>
                                         </StackPanel>
@@ -128,7 +130,8 @@
                                                 <TextBox materialDesign:HintAssist.Hint="{Binding Tension.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
                                                              Width="150" Text="{Binding Tension.Valor,StringFormat=\{0:0.00000\}}" 
                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                             ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                                             ToolTip="{Binding DescripcionLarga}"
+                                                         x:Name="txtTension" GotFocus="txtTension_GotFocus" LostFocus="txtTension_LostFocus"></TextBox>
                                                 <Button Width="10" Height="10" Command="{Binding VerUnidadesTension}"></Button>
                                             </StackPanel>
                                             <StackPanel VerticalAlignment="Center" Margin="5">
@@ -139,7 +142,8 @@
                                                              Width="150" 
                                                              Text="{Binding TensionTol.Valor,StringFormat=\{0:0.00000\}}" 
                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                             ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                                             ToolTip="{Binding DescripcionLarga}"
+                                                         x:Name="txtTensionTol" GotFocus="txtTensionTol_GotFocus" LostFocus="txtTensionTol_LostFocus"></TextBox>
                                                 <Button Width="10" Height="10" Command="{Binding VerUnidadesTensionTol}"></Button>
                                             </StackPanel>
                                         </StackPanel>
@@ -150,7 +154,8 @@
                                             <TextBox materialDesign:HintAssist.Hint="{Binding FreeGap.TextoPresentacion}" FontSize="16"  TextAlignment="Center" 
                                                          Width="150" Text="{Binding FreeGap.Valor,StringFormat=\{0:0.00000\}}" 
                                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                         ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                                         ToolTip="{Binding DescripcionLarga}"
+                                                     x:Name="txtFreeGap" GotFocus="txtFreeGap_GotFocus" LostFocus="txtFreeGap_LostFocus"></TextBox>
                                             <Button Width="10" Height="10" Command="{Binding VerUnidadesFreeGap}"></Button>
                                         </StackPanel>
                                         <!--Termina panel de Free Gap-->
@@ -164,7 +169,8 @@
                                                 <TextBox materialDesign:HintAssist.Hint="{Binding Mass.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
                                                              Width="150" Text="{Binding Mass.Valor,StringFormat=\{0:0.00000\}}" 
                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                             ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                                             ToolTip="{Binding DescripcionLarga}"
+                                                         x:Name="txtMass" GotFocus="txtMass_GotFocus" LostFocus="txtMass_LostFocus"></TextBox>
                                                 <Button Width="10" Height="10" Command="{Binding VerUnidadesMass}"></Button>
                                             </StackPanel>
 
@@ -177,7 +183,8 @@
                                                 <TextBox materialDesign:HintAssist.Hint="{Binding HardnessMin.TextoPresentacion}" FontSize="16" TextAlignment="Center"
                                                              Width="150" Text="{Binding HardnessMin.Valor,StringFormat=\{0:0.00000\}}" 
                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                             ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                                             ToolTip="{Binding DescripcionLarga}"
+                                                         x:Name="txtHardnessMin" GotFocus="txtHardnessMin_GotFocus" LostFocus="txtHardnessMin_LostFocus"></TextBox>
                                                 <Button Width="10" Height="10" Command="{Binding VerUnidadesHardnessMin}"></Button>
                                             </StackPanel>
                                             <StackPanel VerticalAlignment="Center" Margin="5">
@@ -188,7 +195,8 @@
                                                              FontSize="16" TextAlignment="Center" 
                                                              Width="150" Text="{Binding HardnessMax.Valor,StringFormat=\{0:0.00000\}}"
                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                             ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                                             ToolTip="{Binding DescripcionLarga}"
+                                                         x:Name="txtHardnessMax" GotFocus="txtHardnessMax_GotFocus" LostFocus="txtHardnessMax_LostFocus"></TextBox>
                                                 <Button Width="10" Height="10" Command="{Binding VerUnidadesHardnessMax}"></Button>
                                             </StackPanel>
                                         </StackPanel>
@@ -216,7 +224,8 @@
                                                 <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center" 
                                                              Width="150" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" 
                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                             ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                                             ToolTip="{Binding DescripcionLarga}"
+                                                         x:Name="txtD1" GotFocus="txtD1_GotFocus" LostFocus="txtD1_LostFocus"></TextBox>
                                                 <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
                                             </StackPanel>
                                             <StackPanel VerticalAlignment="Center" Margin="5">
@@ -227,7 +236,8 @@
                                                              TextAlignment="Center" 
                                                              Width="150" Text="{Binding H1.Valor,StringFormat=\{0:0.00000\}}" 
                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                             ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                                             ToolTip="{Binding DescripcionLarga}"
+                                                         x:Name="txtH1" GotFocus="txtH1_GotFocus" LostFocus="txtH1_LostFocus"></TextBox>
                                                 <Button Width="10" Height="10" Command="{Binding VerUnidadesH1}"></Button>
                                             </StackPanel>
                                         </StackPanel>
@@ -466,7 +476,7 @@
                                     <TextBox materialDesign:HintAssist.Hint="{Binding D1.TextoPresentacion}" FontSize="16" TextAlignment="Center"
                                                  Width="180" Text="{Binding D1.Valor,StringFormat=\{0:0.00000\}}" 
                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                 ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                                 ToolTip="{Binding DescripcionLarga}" x:Name="txtD1_2" GotFocus="txtD1_2_GotFocus" LostFocus="txtD1_2_LostFocus"></TextBox>
 
                                     <Button Width="10" Height="10" Command="{Binding VerUnidadesD1}"></Button>
 

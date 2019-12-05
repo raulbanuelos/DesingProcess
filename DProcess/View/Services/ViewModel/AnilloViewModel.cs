@@ -364,7 +364,18 @@ namespace View.Services.ViewModel
             set { _AllPerfilesPuntas = value; NotifyChange("AllPerfilesPuntas"); }
         }
 
-        public ObservableCollection<Arquetipo> ListaComponentes { get; set; }
+        private ObservableCollection<Arquetipo> _ListaComponentes;
+        public ObservableCollection<Arquetipo> ListaComponentes {
+            get
+            {
+                return _ListaComponentes;
+            }
+            set
+            {
+                _ListaComponentes = value;
+                NotifyChange("ListaComponentes");
+            }
+        }
 
         private Arquetipo _ComponenteSeleccionado;
         public Arquetipo ComponenteSeleccionado
@@ -1257,9 +1268,35 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => calculateFreeGap());
             }
         }
+
+        public ICommand BuscarComponentes {
+            get
+            {
+                return new RelayCommand(param => buscarComponente((string)param));
+            }
+        }
         #endregion
 
         #region Methods
+
+        private void buscarComponente(string parametro)
+        {
+            ListaComponentes = DataManager.GetAllArquetipo("");
+            List<Arquetipo> lista = ListaComponentes.Where(x => x.Codigo.Contains(parametro)).ToList();
+            List<Arquetipo> listaDescripcion = ListaComponentes.Where(x => x.DescripcionGeneral.Contains(parametro)).ToList();
+            ListaComponentes = new ObservableCollection<Arquetipo>();
+            foreach (var item in lista)
+                ListaComponentes.Add(item);
+
+            foreach (var item in listaDescripcion)
+            {
+                if (ListaComponentes.Where(x => x.Codigo == item.Codigo).ToList().Count==0)
+                {
+                    ListaComponentes.Add(item);
+                }
+            }
+                
+        }
 
         private void calculateFreeGap()
         {
@@ -1302,6 +1339,11 @@ namespace View.Services.ViewModel
         private void changeFlyoutPackage()
         {
             IsPackageOpen = IsPackageOpen ? false : true;
+
+            if (IsPackageOpen)
+            {
+                CondicionesDeEmpaque = DataManager.GetCondicionesEmpaqueSegmentos(Module.ConvertTo(ModelAnillo.D1.TipoDato, ModelAnillo.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), ModelAnillo.D1.Valor), Module.ConvertTo(ModelAnillo.H1.TipoDato, ModelAnillo.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), ModelAnillo.H1.Valor));   
+            }
         }
 
         private void changeFlyoutPintura()

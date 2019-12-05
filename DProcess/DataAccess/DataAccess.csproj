@@ -320,11 +320,29 @@
     <Compile Include="ServiceObjects\Perfiles\SO_Arquetipo.cs" />
     <Compile Include="ServiceObjects\Perfiles\SO_ArquetipoRings.cs" />
     <Compile Include="ServiceObjects\Perfiles\SO_ColoresAnillos.cs" />
+    <Compile Include="ServiceObjects\Perfiles\SO_CondicionesEmpaqueSegmentos.cs" />
+    <Compile Include="ServiceObjects\Perfiles\SO_EspecGasNitriding.cs" />
+    <Compile Include="ServiceObjects\Perfiles\SO_EspecPVDRails.cs" />
     <Compile Include="ServiceObjects\Perfiles\SO_Normas.cs" />
     <Compile Include="ServiceObjects\Perfiles\SO_PropiedadBool.cs" />
     <Compile Include="ServiceObjects\Perfiles\SO_PropiedadCadena.cs" />
     <Compile Include="ServiceObjects\Operaciones\SO_Operaciones.cs" />
+    <Compile Include="ServiceObjects\Perfiles\TBL_ESPEC_GAS_NITRIDING_RAILS.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\TBL_ESPEC_PVD_RAILS.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Perfiles\TBL_NORMAS.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\TBL_NO_CAJA.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\TBL_PZA_ROLLO_SEGMENTO.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\TBL_ROLLOS_CAJA_SEGMENTOS.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Perfiles\TR_NORMAS_ARQUETIPO.cs">

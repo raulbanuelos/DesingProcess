@@ -153,6 +153,36 @@
           <Property Name="ID_PROPIEDAD_CADENA" Type="int" Nullable="false" />
           <Property Name="VALOR" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="TBL_ESPEC_GAS_NITRIDING_RAILS">
+          <Key>
+            <PropertyRef Name="ID_ESPEC_GAS_NITRIDING_RAILS" />
+          </Key>
+          <Property Name="ID_ESPEC_GAS_NITRIDING_RAILS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ESPECIFICACION_NITRURADO" Type="varchar" MaxLength="50" />
+          <Property Name="THICKNESS_MIN" Type="float" />
+          <Property Name="THICKNESS_MAX" Type="float" />
+          <Property Name="DUREZA" Type="varchar" MaxLength="50" />
+          <Property Name="RECETA" Type="varchar" MaxLength="50" />
+          <Property Name="WHITE_LAYER" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_ESPEC_PVD_RAILS">
+          <Key>
+            <PropertyRef Name="ID_ESPEC_PVD_RAILS" />
+          </Key>
+          <Property Name="ID_ESPEC_PVD_RAILS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ESPECIFICACION_PVD" Type="varchar" MaxLength="50" />
+          <Property Name="THICKNESS_MIN" Type="float" />
+          <Property Name="THICKNESS_MAX" Type="float" />
+          <Property Name="DUREZA" Type="varchar" MaxLength="100" />
+          <Property Name="NO_RECETA" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_NO_CAJA">
+          <Key>
+            <PropertyRef Name="ID_NO_CAJA" />
+          </Key>
+          <Property Name="ID_NO_CAJA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NO_CAJA" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="TBL_NORMAS">
           <Key>
             <PropertyRef Name="ID_NORMA" />
@@ -161,6 +191,24 @@
           <Property Name="ESPECIFICACION" Type="varchar" MaxLength="20" />
           <Property Name="DESCRIPCION_CORTA" Type="varchar" MaxLength="100" />
           <Property Name="DESCRIPCION_LARGA" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TBL_PZA_ROLLO_SEGMENTO">
+          <Key>
+            <PropertyRef Name="ID_PZA_ROLLO_SEGMENTO" />
+          </Key>
+          <Property Name="ID_PZA_ROLLO_SEGMENTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WIDTH_SEGMENTO" Type="float" />
+          <Property Name="PIEZAS" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_ROLLOS_CAJA_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_ROLLOS_CAJA_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_ROLLOS_CAJA_SEGMENTOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_NO_CAJA" Type="int" />
+          <Property Name="DIAMETRO_MIN" Type="float" />
+          <Property Name="DIAMETRO_MAX" Type="float" />
+          <Property Name="ROLLOS_CAJA" Type="int" />
         </EntityType>
         <EntityType Name="TR_NORMAS_ARQUETIPO">
           <Key>
@@ -298,6 +346,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA">
+          <End Role="TBL_NO_CAJA" Type="Self.TBL_NO_CAJA" Multiplicity="0..1" />
+          <End Role="TBL_ROLLOS_CAJA_SEGMENTOS" Type="Self.TBL_ROLLOS_CAJA_SEGMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_NO_CAJA">
+              <PropertyRef Name="ID_NO_CAJA" />
+            </Principal>
+            <Dependent Role="TBL_ROLLOS_CAJA_SEGMENTOS">
+              <PropertyRef Name="ID_NO_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TR_NORMAS_ARQUETIPO_Arquetipo">
           <End Role="Arquetipo" Type="Self.Arquetipo" Multiplicity="0..1" />
           <End Role="TR_NORMAS_ARQUETIPO" Type="Self.TR_NORMAS_ARQUETIPO" Multiplicity="*" />
@@ -414,7 +474,7 @@
               <PropertyRef Name="ID_PROPIEDAD" />
             </Principal>
             <Dependent Role="TR_PROPIEDAD_PERFIL">
-              <PropertyRef Name="ID_PERFIL" />
+              <PropertyRef Name="ID_PROPIEDAD" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -430,7 +490,12 @@
           <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES" EntityType="Self.TBL_ARQUETIPO_PROPIEDADES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES_BOOL" EntityType="Self.TBL_ARQUETIPO_PROPIEDADES_BOOL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES_CADENA" EntityType="Self.TBL_ARQUETIPO_PROPIEDADES_CADENA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ESPEC_GAS_NITRIDING_RAILS" EntityType="Self.TBL_ESPEC_GAS_NITRIDING_RAILS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ESPEC_PVD_RAILS" EntityType="Self.TBL_ESPEC_PVD_RAILS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_NO_CAJA" EntityType="Self.TBL_NO_CAJA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_NORMAS" EntityType="Self.TBL_NORMAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_PZA_ROLLO_SEGMENTO" EntityType="Self.TBL_PZA_ROLLO_SEGMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ROLLOS_CAJA_SEGMENTOS" EntityType="Self.TBL_ROLLOS_CAJA_SEGMENTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_NORMAS_ARQUETIPO" EntityType="Self.TR_NORMAS_ARQUETIPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_PERFIL_ARQUETIPO" EntityType="Self.TR_PERFIL_ARQUETIPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_PROPIEDAD_BOOL_PERFIL" EntityType="Self.TR_PROPIEDAD_BOOL_PERFIL" Schema="dbo" store:Type="Tables" />
@@ -467,6 +532,10 @@
           <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" Association="Self.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD">
             <End Role="CAT_PROPIEDAD" EntitySet="CAT_PROPIEDAD" />
             <End Role="TBL_ARQUETIPO_PROPIEDADES" EntitySet="TBL_ARQUETIPO_PROPIEDADES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA" Association="Self.FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA">
+            <End Role="TBL_NO_CAJA" EntitySet="TBL_NO_CAJA" />
+            <End Role="TBL_ROLLOS_CAJA_SEGMENTOS" EntitySet="TBL_ROLLOS_CAJA_SEGMENTOS" />
           </AssociationSet>
           <AssociationSet Name="FK_TR_NORMAS_ARQUETIPO_Arquetipo" Association="Self.FK_TR_NORMAS_ARQUETIPO_Arquetipo">
             <End Role="Arquetipo" EntitySet="Arquetipo" />
@@ -603,6 +672,19 @@
             <End Role="TBL_NORMAS" EntitySet="TBL_NORMAS" />
             <End Role="TR_NORMAS_ARQUETIPO" EntitySet="TR_NORMAS_ARQUETIPO" />
           </AssociationSet>
+          <EntitySet Name="TBL_NO_CAJA" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_NO_CAJA" />
+          <EntitySet Name="TBL_PZA_ROLLO_SEGMENTO" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_PZA_ROLLO_SEGMENTO" />
+          <EntitySet Name="TBL_ROLLOS_CAJA_SEGMENTOS" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ROLLOS_CAJA_SEGMENTOS" />
+          <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD1" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD1">
+            <End Role="CAT_PROPIEDAD" EntitySet="CAT_PROPIEDAD" />
+            <End Role="TR_PROPIEDAD_PERFIL" EntitySet="TR_PROPIEDAD_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA" Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA">
+            <End Role="TBL_NO_CAJA" EntitySet="TBL_NO_CAJA" />
+            <End Role="TBL_ROLLOS_CAJA_SEGMENTOS" EntitySet="TBL_ROLLOS_CAJA_SEGMENTOS" />
+          </AssociationSet>
+          <EntitySet Name="TBL_ESPEC_GAS_NITRIDING_RAILS" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS" />
+          <EntitySet Name="TBL_ESPEC_PVD_RAILS" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_PVD_RAILS" />
         </EntityContainer>
         <EntityType Name="Arquetipo">
           <Key>
@@ -691,6 +773,7 @@
           <Property Name="FECHA_ACTUALIZACION" Type="DateTime" Precision="3" />
           <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" FromRole="CAT_PROPIEDAD" ToRole="TBL_ARQUETIPO_PROPIEDADES" />
           <NavigationProperty Name="TR_PROPIEDAD_PERFIL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" FromRole="CAT_PROPIEDAD" ToRole="TR_PROPIEDAD_PERFIL" />
+          <NavigationProperty Name="TR_PROPIEDAD_PERFIL1" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD1" FromRole="CAT_PROPIEDAD" ToRole="TR_PROPIEDAD_PERFIL" />
         </EntityType>
         <EntityType Name="CAT_PROPIEDAD_BOOL">
           <Key>
@@ -836,6 +919,7 @@
           <Property Name="ID_PERFIL" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CAT_PERFIL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" FromRole="TR_PROPIEDAD_PERFIL" ToRole="CAT_PERFIL" />
           <NavigationProperty Name="CAT_PROPIEDAD" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD" FromRole="TR_PROPIEDAD_PERFIL" ToRole="CAT_PROPIEDAD" />
+          <NavigationProperty Name="CAT_PROPIEDAD1" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD1" FromRole="TR_PROPIEDAD_PERFIL" ToRole="CAT_PROPIEDAD" />
         </EntityType>
         <Association Name="FK_ArquetipoRings_Arquetipo">
           <End Type="DataAccess.ServiceObjects.Perfiles.Arquetipo" Role="Arquetipo" Multiplicity="0..1" />
@@ -1053,6 +1137,80 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_NO_CAJA">
+          <Key>
+            <PropertyRef Name="ID_NO_CAJA" />
+          </Key>
+          <Property Name="ID_NO_CAJA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NO_CAJA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_ROLLOS_CAJA_SEGMENTOS" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA" FromRole="TBL_NO_CAJA" ToRole="TBL_ROLLOS_CAJA_SEGMENTOS" />
+        </EntityType>
+        <EntityType Name="TBL_PZA_ROLLO_SEGMENTO">
+          <Key>
+            <PropertyRef Name="ID_PZA_ROLLO_SEGMENTO" />
+          </Key>
+          <Property Name="ID_PZA_ROLLO_SEGMENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WIDTH_SEGMENTO" Type="Double" />
+          <Property Name="PIEZAS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TBL_ROLLOS_CAJA_SEGMENTOS">
+          <Key>
+            <PropertyRef Name="ID_ROLLOS_CAJA_SEGMENTOS" />
+          </Key>
+          <Property Name="ID_ROLLOS_CAJA_SEGMENTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_NO_CAJA" Type="Int32" />
+          <Property Name="DIAMETRO_MIN" Type="Double" />
+          <Property Name="DIAMETRO_MAX" Type="Double" />
+          <Property Name="ROLLOS_CAJA" Type="Int32" />
+          <NavigationProperty Name="TBL_NO_CAJA" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA" FromRole="TBL_ROLLOS_CAJA_SEGMENTOS" ToRole="TBL_NO_CAJA" />
+        </EntityType>
+        <Association Name="FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD1">
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD" Role="CAT_PROPIEDAD" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_PERFIL" Role="TR_PROPIEDAD_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD">
+              <PropertyRef Name="ID_PROPIEDAD" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_PERFIL">
+              <PropertyRef Name="ID_PROPIEDAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA">
+          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_NO_CAJA" Role="TBL_NO_CAJA" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ROLLOS_CAJA_SEGMENTOS" Role="TBL_ROLLOS_CAJA_SEGMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_NO_CAJA">
+              <PropertyRef Name="ID_NO_CAJA" />
+            </Principal>
+            <Dependent Role="TBL_ROLLOS_CAJA_SEGMENTOS">
+              <PropertyRef Name="ID_NO_CAJA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_ESPEC_GAS_NITRIDING_RAILS">
+          <Key>
+            <PropertyRef Name="ID_ESPEC_GAS_NITRIDING_RAILS" />
+          </Key>
+          <Property Name="ID_ESPEC_GAS_NITRIDING_RAILS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ESPECIFICACION_NITRURADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="THICKNESS_MIN" Type="Double" />
+          <Property Name="THICKNESS_MAX" Type="Double" />
+          <Property Name="DUREZA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RECETA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WHITE_LAYER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TBL_ESPEC_PVD_RAILS">
+          <Key>
+            <PropertyRef Name="ID_ESPEC_PVD_RAILS" />
+          </Key>
+          <Property Name="ID_ESPEC_PVD_RAILS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ESPECIFICACION_PVD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="THICKNESS_MIN" Type="Double" />
+          <Property Name="THICKNESS_MAX" Type="Double" />
+          <Property Name="DUREZA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NO_RECETA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1270,6 +1428,59 @@
                 <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
                 <ScalarProperty Name="ID_PROPIEDAD" ColumnName="ID_PROPIEDAD" />
                 <ScalarProperty Name="ID_PROPIEDAD_PERFIL" ColumnName="ID_PROPIEDAD_PERFIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_NO_CAJA">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_NO_CAJA">
+              <MappingFragment StoreEntitySet="TBL_NO_CAJA">
+                <ScalarProperty Name="NO_CAJA" ColumnName="NO_CAJA" />
+                <ScalarProperty Name="ID_NO_CAJA" ColumnName="ID_NO_CAJA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PZA_ROLLO_SEGMENTO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_PZA_ROLLO_SEGMENTO">
+              <MappingFragment StoreEntitySet="TBL_PZA_ROLLO_SEGMENTO">
+                <ScalarProperty Name="PIEZAS" ColumnName="PIEZAS" />
+                <ScalarProperty Name="WIDTH_SEGMENTO" ColumnName="WIDTH_SEGMENTO" />
+                <ScalarProperty Name="ID_PZA_ROLLO_SEGMENTO" ColumnName="ID_PZA_ROLLO_SEGMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ROLLOS_CAJA_SEGMENTOS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_ROLLOS_CAJA_SEGMENTOS">
+              <MappingFragment StoreEntitySet="TBL_ROLLOS_CAJA_SEGMENTOS">
+                <ScalarProperty Name="ROLLOS_CAJA" ColumnName="ROLLOS_CAJA" />
+                <ScalarProperty Name="DIAMETRO_MAX" ColumnName="DIAMETRO_MAX" />
+                <ScalarProperty Name="DIAMETRO_MIN" ColumnName="DIAMETRO_MIN" />
+                <ScalarProperty Name="ID_NO_CAJA" ColumnName="ID_NO_CAJA" />
+                <ScalarProperty Name="ID_ROLLOS_CAJA_SEGMENTOS" ColumnName="ID_ROLLOS_CAJA_SEGMENTOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ESPEC_GAS_NITRIDING_RAILS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS">
+              <MappingFragment StoreEntitySet="TBL_ESPEC_GAS_NITRIDING_RAILS">
+                <ScalarProperty Name="WHITE_LAYER" ColumnName="WHITE_LAYER" />
+                <ScalarProperty Name="RECETA" ColumnName="RECETA" />
+                <ScalarProperty Name="DUREZA" ColumnName="DUREZA" />
+                <ScalarProperty Name="THICKNESS_MAX" ColumnName="THICKNESS_MAX" />
+                <ScalarProperty Name="THICKNESS_MIN" ColumnName="THICKNESS_MIN" />
+                <ScalarProperty Name="ESPECIFICACION_NITRURADO" ColumnName="ESPECIFICACION_NITRURADO" />
+                <ScalarProperty Name="ID_ESPEC_GAS_NITRIDING_RAILS" ColumnName="ID_ESPEC_GAS_NITRIDING_RAILS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ESPEC_PVD_RAILS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_PVD_RAILS">
+              <MappingFragment StoreEntitySet="TBL_ESPEC_PVD_RAILS">
+                <ScalarProperty Name="NO_RECETA" ColumnName="NO_RECETA" />
+                <ScalarProperty Name="DUREZA" ColumnName="DUREZA" />
+                <ScalarProperty Name="THICKNESS_MAX" ColumnName="THICKNESS_MAX" />
+                <ScalarProperty Name="THICKNESS_MIN" ColumnName="THICKNESS_MIN" />
+                <ScalarProperty Name="ESPECIFICACION_PVD" ColumnName="ESPECIFICACION_PVD" />
+                <ScalarProperty Name="ID_ESPEC_PVD_RAILS" ColumnName="ID_ESPEC_PVD_RAILS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

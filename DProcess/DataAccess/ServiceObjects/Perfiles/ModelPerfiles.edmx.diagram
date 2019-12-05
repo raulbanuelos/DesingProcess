@@ -40,6 +40,13 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_CAT_PROPIEDAD_CADENA" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_NORMAS_ARQUETIPO_TBL_NORMAS" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_NO_CAJA" Width="1.5" PointX="8.375" PointY="1.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_PZA_ROLLO_SEGMENTO" Width="2.625" PointX="8" PointY="3.5" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ROLLOS_CAJA_SEGMENTOS" Width="2.5" PointX="10.625" PointY="0.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD1" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS" Width="2.375" PointX="10.75" PointY="3.5" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_PVD_RAILS" Width="2" PointX="13.25" PointY="3.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
