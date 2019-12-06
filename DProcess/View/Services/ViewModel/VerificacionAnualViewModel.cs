@@ -349,7 +349,11 @@ namespace View.Services.ViewModel
                     foreach (var item in ListaExportar)
                     {
                         sl.SetCellValue("A" + cont, item.material);
-                        sl.SetCellValue("B" + cont, item.codigo_herramental);
+                        if (item.codigo_herramental.StartsWith("0"))
+                            sl.SetCellValue("B" + cont,"'"+ item.codigo_herramental);
+                        else
+                            sl.SetCellValue("B" + cont, item.codigo_herramental);
+                        
                         sl.SetCellValue("C" + cont, item.descripcion);
 
                         // Incrementamos contador

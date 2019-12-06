@@ -34,7 +34,7 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>3.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -1019,6 +1019,7 @@
     <Compile Include="Services\ViewModel\PerfilViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadBoolViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadCadenaViewModel.cs" />
+    <Compile Include="Services\ViewModel\PropiedadOptionalViewModel.cs" />
     <Compile Include="Services\ViewModel\PropiedadViewModel.cs" />
     <Compile Include="Services\ViewModel\CuffViewModel.cs" />
     <Compile Include="Services\ViewModel\ProtectorInfMoly_VM.cs" />
