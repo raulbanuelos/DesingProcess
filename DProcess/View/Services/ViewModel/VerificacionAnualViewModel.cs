@@ -233,7 +233,7 @@ namespace View.Services.ViewModel
                 while (!string.IsNullOrEmpty(sl.GetCellValueAsString(iRow, 1)))
                 {
                     // Se declaran variables para guardar los datos de las celdas
-                    string valormaterial = sl.GetCellValueAsString(iRow, 1);
+                    string valorcomponente = sl.GetCellValueAsString(iRow, 1);
                     string valorcodigoherramental = sl.GetCellValueAsString(iRow, 2);
                     string valordescripcion = sl.GetCellValueAsString(iRow, 3);
 
@@ -241,7 +241,7 @@ namespace View.Services.ViewModel
                     Objeto = new DO_ProgramaAnual();
 
                     // Le asignamos los valores al objeto
-                    Objeto.material = valormaterial;
+                    Objeto.componente = valorcomponente;
                     Objeto.codigo_herramental = valorcodigoherramental;
                     Objeto.descripcion = valordescripcion;
 
@@ -259,7 +259,7 @@ namespace View.Services.ViewModel
                     foreach (var item in ListaRegistros)
                     {
                         // Mandamos llamar al método que inserta registros
-                        DataManager.Insert_ProgramaAnual(item.material, item.codigo_herramental, item.descripcion);
+                        DataManager.Insert_ProgramaAnual(item.componente, item.codigo_herramental, item.descripcion);
                     }
                 }
 
@@ -348,9 +348,13 @@ namespace View.Services.ViewModel
                     // Iteramos la lista para empezar a llenar las celdas necesarias
                     foreach (var item in ListaExportar)
                     {
-                        sl.SetCellValue("A" + cont, item.material);
+                        if (item.componente.StartsWith("0"))
+                            sl.SetCellValue("A" + cont, "'" + item.componente);
+                        else
+                            sl.SetCellValue("A" + cont, item.componente);
+
                         if (item.codigo_herramental.StartsWith("0"))
-                            sl.SetCellValue("B" + cont,"'"+ item.codigo_herramental);
+                            sl.SetCellValue("B" + cont, "'" + item.codigo_herramental);
                         else
                             sl.SetCellValue("B" + cont, item.codigo_herramental);
                         

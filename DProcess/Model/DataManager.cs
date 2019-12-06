@@ -16756,7 +16756,7 @@ namespace Model
                         prog_anual = new DO_ProgramaAnual();
 
                         // Asignamos los valores de la información a las propiedades del programa anual correspondiente
-                        prog_anual.material = Convert.ToString(element["MATERIAL"]);
+                        prog_anual.componente = Convert.ToString(element["MATERIAL"]);
                         prog_anual.codigo_herramental = Convert.ToString(element["CODIGO_HERRAMENTAL"]);
                         prog_anual.descripcion = Convert.ToString(element["DESCRIPCION"]);
 
