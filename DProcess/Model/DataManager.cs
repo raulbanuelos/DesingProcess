@@ -15413,6 +15413,7 @@ namespace Model
 
                     details.IsAvailableEmail = (bool)tipo.GetProperty("IS_AVAILABLE_EMAIL").GetValue(item, null);
 
+                    details.Temporal_Password = (bool)tipo.GetProperty("TEMPORAL_PASSWORD").GetValue(item, null);
                 }
             }
 
@@ -15580,6 +15581,13 @@ namespace Model
             SO_UserDetails ServiceDetails = new SO_UserDetails();
 
             return ServiceDetails.UpdateIsAvailableEmail(idUsuario, isAvailableEmail);
+        }
+
+        public static int Update_TemporalPassword(string Usuario, bool TemporalPassword)
+        {
+            SO_UserDetails userdetail = new SO_UserDetails();
+
+            return userdetail.UpdateTemporalPassword(Usuario, TemporalPassword);
         }
         #endregion
 

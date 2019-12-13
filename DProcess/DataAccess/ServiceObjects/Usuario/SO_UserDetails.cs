@@ -62,13 +62,48 @@ namespace DataAccess.ServiceObjects.Usuario
         }
 
         /// <summary>
+        /// Consulta para actualizar el valor de el campo TEMPORAL_PASSWORD en la tabla TBL_USER_DETAIL
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="temporalpassword"></param>
+        /// <returns></returns>
+        public int UpdateTemporalPassword(string usuario, bool temporalpassword)
+        {
+            try
+            {
+                // Establecemos conexión a través de EntityFramework
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    // Declaramos el objeto de la lista
+                    TBL_USERS_DETAILS objdetail = Conexion.TBL_USERS_DETAILS.Where(x => x.ID_USUARIO == usuario).FirstOrDefault();
+
+                    // Asignamos valores
+                    objdetail.ID_USUARIO = usuario;
+                    objdetail.TEMPORAL_PASSWORD = temporalpassword;
+
+                    // Guardamos los cambios
+                    Conexion.Entry(objdetail).State = EntityState.Modified;
+
+                    // Cambios
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception er)
+            {
+                // Si hay error retornamos 0
+                return 0;
+            }
+            
+        }
+
+        /// <summary>
         /// Método para insertar un registro en la tabla TBL_USER_DETAILS
         /// </summary>
         /// <param name="id_usuario"></param>
         /// <param name="url_foto"></param>
         /// <param name="is_available_email"></param>
         /// <returns></returns>
-        public int InsertUserDetail(string id_usuario, string url_foto, bool is_available_email)
+        public int InsertUserDetail(string id_usuario, string url_foto, bool is_available_email, bool temporal_password)
         {
             try
             {
@@ -82,6 +117,7 @@ namespace DataAccess.ServiceObjects.Usuario
                     objdetail.ID_USUARIO = id_usuario;
                     objdetail.URL_PHOTO = url_foto;
                     objdetail.IS_AVAILABLE_EMAIL = is_available_email;
+                    objdetail.TEMPORAL_PASSWORD = temporal_password;
 
                     // Agregamos el objeto a la tabla
                     Conexion.TBL_USERS_DETAILS.Add(objdetail);

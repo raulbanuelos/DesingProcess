@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="adf9c2322c1c490f85317aea132fe3de" Name="Diagram1">
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.PerfilUsuario" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.Usuarios" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.Usuarios" Width="1.5" PointX="0.75" PointY="2.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_PerfilUsuario_Usuarios" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.PrivilegioUsuario" Width="1.5" PointX="3.875" PointY="5.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_PrivilegioUsuario_Usuarios" />
@@ -24,7 +24,7 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK__TR_LECCIO__ID_LE__280EC888" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK__TR_LECCIO__ID_LE__33807B34" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_BITACORA_INGRESO" Width="1.5" PointX="9.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_USERS_DETAILS" Width="1.5" PointX="3" PointY="15.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_USERS_DETAILS" Width="2.5" PointX="3" PointY="15.125" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_TBL_USERS_DETAILS_Usuarios" />
         </Diagram>
     </edmx:Diagrams>

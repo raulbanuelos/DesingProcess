@@ -199,8 +199,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     user.Bloqueado = false;
                     user.Correo = correo;
                     user.Pathnsf = pathnsf;
+
                     //Agrega el objeto a la tabla.
                     Conexion.Usuarios.Add(user);
+
                     //Se guardan los cambios
                     Conexion.SaveChanges();
 
@@ -493,6 +495,33 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
+        //public string UpdateContraseñaRandom(string usuario, string password)
+        //{
+        //    try
+        //    {
+        //        //Se establece la conexión a la base de datos.
+        //        using (var Conexion = new EntitiesControlDocumentos())
+        //        {
+        //            //creación del objeto tipo Usuarios.
+        //            Usuarios user = Conexion.Usuarios.Where(x => x.Usuario == usuario).FirstOrDefault();
+
+        //            //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos
+        //            user.Password = password;
+
+        //            //Se cambia el estado de registro a modificado.
+        //            Conexion.Entry(user).State = EntityState.Modified;
+
+        //            //Se guardan los cambios y se retorna el número de registros afectados.
+
+        //        }
+        //    }
+        //    catch (Exception er)
+        //    {
+        //        // Retornamos nulo
+        //        return null;
+        //    }
+        //}
 
     }
 }

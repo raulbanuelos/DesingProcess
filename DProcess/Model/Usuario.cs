@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Model
 {
@@ -73,6 +74,11 @@ namespace Model
         #region Constructores
         public Usuario()
         {
+        }
+
+        public static implicit operator Usuario(string v)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

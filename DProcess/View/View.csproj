@@ -700,6 +700,9 @@
     <Compile Include="Forms\User\FrmConsultaDatosUsuario.xaml.cs">
       <DependentUpon>FrmConsultaDatosUsuario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\User\ModificarContrasena.xaml.cs">
+      <DependentUpon>ModificarContrasena.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\User\ModificarUsuario.xaml.cs">
       <DependentUpon>ModificarUsuario.xaml</DependentUpon>
     </Compile>
@@ -951,6 +954,7 @@
     <Compile Include="Services\ViewModel\CalculateDimensionsViewModel.cs" />
     <Compile Include="Services\ViewModel\CalculoFreeGapViewModel.cs" />
     <Compile Include="Services\ViewModel\CalculoPlacaModeloViewModel.cs" />
+    <Compile Include="Services\ViewModel\CambiarContraseniaViewModel.cs" />
     <Compile Include="Services\ViewModel\CamBK_VM.cs" />
     <Compile Include="Services\ViewModel\CamisaMolyVM.cs" />
     <Compile Include="Services\ViewModel\CatMateriaPrimaRoladoVM.cs" />
@@ -1739,6 +1743,10 @@
     <Page Include="Forms\User\FrmConsultaDatosUsuario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\User\ModificarContrasena.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\User\ModificarUsuario.xaml">
       <Generator>MSBuild:Compile</Generator>

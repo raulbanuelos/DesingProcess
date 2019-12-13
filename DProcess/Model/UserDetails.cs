@@ -10,5 +10,6 @@ namespace Model
     {
         public string PathPhoto { get; set; }
         public bool IsAvailableEmail { get; set; }
+        public bool Temporal_Password { get; set; }
     }
 }

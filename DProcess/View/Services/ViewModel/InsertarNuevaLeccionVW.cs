@@ -1174,6 +1174,7 @@ namespace View.Services.ViewModel
                             body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No. de Solicitud:</STRONG> " + SolicitudTrabajoIng + "</P>";
                             body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descripción:</STRONG> " + DescripcionProblema + "<BR><BR></P>";
                             body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo de cambio:</STRONG> " + nivelCambio + "<BR><BR></P>";
+
                             if (ListaCentrosDeTrabajoSeleccionados.Count > 0)
                             {
                                 body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operaciones:</STRONG> " + nombresOperaciones + "<BR><BR></P>";
