@@ -95,6 +95,7 @@
           <Property Name="ID_USUARIO" Type="varchar" MaxLength="20" />
           <Property Name="URL_PHOTO" Type="varchar" MaxLength="500" />
           <Property Name="IS_AVAILABLE_EMAIL" Type="bit" />
+          <Property Name="TEMPORAL_PASSWORD" Type="bit" />
         </EntityType>
         <EntityType Name="TR_LECCIONES_CENTROSTRABAJO">
           <Key>
@@ -607,6 +608,7 @@
           <Property Name="ID_USUARIO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="URL_PHOTO" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="IS_AVAILABLE_EMAIL" Type="Boolean" />
+          <Property Name="TEMPORAL_PASSWORD" Type="Boolean" />
           <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.Usuario.FK_TBL_USERS_DETAILS_Usuarios" FromRole="TBL_USERS_DETAILS" ToRole="Usuarios" />
         </EntityType>
         <Association Name="FK_TBL_USERS_DETAILS_Usuarios">
@@ -754,6 +756,7 @@
           <EntitySetMapping Name="TBL_USERS_DETAILS">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.TBL_USERS_DETAILS">
               <MappingFragment StoreEntitySet="TBL_USERS_DETAILS">
+                <ScalarProperty Name="TEMPORAL_PASSWORD" ColumnName="TEMPORAL_PASSWORD" />
                 <ScalarProperty Name="IS_AVAILABLE_EMAIL" ColumnName="IS_AVAILABLE_EMAIL" />
                 <ScalarProperty Name="URL_PHOTO" ColumnName="URL_PHOTO" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />

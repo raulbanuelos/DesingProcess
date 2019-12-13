@@ -15413,6 +15413,7 @@ namespace Model
 
                     details.IsAvailableEmail = (bool)tipo.GetProperty("IS_AVAILABLE_EMAIL").GetValue(item, null);
 
+                    details.Temporal_Password = (bool)tipo.GetProperty("TEMPORAL_PASSWORD").GetValue(item, null);
                 }
             }
 
@@ -15580,6 +15581,13 @@ namespace Model
             SO_UserDetails ServiceDetails = new SO_UserDetails();
 
             return ServiceDetails.UpdateIsAvailableEmail(idUsuario, isAvailableEmail);
+        }
+
+        public static int Update_TemporalPassword(string Usuario, bool TemporalPassword)
+        {
+            SO_UserDetails userdetail = new SO_UserDetails();
+
+            return userdetail.UpdateTemporalPassword(Usuario, TemporalPassword);
         }
         #endregion
 
@@ -16779,7 +16787,7 @@ namespace Model
                         prog_anual = new DO_ProgramaAnual();
 
                         // Asignamos los valores de la información a las propiedades del programa anual correspondiente
-                        prog_anual.material = Convert.ToString(element["MATERIAL"]);
+                        prog_anual.componente = Convert.ToString(element["MATERIAL"]);
                         prog_anual.codigo_herramental = Convert.ToString(element["CODIGO_HERRAMENTAL"]);
                         prog_anual.descripcion = Convert.ToString(element["DESCRIPCION"]);
 

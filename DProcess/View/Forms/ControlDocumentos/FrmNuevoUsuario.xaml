@@ -51,7 +51,7 @@
             <TextBox Text="{Binding Nombre}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombre}" HorizontalAlignment="Left" Height="50" Margin="30,75,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             <TextBox x:Name="textBox1" Text="{Binding APaterno}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoPaterno}" HorizontalAlignment="Left" Height="50" Margin="30,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox x:Name="textBox2" Text="{Binding AMaterno}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblApellidoMaterno}" HorizontalAlignment="Left" Height="50" Margin="272,146,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="222" BorderBrush="#899B9999" FontSize="18" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <PasswordBox x:Name="txt_pass"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTxtContrasena}" HorizontalAlignment="Left" Height="50" Margin="30,210,0,0" VerticalAlignment="Top" Width="216" BorderBrush="#899B9999" FontSize="18">
+            <!--<PasswordBox x:Name="txt_pass" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTxtContrasena}" HorizontalAlignment="Left" Height="50" Margin="30,210,0,0" VerticalAlignment="Top" Width="216" BorderBrush="#899B9999" FontSize="18">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PasswordChanged">
                         <i:InvokeCommandAction
@@ -59,8 +59,8 @@
                                      CommandParameter="{Binding ElementName=txt_pass}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-            </PasswordBox>
-            <PasswordBox x:Name="txt_password"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblConfirmarContraseña}" HorizontalAlignment="Left" Height="50" Margin="272,210,0,0"  VerticalAlignment="Top" Width="222"  BorderBrush="#899B9999" FontSize="18" >
+            </PasswordBox>-->
+            <!--<PasswordBox x:Name="txt_password"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblConfirmarContraseña}" HorizontalAlignment="Left" Height="50" Margin="272,210,0,0"  VerticalAlignment="Top" Width="222"  BorderBrush="#899B9999" FontSize="18" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PasswordChanged">
                         <i:InvokeCommandAction
@@ -68,8 +68,8 @@
                                      CommandParameter="{Binding ElementName=txt_password}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-            </PasswordBox>
-            <TextBox x:Name="txtCorreo" Text="{Binding Correo}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCorreo}" HorizontalAlignment="Left" Height="50" Margin="30,260,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+            </PasswordBox>-->
+            <TextBox x:Name="txtCorreo" Text="{Binding Correo}" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCorreo}" HorizontalAlignment="Left" Height="50" Margin="30,220,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"   BorderBrush="#899B9999" FontSize="18"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
         </Grid>
 
         <Button Grid.Row="2" Grid.Column="1" Content="{x:Static recursos:StringResources.lblGuardar}" HorizontalAlignment="Right" Height="40"  Width="90" Command="{Binding GuardarUsuario}" Margin="0,17,-304,10" />

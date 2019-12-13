@@ -9,7 +9,7 @@ namespace Model
     public class DO_ProgramaAnual
     {
         public string id_programa_anual { get; set; }
-        public string material { get; set; }
+        public string componente { get; set; }
         public string codigo_herramental { get; set; }
         public string descripcion { get; set; }
     }

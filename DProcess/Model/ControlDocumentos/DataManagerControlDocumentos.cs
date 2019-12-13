@@ -2000,11 +2000,11 @@ namespace Model.ControlDocumentos
         /// <param name="URL_Foto"></param>
         /// <param name="Is_Available_Email"></param>
         /// <returns></returns>
-        public static int Insert_UserDetail(string Id_Usuario, string URL_Foto, bool Is_Available_Email)
+        public static int Insert_UserDetail(string Id_Usuario, string URL_Foto, bool Is_Available_Email, bool Temporal_Password)
         {
             SO_UserDetails ServiceDetail = new SO_UserDetails();
 
-            return ServiceDetail.InsertUserDetail(Id_Usuario, URL_Foto, Is_Available_Email);
+            return ServiceDetail.InsertUserDetail(Id_Usuario, URL_Foto, Is_Available_Email, Temporal_Password);
         }
 
         /// <summary>
@@ -2018,7 +2018,6 @@ namespace Model.ControlDocumentos
 
             return ServiceDetail.DeleteUserDetail(Id_Usuario);
         }
-
         #endregion
 
         #region Version

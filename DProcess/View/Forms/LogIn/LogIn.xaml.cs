@@ -19,6 +19,8 @@ using View.Resources;
 using System.Threading;
 using View.Forms.Routing;
 using System.IO;
+using System.Collections;
+using View.Forms.User;
 
 namespace View.Forms.LogIn
 {
@@ -90,6 +92,28 @@ namespace View.Forms.LogIn
 
                         //Insertamos el ingreso a la bitácora.
                         DataManager.InserIngresoBitacora(Environment.MachineName, usuarioConectado.Nombre + " " + usuarioConectado.ApellidoPaterno + " " + usuarioConectado.ApellidoMaterno);
+
+                        // Validamos si el usuario nuevo tiene la contraseña random
+                        if(usuarioConectado.Details.Temporal_Password == true)
+                        {
+                            //Cargamnos las vista de ModificarContrasena
+                            ModificarContrasena vistacontrasena = new ModificarContrasena();
+                            //Cargamnos el modelo de CambiarContraseniaViewModel
+                            CambiarContraseniaViewModel vmcambiarconatraseña = new CambiarContraseniaViewModel(usuarioConectado);
+
+                            //Asingamos el DataContext.
+                            vistacontrasena.DataContext = vmcambiarconatraseña; 
+                   
+                            //Mostramos la ventana de modificacion de contraseña               
+                            vistacontrasena.ShowDialog();
+
+                            //Verificamos el valor de la variable CierrePantalla, si en la View Model de CambiarContrasenia la variable es false, dejamos continual el proceso
+                            if (vmcambiarconatraseña.CierrePantalla == false)
+                            {
+                                return;
+                            }
+
+                        }
 
                         #region Configuración del correo electrónico
 

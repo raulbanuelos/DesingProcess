@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using Model;
 using System.Collections;
 using View.Resources;
+using View.Forms.Tooling;
 
 namespace View.Services.ViewModel
 {
@@ -35,6 +36,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
+
         public Usuario User;
 
         private string _usuario;
@@ -122,7 +124,6 @@ namespace View.Services.ViewModel
         }
 
         private string _Correo;
-
         public string Correo
         {
             get { return _Correo; }
@@ -147,7 +148,7 @@ namespace View.Services.ViewModel
 
         #region Constructor
 
-        public NuevoUsuarioVM(Usuario ModelUsuario )
+        public NuevoUsuarioVM(Usuario ModelUsuario)
         {
             User = ModelUsuario;
             ListaRol= DataManagerControlDocumentos.GetRol_Usuario(User.NombreUsuario);
@@ -211,7 +212,11 @@ namespace View.Services.ViewModel
                 //Valida que los campos no estén vacíos.
                 if (Validar() & ValidarSelected())
                 {
-                    if (_contraseña.Length >= 6 ) {
+                    // Asignamos el valor de la constraseña random
+                    _contraseña = this.GenerarPasswordAleatoria();
+                    
+                    if (_contraseña.Length >= 6 )
+                    {
                         //Declaramos un objeto con el cual se realiza la encriptación
                         Encriptacion encriptar = new Encriptacion();
                         //Declaramos un objeto de tipo usuarios
@@ -235,20 +240,24 @@ namespace View.Services.ViewModel
                         //si no se repite
                         if (validate == null)
                         {
-                            //si las contraseñas son iguales
-                            if (_contraseña.Equals(_confirmarContraseña)) {
+                            // Nos aseguramos que sean iguales
+                            _confirmarContraseña = _contraseña;
 
+                            //si las contraseñas son iguales
+                            if (_contraseña.Equals(_confirmarContraseña))
+                            {
                                 //ejecutamos el método para insertar un registro a la tabla
                                 string usuario = DataManagerControlDocumentos.SetUsuario(objUsuario);
 
-                                // Dclaramos la ruta para asignarle una foto de usuario por default
+                                // Declaramos la ruta para asignarle una foto de usuario por default
                                 string url_foto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpg";
 
                                 // Declaramos valor para el campo
                                 bool is_available_email = true;
+                                bool temporal_password = true;
 
                                 // Ejecutamos el método para insertar los registros a la tabla TBL_USER_DETAILS
-                                DataManagerControlDocumentos.Insert_UserDetail(objUsuario.usuario, url_foto, is_available_email);
+                                DataManagerControlDocumentos.Insert_UserDetail(objUsuario.usuario, url_foto, is_available_email, temporal_password);
 
                                 Usuario _usuario = new Usuario();
                                 _usuario.NombreUsuario = usuario;
@@ -317,7 +326,6 @@ namespace View.Services.ViewModel
                                         _usuario.PerfilTooling = true;
                                         _usuario.PerfilUserProfile = true;
                                        _usuario.PerfilRGP = true;
-
                                     }
 
                                     //agregamos los perfiles y privilegios correspondientes
@@ -336,6 +344,45 @@ namespace View.Services.ViewModel
                                         //Cerramos la pantalla
                                         window.Close();
                                     }
+
+                                    // Declaramos el cuerpo y título del correo
+                                    string title = "Tu usuario ha sido creado";
+                                    string body = "";
+
+                                    // Declaramos lista vacía para el parámetro
+                                    ObservableCollection<Archivo> ListaVacia = new ObservableCollection<Archivo>();
+                                
+                                    // Declaramos el objeto
+                                    Usuario UserCreated = new Usuario();
+
+                                    // Obtenemos el nuevo usuario creado
+                                    UserCreated = DataManager.GetUsuario(objUsuario.usuario);
+
+                                    // Declaramos lista para guardar el nuevo usuario
+                                    List<Usuarios> ListaUserCreated = new List<Usuarios>();
+                                    Usuarios userCreado = new Usuarios();
+                                    // Igualamos valores
+                                    userCreado.Correo = UserCreated.Correo;
+                                    userCreado.nombre = UserCreated.Nombre;
+                                    userCreado.APaterno = UserCreated.ApellidoPaterno;
+                                    userCreado.AMaterno = UserCreated.ApellidoMaterno;
+                                    userCreado.Details = UserCreated.Details;
+                                    ListaUserCreated.Add(userCreado);
+
+                                    // Cargamos el cuerpo del correo
+                                    body = "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Le envío su usuario y contraseña:</P>";
+                                    body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Usuario:</STRONG> " + encriptar.desencript(_usuario.NombreUsuario) + "</P>";
+                                    body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contraseña:</STRONG> " + _contraseña + "</P>";
+                                    body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Favor de respetar minúsculas y mayúsculas.</P>";
+                                    body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para el acceso a la plataforma, favor de ingresar a la siguiente ruta:</P>";
+                                    body += "<P><STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TodosP/R@aul/Deploy</STRONG></P>";
+                                    body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;En dicha carpeta se encuentra un archivo llamado View.exe. Favor de ejecutarlo.</P>";
+
+                                    // Abrimos ventana para notificar
+                                    NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, ListaVacia, ListaUserCreated, title);
+                                    WNotificarA ventanaCorreo = new WNotificarA();
+                                    ventanaCorreo.DataContext = vmNotificar;
+                                    ventanaCorreo.ShowDialog();
                                 }
                                 else
                                 {
@@ -379,7 +426,7 @@ namespace View.Services.ViewModel
 
         private bool Validar()
         {
-            if (string.IsNullOrEmpty(_usuario) & string.IsNullOrEmpty(_nombre) & string.IsNullOrEmpty(_aPaterno) & string.IsNullOrEmpty(_aMaterno) & string.IsNullOrEmpty(_contraseña) & string.IsNullOrEmpty(_confirmarContraseña) & string.IsNullOrEmpty(Correo))
+            if (string.IsNullOrEmpty(_usuario) & string.IsNullOrEmpty(_nombre) & string.IsNullOrEmpty(_aPaterno) & string.IsNullOrEmpty(_aMaterno) /*& string.IsNullOrEmpty(_contraseña) & string.IsNullOrEmpty(_confirmarContraseña)*/ & string.IsNullOrEmpty(Correo))
             {
                 return false;
             }
@@ -407,6 +454,30 @@ namespace View.Services.ViewModel
             return true;
         }
 
-        #endregion
-    }
+        /// <summary>
+        /// Método para constraseñas aleatorias
+        /// </summary>
+        /// <returns></returns>
+        public string GenerarPasswordAleatoria()
+        {
+            Random random = new Random();
+
+            string caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";        
+            int longitud = caracteres.Length;
+            char letra;
+            int longitudContrasenia = 7;
+            string contraseniaAleatoria = string.Empty;
+
+            for (int i = 0; i < longitudContrasenia; i++)
+            {
+                letra = caracteres[random.Next(longitud)];
+                contraseniaAleatoria += letra.ToString();
+            }
+
+            // Retornamos la contraseña generada
+            return contraseniaAleatoria;
+        }
+
+    #endregion
+}
 }
