@@ -1,0 +1,15 @@
+﻿<Window x:Class="View.Forms.Cotizaciones.FrmCalculoTiemposEstandar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.Cotizaciones"
+        mc:Ignorable="d"
+        xmlns:Contros="clr-namespace:View.Forms.UserControls"
+    Title="FrmCalculoTiemposEstandar" Height="300" Width="300">
+    <Grid>
+        <Contros:OptionalEntry>
+            
+        </Contros:OptionalEntry>
+    </Grid>
+</Window>

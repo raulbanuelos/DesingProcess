@@ -128,6 +128,13 @@ namespace View.Services.ViewModel
             get { return propiedadesBoolOD; }
             set { propiedadesBoolOD = value; NotifyChange("PropiedadesBoolOD"); }
         }
+
+        private ObservableCollection<OptionalEntry> propiedadesOptionalOD;
+        public ObservableCollection<OptionalEntry> PropiedadesOptionalOD
+        {
+            get { return propiedadesOptionalOD; }
+            set { propiedadesOptionalOD = value; NotifyChange("PropiedadesOptionalOD"); }
+        }
         
         private ObservableCollection<NumericEntry> propiedadesPuntas;
         public ObservableCollection<NumericEntry> PropiedadesPuntas
@@ -148,6 +155,13 @@ namespace View.Services.ViewModel
         {
             get { return propiedadesBoolPuntas; }
             set { propiedadesBoolPuntas = value; NotifyChange("PropiedadesBoolPuntas"); }
+        }
+
+        private ObservableCollection<OptionalEntry> propiedadesOptionalPuntas;
+        public ObservableCollection<OptionalEntry> PropiedadesOptionalPuntas
+        {
+            get { return  propiedadesOptionalPuntas; }
+            set {  propiedadesOptionalPuntas = value; NotifyChange("PropiedadesOptionalPuntas"); }
         }
         
         private ObservableCollection<NumericEntry> propiedadesID;
@@ -170,6 +184,13 @@ namespace View.Services.ViewModel
             get { return propiedadesBoolID; }
             set { propiedadesBoolID = value; NotifyChange("PropiedadesBoolID"); }
         }
+
+        private ObservableCollection<OptionalEntry> propiedadesOptionalID;
+        public ObservableCollection<OptionalEntry> PropiedadesOptionalID
+        {
+            get { return propiedadesOptionalID; }
+            set { propiedadesOptionalID = value; NotifyChange("PropiedadesOptionalID"); }
+        }
         
         private ObservableCollection<NumericEntry> propiedadesLateral;
         public ObservableCollection<NumericEntry> PropiedadesLateral
@@ -190,6 +211,13 @@ namespace View.Services.ViewModel
         {
             get { return propiedadesBoolLateral; }
             set { propiedadesBoolLateral = value; NotifyChange("PropiedadesBoolLateral"); }
+        }
+
+        private ObservableCollection<OptionalEntry> propiedadesOptionalLateral;
+        public ObservableCollection<OptionalEntry> PropiedadesOptionalLateral
+        {
+            get { return propiedadesOptionalLateral; }
+            set { propiedadesOptionalLateral = value; NotifyChange("PropiedadesOptionalLateral"); }
         }
         
         private ObservableCollection<StackPanel> panelPropiedadesOD;
@@ -212,6 +240,13 @@ namespace View.Services.ViewModel
             get { return panelPropiedadesBoolOD; }
             set { panelPropiedadesBoolOD = value; NotifyChange("PanelPropiedadesBoolOD"); }
         }
+
+        private ObservableCollection<StackPanel> panelPropiedadesOpcionalesOD;
+        public ObservableCollection<StackPanel> PanelPropiedadesOpcionalesOD
+        {
+            get { return panelPropiedadesOpcionalesOD; }
+            set { panelPropiedadesOpcionalesOD = value; NotifyChange("PanelPropiedadesOpcionalesOD"); }
+        }
         
         private ObservableCollection<StackPanel> panelPropiedadesPuntas;
         public ObservableCollection<StackPanel> PanelPropiedadesPuntas
@@ -232,6 +267,13 @@ namespace View.Services.ViewModel
         {
             get { return panelPropiedadesBoolPuntas; }
             set { panelPropiedadesBoolPuntas = value; NotifyChange("PanelPropiedadesBoolPuntas"); }
+        }
+
+        private ObservableCollection<StackPanel> panelPropiedadesOpcionalesPuntas;
+        public ObservableCollection<StackPanel> PanelPropiedadesOpcionalesPuntas
+        {
+            get { return panelPropiedadesOpcionalesPuntas; }
+            set { panelPropiedadesOpcionalesPuntas = value; NotifyChange("PanelPropiedadesOpcionalesPuntas"); }
         }
         
         private ObservableCollection<StackPanel> panelPropiedadesID;
@@ -255,6 +297,13 @@ namespace View.Services.ViewModel
             set { panelPropiedadesBoolID = value; NotifyChange("PanelPropiedadesBoolID"); }
         }
 
+        private ObservableCollection<StackPanel> panelPropiedadesOpcionalesID;
+        public ObservableCollection<StackPanel> PanelPropiedadesOpcionalesID
+        {
+            get { return panelPropiedadesOpcionalesID; }
+            set { panelPropiedadesOpcionalesID = value; NotifyChange("PanelPropiedadesOpcionalesID"); }
+        }
+        
         private ObservableCollection<StackPanel> panelPropiedadesLateral;
         public ObservableCollection<StackPanel> PanelPropiedadesLateral
         {
@@ -274,6 +323,13 @@ namespace View.Services.ViewModel
         {
             get { return panelPropiedadesBoolLateral; }
             set { panelPropiedadesBoolLateral = value; NotifyChange("PanelPropiedadesBoolLateral"); }
+        }
+
+        private ObservableCollection<StackPanel> panelPropiedadesOpcionalesLateral;
+        public ObservableCollection<StackPanel> PanelPropiedadesOpcionalesLateral
+        {
+            get { return panelPropiedadesOpcionalesLateral; }
+            set { panelPropiedadesOpcionalesLateral = value; NotifyChange("PanelPropiedadesOpcionalesLateral"); }
         }
         
         private HamburgerMenuItemCollection _menuItems;
@@ -962,18 +1018,22 @@ namespace View.Services.ViewModel
             PropiedadesOD = new ObservableCollection<NumericEntry>();
             PropiedadesCadenaOD = new ObservableCollection<StringEntry>();
             PropiedadesBoolOD = new ObservableCollection<BoolEntry>();
+            PropiedadesOptionalOD = new ObservableCollection<OptionalEntry>();
 
             PropiedadesID = new ObservableCollection<NumericEntry>();
             PropiedadesCadenaID = new ObservableCollection<StringEntry>();
             PropiedadesBoolID = new ObservableCollection<BoolEntry>();
+            PropiedadesOptionalID = new ObservableCollection<OptionalEntry>();
             
             PropiedadesLateral = new ObservableCollection<NumericEntry>();
             PropiedadesCadenaLateral = new ObservableCollection<StringEntry>();
             PropiedadesBoolLateral = new ObservableCollection<BoolEntry>();
+            PropiedadesOptionalLateral = new ObservableCollection<OptionalEntry>();
 
             PropiedadesPuntas = new ObservableCollection<NumericEntry>();
             PropiedadesCadenaPuntas = new ObservableCollection<StringEntry>();
             PropiedadesBoolPuntas = new ObservableCollection<BoolEntry>();
+            PropiedadesOptionalPuntas = new ObservableCollection<OptionalEntry>();
 
             PerfilSeleccionadoID = new Perfil();
             PerfilSeleccionadoOD = new Perfil();
@@ -2290,6 +2350,29 @@ namespace View.Services.ViewModel
 
         }
 
+        private ObservableCollection<StackPanel> SetOptionalEntryToStackPanel(ObservableCollection<OptionalEntry> CollectionText, ObservableCollection<PropiedadOptional> propiedadesOpcionales)
+        {
+            ObservableCollection<StackPanel> CollectionPanel = new ObservableCollection<StackPanel>();
+
+            if (CollectionText.Count == propiedadesOpcionales.Count)
+            {
+                int c = 0;
+
+                while (c < CollectionText.Count)
+                {
+                    StackPanel panel = new StackPanel();
+                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                    panel.Children.Add(CollectionText[c]);
+
+                    CollectionPanel.Add(panel);
+
+                    c += 1;
+                }
+            }
+
+            return CollectionPanel;
+        }
+
         private ObservableCollection<StackPanel> SetStringEntryToStackPanel(ObservableCollection<StringEntry> CollectionText, ObservableCollection<PropiedadCadena> CollectionPropiedadesCadena)
         {
             ObservableCollection<StackPanel> CollectionPanel = new ObservableCollection<StackPanel>();
@@ -2422,23 +2505,28 @@ namespace View.Services.ViewModel
                     ObservableCollection<Propiedad> ListaTotalesPropiedades = DataManager.GetPropiedadSaved(Codigo);
                     ObservableCollection<PropiedadCadena> ListaTotalesPropiedadesCadena = DataManager.GetPropiedadCadenaSaved(Codigo);
                     ObservableCollection<PropiedadBool> ListaTotalesPropiedadesBool = DataManager.GetPropiedadBoolSaved(Codigo);
+                    ObservableCollection<PropiedadOptional> ListaTotalesPropiedadesOpcionales = DataManager.GetPropiedadOptionalSaved(Codigo);
 
                     PerfilOD.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL O.D.").ToList());
                     PerfilOD.PropiedadesCadena = Module.ConvertListToObservableCollectionPropiedadCadena(ListaTotalesPropiedadesCadena.Where(x => x.TipoPerfil == "PERFIL O.D.").ToList());
                     PerfilOD.PropiedadesBool = Module.ConvertListToObservableCollectionPropiedadBool(ListaTotalesPropiedadesBool.Where(x => x.TipoPerfil == "PERFIL O.D.").ToList());
+                    PerfilOD.PropiedadesOpcionales = Module.ConvertListToObservableCollectionPropiedadOptional(ListaTotalesPropiedadesOpcionales.Where(x => x.TipoPerfil == "PERFIL O.D.").ToList());
 
                     PerfilID.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL I.D.").ToList());
                     PerfilID.PropiedadesCadena = Module.ConvertListToObservableCollectionPropiedadCadena(ListaTotalesPropiedadesCadena.Where(x => x.TipoPerfil == "PERFIL I.D.").ToList());
                     PerfilID.PropiedadesBool = Module.ConvertListToObservableCollectionPropiedadBool(ListaTotalesPropiedadesBool.Where(x => x.TipoPerfil == "PERFIL I.D.").ToList());
+                    PerfilID.PropiedadesOpcionales = Module.ConvertListToObservableCollectionPropiedadOptional(ListaTotalesPropiedadesOpcionales.Where(x => x.TipoPerfil == "PERFIL I.D.").ToList());
 
                     PerfilLateral.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL CARAS LATERALES").ToList());
                     PerfilLateral.PropiedadesCadena = Module.ConvertListToObservableCollectionPropiedadCadena(ListaTotalesPropiedadesCadena.Where(x => x.TipoPerfil == "PERFIL CARAS LATERALES").ToList());
                     PerfilLateral.PropiedadesBool = Module.ConvertListToObservableCollectionPropiedadBool(ListaTotalesPropiedadesBool.Where(x => x.TipoPerfil == "PERFIL CARAS LATERALES").ToList());
+                    PerfilLateral.PropiedadesOpcionales = Module.ConvertListToObservableCollectionPropiedadOptional(ListaTotalesPropiedadesOpcionales.Where(x => x.TipoPerfil == "PERFIL CARAS LATERALES").ToList());
 
                     PerfilPuntas.Propiedades = Module.ConvertListToObservableCollectionPropiedad(ListaTotalesPropiedades.Where(x => x.TipoPerfil == "PERFIL PUNTAS").ToList());
                     PerfilPuntas.PropiedadesCadena = Module.ConvertListToObservableCollectionPropiedadCadena(ListaTotalesPropiedadesCadena.Where(x => x.TipoPerfil == "PERFIL PUNTAS").ToList());
                     PerfilPuntas.PropiedadesBool = Module.ConvertListToObservableCollectionPropiedadBool(ListaTotalesPropiedadesBool.Where(x => x.TipoPerfil == "PERFIL PUNTAS").ToList());
-                    
+                    PerfilPuntas.PropiedadesOpcionales = Module.ConvertListToObservableCollectionPropiedadOptional(ListaTotalesPropiedadesOpcionales.Where(x => x.TipoPerfil == "PERFIL PUNTAS").ToList());
+
                     NotifyChange("Codigo");
                     NotifyChange("PerfilOD");
                     NotifyChange("PerfilID");
@@ -2470,6 +2558,7 @@ namespace View.Services.ViewModel
                     createNumericEntry();
                     createTextEntry();
                     createBoolEntry();
+                    createOptionalEntry();
 
                     ListaNormas = DataManager.GetNormaByArquetipo(Codigo);
 
@@ -3292,25 +3381,90 @@ namespace View.Services.ViewModel
             PerfilOD.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilOD.idPerfil,IsMilimeter);
             PerfilOD.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilOD.idPerfil);
             PerfilOD.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilOD.idPerfil);
+            PerfilOD.PropiedadesOpcionales = DataManager.GetPropiedadOptionalSaved(Codigo); //Temporal.
 
             PerfilID.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilID.idPerfil,IsMilimeter);
             PerfilID.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilID.idPerfil);
             PerfilID.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilID.idPerfil);
+            PerfilID.PropiedadesOpcionales = DataManager.GetPropiedadOptionalSaved(Codigo); //Temporal.
 
             PerfilLateral.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilLateral.idPerfil,IsMilimeter);
             PerfilLateral.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilLateral.idPerfil);
             PerfilLateral.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilLateral.idPerfil);
+            PerfilLateral.PropiedadesOpcionales = DataManager.GetPropiedadOptionalSaved(Codigo); //Temporal.
 
             PerfilPuntas.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilPuntas.idPerfil,IsMilimeter);
             PerfilPuntas.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilPuntas.idPerfil);
             PerfilPuntas.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilPuntas.idPerfil);
-
+            PerfilPuntas.PropiedadesOpcionales = DataManager.GetPropiedadOptionalSaved(Codigo); //Temporal.
             
             createNumericEntry();
 
             createTextEntry();
 
             createBoolEntry();
+
+            createOptionalEntry();
+        }
+
+        private void createOptionalEntry()
+        {
+            #region OD
+            foreach (PropiedadOptional propiedad in PerfilOD.PropiedadesOpcionales)
+            {
+                OptionalEntry optionalEntry = new OptionalEntry();
+
+                PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(propiedad);
+                optionalEntry.DataContext = vm;
+
+                PropiedadesOptionalOD.Add(optionalEntry);
+                
+            }
+
+            PanelPropiedadesOpcionalesOD = SetOptionalEntryToStackPanel(PropiedadesOptionalOD, PerfilOD.PropiedadesOpcionales);
+            #endregion
+
+            #region ID
+            foreach (PropiedadOptional propiedad in PerfilID.PropiedadesOpcionales)
+            {
+                OptionalEntry optionalEntry = new OptionalEntry();
+
+                PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(propiedad);
+                optionalEntry.DataContext = vm;
+
+                PropiedadesOptionalID.Add(optionalEntry);
+            }
+
+            PanelPropiedadesOpcionalesID = SetOptionalEntryToStackPanel(PropiedadesOptionalID, PerfilID.PropiedadesOpcionales);
+            #endregion
+
+            #region Lateral
+            foreach (PropiedadOptional propiedad in PerfilLateral.PropiedadesOpcionales)
+            {
+                OptionalEntry optionalEntry = new OptionalEntry();
+
+                PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(propiedad);
+                optionalEntry.DataContext = vm;
+
+                PropiedadesOptionalLateral.Add(optionalEntry);
+
+            }
+
+            PanelPropiedadesOpcionalesLateral = SetOptionalEntryToStackPanel(PropiedadesOptionalLateral, PerfilLateral.PropiedadesOpcionales);
+            #endregion
+
+            #region Puntas
+            foreach (PropiedadOptional propiedad in PerfilPuntas.PropiedadesOpcionales)
+            {
+                OptionalEntry optionalEntry = new OptionalEntry();
+
+                PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(propiedad);
+                optionalEntry.DataContext = vm;
+                PropiedadesOptionalPuntas.Add(optionalEntry);
+            }
+
+            PanelPropiedadesOpcionalesPuntas = SetOptionalEntryToStackPanel(PropiedadesOptionalPuntas, PerfilPuntas.PropiedadesOpcionales);
+            #endregion
         }
 
         private void createBoolEntry()

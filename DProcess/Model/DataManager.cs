@@ -2298,7 +2298,7 @@ namespace Model
             //Ejecutamos el método
             return ServiceSplitter.SetCutter(obj.Codigo, obj.Propiedades[0].Valor);
         }
-
+        
         /// <summary>
         /// Método que actualiza un resgitro de  herramental cutter de la operacion splitter casting
         /// </summary>
@@ -16381,6 +16381,29 @@ namespace Model
                 }
             }
             return ListadoPropiedadesCadena;
+        }
+
+        /// <summary>
+        /// Método que obtiene todas las propiedades Opcionales que son relacionadas de un componente.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static ObservableCollection<PropiedadOptional> GetPropiedadOptionalSaved(string codigo)
+        {
+            ObservableCollection<PropiedadOptional> ListaResultante = new ObservableCollection<PropiedadOptional>();
+
+            PropiedadOptional pOptional = new PropiedadOptional();
+            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+            lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
+            lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
+            pOptional.ListaOpcional = lista;
+            pOptional.lblTitle = "Material";
+            pOptional.TipoPerfil = "PERFIL O.D.";
+
+            ListaResultante.Add(pOptional);
+
+
+            return ListaResultante;
         }
 
         /// <summary>

@@ -282,7 +282,7 @@ namespace View.Services.ViewModel
 
             try
             {
-                // Desglosamos el nombre del archivo (nombre y extensión)      
+                // Desglosamos el nombre del archivo (nombre y extensión)
                 string nombre = "ProgramaVerificación";
                 string extension = ".xlsx";
 

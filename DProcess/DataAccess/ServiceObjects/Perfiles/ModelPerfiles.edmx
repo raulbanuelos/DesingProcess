@@ -161,7 +161,8 @@
           <Property Name="ESPECIFICACION_NITRURADO" Type="varchar" MaxLength="50" />
           <Property Name="THICKNESS_MIN" Type="float" />
           <Property Name="THICKNESS_MAX" Type="float" />
-          <Property Name="DUREZA" Type="varchar" MaxLength="50" />
+          <Property Name="DUREZA_MIN" Type="float" />
+          <Property Name="DUREZA_MAX" Type="float" />
           <Property Name="RECETA" Type="varchar" MaxLength="50" />
           <Property Name="WHITE_LAYER" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -173,7 +174,8 @@
           <Property Name="ESPECIFICACION_PVD" Type="varchar" MaxLength="50" />
           <Property Name="THICKNESS_MIN" Type="float" />
           <Property Name="THICKNESS_MAX" Type="float" />
-          <Property Name="DUREZA" Type="varchar" MaxLength="100" />
+          <Property Name="DUREZA_MIN" Type="float" />
+          <Property Name="DUREZA_MAX" Type="float" />
           <Property Name="NO_RECETA" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TBL_NO_CAJA">
@@ -1196,7 +1198,8 @@
           <Property Name="ESPECIFICACION_NITRURADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="THICKNESS_MIN" Type="Double" />
           <Property Name="THICKNESS_MAX" Type="Double" />
-          <Property Name="DUREZA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DUREZA_MIN" Type="Double" />
+          <Property Name="DUREZA_MAX" Type="Double" />
           <Property Name="RECETA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="WHITE_LAYER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -1208,7 +1211,8 @@
           <Property Name="ESPECIFICACION_PVD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="THICKNESS_MIN" Type="Double" />
           <Property Name="THICKNESS_MAX" Type="Double" />
-          <Property Name="DUREZA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DUREZA_MIN" Type="Double" />
+          <Property Name="DUREZA_MAX" Type="Double" />
           <Property Name="NO_RECETA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
@@ -1464,7 +1468,8 @@
               <MappingFragment StoreEntitySet="TBL_ESPEC_GAS_NITRIDING_RAILS">
                 <ScalarProperty Name="WHITE_LAYER" ColumnName="WHITE_LAYER" />
                 <ScalarProperty Name="RECETA" ColumnName="RECETA" />
-                <ScalarProperty Name="DUREZA" ColumnName="DUREZA" />
+                <ScalarProperty Name="DUREZA_MAX" ColumnName="DUREZA_MAX" />
+                <ScalarProperty Name="DUREZA_MIN" ColumnName="DUREZA_MIN" />
                 <ScalarProperty Name="THICKNESS_MAX" ColumnName="THICKNESS_MAX" />
                 <ScalarProperty Name="THICKNESS_MIN" ColumnName="THICKNESS_MIN" />
                 <ScalarProperty Name="ESPECIFICACION_NITRURADO" ColumnName="ESPECIFICACION_NITRURADO" />
@@ -1476,7 +1481,8 @@
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_PVD_RAILS">
               <MappingFragment StoreEntitySet="TBL_ESPEC_PVD_RAILS">
                 <ScalarProperty Name="NO_RECETA" ColumnName="NO_RECETA" />
-                <ScalarProperty Name="DUREZA" ColumnName="DUREZA" />
+                <ScalarProperty Name="DUREZA_MAX" ColumnName="DUREZA_MAX" />
+                <ScalarProperty Name="DUREZA_MIN" ColumnName="DUREZA_MIN" />
                 <ScalarProperty Name="THICKNESS_MAX" ColumnName="THICKNESS_MAX" />
                 <ScalarProperty Name="THICKNESS_MIN" ColumnName="THICKNESS_MIN" />
                 <ScalarProperty Name="ESPECIFICACION_PVD" ColumnName="ESPECIFICACION_PVD" />
