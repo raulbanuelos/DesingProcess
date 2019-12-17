@@ -2171,7 +2171,7 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <comment>Título mis suscripciones</comment>
   </data>
   <data name="ttlModifyPassword" xml:space="preserve">
-    <value>Modicar Contraseña</value>
+    <value>Modificar Contraseña</value>
     <comment>Titulo de la pantalla de modificar contraseña</comment>
   </data>
   <data name="msgErrorContraseña" xml:space="preserve">

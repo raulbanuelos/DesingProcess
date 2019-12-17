@@ -288,12 +288,12 @@ namespace View.Services.ViewModel
             if (listaANotificar.Count == 1)
             {
                 //Se imprime el nombre de la primera posición
-                BodyEmail = "<BR>" + definirSaludo() + " " + listaANotificar[0].nombre + "<BR><BR>" + body + "<br><br>" + definirPieDeCorreo();
+                BodyEmail = "<BR>" + definirSaludo() + listaANotificar[0].nombre + ";<BR><BR>" + body + "<br><br>" + definirPieDeCorreo();
             }
             else
             {
                 //Sino se imprime "Buenos días a todos / todas" cuando se tiene mas de 1 
-                BodyEmail = "<BR>" + definirSaludo() + " " + "a todos / a todas" + "<BR><BR>" + body + "<br><br>" + definirPieDeCorreo();
+                BodyEmail = "<BR>" + definirSaludo() + " " + "a todos / a todas;" + "<BR><BR>" + body + "<br><br>" + definirPieDeCorreo();
 
             }
             ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(User.NombreUsuario);
@@ -330,7 +330,7 @@ namespace View.Services.ViewModel
             DateTime d = DateTime.Now;
             string saludo = string.Empty;
 
-            return d.Hour <= 11 ? "Buenos días;" : "Buenas tardes;";
+            return d.Hour <= 11 ? "Buenos días " : "Buenas tardes ";
         }
 
         /// <summary>

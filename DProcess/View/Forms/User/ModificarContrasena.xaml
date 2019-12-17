@@ -10,24 +10,22 @@
         xmlns:local="clr-namespace:View.Forms.User"
         mc:Ignorable="d"
         Title="{x:Static recursos:StringResources.ttlModifyPassword}"
-        Height="300" Width="400" 
+        Height="220" Width="370" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-        <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-        </Grid.RowDefinitions>
+    <StackPanel >
+        <!--<Grid.RowDefinitions>
+            
+            <RowDefinition Height="60" KeyboardNavigation.TabIndex="0"></RowDefinition>
+            <RowDefinition Height="60" KeyboardNavigation.TabIndex="1"></RowDefinition>
+            <RowDefinition Height="60" KeyboardNavigation.TabIndex="2"></RowDefinition>
+            <RowDefinition Height="30" KeyboardNavigation.TabIndex="3"></RowDefinition>
+        </Grid.RowDefinitions>-->
 
-        <Label x:Name="label" Content="{x:Static recursos:StringResources.lblNuevaContraseña}" FontWeight="Bold" Margin="0,0,0,0" HorizontalAlignment="Left"></Label>
+        <StackPanel Orientation="Vertical">
+            <Label x:Name="label" Content="{x:Static recursos:StringResources.lblNuevaContraseña}" FontWeight="Bold" Margin="0,0,0,0" HorizontalAlignment="Left"></Label>
 
-        <Grid Grid.Row="1" Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <PasswordBox x:Name="txt_password" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTxtContrasena}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="200" Margin="10" BorderBrush="#899B9999" FontSize="18">
+            <PasswordBox x:Name="txt_password" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTxtContrasena}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="200" Margin="10" BorderBrush="#899B9999" FontSize="18" TabIndex="1">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PasswordChanged">
                         <i:InvokeCommandAction
@@ -36,7 +34,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </PasswordBox>
-            <PasswordBox x:Name="txt_confirmarpassword" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblConfirmarContraseña}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="200" Margin="10" BorderBrush="#899B9999" FontSize="18" >
+
+            <PasswordBox x:Name="txt_confirmarpassword" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblConfirmarContraseña}"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="200" Margin="10" BorderBrush="#899B9999" FontSize="18"  >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PasswordChanged">
                         <i:InvokeCommandAction
@@ -45,12 +44,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </PasswordBox>
-        </Grid>
 
-        <Grid Grid.Row="2">
-
-            <Button Content="{x:Static recursos:StringResources.lblGuardar}" HorizontalAlignment="Right" Height="30"  Width="90" Margin="0,0,10,0" Command="{Binding GuardarNvaContrasenia}"/>
-        </Grid>
-
-    </Grid>
+            <Button Content="{x:Static recursos:StringResources.lblGuardar}" HorizontalAlignment="Right" Height="30"  Width="90" Margin="0,0,10,0" Command="{Binding GuardarNvaContrasenia}"  IsDefault="True"/>
+        </StackPanel>
+    </StackPanel>
 </Controls:MetroWindow>

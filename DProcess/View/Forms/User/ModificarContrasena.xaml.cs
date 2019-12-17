@@ -23,6 +23,7 @@ namespace View.Forms.User
         public ModificarContrasena()
         {
             InitializeComponent();
+            txt_password.Focus();
         }
     }
 }
