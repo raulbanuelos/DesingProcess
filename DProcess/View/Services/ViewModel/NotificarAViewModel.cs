@@ -292,7 +292,7 @@ namespace View.Services.ViewModel
             }
             else
             {
-                //Sino se imprime "Buenos días a todos / todas" cuando se tiene mas de 1 correo por notificar
+                //Sino se imprime "Buenos días a todos / todas" cuando se tiene mas de 1 
                 BodyEmail = "<BR>" + definirSaludo() + " " + "a todos / a todas" + "<BR><BR>" + body + "<br><br>" + definirPieDeCorreo();
 
             }
