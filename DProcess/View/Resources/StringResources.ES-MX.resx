@@ -2170,4 +2170,16 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>Mis suscripciones</value>
     <comment>Título mis suscripciones</comment>
   </data>
+  <data name="ttlModifyPassword" xml:space="preserve">
+    <value>Modicar Contraseña</value>
+    <comment>Titulo de la pantalla de modificar contraseña</comment>
+  </data>
+  <data name="msgErrorContraseña" xml:space="preserve">
+    <value>La contraseña debe tener al menos 7 carácteres.</value>
+    <comment>Mensaje cuando se ingresan menos de 7 caracteres en la contraseña</comment>
+  </data>
+  <data name="msgContraseñaGuardada" xml:space="preserve">
+    <value>Tu contraseña ha sido guardada correctamente</value>
+    <comment>Mensaje de que la contraseña se guardo correctamente</comment>
+  </data>
 </root>

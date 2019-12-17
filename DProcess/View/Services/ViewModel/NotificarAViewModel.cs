@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using Model;
 using Model.ControlDocumentos;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -273,14 +274,28 @@ namespace View.Services.ViewModel
 
         #region Constructor
 
-        public NotificarAViewModel(Usuario ModelUsuario, string body, ObservableCollection<Archivo> archivos, List<Usuarios> listaANotificar, string title)
+        public NotificarAViewModel(Usuario UsuarioLogeado, string body, ObservableCollection<Archivo> archivos, List<Usuarios> listaANotificar, string title)
         {
             Title = title;
             IsEnableEditor = true;
-            User = ModelUsuario;
+            User = UsuarioLogeado;
             ListaArchivos = archivos;
-            BodyEmail = "<BR>" + definirSaludo() + "<BR><BR>" + body + "<br><br>" + definirPieDeCorreo();
+
+
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
+            
+            //Si la listaANotificar es decir los usuarios a los que se van a mandar los correos tiene 1 registro
+            if (listaANotificar.Count == 1)
+            {
+                //Se imprime el nombre de la primera posición
+                BodyEmail = "<BR>" + definirSaludo() + " " + listaANotificar[0].nombre + "<BR><BR>" + body + "<br><br>" + definirPieDeCorreo();
+            }
+            else
+            {
+                //Sino se imprime "Buenos días a todos / todas" cuando se tiene mas de 1 correo por notificar
+                BodyEmail = "<BR>" + definirSaludo() + " " + "a todos / a todas" + "<BR><BR>" + body + "<br><br>" + definirPieDeCorreo();
+
+            }
             ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(User.NombreUsuario);
             ListaUsuarioANotificar = new ObservableCollection<Usuarios>();
 

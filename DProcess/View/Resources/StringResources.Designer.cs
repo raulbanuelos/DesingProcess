@@ -2299,6 +2299,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Your password has been saved correctly.
+        /// </summary>
+        public static string msgContraseñaGuardada {
+            get {
+                return ResourceManager.GetString("msgContraseñaGuardada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Modified password.
         /// </summary>
         public static string msgContraseñaModificada {
@@ -2765,6 +2774,15 @@ namespace View.Resources {
         public static string msgErrorCambiosVersion {
             get {
                 return ResourceManager.GetString("msgErrorCambiosVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The password must have at least 7 characters.
+        /// </summary>
+        public static string msgErrorContraseña {
+            get {
+                return ResourceManager.GetString("msgErrorContraseña", resourceCulture);
             }
         }
         
@@ -4519,6 +4537,15 @@ namespace View.Resources {
         public static string ttlModificarDatosUsuarios {
             get {
                 return ResourceManager.GetString("ttlModificarDatosUsuarios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Modify Password.
+        /// </summary>
+        public static string ttlModifyPassword {
+            get {
+                return ResourceManager.GetString("ttlModifyPassword", resourceCulture);
             }
         }
         

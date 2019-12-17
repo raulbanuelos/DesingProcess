@@ -157,7 +157,10 @@ namespace View.Services.ViewModel
                     // Cambiamos la variable a verdadero 
                     CierrePantalla = true;
 
-                    //Verificamos que la pantalla sea diferente de nulo.
+                    //Mensaje de que la contrase;a se guardo correctamente 
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaGuardada);
+
+                    //Verificamos que la pantalla sea diferente de nulo
                     if (window != null)
                     {
                         //Cerramos la pantalla
@@ -167,14 +170,15 @@ namespace View.Services.ViewModel
                 else
                 {
                     // Mensaje para notificar que las constraseñas no coinciden
-                    await dialog.SendMessage(StringResources.ttlAlerta, "Las contraseñas no coinciden.");
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaActualDiferente);
                 }
             }
             else
             {
                 // Mensaje para notificar que las constraseñas necesita más carácteres
-                await dialog.SendMessage(StringResources.ttlAlerta, "La contraseña debe tener al menos 7 carácteres.");
-            }            
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorContraseña);
+                //msgErrorContraseña
+            }
         }
 
         #endregion

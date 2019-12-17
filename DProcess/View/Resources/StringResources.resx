@@ -2175,4 +2175,16 @@ In a moment you will receive an email confirming your configuration.</value>
     <value>My subscriptions</value>
     <comment>Título mis suscripciones</comment>
   </data>
+  <data name="ttlModifyPassword" xml:space="preserve">
+    <value>Modify Password</value>
+    <comment>Titulo de la pantalla Modificar Password</comment>
+  </data>
+  <data name="msgErrorContraseña" xml:space="preserve">
+    <value>The password must have at least 7 characters</value>
+    <comment>Mensaje cuando se ingresan menos de 7 caracteres en la contraseña</comment>
+  </data>
+  <data name="msgContraseñaGuardada" xml:space="preserve">
+    <value>Your password has been saved correctly</value>
+    <comment>Mensaje de que la contraseña se guardo correctamente</comment>
+  </data>
 </root>

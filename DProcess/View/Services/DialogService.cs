@@ -132,5 +132,10 @@ namespace View.Services
             //Si la ventana es igual a nulo retornamos un null.
             return null;
         }
+
+        internal Task SendMessage(string ttlAlerta, object msgErrorContraseña)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

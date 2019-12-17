@@ -9,15 +9,18 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:View.Forms.User"
         mc:Ignorable="d"
-        Title="ModificarContrasena" Height="300" Width="400" IsCloseButtonEnabled="False" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="{x:Static recursos:StringResources.ttlModifyPassword}"
+        Height="300" Width="400" 
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Content="Ingresa una nueva contraseña" FontWeight="Bold" Margin="0,0,0,0" HorizontalAlignment="Center"></Label>
+        <Label x:Name="label" Content="{x:Static recursos:StringResources.lblNuevaContraseña}" FontWeight="Bold" Margin="0,0,0,0" HorizontalAlignment="Left"></Label>
 
         <Grid Grid.Row="1" Margin="5">
             <Grid.RowDefinitions>
