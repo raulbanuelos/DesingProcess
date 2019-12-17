@@ -36,6 +36,11 @@ namespace Model
         public ObservableCollection<PropiedadBool> PropiedadesBool { get; set; }
 
         /// <summary>
+        /// Lista de propiedades con valores opcionales que contiene el perfil.
+        /// </summary>
+        public ObservableCollection<PropiedadOptional> PropiedadesOpcionales { get; set; }
+
+        /// <summary>
         /// Instancia de objeto de tipo MateriaPrima que representa si el perfil cuenta con algun recubrimiento.
         /// </summary>
         public MateriaPrima Recubrimiento { get; set; }

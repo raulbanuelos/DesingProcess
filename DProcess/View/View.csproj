@@ -307,6 +307,9 @@
     <Compile Include="Forms\ControlDocumentos\Frm_DocumentosSimilares.xaml.cs">
       <DependentUpon>Frm_DocumentosSimilares.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Cotizaciones\FrmCalculoTiemposEstandar.xaml.cs">
+      <DependentUpon>FrmCalculoTiemposEstandar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DataBase\PDataBase.xaml.cs">
       <DependentUpon>PDataBase.xaml</DependentUpon>
     </Compile>
@@ -1217,6 +1220,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\Frm_DocumentosSimilares.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Cotizaciones\FrmCalculoTiemposEstandar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

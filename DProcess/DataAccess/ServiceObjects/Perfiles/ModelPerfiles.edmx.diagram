@@ -5,22 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2bb0edd517ef4c0a8662a96585da10c9" Name="Diagram1">
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.Arquetipo" Width="1.5" PointX="0.75" PointY="11.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.Arquetipo" Width="1.5" PointX="0.875" PointY="9.5" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.ArquetipoRings" Width="1.5" PointX="3" PointY="23.5" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PERFIL" Width="1.5" PointX="3.75" PointY="1.875" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD" Width="1.5" PointX="0.75" PointY="15" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PERFIL" Width="2" PointX="3.75" PointY="1.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD" Width="2.5" PointX="0.5" PointY="15" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_BOOL" Width="1.5" PointX="0.75" PointY="19.125" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_CADENA" Width="1.5" PointX="0.75" PointY="7.125" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_TIPO_PERFIL" Width="1.5" PointX="1.5" PointY="2.5" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.ColoresAnillos" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_CADENA" Width="2.125" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_TIPO_PERFIL" Width="2.25" PointX="0.75" PointY="0.5" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.ColoresAnillos" Width="1.5" PointX="6.125" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES" Width="1.5" PointX="3" PointY="11.5" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_BOOL" Width="1.5" PointX="3" PointY="14.625" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_CADENA" Width="1.5" PointX="3" PointY="8.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_BOOL" Width="1.5" PointX="4" PointY="14.625" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_CADENA" Width="3" PointX="3.5" PointY="6.25" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_NORMAS" Width="1.5" PointX="3.75" PointY="17.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_NORMAS_ARQUETIPO" Width="1.5" PointX="6" PointY="11.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PERFIL_ARQUETIPO" Width="1.5" PointX="6" PointY="8.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PERFIL_ARQUETIPO" Width="1.5" PointX="6.625" PointY="8.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_BOOL_PERFIL" Width="1.5" PointX="9" PointY="12.125" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_CADENA_PERFIL" Width="1.5" PointX="6" PointY="5.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_CADENA_PERFIL" Width="2.5" PointX="0.5" PointY="3.25" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_PERFIL" Width="1.5" PointX="9" PointY="9.125" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_ArquetipoRings_Arquetipo" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo" />
@@ -45,8 +45,8 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ROLLOS_CAJA_SEGMENTOS" Width="2.5" PointX="10.625" PointY="0.875" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PROPIEDAD1" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS" Width="2.375" PointX="10.75" PointY="3.5" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_PVD_RAILS" Width="2" PointX="13.25" PointY="3.5" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS" Width="2.875" PointX="11.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_PVD_RAILS" Width="1.5" PointX="11.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

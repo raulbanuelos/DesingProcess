@@ -144,7 +144,7 @@
                 </Controls:Tile>
 
                 <!--Standar Times-->
-                <Controls:Tile TiltFactor="2" Background="#DA522C" Title="{x:Static local:StringResources.ttlStandarTime}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilStandarTime}">
+                <Controls:Tile TiltFactor="2" Background="#DA522C" Title="{x:Static local:StringResources.ttlStandarTime}" Width="Auto" Height="Auto" Grid.Column="0" Command="{Binding IrStandarTime}" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilStandarTime}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">

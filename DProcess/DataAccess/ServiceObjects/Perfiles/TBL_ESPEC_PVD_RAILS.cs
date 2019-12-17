@@ -18,7 +18,8 @@ namespace DataAccess.ServiceObjects.Perfiles
         public string ESPECIFICACION_PVD { get; set; }
         public Nullable<double> THICKNESS_MIN { get; set; }
         public Nullable<double> THICKNESS_MAX { get; set; }
-        public string DUREZA { get; set; }
+        public Nullable<double> DUREZA_MIN { get; set; }
+        public Nullable<double> DUREZA_MAX { get; set; }
         public string NO_RECETA { get; set; }
     }
 }

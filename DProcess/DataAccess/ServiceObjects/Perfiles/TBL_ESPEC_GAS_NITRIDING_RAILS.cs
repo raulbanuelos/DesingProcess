@@ -18,7 +18,8 @@ namespace DataAccess.ServiceObjects.Perfiles
         public string ESPECIFICACION_NITRURADO { get; set; }
         public Nullable<double> THICKNESS_MIN { get; set; }
         public Nullable<double> THICKNESS_MAX { get; set; }
-        public string DUREZA { get; set; }
+        public Nullable<double> DUREZA_MIN { get; set; }
+        public Nullable<double> DUREZA_MAX { get; set; }
         public string RECETA { get; set; }
         public string WHITE_LAYER { get; set; }
     }

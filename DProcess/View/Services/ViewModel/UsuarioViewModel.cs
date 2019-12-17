@@ -11,12 +11,11 @@ using View.Forms.DataBase;
 using View.Forms.LeccionesAprendidas;
 using View.Forms.User;
 using View.Forms.Tooling;
-using System.Threading;
 using TableDependency.SqlClient;
 using Notifications.Wpf;
 using View.Resources;
-using MahApps.Metro.Controls.Dialogs;
 using View.Forms.Shared;
+using View.Forms.Cotizaciones;
 
 namespace View.Services.ViewModel
 {
@@ -332,6 +331,14 @@ namespace View.Services.ViewModel
             }
         }
 
+        public ICommand IrStandarTime
+        {
+            get
+            {
+                return new RelayCommand(o => irStandarTime());
+            }
+        }
+
         public ICommand IrRawMaterial
         {
             get {
@@ -412,7 +419,6 @@ namespace View.Services.ViewModel
         #region Métodos
 
         #region Métodos de navegación
-
         /// <summary>
         /// Método el cual nos envía a la pantalla de captura del plano.
         /// </summary>
@@ -429,6 +435,22 @@ namespace View.Services.ViewModel
 
             //Asignamos a la propiedad Pagina la nueva pantalla que debe de mostrar.
             Pagina = pantallaPlano;
+        }
+
+        private void irStandarTime()
+        {
+            FrmCalculoTiemposEstandar frm = new FrmCalculoTiemposEstandar();
+
+            List<FO_Item> lista = new List<FO_Item>();
+
+            lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
+            lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
+            
+            PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(lista, "Material");
+            
+            frm.DataContext = vm;
+
+            frm.ShowDialog();
         }
 
         private void irDataBase()

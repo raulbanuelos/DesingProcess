@@ -1187,9 +1187,8 @@ namespace View.Services
             ObservableCollection<Propiedad> ListaResultante = new ObservableCollection<Propiedad>();
 
             foreach (var item in lista)
-            {
                 ListaResultante.Add(item);
-            }
+
             return ListaResultante;
         }
 
@@ -1198,9 +1197,7 @@ namespace View.Services
             ObservableCollection<PropiedadCadena> ListaResultante = new ObservableCollection<PropiedadCadena>();
 
             foreach (var item in lista)
-            {
                 ListaResultante.Add(item);
-            }
 
             return ListaResultante;
         }
@@ -1210,9 +1207,17 @@ namespace View.Services
             ObservableCollection<PropiedadBool> ListaResultante = new ObservableCollection<PropiedadBool>();
 
             foreach (var item in lista)
-            {
                 ListaResultante.Add(item);
-            }
+
+            return ListaResultante;
+        }
+
+        public static ObservableCollection<PropiedadOptional> ConvertListToObservableCollectionPropiedadOptional(List<PropiedadOptional> lista)
+        {
+            ObservableCollection<PropiedadOptional> ListaResultante = new ObservableCollection<PropiedadOptional>();
+
+            foreach (var item in lista)
+                ListaResultante.Add(item);
 
             return ListaResultante;
         }
