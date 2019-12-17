@@ -11,11 +11,9 @@ using View.Forms.DataBase;
 using View.Forms.LeccionesAprendidas;
 using View.Forms.User;
 using View.Forms.Tooling;
-using System.Threading;
 using TableDependency.SqlClient;
 using Notifications.Wpf;
 using View.Resources;
-using MahApps.Metro.Controls.Dialogs;
 using View.Forms.Shared;
 using View.Forms.Cotizaciones;
 

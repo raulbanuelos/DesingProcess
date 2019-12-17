@@ -488,6 +488,7 @@
                                                  TextAlignment="Center" Width="180" Text="{Binding CustomerPartNumber}" 
                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                  ToolTip="{Binding DescripcionLarga}"></TextBox>
+                                    
                                     <TextBox materialDesign:HintAssist.Hint="Customer Revision Level No" MaxLength="18" FontSize="16" 
                                                  TextAlignment="Center" Width="180" Text="{Binding CustomerRevisionLevel}" 
                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -507,8 +508,6 @@
                                     <TextBox materialDesign:HintAssist.Hint="Size" FontSize="16" TextAlignment="Center" Width="70" 
                                                  Text="{Binding Size}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                  ToolTip="{Binding DescripcionLarga}"></TextBox>
-
-
 
                                 </StackPanel>
                             </GroupBox>
