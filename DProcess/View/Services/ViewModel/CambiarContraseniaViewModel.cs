@@ -144,40 +144,51 @@ namespace View.Services.ViewModel
                     // Validamos que sean iguales
                     if (Contraseña == ConfirmarContraseña)
                     {
-                        // Actualizamos el registro de la contraseña en la tabla Usuarios
-                        DataManagerControlDocumentos.UpdatePass(User.NombreUsuario, encriptar.encript(Contraseña));
-
-                        // Declaramos el valor a 0
-                        bool temporal_password = false;
-
-                        // Actualizar el valor de temporal password
-                        DataManager.Update_TemporalPassword(User.NombreUsuario, temporal_password);
-
-                        //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
-                        var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-
-                        // Cambiamos la variable a verdadero 
-                        CierrePantalla = true;
-
-                        //Mensaje de que la contrase;a se guardo correctamente 
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaGuardada);
-
-                        //Verificamos que la pantalla sea diferente de nulo
-                        if (window != null)
+                        // Validamos que la contraseña nueva sea diferente a la anterior
+                        if (ConfirmarContraseña != encriptar.desencript(User.Password))
                         {
-                            //Cerramos la pantalla
-                            window.Close();
+                           
+                            // Actualizamos el registro de la contraseña en la tabla Usuarios
+                            DataManagerControlDocumentos.UpdatePass(User.NombreUsuario, encriptar.encript(Contraseña));
+
+                            // Declaramos el valor a 0
+                            bool temporal_password = false;
+
+                            // Actualizar el valor de temporal password
+                            DataManager.Update_TemporalPassword(User.NombreUsuario, temporal_password);
+
+                            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                            var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                            // Cambiamos la variable a verdadero 
+                            CierrePantalla = true;
+
+                            //Mensaje de que la contrase;a se guardo correctamente 
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaGuardada);
+
+                            //Verificamos que la pantalla sea diferente de nulo
+                            if (window != null)
+                            {
+                                //Cerramos la pantalla
+                                window.Close();
+                            }
                         }
+                        else
+                        {
+                            //Mensaje para notificar que  la contraseña no debe de ser igual a la anterior.
+                            await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaNoValida);
+                           
+                        } 
                     }
                     else
                     {
-                        // Mensaje para notificar que las constraseñas no coinciden
+                        // Mensaje para notificar que las constraseñas no coinciden.
                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgContraseñaActualDiferente);
                     }
                 }
                 else
                 {
-                    // Mensaje para notificar que las constraseñas necesita más carácteres
+                    // Mensaje para notificar que las constraseñas necesita más carácteres.
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorContraseña);
                     //msgErrorContraseña
                 } 

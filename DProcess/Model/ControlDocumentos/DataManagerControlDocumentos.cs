@@ -1689,7 +1689,7 @@ namespace Model.ControlDocumentos
         /// Método para obtener todos los registros de la tabla Usuarios.
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<Usuarios> GetUsuarios(string Buscar)
+        public static ObservableCollection<objUsuario> GetUsuarios(string Buscar)
         {
 
 
@@ -1697,7 +1697,7 @@ namespace Model.ControlDocumentos
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
             //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
-            ObservableCollection<Usuarios> Lista = new ObservableCollection<Usuarios>();
+            ObservableCollection<objUsuario> Lista = new ObservableCollection<objUsuario>();
 
             Encriptacion encriptar = new Encriptacion();
             //Ejecutamos el método para obtener la información de la base de datos.
@@ -1715,7 +1715,7 @@ namespace Model.ControlDocumentos
                     System.Type tipo = item.GetType();
 
                     //Declaramos on objeto de tipo usuarios que contendrá la información de un registro.
-                    Usuarios obj = new Usuarios();
+                    objUsuario obj = new objUsuario();
 
                     //Asignamos los valores correspondientes.
                     obj.usuario = encriptar.desencript((string)tipo.GetProperty("Usuario").GetValue(item, null));
@@ -1771,13 +1771,13 @@ namespace Model.ControlDocumentos
         /// Método para obtener todos los registros de la tabla Usuarios.
         /// </summary>
         /// <returns></returns>
-        public static ObservableCollection<Usuarios> GetUsuarios()
+        public static ObservableCollection<objUsuario> GetUsuarios()
         {
             //Inicializamos los servicios de usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
             //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
-            ObservableCollection<Usuarios> Lista = new ObservableCollection<Usuarios>();
+            ObservableCollection<objUsuario> Lista = new ObservableCollection<objUsuario>();
             
             //Ejecutamos el método para obtener la información de la base de datos.
             IList ObjUsuarios = ServiceUsuarios.GetUsuario();
@@ -1793,7 +1793,7 @@ namespace Model.ControlDocumentos
                     System.Type tipo = item.GetType();
 
                     //Declaramos on objeto de tipo usuarios que contendrá la información de un registro.
-                    Usuarios obj = new Usuarios();
+                    objUsuario obj = new objUsuario();
 
                     //Asignamos los valores correspondientes.
                     obj.usuario = (string)tipo.GetProperty("Usuario").GetValue(item, null);
@@ -1827,11 +1827,11 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="txt_busqueda"></param>
         /// <returns></returns>
-        public static ObservableCollection<Usuarios> GetUsuario(string txt_busqueda)
+        public static ObservableCollection<objUsuario> GetUsuario(string txt_busqueda)
         {
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
 
-            ObservableCollection<Usuarios> lista = new ObservableCollection<Usuarios>();
+            ObservableCollection<objUsuario> lista = new ObservableCollection<objUsuario>();
             IList obj = ServiceUsuarios.BuscarUsuario(txt_busqueda);
 
             if (obj != null)
@@ -1840,7 +1840,7 @@ namespace Model.ControlDocumentos
                 {
                     System.Type tipo = item.GetType();
 
-                    Usuarios user = new Usuarios();
+                    objUsuario user = new objUsuario();
 
                     user.usuario = (string)tipo.GetProperty("Usuario").GetValue(item, null);
                     user.password = (string)tipo.GetProperty("Password").GetValue(item, null);
@@ -1870,7 +1870,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="usuarios"></param>
         /// <returns></returns>
-        public static string SetUsuario(Usuarios usuarios)
+        public static string SetUsuario(objUsuario usuarios)
         {
             //Se inician los servicios de Usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
@@ -1886,7 +1886,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="usuarios"></param>
         /// <returns></returns>
-        public static int UpdateUsuario(Usuarios usuarios)
+        public static int UpdateUsuario(objUsuario usuarios)
         {
             //Se inician los servicios de Usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
@@ -1902,7 +1902,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="usuarios"></param>
         /// <returns></returns>
-        public static int DeleteUsuarios(Usuarios usuarios)
+        public static int DeleteUsuarios(objUsuario usuarios)
         {
             //Se inician los servicios de Usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();
@@ -1920,7 +1920,7 @@ namespace Model.ControlDocumentos
         /// </summary>
         /// <param name="usuarios"></param>
         /// <returns></returns>
-        public static string ValidateUsuario(Usuarios usuarios)
+        public static string ValidateUsuario(objUsuario usuarios)
         {
             //Se inician los servicios de Usuarios.
             SO_Usuarios ServiceUsuarios = new SO_Usuarios();

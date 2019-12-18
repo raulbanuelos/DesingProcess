@@ -2182,4 +2182,8 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>Tu contraseña ha sido guardada correctamente</value>
     <comment>Mensaje de que la contraseña se guardo correctamente</comment>
   </data>
+  <data name="msgContraseñaNoValida" xml:space="preserve">
+    <value>La contraseña no puede ser igual a la anterior</value>
+    <comment>Mensaje que pide una contraseña diferente a la anterior</comment>
+  </data>
 </root>

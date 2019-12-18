@@ -35,8 +35,8 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Propiedades
-        private ObservableCollection<Usuarios> _ListaUsuarios = new ObservableCollection<Usuarios>();
-        public ObservableCollection<Usuarios> ListaUsuarios
+        private ObservableCollection<objUsuario> _ListaUsuarios = new ObservableCollection<objUsuario>();
+        public ObservableCollection<objUsuario> ListaUsuarios
         {
             get
             {
@@ -191,7 +191,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Constructor
-        public ModificarDatosUsuario(Usuarios SelectedItem)
+        public ModificarDatosUsuario(objUsuario SelectedItem)
         {
             //Asiganmos los valores para que se muestren 
             if (SelectedItem !=null)
@@ -332,7 +332,7 @@ namespace View.Services.ViewModel
             //filtramos los tipos de archivos que se pueden adjuntar
             dlg.Filter = "LOTUS Files (.nsf) | *.nsf";
             Nullable<bool> result = dlg.ShowDialog();
-            Usuarios obj = new Usuarios();
+            objUsuario obj = new objUsuario();
 
             if (result == true)
             {
@@ -383,7 +383,7 @@ namespace View.Services.ViewModel
                     //declaramos el objeto para encriptar el usuario
                     Encriptacion encriptar = new Encriptacion();
                     //declaramos un objeto de tipo usuarios
-                    Usuarios nuevosdatos = new Usuarios();
+                    objUsuario nuevosdatos = new objUsuario();
 
                     //pasamos los valores
                     nuevosdatos.usuario = encriptar.encript(_usuario);
@@ -499,7 +499,7 @@ namespace View.Services.ViewModel
                             Encriptacion encriptar = new Encriptacion();
 
                             //declaramos un objeto de tipo usuarios
-                            Usuarios nuevosdatos = new Usuarios();
+                            objUsuario nuevosdatos = new objUsuario();
 
                             //pasaremos los valores
                             nuevosdatos.usuario = encriptar.encript(_usuario);

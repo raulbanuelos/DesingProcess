@@ -15339,6 +15339,7 @@ namespace Model
                             usuario.ApellidoPaterno = Convert.ToString(element["APaterno"]);
                             usuario.Nombre = Convert.ToString(element["Nombre"]);
                             usuario.NombreUsuario = Convert.ToString(element["Usuario"]);
+                            usuario.Password=Convert.ToString(element["Password"]);
 
                             usuario.PerfilRGP = Convert.ToBoolean(element["PERFIL_RGP"]);
                             usuario.PerfilTooling = Convert.ToBoolean(element["PERFIL_TOOLING"]);
