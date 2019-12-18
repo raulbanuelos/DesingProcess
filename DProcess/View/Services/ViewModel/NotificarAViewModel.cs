@@ -149,8 +149,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private ObservableCollection<Usuarios> _ListaUsuarios;
-        public ObservableCollection<Usuarios> ListaUsuarios
+        private ObservableCollection<objUsuario> _ListaUsuarios;
+        public ObservableCollection<objUsuario> ListaUsuarios
         {
             get
             {
@@ -163,8 +163,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        public ObservableCollection<Usuarios> _ListaUsuarioANotificar;
-        public ObservableCollection<Usuarios> ListaUsuarioANotificar
+        public ObservableCollection<objUsuario> _ListaUsuarioANotificar;
+        public ObservableCollection<objUsuario> ListaUsuarioANotificar
         {
             get
             {
@@ -196,13 +196,13 @@ namespace View.Services.ViewModel
                 if (!_IsOpen)
                 {
                     //Obtenemos los usuarios seleccionados y los asignamos a una lista temporal.
-                    List<Usuarios> listaAux = ListaUsuarios.Where(x => x.IsSelected).ToList();
+                    List<objUsuario> listaAux = ListaUsuarios.Where(x => x.IsSelected).ToList();
 
                     //Limpiamos la lista.
                     ListaUsuarioANotificar.Clear();
 
                     //Recorremos la lista temporal para asignar cada usuario a la lista de correos a notificar.
-                    foreach (Usuarios usuario in listaAux)
+                    foreach (objUsuario usuario in listaAux)
                         ListaUsuarioANotificar.Add(usuario);
 
                     List<DO_Grupos> listaGrupoAux = ListaGrupos.Where(x => x.IsSelected).ToList();
@@ -216,7 +216,7 @@ namespace View.Services.ViewModel
                         foreach (DO_INTEGRANTES_GRUPO integrate in listaUsuariosGrupo)
                         {
                             Usuario usuario = DataManager.GetUsuario(integrate.idusuariointegrante);
-                            Usuarios user = new Usuarios();
+                            objUsuario user = new objUsuario();
 
                             user.Details = usuario.Details;
                             user.nombre = usuario.Nombre;
@@ -274,7 +274,7 @@ namespace View.Services.ViewModel
 
         #region Constructor
 
-        public NotificarAViewModel(Usuario UsuarioLogeado, string body, ObservableCollection<Archivo> archivos, List<Usuarios> listaANotificar, string title)
+        public NotificarAViewModel(Usuario UsuarioLogeado, string body, ObservableCollection<Archivo> archivos, List<objUsuario> listaANotificar, string title)
         {
             Title = title;
             IsEnableEditor = true;
@@ -297,7 +297,7 @@ namespace View.Services.ViewModel
 
             }
             ListaGrupos = DataManagerControlDocumentos.GetAllGrupos(User.NombreUsuario);
-            ListaUsuarioANotificar = new ObservableCollection<Usuarios>();
+            ListaUsuarioANotificar = new ObservableCollection<objUsuario>();
 
             // Se carga a la lista el usuario reportó
             foreach (var item in listaANotificar)
@@ -480,7 +480,7 @@ namespace View.Services.ViewModel
                 int c = 0;
 
                 // Se itera la lista y se agregan a la lista a notificar
-                foreach (Usuarios usuario in ListaUsuarioANotificar)
+                foreach (objUsuario usuario in ListaUsuarioANotificar)
                 {
                     usuarios[c] = usuario.Correo;
                     c++;
@@ -564,7 +564,7 @@ namespace View.Services.ViewModel
                                 c = 0;
 
                                 // Se itera la lista y se agregan a la lista a notificar
-                                foreach (Usuarios usuario in ListaUsuarioANotificar)
+                                foreach (objUsuario usuario in ListaUsuarioANotificar)
                                 {
                                     usuarios[c] = usuario.Correo;
                                     c++;

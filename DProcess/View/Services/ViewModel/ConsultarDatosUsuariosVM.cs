@@ -32,10 +32,10 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Properties
-        public Usuarios usuario;
+        public objUsuario usuario;
 
-        private ObservableCollection<Usuarios> _ListaUsuarios = new ObservableCollection<Usuarios>();
-        public ObservableCollection<Usuarios> ListaUsuarios
+        private ObservableCollection<objUsuario> _ListaUsuarios = new ObservableCollection<objUsuario>();
+        public ObservableCollection<objUsuario> ListaUsuarios
         {
             get
             {
@@ -48,8 +48,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private Usuarios _selectedItem;
-        public Usuarios SelectedItem
+        private objUsuario _selectedItem;
+        public objUsuario SelectedItem
         {
             get
             {
@@ -208,7 +208,7 @@ namespace View.Services.ViewModel
         /// metodo para eliminar a un usuario
         /// </summary>
         /// <param name="id"></param>
-        private async void eliminarusuario(Usuarios id_usuario)
+        private async void eliminarusuario(objUsuario id_usuario)
         {
             DialogService dialog = new DialogService();
             MetroDialogSettings botones = new MetroDialogSettings();

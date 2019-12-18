@@ -39,8 +39,8 @@ namespace View.Services.ViewModel
 
         #region Propiedades
 
-        private ObservableCollection<Usuarios> _ListadeUsuarios;
-        public ObservableCollection<Usuarios> ListadeUsuarios
+        private ObservableCollection<objUsuario> _ListadeUsuarios;
+        public ObservableCollection<objUsuario> ListadeUsuarios
         {
             get
             {

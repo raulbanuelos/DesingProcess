@@ -2326,6 +2326,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The password must not be the same as the previous one.
+        /// </summary>
+        public static string msgContraseñaNoValida {
+            get {
+                return ResourceManager.GetString("msgContraseñaNoValida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Correct file.
         /// </summary>
         public static string msgCorrectFile {

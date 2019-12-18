@@ -307,8 +307,8 @@ namespace View.Services.ViewModel
 
         }
 
-        private ObservableCollection<Usuarios> _ListaUsuarios = new ObservableCollection<Usuarios>();
-        public ObservableCollection<Usuarios> ListaUsuarios
+        private ObservableCollection<objUsuario> _ListaUsuarios = new ObservableCollection<objUsuario>();
+        public ObservableCollection<objUsuario> ListaUsuarios
         {
             get
             {
@@ -321,8 +321,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private ObservableCollection<Usuarios> _ListaUsuariosCorreo;
-        public ObservableCollection<Usuarios> ListaUsuariosCorreo
+        private ObservableCollection<objUsuario> _ListaUsuariosCorreo;
+        public ObservableCollection<objUsuario> ListaUsuariosCorreo
         {
             get
             {
@@ -4254,7 +4254,7 @@ namespace View.Services.ViewModel
             string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
 
             int i = 0;
-            foreach (Usuarios item in ListaUsuariosCorreo)
+            foreach (objUsuario item in ListaUsuariosCorreo)
             {
                 if (item.IsSelected)
                 {
@@ -4404,7 +4404,7 @@ namespace View.Services.ViewModel
             string[] correos = new string[ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
 
             int i = 0;
-            foreach (Usuarios item in ListaUsuariosCorreo)
+            foreach (objUsuario item in ListaUsuariosCorreo)
             {
                 if (item.IsSelected)
                 {
@@ -4494,7 +4494,7 @@ namespace View.Services.ViewModel
             string[] CorreosUsuarios = new string[vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
 
             int i = 0;
-            foreach (Usuarios item in vmUsuarios.ListaUsuariosCorreo)
+            foreach (objUsuario item in vmUsuarios.ListaUsuariosCorreo)
             {
                 if (item.IsSelected)
                 {
@@ -4587,7 +4587,7 @@ namespace View.Services.ViewModel
 
             //obtenemos los correos de los usuarios seleccionados
             int i = 0;
-            foreach (Usuarios item in ListaUsuariosCorreo)
+            foreach (objUsuario item in ListaUsuariosCorreo)
             {
                 if (item.IsSelected)
                 {
@@ -5050,7 +5050,7 @@ namespace View.Services.ViewModel
                 string[] correos = new string[vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count];
 
                 int i = 0;
-                foreach (Usuarios item in vmUsuarios.ListaUsuariosCorreo)
+                foreach (objUsuario item in vmUsuarios.ListaUsuariosCorreo)
                 {
                     if (item.IsSelected)
                     {
@@ -7015,7 +7015,7 @@ namespace View.Services.ViewModel
         /// </summary>
         public void _SeleccionarTodosUsuarios()
         {
-            ObservableCollection<Usuarios> Aux = new ObservableCollection<Usuarios>();
+            ObservableCollection<objUsuario> Aux = new ObservableCollection<objUsuario>();
 
             foreach (var usuario in ListaUsuariosCorreo)
             {
@@ -7037,7 +7037,7 @@ namespace View.Services.ViewModel
         public void _DeseleccionarTodosUsuarios()
         {
             
-            ObservableCollection<Usuarios> Aux = new ObservableCollection<Usuarios>();
+            ObservableCollection<objUsuario> Aux = new ObservableCollection<objUsuario>();
             
             foreach (var usuario in ListaUsuariosCorreo)
             {

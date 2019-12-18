@@ -220,7 +220,7 @@ namespace View.Services.ViewModel
                         //Declaramos un objeto con el cual se realiza la encriptación
                         Encriptacion encriptar = new Encriptacion();
                         //Declaramos un objeto de tipo usuarios
-                        Usuarios objUsuario = new Usuarios();
+                        objUsuario objUsuario = new objUsuario();
 
                         //Asignamos los valores al objeto
                         objUsuario.usuario = encriptar.encript(_usuario);
@@ -230,6 +230,7 @@ namespace View.Services.ViewModel
                         objUsuario.password = encriptar.encript(_contraseña);
                         objUsuario.Correo = Correo;
                         objUsuario.Pathnsf = "";
+                        
                         //datos por default
                         objUsuario.usql = "´©³¶´¦³";
                         objUsuario.psql = "´‰“sqrr";
@@ -359,8 +360,8 @@ namespace View.Services.ViewModel
                                     UserCreated = DataManager.GetUsuario(objUsuario.usuario);
 
                                     // Declaramos lista para guardar el nuevo usuario
-                                    List<Usuarios> ListaUserCreated = new List<Usuarios>();
-                                    Usuarios userCreado = new Usuarios();
+                                    List<objUsuario> ListaUserCreated = new List<objUsuario>();
+                                    objUsuario userCreado = new objUsuario();
                                     // Igualamos valores
                                     userCreado.Correo = UserCreated.Correo;
                                     userCreado.nombre = UserCreated.Nombre;

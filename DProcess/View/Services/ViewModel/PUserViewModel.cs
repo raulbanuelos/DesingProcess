@@ -37,7 +37,7 @@ namespace View.Services.ViewModel
 
         #region Propiedades
         public Usuario user;
-        public Usuarios usuario;
+        public objUsuario usuario;
         Encriptacion encriptar = new Encriptacion();
 
         private string _usuario;

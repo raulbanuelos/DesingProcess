@@ -117,7 +117,7 @@ namespace View.Services.ViewModel
             // Insertamos el objeto a la lista
             ListaDoc.Add(documento);
 
-            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario, body, ListaDoc, new List<Usuarios>(), "Listado de Verificación Anual " + DateTime.Now.Year);
+            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario, body, ListaDoc, new List<objUsuario>(), "Listado de Verificación Anual " + DateTime.Now.Year);
 
             notificara.DataContext = vwnotifa;
             notificara.ShowDialog();

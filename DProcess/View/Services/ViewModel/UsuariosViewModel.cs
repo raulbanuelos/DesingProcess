@@ -22,8 +22,8 @@ namespace View.Services.ViewModel
 
         #region Propiedades
 
-        private ObservableCollection<Model.ControlDocumentos.Usuarios> _ListaUsuariosCorreo;
-        public ObservableCollection<Model.ControlDocumentos.Usuarios> ListaUsuariosCorreo
+        private ObservableCollection<Model.ControlDocumentos.objUsuario> _ListaUsuariosCorreo;
+        public ObservableCollection<Model.ControlDocumentos.objUsuario> ListaUsuariosCorreo
         {
             get
             {

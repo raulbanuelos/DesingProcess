@@ -95,8 +95,8 @@ namespace View.Services.ViewModel
             }
         }
 
-        private ObservableCollection<Usuarios> _ListaUsuarios;
-        public ObservableCollection<Usuarios> ListaUsuarios
+        private ObservableCollection<objUsuario> _ListaUsuarios;
+        public ObservableCollection<objUsuario> ListaUsuarios
         {
             get
             {
@@ -1084,14 +1084,14 @@ namespace View.Services.ViewModel
                         if (IsNotifyEmail)
                         {
                             Usuario usuarioReporto = DataManager.GetUsuario(UsuarioSelected);
-                            Usuarios usuarioAEnviar = new Usuarios();
+                            objUsuario usuarioAEnviar = new objUsuario();
                             usuarioAEnviar.AMaterno = usuarioReporto.ApellidoMaterno;
                             usuarioAEnviar.APaterno = usuarioReporto.ApellidoPaterno;
                             usuarioAEnviar.nombre = usuarioReporto.Nombre;
                             usuarioAEnviar.Details = usuarioReporto.Details;
                             usuarioAEnviar.Correo = usuarioReporto.Correo;
 
-                            List<Usuarios> listaUsuarios = new List<Usuarios>();
+                            List<objUsuario> listaUsuarios = new List<objUsuario>();
                             listaUsuarios.Add(usuarioAEnviar);
 
                             ObservableCollection<Archivo> listaDocumentoA = new ObservableCollection<Archivo>();
@@ -1267,14 +1267,14 @@ namespace View.Services.ViewModel
                         if (IsNotifyEmail)
                         {
                             Usuario usuarioReporto = DataManager.GetUsuario(UsuarioSelected);
-                            Usuarios usuarioAEnviar = new Usuarios();
+                            objUsuario usuarioAEnviar = new objUsuario();
                             usuarioAEnviar.AMaterno = usuarioReporto.ApellidoMaterno;
                             usuarioAEnviar.APaterno = usuarioReporto.ApellidoPaterno;
                             usuarioAEnviar.nombre = usuarioReporto.Nombre;
                             usuarioAEnviar.Details = usuarioReporto.Details;
                             usuarioAEnviar.Correo = usuarioReporto.Correo;
 
-                            List<Usuarios> listaUsuarios = new List<Usuarios>();
+                            List<objUsuario> listaUsuarios = new List<objUsuario>();
                             listaUsuarios.Add(usuarioAEnviar);
 
                             ObservableCollection<Archivo> listaDocumentoA = new ObservableCollection<Archivo>();

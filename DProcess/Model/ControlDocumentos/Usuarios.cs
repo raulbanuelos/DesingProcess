@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model.ControlDocumentos
 {
-    public class Usuarios : Arquetipo
+    public class objUsuario : Arquetipo
     {
         #region Propiedades
 

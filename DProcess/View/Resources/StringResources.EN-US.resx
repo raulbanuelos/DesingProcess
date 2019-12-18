@@ -2184,4 +2184,8 @@ In a moment you will receive an email confirming your configuration.</value>
     <value>Your password has been saved correctly</value>
     <comment>Mensaje de que la contraseña se guardo correctamente</comment>
   </data>
+  <data name="msgContraseñaNoValida" xml:space="preserve">
+    <value>The password must not be the same as the previous one</value>
+    <comment>Mensaje que pide una contraseña diferente a la anterior</comment>
+  </data>
 </root>
