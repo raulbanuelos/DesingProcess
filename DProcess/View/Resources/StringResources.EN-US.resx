@@ -1594,9 +1594,6 @@
   <data name="lblSiguiente" xml:space="preserve">
     <value>Next</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value>Previous</value>
-  </data>
   <data name="lblCaracteresEspeciales" xml:space="preserve">
     <value>Special characters are not allowed in the description</value>
   </data>
@@ -2187,5 +2184,45 @@ In a moment you will receive an email confirming your configuration.</value>
   <data name="msgContraseñaNoValida" xml:space="preserve">
     <value>The password must not be the same as the previous one</value>
     <comment>Mensaje que pide una contraseña diferente a la anterior</comment>
+  </data>
+  <data name="ttlCrearCotizacion" xml:space="preserve">
+    <value>Create Quote</value>
+    <comment>Titulo de la ventana de Crear Cotización</comment>
+  </data>
+  <data name="ttlButtonAgregarMPaCT" xml:space="preserve">
+    <value>Add MP to selected CT</value>
+    <comment>Título botón Agregar MP a CT seleccionado</comment>
+  </data>
+  <data name="ttlButtonAgregarCTdeLista" xml:space="preserve">
+    <value>Add CT from list</value>
+    <comment>Título del botón agregar CTde lista</comment>
+  </data>
+  <data name="ttlButtonCotizacion" xml:space="preserve">
+    <value>Quotation</value>
+    <comment>Título del botón de cotización</comment>
+  </data>
+  <data name="ttlButtonEliminarCT" xml:space="preserve">
+    <value>Remove CT from list</value>
+    <comment>Título del botón para eliminar CT de lista</comment>
+  </data>
+  <data name="ttlButtonEliminarTodo" xml:space="preserve">
+    <value>Remove all</value>
+    <comment>Título del botón eliminar todo</comment>
+  </data>
+  <data name="ttlButtonTiempoEstandar" xml:space="preserve">
+    <value>Standard time</value>
+    <comment>Título del botón Tiempo Estandar</comment>
+  </data>
+  <data name="lblCentroDeTrabajo" xml:space="preserve">
+    <value>Workplace</value>
+    <comment>Texto de centro de trabajo</comment>
+  </data>
+  <data name="lblNombreDeOperacion" xml:space="preserve">
+    <value>Operation name</value>
+    <comment>Texto de Nombre de operación</comment>
+  </data>
+  <data name="lblOperaciones" xml:space="preserve">
+    <value>Operations</value>
+    <comment>Etiqueta Operaciones </comment>
   </data>
 </root>
