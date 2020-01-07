@@ -307,6 +307,9 @@
     <Compile Include="Forms\ControlDocumentos\Frm_DocumentosSimilares.xaml.cs">
       <DependentUpon>Frm_DocumentosSimilares.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Cotizaciones\CrearCotizacion.xaml.cs">
+      <DependentUpon>CrearCotizacion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Cotizaciones\FrmCalculoTiemposEstandar.xaml.cs">
       <DependentUpon>FrmCalculoTiemposEstandar.xaml</DependentUpon>
     </Compile>
@@ -800,6 +803,85 @@
     <Compile Include="Services\ScreenSpaceLines3D.cs" />
     <Compile Include="Services\Seguridad.cs" />
     <Compile Include="Services\ServiceEmail.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo112.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo120.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo132.cs" />
+    <Compile Include="Services\TiempoEstandar\Fundicion\CentroTrabajo136.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo150.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo160.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo170.cs" />
+    <Compile Include="Services\TiempoEstandar\FCI\CentroTrabajo2310.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo232.cs" />
+    <Compile Include="Services\TiempoEstandar\FCI\CentroTrabajo2320.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo235.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo236.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo250.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo261.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo265.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo280.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo285.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo410.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo415.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo420.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo421.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo422.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo423.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo424.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo425.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo427.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo428.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo430.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo433.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo435.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo440.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo445.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo450.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo451.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo452.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo453.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo460.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo461.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo465.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo290.cs" />
+    <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo466.cs" />
+    <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo468.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo488.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo489.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo490.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo491.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo492.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo500.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo501.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo502.cs" />
+    <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo518.cs" />
+    <Compile Include="Services\TiempoEstandar\Expansores\CentroTrabajo521.cs" />
+    <Compile Include="Services\TiempoEstandar\Expansores\CentroTrabajo570.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo715.cs" />
+    <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo730.cs" />
+    <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo731.cs" />
+    <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo732.cs" />
+    <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo734.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo750.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo755.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo756.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo757.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo758.cs" />
+    <Compile Include="Services\TiempoEstandar\CentroTrabajo766.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo767.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo776.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo790.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo815.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo820.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo821.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo830.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo833.cs" />
+    <Compile Include="Services\TiempoEstandar\CentroTrabajo901.cs" />
+    <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9240.cs" />
+    <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9281.cs" />
+    <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9307.cs" />
+    <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9313.cs" />
+    <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9391.cs" />
+    <Compile Include="Services\TiempoEstandar\LargeBore\CentroTrabajo9394.cs" />
     <Compile Include="Services\TiempoEstandar\Expansores\CentroTrabajo499.cs" />
     <Compile Include="Services\TiempoEstandar\Expansores\CentroTrabajo516.cs" />
     <Compile Include="Services\TiempoEstandar\Expansores\CentroTrabajo560.cs" />
@@ -872,6 +954,7 @@
     <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo140.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Maquinado\CentroTrabajo230.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\Maquinado\CentroTrabajo260.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo110.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo130.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo150.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo810.cs" />
@@ -944,6 +1027,7 @@
     <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo720.cs" />
     <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo741.cs" />
     <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo831.cs" />
+    <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo850.cs" />
     <Compile Include="Services\Utility.cs" />
     <Compile Include="Services\ViewModel\AnilloViewModel.cs" />
     <Compile Include="Services\ViewModel\BarrelLapAnillos_VM.cs" />
@@ -1040,7 +1124,6 @@
     <Compile Include="Services\ViewModel\TubosCLViewModel.cs" />
     <Compile Include="Services\ViewModel\TubosHDViewModel.cs" />
     <Compile Include="Services\Router.cs" />
-    <Compile Include="Services\TiempoEstandar\Gasolina\PreMaquinado\CentroTrabajo110.cs" />
     <Compile Include="Services\ViewModel\PatternViewModel.cs" />
     <Compile Include="Services\ViewModel\RelayCommand.cs" />
     <Compile Include="Services\ViewModel\UretanoSplitterVM.cs" />
@@ -1220,6 +1303,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\Frm_DocumentosSimilares.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Cotizaciones\CrearCotizacion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

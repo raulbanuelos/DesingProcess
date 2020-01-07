@@ -80,7 +80,7 @@ namespace View.Services.TiempoEstandar.Fundicion
         #region Métodos de ICentroTrabajo
 
         /// <summary>
-        ///  Método que se utiliza cuando se calculan los tiempos estándar por fuera de las operaciones. (Cálculo individual, cotizaciones).
+        /// Método que se utiliza cuando se calculan los tiempos estándar por fuera de las operaciones. (Cálculo individual, cotizaciones).
         /// </summary>
         /// <param name="ListaPropiedades">Lista de propiedades ingresadas por el usuario.</param>
         /// <param name="ListaPropiedadesBool">Lista de propiedades booleanos ingresados por el usuario.</param>

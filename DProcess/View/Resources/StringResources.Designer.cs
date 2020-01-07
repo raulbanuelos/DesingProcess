@@ -487,6 +487,15 @@ namespace View.Resources {
         /// <summary>
         ///   Busca una cadena traducida similar a Workplace.
         /// </summary>
+        public static string lblCentroDeTrabajo {
+            get {
+                return ResourceManager.GetString("lblCentroDeTrabajo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Workplace.
+        /// </summary>
         public static string lblCentroTrabajo {
             get {
                 return ResourceManager.GetString("lblCentroTrabajo", resourceCulture);
@@ -1349,6 +1358,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Operation name.
+        /// </summary>
+        public static string lblNombreDeOperacion {
+            get {
+                return ResourceManager.GetString("lblNombreDeOperacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Department Name.
         /// </summary>
         public static string lblNombreDepartamento {
@@ -1498,6 +1516,15 @@ namespace View.Resources {
         public static string lblOperacion {
             get {
                 return ResourceManager.GetString("lblOperacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Operations.
+        /// </summary>
+        public static string lblOperaciones {
+            get {
+                return ResourceManager.GetString("lblOperaciones", resourceCulture);
             }
         }
         
@@ -4163,6 +4190,33 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Add CT from list.
+        /// </summary>
+        public static string ttlButtonAgregarCTdeLista {
+            get {
+                return ResourceManager.GetString("ttlButtonAgregarCTdeLista", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add MP to selected CT.
+        /// </summary>
+        public static string ttlButtonAgregarMPaCT {
+            get {
+                return ResourceManager.GetString("ttlButtonAgregarMPaCT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Quotation.
+        /// </summary>
+        public static string ttlButtonCotizacion {
+            get {
+                return ResourceManager.GetString("ttlButtonCotizacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Create.
         /// </summary>
         public static string ttlButtonCreate {
@@ -4186,6 +4240,33 @@ namespace View.Resources {
         public static string ttlButtonDeleteGroup {
             get {
                 return ResourceManager.GetString("ttlButtonDeleteGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Remove CT from list.
+        /// </summary>
+        public static string ttlButtonEliminarCT {
+            get {
+                return ResourceManager.GetString("ttlButtonEliminarCT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Remove all.
+        /// </summary>
+        public static string ttlButtonEliminarTodo {
+            get {
+                return ResourceManager.GetString("ttlButtonEliminarTodo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Standard time.
+        /// </summary>
+        public static string ttlButtonTiempoEstandar {
+            get {
+                return ResourceManager.GetString("ttlButtonTiempoEstandar", resourceCulture);
             }
         }
         
@@ -4267,6 +4348,15 @@ namespace View.Resources {
         public static string ttlCreadoDocumento {
             get {
                 return ResourceManager.GetString("ttlCreadoDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Create Quote.
+        /// </summary>
+        public static string ttlCrearCotizacion {
+            get {
+                return ResourceManager.GetString("ttlCrearCotizacion", resourceCulture);
             }
         }
         
