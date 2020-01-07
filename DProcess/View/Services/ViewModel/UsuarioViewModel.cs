@@ -15,13 +15,14 @@ using TableDependency.SqlClient;
 using Notifications.Wpf;
 using View.Resources;
 using View.Forms.Shared;
-using View.Forms.Cotizaciones;
 
 namespace View.Services.ViewModel
 {
     public class UsuarioViewModel : INotifyPropertyChanged
     {
-        public Usuario ModelUsuario;
+        #region Atributtes
+        public Usuario ModelUsuario; 
+        #endregion
 
         #region Propiedades de Usuario
         public string Nombre
@@ -439,18 +440,27 @@ namespace View.Services.ViewModel
 
         private void irStandarTime()
         {
-            FrmCalculoTiemposEstandar frm = new FrmCalculoTiemposEstandar();
+            //FrmCalculoTiemposEstandar frm = new FrmCalculoTiemposEstandar();
 
-            List<FO_Item> lista = new List<FO_Item>();
+            //List<FO_Item> lista = new List<FO_Item>();
 
-            lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
-            lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
-            
-            PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(lista, "Material");
-            
-            frm.DataContext = vm;
+            //lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
+            //lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
 
-            frm.ShowDialog();
+            //PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(lista, "Material");
+
+            //frm.DataContext = vm;
+
+            //frm.ShowDialog();
+
+            FSearchPattern fSearchPattern = new FSearchPattern();
+
+            AnilloViewModel anilloViewModel = new AnilloViewModel(ModelUsuario);
+
+            fSearchPattern.DataContext = anilloViewModel;
+
+            fSearchPattern.ShowDialog();
+
         }
 
         private void irDataBase()

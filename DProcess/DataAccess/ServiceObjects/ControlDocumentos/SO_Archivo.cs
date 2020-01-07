@@ -13,6 +13,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 {
     public class SO_Archivo
     {
+        #region Methods
         /// <summary>
         /// Método para obtener los registros de la tabla TBL_archivos.
         /// </summary>
@@ -103,7 +104,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="archivo"></param>
         /// <param name="ext"></param>
         /// <returns>Retorna cero si hay error.</returns>
-        public int UpdateArchivo(int id_archivo, int id_version, byte[] archivo, string ext,string nombre)
+        public int UpdateArchivo(int id_archivo, int id_version, byte[] archivo, string ext, string nombre)
         {
             try
             {
@@ -274,7 +275,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
-        
+
         /// <summary>
         /// Método para insertar un registro a la tabla archivo.
         /// </summary>
@@ -282,7 +283,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         /// <param name="archivo"></param>
         /// <param name="ext"></param>
         /// <returns></returns>
-        public Task<int> SetArchivo(int version, byte[] archivo, string ext,string nombre)
+        public Task<int> SetArchivo(int version, byte[] archivo, string ext, string nombre)
         {
             return Task.Run(() =>
             {
@@ -339,6 +340,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Si hay algún error, retornamos nulo.
                 return 0;
             }
-        }
+        } 
+        #endregion
     }
 }
