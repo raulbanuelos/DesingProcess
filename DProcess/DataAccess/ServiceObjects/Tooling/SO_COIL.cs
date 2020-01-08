@@ -142,6 +142,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && b.Activo == true
+                                 orderby a.CODIGO descending
                                  select new
                                  {
                                      Codigo = b.Codigo,
@@ -390,6 +391,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && radial > a.RADIAL_WIRE_MIN && radial <= a.RADIAL_WIRE_MAX && b.Activo == true
+                                 orderby a.CODIGO descending
                                  select new
                                  {
                                      Codigo = b.Codigo,

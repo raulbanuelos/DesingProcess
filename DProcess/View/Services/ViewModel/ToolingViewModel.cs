@@ -196,6 +196,17 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Comando para abrir la ventana de calcular todo el herramental de Coil.
+        /// </summary>
+        public ICommand IrGetAllToolingCoil
+        {
+            get
+            {
+                return new RelayCommand(o => irGetAllToolingCoil());
+            }
+        }
+
+        /// <summary>
         /// Comando para agregar un nuevo herramental
         /// </summary>
         public ICommand IrNuevoMaestro
@@ -666,6 +677,18 @@ namespace View.Services.ViewModel
             External_GR_3P_3VM vm = new External_GR_3P_3VM();
             wcoil.DataContext = vm;
             wcoil.ShowDialog();
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana de calcular todo el herramental de Coil.
+        /// </summary>
+        private void irGetAllToolingCoil()
+        {
+            WCalculateToolingCoil wCoil = new WCalculateToolingCoil();
+            CalculateToolingCoilViewModel vm = new CalculateToolingCoilViewModel();
+            wCoil.DataContext = vm;
+
+            wCoil.Show();
         }
 
         /// <summary>

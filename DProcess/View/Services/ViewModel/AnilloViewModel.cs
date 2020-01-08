@@ -30,6 +30,7 @@ namespace View.Services.ViewModel
         private CalculaMateriaPrima calcularMateriaPrima;
         DialogService dialogService;
         private string NombreUsuario;
+        private Usuario User;
         #endregion
 
         #region Properties
@@ -1041,7 +1042,7 @@ namespace View.Services.ViewModel
             PerfilSeleccionadoPuntas = new Perfil();
 
             //Inicializamos el plano;
-            newPlano();
+            newPlano(true);
 
             dialogService = new DialogService();
 
@@ -1062,10 +1063,74 @@ namespace View.Services.ViewModel
             
         }
 
+        /// <summary>
+        /// Constructor para cuando se abre desde la pantalla de Busqueda de Casting.
+        /// </summary>
+        /// <param name="user"></param>
+        public AnilloViewModel(Usuario user)
+        {
+            User = user;
+            //Inicializamos el objeto anillo que representa nuestro modelo.
+            ModelAnillo = new Anillo();
+
+            //Inicializamos los atributos
+            NombreUsuario = User.NombreUsuario;
+            ListaEspecificacionesMateriaPrima = DataManager.GetAllEspecificacionesMateriaPrima();
+            ListaClientes = DataManager.GetAllClientes();
+            ListaTreatment = DataManager.GetAllTreatment();
+            ListaIronRawMaterial = new ObservableCollection<MateriaPrimaRolado>();
+
+            PropiedadesOD = new ObservableCollection<NumericEntry>();
+            PropiedadesCadenaOD = new ObservableCollection<StringEntry>();
+            PropiedadesBoolOD = new ObservableCollection<BoolEntry>();
+            PropiedadesOptionalOD = new ObservableCollection<OptionalEntry>();
+
+            PropiedadesID = new ObservableCollection<NumericEntry>();
+            PropiedadesCadenaID = new ObservableCollection<StringEntry>();
+            PropiedadesBoolID = new ObservableCollection<BoolEntry>();
+            PropiedadesOptionalID = new ObservableCollection<OptionalEntry>();
+
+            PropiedadesLateral = new ObservableCollection<NumericEntry>();
+            PropiedadesCadenaLateral = new ObservableCollection<StringEntry>();
+            PropiedadesBoolLateral = new ObservableCollection<BoolEntry>();
+            PropiedadesOptionalLateral = new ObservableCollection<OptionalEntry>();
+
+            PropiedadesPuntas = new ObservableCollection<NumericEntry>();
+            PropiedadesCadenaPuntas = new ObservableCollection<StringEntry>();
+            PropiedadesBoolPuntas = new ObservableCollection<BoolEntry>();
+            PropiedadesOptionalPuntas = new ObservableCollection<OptionalEntry>();
+
+            PerfilSeleccionadoID = new Perfil();
+            PerfilSeleccionadoOD = new Perfil();
+            PerfilSeleccionadoLateral = new Perfil();
+            PerfilSeleccionadoPuntas = new Perfil();
+
+            //Inicializamos el plano;
+            newPlano(false);
+
+            dialogService = new DialogService();
+
+            //Mandamos llamar el metodo que genera el Menú
+            CreateMenuItems();
+
+            AllPerfilesOD = DataManager.GetAllPerfiles("PERFIL O.D.");
+            AllPerfilesID = DataManager.GetAllPerfiles("PERFIL I.D.");
+            AllPerfilesLateral = DataManager.GetAllPerfiles("PERFIL CARAS LATERALES");
+            AllPerfilesPuntas = DataManager.GetAllPerfiles("PERFIL PUNTAS");
+        }
+
         #endregion
 
         #region Commands
 
+        public ICommand BuscarCasting
+        {
+            get
+            {
+                return new RelayCommand(o => buscarCasting());
+            }
+        }
+        
         public ICommand CalculateDimensions {
             get {
                 return new RelayCommand(o => calculateDimensions());
@@ -1229,7 +1294,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return new RelayCommand(o => newPlano());
+                return new RelayCommand(o => newPlano(true));
             }
         }
 
@@ -1414,6 +1479,13 @@ namespace View.Services.ViewModel
         private void changeFlyoutNormas()
         {
             IsNormasOpen = IsNormasOpen ? false : true;
+        }
+
+
+        private void buscarCasting()
+        {
+            calcularMateriaPrima = new CalculaMateriaPrima(ModelAnillo);
+            MaterialBase = calcularMateriaPrima.CalcularPlacaModelo();
         }
 
         /// <summary>
@@ -2194,7 +2266,8 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método que inicializa todas las propiedades para generar un nuevo plano.
         /// </summary>
-        private async void newPlano()
+        /// <param name="banUnidadDefinida">Si es True se muestra un mensaje en la pantalla para preguntar que unidad desea, si es false por defautl la unidad sera Inch.</param>
+        private async void newPlano(bool banUnidadDefinida)
         {
             //Inicializamos los servicios de dialog.
             DialogService dialogService = new DialogService();
@@ -2205,7 +2278,9 @@ namespace View.Services.ViewModel
             setting.NegativeButtonText = StringResources.lblPulgadas;
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-            MessageDialogResult result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccionaFormato, setting, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result;
+            
+            result = banUnidadDefinida ? await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccionaFormato, setting, MessageDialogStyle.AffirmativeAndNegative) : MessageDialogResult.Negative;
 
             //Para cada resultado realizamos una acción.
             switch (result)

@@ -15,13 +15,14 @@ using TableDependency.SqlClient;
 using Notifications.Wpf;
 using View.Resources;
 using View.Forms.Shared;
-using View.Forms.Cotizaciones;
 
 namespace View.Services.ViewModel
 {
     public class UsuarioViewModel : INotifyPropertyChanged
     {
-        public Usuario ModelUsuario;
+        #region Atributtes
+        public Usuario ModelUsuario; 
+        #endregion
 
         #region Propiedades de Usuario
         public string Nombre
@@ -439,6 +440,7 @@ namespace View.Services.ViewModel
 
         private void irStandarTime()
         {
+            FrmCalculoTiemposEstandar frm = new FrmCalculoTiemposEstandar();
 
             CrearCotizacion frm = new CrearCotizacion();
 
@@ -446,16 +448,14 @@ namespace View.Services.ViewModel
 
             frm.DataContext = context;
 
+            lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
+            lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
+            
+            PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(lista, "Material");
+            
+            frm.DataContext = vm;
+
             frm.ShowDialog();
-
-
-
-            //List<FO_Item> lista = new List<FO_Item>();
-            //lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
-            //lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
-            //PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(lista, "Material");
-            //frm.DataContext = vm;
-            //frm.ShowDialog();
         }
 
         private void irDataBase()

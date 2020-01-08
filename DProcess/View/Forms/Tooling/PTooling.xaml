@@ -46,6 +46,7 @@
                         <MenuItem Header="Drawing 2487-112-00-4" Cursor="Hand" Command="{Binding ExternalGR3P_3}"/>
                     </MenuItem>
                     <MenuItem Header="Shim of the cut system" Cursor="Hand" Command="{Binding IrShimCS}"/>
+                    <MenuItem Header="Get All Tooling" Cursor="Hand" Command="{Binding IrGetAllToolingCoil}"/>
                 </MenuItem>
                 <MenuItem Header="Splitter" Cursor="Hand">
                     <MenuItem Header="Cutter Spacer Splitter" Command="{Binding IrCutterSpacer}" />

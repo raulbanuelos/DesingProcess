@@ -34,7 +34,7 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>3.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -325,6 +325,9 @@
     <Compile Include="Forms\LeccionesAprendidas\CentrosDeTrabajo.xaml.cs">
       <DependentUpon>CentrosDeTrabajo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\DescripcionComponente.xaml.cs">
+      <DependentUpon>DescripcionComponente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LeccionesAprendidas\DescripcionVariosComponentes.xaml.cs">
       <DependentUpon>DescripcionVariosComponentes.xaml</DependentUpon>
     </Compile>
@@ -333,6 +336,9 @@
     </Compile>
     <Compile Include="Forms\LeccionesAprendidas\InformacionCambios.xaml.cs">
       <DependentUpon>InformacionCambios.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\InformacionCambiosRealizados.xaml.cs">
+      <DependentUpon>InformacionCambiosRealizados.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\LeccionesAprendidas\InformacionDescripcion.xaml.cs">
       <DependentUpon>InformacionDescripcion.xaml</DependentUpon>
@@ -375,6 +381,9 @@
     </Compile>
     <Compile Include="Forms\Routing\ConversionFTFD.xaml.cs">
       <DependentUpon>ConversionFTFD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Routing\FSearchPattern.xaml.cs">
+      <DependentUpon>FSearchPattern.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Routing\PRouting.xaml.cs">
       <DependentUpon>PRouting.xaml</DependentUpon>
@@ -627,6 +636,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\WBusquedaHerramenal.xaml.cs">
       <DependentUpon>WBusquedaHerramenal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\WCalculateToolingCoil.xaml.cs">
+      <DependentUpon>WCalculateToolingCoil.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\WCamTurn.xaml.cs">
       <DependentUpon>WCamTurn.xaml</DependentUpon>
@@ -1039,6 +1051,7 @@
     <Compile Include="Services\ViewModel\BushingSimVM.cs" />
     <Compile Include="Services\ViewModel\Busqueda_HerramentalVM.cs" />
     <Compile Include="Services\ViewModel\CalculateDimensionsViewModel.cs" />
+    <Compile Include="Services\ViewModel\CalculateToolingCoilViewModel.cs" />
     <Compile Include="Services\ViewModel\CalculoFreeGapViewModel.cs" />
     <Compile Include="Services\ViewModel\CalculoPlacaModeloViewModel.cs" />
     <Compile Include="Services\ViewModel\CambiarContraseniaViewModel.cs" />
@@ -1331,6 +1344,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\LeccionesAprendidas\DescripcionComponente.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Forms\LeccionesAprendidas\DescripcionVariosComponentes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1342,6 +1359,10 @@
     <Page Include="Forms\LeccionesAprendidas\InformacionCambios.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\LeccionesAprendidas\InformacionCambiosRealizados.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\LeccionesAprendidas\InformacionDescripcion.xaml">
       <SubType>Designer</SubType>
@@ -1396,6 +1417,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Routing\ConversionFTFD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Routing\FSearchPattern.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1735,6 +1760,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tooling\WCalculateToolingCoil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tooling\WCamTurn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1973,6 +2002,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="iconDProcess.ico" />
+    <Resource Include="Images\wireTHM.PNG" />
+    <Resource Include="Images\wireCuadrado.PNG" />
     <Resource Include="Images\TLAMARILLO.png" />
     <Resource Include="Images\TLROJO.png" />
     <Resource Include="Images\TLVERDE.png" />

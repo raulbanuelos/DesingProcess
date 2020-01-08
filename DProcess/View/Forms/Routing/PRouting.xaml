@@ -81,10 +81,8 @@
                             <!--Comienza GroupBox de Characteristics-->
                             <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Background="{DynamicResource MaterialDesignBackground}">
                                 <GroupBox HorizontalAlignment="Center" VerticalAlignment="Top" Header="{x:Static recursos:StringResources.lblCaracteristicas}" Style="{DynamicResource MaterialDesignGroupBox}" UseLayoutRounding="True" SnapsToDevicePixels="True">
-
                                     <!--Comienza panel de Characteristics-->
                                     <StackPanel Orientation="Vertical">
-
                                         <!--Comienza panel de Treatment-->
                                         <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
                                             <ComboBox materialDesign:HintAssist.Hint="TREATMENT" FontSize="16" ItemsSource="{Binding ListaTreatment}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" SelectedItem="{Binding Treatment}">
@@ -96,7 +94,6 @@
                                                          Text="{Binding EspecTreatment}" ToolTip="{Binding DescripcionLarga}"
                                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                                         </StackPanel>
-
                                         <!--Termina panel de Treatment-->
 
                                         <!--Comienza panel de Ovality-->
@@ -243,6 +240,7 @@
                                         </StackPanel>
                                         <!--Temmina Diámetro y Width-->
 
+                                        <!--Número de plano-->
                                         <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
                                             <TextBox materialDesign:HintAssist.Hint="Doc. no" Width="300" FontSize="16" 
                                                          Text="{Binding NoPlano}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -250,7 +248,6 @@
                                         </StackPanel>
                                     </StackPanel>
                                     <!--Termina panel de Characteristics-->
-
                                 </GroupBox>
                             </Border>
                             <!--Termina GroupBox de Characteristics-->
