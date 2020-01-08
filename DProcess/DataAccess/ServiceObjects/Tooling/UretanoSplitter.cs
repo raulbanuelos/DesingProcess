@@ -21,6 +21,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public double DiaMin { get; set; }
         public double DiaMax { get; set; }
         public string Detalle { get; set; }
+        public int ID_URETANO_SPLITTER1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

@@ -24,6 +24,8 @@ namespace DataAccess.ServiceObjects.Tooling
         public Nullable<double> WIRE_WIDTH_MAX { get; set; }
         public Nullable<double> RADIAL_WIRE_MIN { get; set; }
         public Nullable<double> RADIAL_WIRE_MAX { get; set; }
+        public Nullable<bool> CENTER_GUIDE { get; set; }
+        public Nullable<bool> ENTRANCE_GUIDE { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

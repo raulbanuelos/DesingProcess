@@ -18,6 +18,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public string Codigo { get; set; }
         public Nullable<double> DimA { get; set; }
         public string Plano { get; set; }
+        public int Id_PIM1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

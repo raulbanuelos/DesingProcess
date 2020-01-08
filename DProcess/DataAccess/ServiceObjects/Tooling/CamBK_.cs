@@ -19,6 +19,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public string Detalle { get; set; }
         public Nullable<double> A { get; set; }
         public Nullable<double> B { get; set; }
+        public int Id_CamBK1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

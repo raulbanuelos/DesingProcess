@@ -29,15 +29,12 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<SPlitterSpacerChart2> SPlitterSpacerChart2 { get; set; }
         public virtual DbSet<cutter_angle> cutter_angle { get; set; }
         public virtual DbSet<DiscoDiskus_> DiscoDiskus_ { get; set; }
-        public virtual DbSet<GuidePlateBK_> GuidePlateBK_ { get; set; }
         public virtual DbSet<TBL_EXIT_GUIDE> TBL_EXIT_GUIDE { get; set; }
         public virtual DbSet<CollarsCromo_> CollarsCromo_ { get; set; }
         public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 { get; set; }
         public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 { get; set; }
         public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_1PIECE> TBL_EXTERNAL_GUIDE_ROLLER_1PIECE { get; set; }
         public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 { get; set; }
-        public virtual DbSet<TBL_FEED_WHEEL_RECTIFICADOS_FINOS> TBL_FEED_WHEEL_RECTIFICADOS_FINOS { get; set; }
-        public virtual DbSet<TBL_COIL_CENTER_GUIDE> TBL_COIL_CENTER_GUIDE { get; set; }
         public virtual DbSet<TBL_COIL_FEED_ROLLER> TBL_COIL_FEED_ROLLER { get; set; }
         public virtual DbSet<TBL_SHIM_OF_THE_CUT_SYSTEM> TBL_SHIM_OF_THE_CUT_SYSTEM { get; set; }
         public virtual DbSet<CollarBK> CollarBK { get; set; }
@@ -101,5 +98,8 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<TBL_BUSHING_THOMPSON_SEGMENTOS> TBL_BUSHING_THOMPSON_SEGMENTOS { get; set; }
         public virtual DbSet<ClosingBandAnillos_> ClosingBandAnillos_ { get; set; }
         public virtual DbSet<TBL_MANGA_PVD_WASH> TBL_MANGA_PVD_WASH { get; set; }
+        public virtual DbSet<TBL_FEED_WHEEL_RECTIFICADOS_FINOS> TBL_FEED_WHEEL_RECTIFICADOS_FINOS { get; set; }
+        public virtual DbSet<GuidePlateBK_> GuidePlateBK_ { get; set; }
+        public virtual DbSet<TBL_COIL_CENTER_GUIDE> TBL_COIL_CENTER_GUIDE { get; set; }
     }
 }

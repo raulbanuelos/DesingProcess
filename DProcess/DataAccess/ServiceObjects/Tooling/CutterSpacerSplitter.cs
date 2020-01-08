@@ -19,6 +19,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public double A { get; set; }
         public double B { get; set; }
         public string Plano { get; set; }
+        public int ID_SPACER_SPLITTER1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

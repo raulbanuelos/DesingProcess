@@ -19,6 +19,7 @@ namespace DataAccess.ServiceObjects.Tooling
         public string Descripcion { get; set; }
         public string MedidaNominal { get; set; }
         public int ident { get; set; }
+        public int Id_WorkCam1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }
