@@ -439,18 +439,23 @@ namespace View.Services.ViewModel
 
         private void irStandarTime()
         {
-            FrmCalculoTiemposEstandar frm = new FrmCalculoTiemposEstandar();
 
-            List<FO_Item> lista = new List<FO_Item>();
+            CrearCotizacion frm = new CrearCotizacion();
 
-            lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
-            lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
-            
-            PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(lista, "Material");
-            
-            frm.DataContext = vm;
+            CrearCotizacionViewModel context = new CrearCotizacionViewModel();
+
+            frm.DataContext = context;
 
             frm.ShowDialog();
+
+
+
+            //List<FO_Item> lista = new List<FO_Item>();
+            //lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
+            //lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
+            //PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(lista, "Material");
+            //frm.DataContext = vm;
+            //frm.ShowDialog();
         }
 
         private void irDataBase()

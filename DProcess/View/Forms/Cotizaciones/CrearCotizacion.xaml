@@ -28,7 +28,43 @@
 
             <Label Content="{x:Static recursos:StringResources.lblOperaciones}"  FontSize="20" FontFamily="Calibri" FontWeight="Bold" Margin="20,47" />
             <StackPanel Orientation="Horizontal">
-                <ComboBox x:Name="comboBox" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCentroDeTrabajo}" HorizontalAlignment="Left" Width="160" Height="50" VerticalAlignment="Top" FontSize="18"  DisplayMemberPath="" Margin="46,84,0,0"/>
+                <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCentroDeTrabajo}" 
+                          HorizontalAlignment="Left" Width="160" Height="50" VerticalAlignment="Top" 
+                          BorderBrush="#FFBDBDBD" FontSize="18"  DisplayMemberPath="" Margin="46,84,0,0"
+                          ItemsSource="{Binding Path=ListaTipo}"
+                          SelectedValuePath=" ">
+                    
+                </ComboBox>
+                <!-- 
+                               <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" 
+                               Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" 
+                               BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  
+                               DisplayMemberPath="tipo_documento" 
+                               SelectedValuePath="id_tipo" 
+                               SelectedValue="{Binding id_tipo}" 
+                               FontSize="18"
+                               IsEnabled="{Binding VersionEnabled}" >
+                                </ComboBox>
+                -->
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 <TextBox x:Name="textBox4" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDeOperacion}" HorizontalAlignment="Left" Height="50" Margin="48,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="350" BorderBrush="#899B9999" FontSize="18" Grid.Column="1"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,-10,0,10" >

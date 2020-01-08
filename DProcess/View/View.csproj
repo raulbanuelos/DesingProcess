@@ -1060,6 +1060,7 @@
     <Compile Include="Services\ViewModel\ConsultarDatosUsuariosVM.cs" />
     <Compile Include="Services\ViewModel\ControlDocumentoViewModel.cs" />
     <Compile Include="Services\ViewModel\ConversionFTFDViewModel.cs" />
+    <Compile Include="Services\ViewModel\CrearCotizacionViewModel.cs" />
     <Compile Include="Services\ViewModel\CutterCamTurnVM.cs" />
     <Compile Include="Services\ViewModel\CutterSpacerS_VM.cs" />
     <Compile Include="Services\ViewModel\CutterSplitterVM.cs" />
