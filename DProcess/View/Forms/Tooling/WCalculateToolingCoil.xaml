@@ -7,9 +7,9 @@
         BorderThickness="1" BorderBrush="Blue"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d" xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" ResizeMode="NoResize"
         Title="WCalculateToolingCoil" Height="520" Width="700">
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -21,13 +21,14 @@
             <ColumnDefinition Width="10"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="True">
+        <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="125"></RowDefinition>
                 <RowDefinition Height="300"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical" Grid.Row="0">
+                <TextBox materialDesign:HintAssist.Hint="Componente" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding Componente}" Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                 <TextBox materialDesign:HintAssist.Hint="Width del alambre (mm)" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding WidthAlambre}" Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                 <TextBox materialDesign:HintAssist.Hint="Thickness de alambre (mm)" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding ThicknessAlambre}" Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             </StackPanel>
@@ -36,7 +37,7 @@
                     <ColumnDefinition Width="50*"></ColumnDefinition>
                     <ColumnDefinition Width="50*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" ShowGridLines="True">
+                <Grid Grid.Column="0" ShowGridLines="False">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="250"></RowDefinition>
                         <RowDefinition Height="30"></RowDefinition>
@@ -45,7 +46,7 @@
 
                     <RadioButton Grid.Row="1" Content="Cuadrado" GroupName="seleccion" Cursor="Hand" IsChecked="{Binding banCuadrado}"></RadioButton>
                 </Grid>
-                <Grid Grid.Column="1" ShowGridLines="True">
+                <Grid Grid.Column="1" ShowGridLines="False">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="250"></RowDefinition>
                         <RowDefinition Height="30"></RowDefinition>

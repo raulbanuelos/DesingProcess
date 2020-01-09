@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -54,10 +55,9 @@ namespace View.Services.ViewModel
         #region Contructor
         public CalculateToolingCoilViewModel()
         {
-            WidthAlambre = 3.055;
-            ThicknessAlambre = 4.63;
-            banCuadrado = true;
-            Componente = "PCC-732";
+            WidthAlambre = 0;
+            ThicknessAlambre = 0;
+            Componente = string.Empty;
         }
         #endregion
 
@@ -72,8 +72,9 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
-        private void calcular()
+        private async void calcular()
         {
+            DialogService dialogService = new DialogService();
 
             List<Herramental> ListaHerramental = new List<Herramental>();
 
@@ -88,7 +89,7 @@ namespace View.Services.ViewModel
                 ListaHerramental.Add(herrCenterGuide);
 
                 Herramental herrEntranceGuide = new Herramental();
-                DataManager.GetCOIL_CENTER_GUIDE(WidthAlambre, ThicknessAlambre, out herrCenterGuide, false, true);
+                DataManager.GetCOIL_CENTER_GUIDE(WidthAlambre, ThicknessAlambre, out herrEntranceGuide, false, true);
                 ListaHerramental.Add(herrEntranceGuide);
 
                 Herramental idealExitGuide = new Herramental();
@@ -118,28 +119,25 @@ namespace View.Services.ViewModel
 
                     ExportToExcel.ExportToolCoilTHM(Componente, herrFeed, herrCenterGuide, herrEntranceGuide, idealExitGuide, aux1,aux2,aux3);
                 }
-
                 
-
-
             }
             else
             {
-                //error, enviar mensaje en pantalla.
+                await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
             }
         }
 
         private bool validar()
         {
             if (!banCuadrado && !banTHM)
-            {
                 return false;
-            }
 
             if (WidthAlambre == 0 || ThicknessAlambre == 0)
-            {
                 return false;
-            }
+
+            if (string.IsNullOrEmpty(Componente))
+                return false;
+
             return true;
         }
         #endregion
