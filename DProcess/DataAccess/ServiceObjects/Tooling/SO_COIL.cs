@@ -140,6 +140,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_COIL_FEED_ROLLER
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && b.Activo == true
                                  orderby a.CODIGO descending
@@ -160,7 +161,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
                                      c.VerificacionAnual,
-                                     b.Activo
+                                     b.Activo,
+                                     p.NO_PLANO
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -389,6 +391,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_COIL_CENTER_GUIDE
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && radial > a.RADIAL_WIRE_MIN && radial <= a.RADIAL_WIRE_MAX && b.Activo == true &&
                                  a.CENTER_GUIDE == banCenter && a.ENTRANCE_GUIDE == banEntrance
@@ -409,7 +412,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
                                      c.VerificacionAnual,
-                                     b.Activo
+                                     b.Activo,
+                                     p.NO_PLANO
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -640,6 +644,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_EXIT_GUIDE
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && radial > a.RADIAL_WIRE_MIN && radial <= a.RADIAL_WIRE_MAX && b.Activo == true
                                  select new
@@ -658,7 +663,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
                                      c.VerificacionAnual,
-                                     b.Activo
+                                     b.Activo,
+                                     p.NO_PLANO
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -871,6 +877,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && b.Activo == true
                                  select new
@@ -887,7 +894,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
                                      c.VerificacionAnual,
-                                     b.Activo
+                                     b.Activo,
+                                     p.NO_PLANO
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1101,6 +1109,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && b.Activo == true
                                  select new
@@ -1119,7 +1128,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
                                      c.VerificacionAnual,
-                                     b.Activo
+                                     b.Activo,
+                                     p.NO_PLANO
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1335,6 +1345,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX  && b.Activo == true
                                  select new
@@ -1353,7 +1364,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
                                      c.VerificacionAnual,
-                                     b.Activo
+                                     b.Activo,
+                                     p.NO_PLANO
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;
@@ -1568,6 +1580,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Ejecutamos la consulta y lo guardamos en una variable
                     var Lista = (from a in Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && b.Activo == true
                                  select new
@@ -1586,7 +1599,8 @@ namespace DataAccess.ServiceObjects.Tooling
                                      c.idClasificacion,
                                      c.ListaCotasRevisar,
                                      c.VerificacionAnual,
-                                     b.Activo
+                                     b.Activo,
+                                     p.NO_PLANO
                                  }).ToList();
                     //Retornamos la lista
                     return Lista;

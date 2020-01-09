@@ -25,6 +25,7 @@ using System.Data.Entity;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Rectificados_Finos;
 using DataAccess.ServiceObjects.VerificacionAnual;
+using System.Reflection;
 
 namespace Model
 {
@@ -7896,6 +7897,7 @@ namespace Model
                     PropiedadCadena propCode = new PropiedadCadena();
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    propCode.Nombre = "Detalle";
                     herramental.PropiedadesCadena.Add(propCode);
                     idealHerramental.PropiedadesCadena.Add(propCode);
 
@@ -7904,6 +7906,7 @@ namespace Model
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Nombre = "DIMA";
                     herramental.Propiedades.Add(propiedadDimA);
                     idealHerramental.Propiedades.Add(propiedadDimA);
 
@@ -7911,6 +7914,7 @@ namespace Model
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
                     propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Nombre = "DIMB";
                     herramental.Propiedades.Add(propiedadDimB);
                     idealHerramental.Propiedades.Add(propiedadDimB);
 
@@ -7918,6 +7922,7 @@ namespace Model
                     propiedadDimC.Unidad = "Milimeters (mm)";
                     propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
                     propiedadDimC.DescripcionCorta = "Dim C";
+                    propiedadDimC.Nombre = "DIMC";
                     herramental.Propiedades.Add(propiedadDimC);
                     idealHerramental.Propiedades.Add(propiedadDimC);
 
@@ -7925,6 +7930,7 @@ namespace Model
                     propiedadDimD.Unidad = "Milimeters (mm)";
                     propiedadDimD.Valor = (double)tipo.GetProperty("DIMD").GetValue(item, null);
                     propiedadDimD.DescripcionCorta = "Dim D";
+                    propiedadDimD.Nombre = "DIMD";
                     herramental.Propiedades.Add(propiedadDimD);
                     idealHerramental.Propiedades.Add(propiedadDimD);
 
@@ -8173,6 +8179,7 @@ namespace Model
                     PropiedadCadena propCode = new PropiedadCadena();
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    propCode.Nombre = "Detalle";
                     idealCenterGuide.PropiedadesCadena.Add(propCode);
 
                     //Dimesiones
@@ -8180,18 +8187,21 @@ namespace Model
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Nombre = "DIMA";
                     idealCenterGuide.Propiedades.Add(propiedadDimA);
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
                     propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Nombre = "DIMB";
                     idealCenterGuide.Propiedades.Add(propiedadDimB);
 
                     Propiedad propiedadDimC = new Propiedad();
                     propiedadDimC.Unidad = "Milimeters (mm)";
                     propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
                     propiedadDimC.DescripcionCorta = "Dim C";
+                    propiedadDimC.Nombre = "DIMC";
                     idealCenterGuide.Propiedades.Add(propiedadDimC);
 
                     idealCenterGuide.Encontrado = true;
@@ -8206,6 +8216,16 @@ namespace Model
 
             if (!idealCenterGuide.Encontrado)
                 idealCenterGuide.DescripcionRuta = "CENTER GUIDE " + "DETALLE DESCONOCIDO";
+
+            idealCenterGuide.clasificacionHerramental.CantidadUtilizar = banEntrance ? 1 : idealCenterGuide.clasificacionHerramental.CantidadUtilizar;
+
+            if (idealCenterGuide.DescripcionGeneral == "GUIA CENTRAL Y ENTRADA SIN CODIFICAR")
+                idealCenterGuide.Plano = banCenter && !banEntrance ? "2487- 011- 00- 3" : "2487- 013- 00- 3";
+
+            if (idealCenterGuide.DescripcionGeneral == "GUIA CENTRAL Y ENTRADA SIN CODIFICAR")
+                idealCenterGuide.DescripcionGeneral = banCenter && !banEntrance ? "GUIA CENTRAL SIN CODIFICAR" : "GUIA DE ENTRADA SIN CODIFICAR";
+
+            
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Center_Guide");
         }
@@ -8453,6 +8473,7 @@ namespace Model
                     PropiedadCadena propCode = new PropiedadCadena();
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    propCode.Nombre = "Detalle";
                     idealHerramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones 
@@ -8460,18 +8481,21 @@ namespace Model
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Nombre = "DIMA";
                     idealHerramental.Propiedades.Add(propiedadDimA);
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
                     propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Nombre = "DIMB";
                     idealHerramental.Propiedades.Add(propiedadDimB);
 
                     Propiedad propiedadDimC = new Propiedad();
                     propiedadDimC.Unidad = "Milimeters (mm)";
                     propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
                     propiedadDimC.DescripcionCorta = "Dim C";
+                    propiedadDimC.Nombre = "DIMC";
                     idealHerramental.Propiedades.Add(propiedadDimC);
 
                     //Mapeamos el valor a DescipcionRuta.
@@ -8731,6 +8755,7 @@ namespace Model
                     //Code
                     PropiedadCadena propCode = new PropiedadCadena();
                     propCode.DescripcionCorta = "Detalle";
+                    propCode.Nombre = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
@@ -8738,6 +8763,7 @@ namespace Model
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.Nombre = "DIMB";
                     propiedadDimB.DescripcionCorta = "Dim B";
                     herramental.Propiedades.Add(propiedadDimB);
 
@@ -8951,6 +8977,7 @@ namespace Model
                     PropiedadCadena propCode = new PropiedadCadena();
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    propCode.Nombre = "Detalle";
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //dimensiones
@@ -8958,17 +8985,20 @@ namespace Model
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Nombre = "DIMA";
                     herramental.Propiedades.Add(propiedadDimA);
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
                     propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Nombre = "DIMB";
                     herramental.Propiedades.Add(propiedadDimB);
 
                     Propiedad propiedadDimC = new Propiedad();
                     propiedadDimC.Unidad = "Milimeters (mm)";
                     propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.Nombre = "DIMC";
                     propiedadDimC.DescripcionCorta = "Dim C";
                     herramental.Propiedades.Add(propiedadDimC);
 
@@ -9206,6 +9236,7 @@ namespace Model
                     PropiedadCadena propCode = new PropiedadCadena();
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    propCode.Nombre = "Detalle";
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
@@ -9213,18 +9244,21 @@ namespace Model
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Nombre = "DIMA";
                     herramental.Propiedades.Add(propiedadDimA);
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
                     propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Nombre = "DIMB";
                     herramental.Propiedades.Add(propiedadDimB);
 
                     Propiedad propiedadDimC = new Propiedad();
                     propiedadDimC.Unidad = "Milimeters (mm)";
                     propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
                     propiedadDimC.DescripcionCorta = "Dim C";
+                    propiedadDimC.Nombre = "DIMC";
                     herramental.Propiedades.Add(propiedadDimC);
 
                     //Mapeamos el valor a DescipcionRuta.
@@ -9460,6 +9494,7 @@ namespace Model
                     PropiedadCadena propCode = new PropiedadCadena();
                     propCode.DescripcionCorta = "Detalle";
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    propCode.Nombre = "Detalle";
                     herramental.PropiedadesCadena.Add(propCode);
 
                     //Dimensiones
@@ -9467,18 +9502,21 @@ namespace Model
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
                     propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Nombre = "DIMA";
                     herramental.Propiedades.Add(propiedadDimA);
 
                     Propiedad propiedadDimB = new Propiedad();
                     propiedadDimB.Unidad = "Milimeters (mm)";
                     propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
                     propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Nombre = "DIMB";
                     herramental.Propiedades.Add(propiedadDimB);
 
                     Propiedad propiedadDimC = new Propiedad();
                     propiedadDimC.Unidad = "Milimeters (mm)";
                     propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
                     propiedadDimC.DescripcionCorta = "Dim C";
+                    propiedadDimC.Nombre = "DIMC";
                     herramental.Propiedades.Add(propiedadDimC);
 
                     //Mapeamos el valor a DescipcionRuta.
@@ -13437,8 +13475,11 @@ namespace Model
                         herramental.clasificacionHerramental.VerificacionAnual = (bool)tipo.GetProperty("VerificacionAnual").GetValue(elemento, null);
                         herramental.clasificacionHerramental.VidaUtil = (int)tipo.GetProperty("VidaUtil").GetValue(elemento, null);
 
-                        //Falta agregar la columna plano.
-                        herramental.Plano = string.Empty;
+                        //Obtenemos la propiedad de NO_PLANO, para validar si esta agregada en la consulta de Busqueda. Falta agregar este campo en todas las consultas de busqueda de Herramental. SO.
+                        PropertyInfo propiedadPlano = tipo.GetProperty("NO_PLANO");
+                        if (propiedadPlano != null)
+                            herramental.Plano = (string)tipo.GetProperty("NO_PLANO").GetValue(elemento, null);
+                        
                         herramental.Propiedades = new ObservableCollection<Propiedad>();
                     }
 
@@ -13486,7 +13527,10 @@ namespace Model
                     herramental.clasificacionHerramental.VidaUtil = (int)tipo.GetProperty("VidaUtil").GetValue(elemento, null);
 
                     //Falta agregar la columna plano.
-                    herramental.Plano = string.Empty;
+                    PropertyInfo propiedadPlano = tipo.GetProperty("NO_PLANO");
+                    if (propiedadPlano != null)
+                        herramental.Plano = (string)tipo.GetProperty("NO_PLANO").GetValue(elemento, null);
+
                     herramental.Propiedades = new ObservableCollection<Propiedad>();
                 }
             }
