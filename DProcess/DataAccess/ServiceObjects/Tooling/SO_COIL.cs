@@ -379,7 +379,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="width"></param>
         /// <param name="radial"></param>
         /// <returns></returns>
-        public IList GetCOIL_CENTER_GUIDE(double width, double radial)
+        public IList GetCOIL_CENTER_GUIDE(double width, double radial, bool banCenter, bool banEntrance)
         {
             try
             {
@@ -390,7 +390,8 @@ namespace DataAccess.ServiceObjects.Tooling
                     var Lista = (from a in Conexion.TBL_COIL_CENTER_GUIDE
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && radial > a.RADIAL_WIRE_MIN && radial <= a.RADIAL_WIRE_MAX && b.Activo == true
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && radial > a.RADIAL_WIRE_MIN && radial <= a.RADIAL_WIRE_MAX && b.Activo == true &&
+                                 a.CENTER_GUIDE == banCenter && a.ENTRANCE_GUIDE == banEntrance
                                  orderby a.CODIGO descending
                                  select new
                                  {
@@ -420,13 +421,13 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
-        
+
         /// <summary>
-        /// Método que obtiene todos los registros, se filtran por el código o descripción
+        /// Método que obtiene todos los registros, se filtran por el código o descripción. banCenter = true si se requiere los herramentales Center Guide, banEntrance = true Si se requiere el Herramental Entrance Guide
         /// </summary>
         /// <param name="textoBusq"></param>
         /// <returns></returns>
-        public IList GetAllCOIL_CENTER_GUIDE(string textoBusq)
+        public IList GetAllCOIL_CENTER_GUIDE(string textoBusq, bool banCenter, bool banEntrance)
         {
             try
             {
@@ -436,7 +437,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Ejecutamos la consulta y guardamos el resultado en una variable
                     var Lista = (from c in Conexion.TBL_COIL_CENTER_GUIDE
                                  join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
-                                 where c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq)
+                                 where c.ENTRANCE_GUIDE == banEntrance && c.CENTER_GUIDE == banCenter && ( c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq) )
                                  select new
                                  {
                                      CODIGO = m.Codigo,

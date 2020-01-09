@@ -10,6 +10,8 @@ namespace View.Services.ViewModel
     {
         #region Attributtes
         DialogService dialog;
+        bool banCenter;
+        bool banEntrance;
         #endregion
 
         #region INotifyPropertyChanged Métodos
@@ -94,7 +96,7 @@ namespace View.Services.ViewModel
         /// <param name="texto"></param>
         private void BuscarCoil_Center(string texto)
         {
-            ListaHerramentales = DataManager.GetALLCOIL_CENTER_GUIDE(texto);
+            ListaHerramentales = DataManager.GetALLCOIL_CENTER_GUIDE(texto, banCenter,banEntrance);
         }
 
         /// <summary>
@@ -110,7 +112,7 @@ namespace View.Services.ViewModel
             if (_width != 0 & _radial != 0)
             {              
                 //Obtiene la lista de los herramentales optimos
-                ListaOptimos = DataManager.GetCOIL_CENTER_GUIDE(_width, _radial, out idealCenterGuide);
+                ListaOptimos = DataManager.GetCOIL_CENTER_GUIDE(_width, _radial, out idealCenterGuide,banCenter,banEntrance);
                 //obtiene el mejor herramental
                 ListaMejores = DataManager.SelectBestCoil(ListaOptimos);
 
@@ -126,8 +128,10 @@ namespace View.Services.ViewModel
 
         #region Constructor
 
-        public CoilCenterG_VM()
+        public CoilCenterG_VM(bool _banCenter, bool _banEntrace)
         {
+            banCenter = _banCenter;
+            banEntrance = _banEntrace;
             BuscarCoil_Center(string.Empty);
             dialog = new DialogService();
         }

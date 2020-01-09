@@ -130,6 +130,17 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
+        /// Comando para abrir la ventana de Coil center guide
+        /// </summary>
+        public ICommand IrCoilEG
+        {
+            get
+            {
+                return new RelayCommand(o => irCoilEG());
+            }
+        }
+
+        /// <summary>
         /// Comando para abrir la ventana de exit guide
         /// </summary>
         public ICommand IrExitGuide
@@ -619,7 +630,15 @@ namespace View.Services.ViewModel
         private void irCoilCG()
         {
             WCoil_D wcoil_dos = new WCoil_D();
-            CoilCenterG_VM vm = new CoilCenterG_VM();
+            CoilCenterG_VM vm = new CoilCenterG_VM(true,false);
+            wcoil_dos.DataContext = vm;
+            wcoil_dos.ShowDialog();
+        }
+
+        private void irCoilEG()
+        {
+            WCoil_D wcoil_dos = new WCoil_D();
+            CoilCenterG_VM vm = new CoilCenterG_VM(false, true);
             wcoil_dos.DataContext = vm;
             wcoil_dos.ShowDialog();
         }

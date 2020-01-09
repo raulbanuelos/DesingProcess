@@ -25,6 +25,7 @@ namespace DataAccess.ServiceObjects.Tooling
             this.CamBK_ = new HashSet<CamBK_>();
             this.CamisaMoly_ = new HashSet<CamisaMoly_>();
             this.ChuckSplitter = new HashSet<ChuckSplitter>();
+            this.ClosingBandAnillos_ = new HashSet<ClosingBandAnillos_>();
             this.ClosingBandLapeado = new HashSet<ClosingBandLapeado>();
             this.ClosingSleeveBK = new HashSet<ClosingSleeveBK>();
             this.CollarBK = new HashSet<CollarBK>();
@@ -35,48 +36,46 @@ namespace DataAccess.ServiceObjects.Tooling
             this.CutterCamTurn = new HashSet<CutterCamTurn>();
             this.CutterSpacerSplitter = new HashSet<CutterSpacerSplitter>();
             this.CutterSplitter = new HashSet<CutterSplitter>();
+            this.DrillEngrave_ = new HashSet<DrillEngrave_>();
             this.FrontRearCollarAnillos_ = new HashSet<FrontRearCollarAnillos_>();
             this.GuideBarFinGrind = new HashSet<GuideBarFinGrind>();
             this.GuideBarFirstRoughGrind = new HashSet<GuideBarFirstRoughGrind>();
             this.GuideBarSecondRoughGrind = new HashSet<GuideBarSecondRoughGrind>();
+            this.GuidePlateBK_ = new HashSet<GuidePlateBK_>();
             this.GuillotinaBK_ = new HashSet<GuillotinaBK_>();
             this.GuillotinaEngrave_ = new HashSet<GuillotinaEngrave_>();
             this.GuillotinaSIM_ = new HashSet<GuillotinaSIM_>();
             this.LoadingGuideAnillos_ = new HashSet<LoadingGuideAnillos_>();
+            this.TBL_BACKUP_RING_THOMPSON_SEGMENTOS = new HashSet<TBL_BACKUP_RING_THOMPSON_SEGMENTOS>();
             this.ProtectorInfMoly_ = new HashSet<ProtectorInfMoly_>();
             this.ProtectorSupMoly_ = new HashSet<ProtectorSupMoly_>();
             this.PusherSIM_ = new HashSet<PusherSIM_>();
             this.ShieldBK_ = new HashSet<ShieldBK_>();
+            this.TBL_BARREL_GRADE_BUSHING = new HashSet<TBL_BARREL_GRADE_BUSHING>();
+            this.TBL_BARREL_GRADE_PUSHER = new HashSet<TBL_BARREL_GRADE_PUSHER>();
+            this.TBL_BOBINADO_CENTER_WAFER = new HashSet<TBL_BOBINADO_CENTER_WAFER>();
+            this.TBL_BOBINADO_LOWER_ROLL = new HashSet<TBL_BOBINADO_LOWER_ROLL>();
+            this.TBL_BOBINADO_TARGET_ROLL = new HashSet<TBL_BOBINADO_TARGET_ROLL>();
+            this.TBL_BOBINADO_UPPER_ROLL = new HashSet<TBL_BOBINADO_UPPER_ROLL>();
+            this.TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS = new HashSet<TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS>();
+            this.TBL_BUSHING_THOMPSON_SEGMENTOS = new HashSet<TBL_BUSHING_THOMPSON_SEGMENTOS>();
+            this.TBL_DISCOS_THOMPSON_SEGMENTOS = new HashSet<TBL_DISCOS_THOMPSON_SEGMENTOS>();
+            this.TBL_COIL_CENTER_GUIDE = new HashSet<TBL_COIL_CENTER_GUIDE>();
             this.TBL_COIL_FEED_ROLLER = new HashSet<TBL_COIL_FEED_ROLLER>();
             this.TBL_EXIT_GUIDE = new HashSet<TBL_EXIT_GUIDE>();
             this.TBL_EXTERNAL_GUIDE_ROLLER_1PIECE = new HashSet<TBL_EXTERNAL_GUIDE_ROLLER_1PIECE>();
             this.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 = new HashSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1>();
             this.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2 = new HashSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2>();
             this.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 = new HashSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3>();
+            this.TBL_FEED_WHEEL_RECTIFICADOS_FINOS = new HashSet<TBL_FEED_WHEEL_RECTIFICADOS_FINOS>();
+            this.TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS = new HashSet<TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS>();
+            this.TBL_MANGA_PVD_WASH = new HashSet<TBL_MANGA_PVD_WASH>();
+            this.TBL_MANGA_LAPEADO_SEGMENTOS = new HashSet<TBL_MANGA_LAPEADO_SEGMENTOS>();
+            this.TBL_RUBBER_LAPEADO_SEGMENTOS = new HashSet<TBL_RUBBER_LAPEADO_SEGMENTOS>();
+            this.TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS = new HashSet<TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS>();
             this.TBL_SHIM_OF_THE_CUT_SYSTEM = new HashSet<TBL_SHIM_OF_THE_CUT_SYSTEM>();
             this.UretanoSplitter = new HashSet<UretanoSplitter>();
             this.WorkCam = new HashSet<WorkCam>();
-            this.TBL_BOBINADO_LOWER_ROLL = new HashSet<TBL_BOBINADO_LOWER_ROLL>();
-            this.TBL_BOBINADO_UPPER_ROLL = new HashSet<TBL_BOBINADO_UPPER_ROLL>();
-            this.TBL_BOBINADO_CENTER_WAFER = new HashSet<TBL_BOBINADO_CENTER_WAFER>();
-            this.TBL_BARREL_GRADE_PUSHER = new HashSet<TBL_BARREL_GRADE_PUSHER>();
-            this.TBL_BARREL_GRADE_BUSHING = new HashSet<TBL_BARREL_GRADE_BUSHING>();
-            this.TBL_BOBINADO_TARGET_ROLL = new HashSet<TBL_BOBINADO_TARGET_ROLL>();
-            this.DrillEngrave_ = new HashSet<DrillEngrave_>();
-            this.TBL_MANGA_LAPEADO_SEGMENTOS = new HashSet<TBL_MANGA_LAPEADO_SEGMENTOS>();
-            this.TBL_RUBBER_LAPEADO_SEGMENTOS = new HashSet<TBL_RUBBER_LAPEADO_SEGMENTOS>();
-            this.TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS = new HashSet<TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS>();
-            this.TBL_BACKUP_RING_THOMPSON_SEGMENTOS = new HashSet<TBL_BACKUP_RING_THOMPSON_SEGMENTOS>();
-            this.TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS = new HashSet<TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS>();
-            this.TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS = new HashSet<TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS>();
-            this.TBL_DISCOS_THOMPSON_SEGMENTOS = new HashSet<TBL_DISCOS_THOMPSON_SEGMENTOS>();
-            this.TBL_BUSHING_THOMPSON_SEGMENTOS = new HashSet<TBL_BUSHING_THOMPSON_SEGMENTOS>();
-            this.ClosingBandAnillos_ = new HashSet<ClosingBandAnillos_>();
-            this.TBL_MANGA_PVD_WASH = new HashSet<TBL_MANGA_PVD_WASH>();
-            this.TBL_FEED_WHEEL_RECTIFICADOS_FINOS = new HashSet<TBL_FEED_WHEEL_RECTIFICADOS_FINOS>();
-            this.CollarSpacer1 = new HashSet<CollarSpacer>();
-            this.GuidePlateBK_ = new HashSet<GuidePlateBK_>();
-            this.TBL_COIL_CENTER_GUIDE = new HashSet<TBL_COIL_CENTER_GUIDE>();
         }
     
         public string Codigo { get; set; }
@@ -107,6 +106,8 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<ChuckSplitter> ChuckSplitter { get; set; }
         public virtual ClasificacionHerramental ClasificacionHerramental { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingBandAnillos_> ClosingBandAnillos_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingBandLapeado> ClosingBandLapeado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingSleeveBK> ClosingSleeveBK { get; set; }
@@ -127,6 +128,8 @@ namespace DataAccess.ServiceObjects.Tooling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CutterSplitter> CutterSplitter { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DrillEngrave_> DrillEngrave_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FrontRearCollarAnillos_> FrontRearCollarAnillos_ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GuideBarFinGrind> GuideBarFinGrind { get; set; }
@@ -134,6 +137,8 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<GuideBarFirstRoughGrind> GuideBarFirstRoughGrind { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GuideBarSecondRoughGrind> GuideBarSecondRoughGrind { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GuidePlateBK_> GuidePlateBK_ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GuillotinaBK_> GuillotinaBK_ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -143,6 +148,8 @@ namespace DataAccess.ServiceObjects.Tooling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoadingGuideAnillos_> LoadingGuideAnillos_ { get; set; }
         public virtual DiscoDiskus_ DiscoDiskus_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BACKUP_RING_THOMPSON_SEGMENTOS> TBL_BACKUP_RING_THOMPSON_SEGMENTOS { get; set; }
         public virtual PLANO_HERRAMENTAL PLANO_HERRAMENTAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProtectorInfMoly_> ProtectorInfMoly_ { get; set; }
@@ -152,6 +159,26 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual ICollection<PusherSIM_> PusherSIM_ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShieldBK_> ShieldBK_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BARREL_GRADE_BUSHING> TBL_BARREL_GRADE_BUSHING { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BARREL_GRADE_PUSHER> TBL_BARREL_GRADE_PUSHER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BOBINADO_CENTER_WAFER> TBL_BOBINADO_CENTER_WAFER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BOBINADO_LOWER_ROLL> TBL_BOBINADO_LOWER_ROLL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BOBINADO_TARGET_ROLL> TBL_BOBINADO_TARGET_ROLL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BOBINADO_UPPER_ROLL> TBL_BOBINADO_UPPER_ROLL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS> TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_BUSHING_THOMPSON_SEGMENTOS> TBL_BUSHING_THOMPSON_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_DISCOS_THOMPSON_SEGMENTOS> TBL_DISCOS_THOMPSON_SEGMENTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_COIL_CENTER_GUIDE> TBL_COIL_CENTER_GUIDE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_COIL_FEED_ROLLER> TBL_COIL_FEED_ROLLER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -165,52 +192,22 @@ namespace DataAccess.ServiceObjects.Tooling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_SHIM_OF_THE_CUT_SYSTEM> TBL_SHIM_OF_THE_CUT_SYSTEM { get; set; }
+        public virtual ICollection<TBL_FEED_WHEEL_RECTIFICADOS_FINOS> TBL_FEED_WHEEL_RECTIFICADOS_FINOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UretanoSplitter> UretanoSplitter { get; set; }
+        public virtual ICollection<TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS> TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkCam> WorkCam { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_BOBINADO_LOWER_ROLL> TBL_BOBINADO_LOWER_ROLL { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_BOBINADO_UPPER_ROLL> TBL_BOBINADO_UPPER_ROLL { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_BOBINADO_CENTER_WAFER> TBL_BOBINADO_CENTER_WAFER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_BARREL_GRADE_PUSHER> TBL_BARREL_GRADE_PUSHER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_BARREL_GRADE_BUSHING> TBL_BARREL_GRADE_BUSHING { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_BOBINADO_TARGET_ROLL> TBL_BOBINADO_TARGET_ROLL { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DrillEngrave_> DrillEngrave_ { get; set; }
+        public virtual ICollection<TBL_MANGA_PVD_WASH> TBL_MANGA_PVD_WASH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_MANGA_LAPEADO_SEGMENTOS> TBL_MANGA_LAPEADO_SEGMENTOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_RUBBER_LAPEADO_SEGMENTOS> TBL_RUBBER_LAPEADO_SEGMENTOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS> TBL_CLAMP_PLATE_THOMPSON_SEGMENTOS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_BACKUP_RING_THOMPSON_SEGMENTOS> TBL_BACKUP_RING_THOMPSON_SEGMENTOS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS> TBL_PLATO_EMPUJADOR_THOMPSON_SEGMENTOS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS> TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_DISCOS_THOMPSON_SEGMENTOS> TBL_DISCOS_THOMPSON_SEGMENTOS { get; set; }
+        public virtual ICollection<TBL_SHIM_OF_THE_CUT_SYSTEM> TBL_SHIM_OF_THE_CUT_SYSTEM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_BUSHING_THOMPSON_SEGMENTOS> TBL_BUSHING_THOMPSON_SEGMENTOS { get; set; }
+        public virtual ICollection<UretanoSplitter> UretanoSplitter { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ClosingBandAnillos_> ClosingBandAnillos_ { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_MANGA_PVD_WASH> TBL_MANGA_PVD_WASH { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_FEED_WHEEL_RECTIFICADOS_FINOS> TBL_FEED_WHEEL_RECTIFICADOS_FINOS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CollarSpacer> CollarSpacer1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GuidePlateBK_> GuidePlateBK_ { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_COIL_CENTER_GUIDE> TBL_COIL_CENTER_GUIDE { get; set; }
+        public virtual ICollection<WorkCam> WorkCam { get; set; }
     }
 }

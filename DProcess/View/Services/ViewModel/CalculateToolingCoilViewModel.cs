@@ -26,13 +26,22 @@ namespace View.Services.ViewModel
             set { _ThicknessAlambre = value; NotifyChange("ThicknessAlambre"); }
         }
 
+        private string _Componente;
+
+        public string Componente
+        {
+            get { return _Componente; }
+            set { _Componente = value; NotifyChange("Componente"); }
+        }
+
+
         private bool _banCuadrado;
         public bool banCuadrado
         {
             get { return _banCuadrado; }
             set { _banCuadrado = value; NotifyChange("banCuadrado"); }
         }
-        
+
         private bool _banTHM;
         public bool banTHM
         {
@@ -45,7 +54,10 @@ namespace View.Services.ViewModel
         #region Contructor
         public CalculateToolingCoilViewModel()
         {
-
+            WidthAlambre = 3.055;
+            ThicknessAlambre = 4.63;
+            banCuadrado = true;
+            Componente = "PCC-732";
         }
         #endregion
 
@@ -62,20 +74,52 @@ namespace View.Services.ViewModel
         #region Methods
         private void calcular()
         {
+
+            List<Herramental> ListaHerramental = new List<Herramental>();
+
             if (validar())
             {
-                //calcular
-                //Feed Roller
-                //Declaramos un objeto el cual almacenará el herramental ideal.
                 Herramental herrFeed = new Herramental();
-
-                //Obtiene la lista de los herramentales optimos
                 DataManager.GetCOIL_Feed_Roller(WidthAlambre, out herrFeed);
+                ListaHerramental.Add(herrFeed);
 
                 Herramental herrCenterGuide = new Herramental();
-                DataManager.GetCOIL_CENTER_GUIDE(WidthAlambre, ThicknessAlambre, out herrCenterGuide);
+                DataManager.GetCOIL_CENTER_GUIDE(WidthAlambre, ThicknessAlambre, out herrCenterGuide,true,false);
+                ListaHerramental.Add(herrCenterGuide);
 
+                Herramental herrEntranceGuide = new Herramental();
+                DataManager.GetCOIL_CENTER_GUIDE(WidthAlambre, ThicknessAlambre, out herrCenterGuide, false, true);
+                ListaHerramental.Add(herrEntranceGuide);
 
+                Herramental idealExitGuide = new Herramental();
+                DataManager.GetEXIT_GUIDE(WidthAlambre, ThicknessAlambre, out idealExitGuide);
+                ListaHerramental.Add(idealExitGuide);
+
+                if (banCuadrado)
+                {
+                    Herramental herr1Piece = new Herramental();
+                    DataManager.GetEXTERNAL_GR_1P(WidthAlambre, out herr1Piece);
+                    ListaHerramental.Add(herr1Piece);
+                    ExportToExcel.ExportToolCoilCuadrado(Componente, herrFeed, herrCenterGuide, herrEntranceGuide, idealExitGuide, herr1Piece);
+                }
+                else
+                {
+                    Herramental aux1 = new Herramental();
+                    DataManager.GetEXTERNAL_GR_3P_1(WidthAlambre, out aux1);
+                    ListaHerramental.Add(aux1);
+
+                    Herramental aux2 = new Herramental();
+                    DataManager.GetEXTERNAL_GR_3P_2(WidthAlambre, out aux2);
+                    ListaHerramental.Add(aux2);
+
+                    Herramental aux3 = new Herramental();
+                    DataManager.GetEXTERNAL_GR_3P_3(WidthAlambre, out aux3);
+                    ListaHerramental.Add(aux3);
+
+                    ExportToExcel.ExportToolCoilTHM(Componente, herrFeed, herrCenterGuide, herrEntranceGuide, idealExitGuide, aux1,aux2,aux3);
+                }
+
+                
 
 
             }
@@ -83,7 +127,7 @@ namespace View.Services.ViewModel
             {
                 //error, enviar mensaje en pantalla.
             }
-        } 
+        }
 
         private bool validar()
         {

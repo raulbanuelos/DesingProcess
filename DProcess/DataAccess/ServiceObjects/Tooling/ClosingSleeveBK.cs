@@ -18,7 +18,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public string Codigo { get; set; }
         public Nullable<double> DimB { get; set; }
         public string Plano { get; set; }
-        public int ID_CLOSINGSLEEVE_BK1 { get; set; }
     
         public virtual MaestroHerramentales MaestroHerramentales { get; set; }
     }

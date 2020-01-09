@@ -23,6 +23,5 @@ namespace DataAccess.ServiceObjects.Tooling
         public Nullable<double> RangoDiaMin { get; set; }
         public Nullable<double> RangoDiaMax { get; set; }
         public int ident { get; set; }
-        public int Id_CriGillBK1 { get; set; }
     }
 }

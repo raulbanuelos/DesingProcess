@@ -8140,12 +8140,12 @@ namespace Model
         }
 
         /// <summary>
-        /// Obtiene las propiedades de un registro de la tabla COIL_CENTER_GUIDE, de acuerdo al width y radial
+        /// Obtiene las propiedades de un registro de la tabla COIL_CENTER_GUIDE, de acuerdo al width y radial. banCenter = true si se requiere los herramentales Center Guide, banEntrance = true Si se requiere el Herramental Entrance Guide
         /// </summary>
         /// <param name="widthAlambre">Width de la materia prima seleccionada. (Milímetros)</param>
         /// <param name="radial">Thickness de la materia prima seleccionada. (Milímetros)</param>
         /// <returns></returns>
-        public static DataTable GetCOIL_CENTER_GUIDE(double widthAlambre, double radial, out Herramental idealCenterGuide)
+        public static DataTable GetCOIL_CENTER_GUIDE(double widthAlambre, double radial, out Herramental idealCenterGuide, bool banCenter, bool banEntrance)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -8155,7 +8155,7 @@ namespace Model
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
-            IList informacionBD = ServicioCoil.GetCOIL_CENTER_GUIDE(widthAlambre, radial);
+            IList informacionBD = ServicioCoil.GetCOIL_CENTER_GUIDE(widthAlambre, radial, banCenter,banEntrance);
             //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
@@ -8211,11 +8211,11 @@ namespace Model
         }
 
         /// <summary>
-        /// Método que obtiene todos los registros de la tabla  COIL_CENTER_GUIDE de acuerdo al texto de búsqueda
+        /// Método que obtiene todos los registros de la tabla  COIL_CENTER_GUIDE de acuerdo al texto de búsqueda. banCenter = true si se requiere los herramentales Center Guide, banEntrance = true Si se requiere el Herramental Entrance Guide
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public static DataTable GetALLCOIL_CENTER_GUIDE(string texto)
+        public static DataTable GetALLCOIL_CENTER_GUIDE(string texto, bool banCenter, bool banEntrance)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -8223,7 +8223,7 @@ namespace Model
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
-            IList informacionBD = ServicioCoil.GetAllCOIL_CENTER_GUIDE(texto);
+            IList informacionBD = ServicioCoil.GetAllCOIL_CENTER_GUIDE(texto, banCenter,banEntrance);
             //Si la lista es diferente de nulo
             if (informacionBD != null)
             {

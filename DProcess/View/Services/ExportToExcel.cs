@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model;
 using Excel = Microsoft.Office.Interop.Excel;
 
 
@@ -11,6 +12,68 @@ namespace View.Services
 {
     public static class ExportToExcel
     {
+
+        public static string  ExportToolCoilTHM(string componente, Herramental herrFeed, Herramental herrCenterGuide, Herramental herrEntranceGuide, Herramental idealExitGuide, Herramental aux1, Herramental aux2, Herramental aux3)
+        {
+            try
+            {
+                //Creamos una instancia de la aplicación.
+                Excel.Application ExcelApp = new Excel.Application();
+
+                //Crea un nuevo documento.
+                Excel.Workbook ExcelWork = ExcelApp.Workbooks.Add();
+
+                //Añadimos una nueva hoja de cálculo 
+                Excel.Worksheet ExcelWoorkSheet = ExcelWork.Sheets.Add();
+
+
+
+                //Muestra el documento.
+                ExcelApp.Visible = true;
+
+                return "Ok";
+            }
+            catch (Exception ex)
+            {
+                //Retorna el error.
+                return ex.Message;
+            }
+        }
+
+        public static string  ExportToolCoilCuadrado(string componente, Herramental herrFeed, Herramental herrCenterGuide, Herramental herrEntranceGuide, Herramental idealExitGuide, Herramental herr1Piece)
+        {
+            try
+            {
+                //Creamos una instancia de la aplicación.
+                Excel.Application ExcelApp = new Excel.Application();
+
+                //Crea un nuevo documento.
+                Excel.Workbook ExcelWork = ExcelApp.Workbooks.Add();
+
+                //Añadimos una nueva hoja de cálculo 
+                Excel.Worksheet ExcelWoorkSheet = ExcelWork.Sheets.Add();
+
+                ExcelWoorkSheet.Cells[4, 2] = "Componente";
+                ExcelWoorkSheet.Range["B4", "C4"].Merge();
+                
+                ExcelWoorkSheet.Cells[4, 4] = componente;
+                ExcelWoorkSheet.Range["D4", "J4"].Merge();
+                
+
+
+
+                //Muestra el documento.
+                ExcelApp.Visible = true;
+
+                return "Ok";
+            }
+            catch (Exception ex)
+            {
+                //Retorna el error.
+                return ex.Message;
+            }
+        }
+
         /// <summary>
         /// Método para exportar un archivo excel desde un dataset
         /// </summary>
@@ -124,5 +187,7 @@ namespace View.Services
                 }
             });
            }
+
+        
     }
 }
