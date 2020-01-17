@@ -15,59 +15,29 @@
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid>
-            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="91*"/>
+                <ColumnDefinition Width="214*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0" Grid.ColumnSpan="2">
                 <Menu>
-                    <MenuItem Header="Archivo">
-                        <MenuItem Header="_Salir" />
+                    <MenuItem Header="{x:Static recursos:StringResources.lblArchivo}">
+                        <MenuItem Header="{x:Static recursos:StringResources.lblSalir}" />
                     </MenuItem>
-                    <MenuItem Header="Herramientas">
-                        <MenuItem Header="Ingresar listas de centros de trabajo" />
+                    <MenuItem Header="{x:Static recursos:StringResources.lblHerramientas}">
+                        <MenuItem  Header="Ingresar Lista de Centros de Trabajo" Command="{Binding IrListaCentroTrabajo}" />
+                        <!--Command="{Binding Ir}-->
                     </MenuItem>
                 </Menu>
             </StackPanel>
-
-            <Label Content="{x:Static recursos:StringResources.lblOperaciones}"  FontSize="20" FontFamily="Calibri" FontWeight="Bold" Margin="20,47" />
-            <StackPanel Orientation="Horizontal">
-                <ComboBox materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCentroDeTrabajo}" 
-                          HorizontalAlignment="Left" Width="160" Height="50" VerticalAlignment="Top" 
-                          BorderBrush="#FFBDBDBD" FontSize="18"  DisplayMemberPath="" Margin="46,84,0,0"
-                          ItemsSource="{Binding Path=ListaTipo}"
-                          SelectedValuePath=" ">
-                    
-                </ComboBox>
-                <!-- 
-                               <ComboBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblTipoDocumento}" 
-                               Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="50" Width="420" 
-                               BorderBrush="#FFBDBDBD" ItemsSource="{Binding Path=ListaTipo}"  
-                               DisplayMemberPath="tipo_documento" 
-                               SelectedValuePath="id_tipo" 
-                               SelectedValue="{Binding id_tipo}" 
-                               FontSize="18"
-                               IsEnabled="{Binding VersionEnabled}" >
-                                </ComboBox>
-                -->
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <TextBox x:Name="textBox4" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDeOperacion}" HorizontalAlignment="Left" Height="50" Margin="48,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="350" BorderBrush="#899B9999" FontSize="18" Grid.Column="1"/>
+            <Label Content="{x:Static recursos:StringResources.lblOperaciones}"  FontSize="20" FontFamily="Calibri" FontWeight="Bold" Margin="10,27,30,67" Grid.ColumnSpan="2" />
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Margin="10,10,-10,-10">
+                <ComboBox x:Name="CmbCentroTrabajo" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCentroDeTrabajo}" HorizontalAlignment="Left" Width="160" Height="50" VerticalAlignment="Top" BorderBrush="#FFBDBDBD" FontSize="18"  DisplayMemberPath="CentroTrabajo" Margin="46,84,0,0" ItemsSource="{Binding ListaCentroTrabajo}"  SelectedItem="{Binding SelectedTipoCentroTrabajo}"/>
+                <TextBox x:Name="txtNombreOperacion" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDeOperacion}" 
+                         HorizontalAlignment="Left" Height="50" Margin="48,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="549" BorderBrush="#899B9999" 
+                         FontSize="18" Text="{Binding SelectedTipoCentroTrabajo.NombreOperacion}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,-10,0,10" >
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" >
                 <Button HorizontalAlignment="left" Height="30"  Width="250"  Content="{x:Static recursos:StringResources.ttlButtonAgregarMPaCT}" Margin="10,142,0,496" />
                 <Button HorizontalAlignment="left" Height="30"  Width="161"  Content="{x:Static recursos:StringResources.ttlButtonEliminarCT}" Margin="12,142,0,496"/>
                 <Button HorizontalAlignment="left" Height="30"  Width="150"  Content="{x:Static recursos:StringResources.ttlButtonEliminarTodo}" Margin="12,142,0,496"/>
@@ -77,12 +47,12 @@
             <Grid Margin="20,195,10,175" Grid.ColumnSpan="2">
                 <DataGrid Name="Tabla">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Item"/>
-                        <DataGridTextColumn Header="C.T"/>
-                        <DataGridTextColumn Header="Nombre Operación"/>
-                        <DataGridTextColumn Header="Tiempo SetUp"/>
-                        <DataGridTextColumn Header="Tiempo Maquina"/>
-                        <DataGridTextColumn Header="Tiempo Mano"/>
+                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblItem}"/>
+                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblCT}"/>
+                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombreOperacion}"/>
+                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblTiempoSetup}"/>
+                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblTiempoMaquina}"/>
+                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblTiempoMano}"/>
                     </DataGrid.Columns>
 
                 </DataGrid>

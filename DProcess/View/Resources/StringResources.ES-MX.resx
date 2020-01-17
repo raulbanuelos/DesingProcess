@@ -2226,4 +2226,36 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>Operaciones </value>
     <comment>Etiqueta Operaciones </comment>
   </data>
+  <data name="lblCT" xml:space="preserve">
+    <value>C.T</value>
+    <comment>Etiqueta para el C.T</comment>
+  </data>
+  <data name="lblItem" xml:space="preserve">
+    <value>Item</value>
+    <comment>Etiqueta para el Item</comment>
+  </data>
+  <data name="lblNombreOperacion" xml:space="preserve">
+    <value>Nombre Operación</value>
+    <comment>Etiqueta para el nombre Operacion</comment>
+  </data>
+  <data name="lblTiempoMano" xml:space="preserve">
+    <value>Tiempo Mano</value>
+    <comment>Etiqueta para Tiempo Mano</comment>
+  </data>
+  <data name="lblTiempoMaquina" xml:space="preserve">
+    <value>Tiempo Maquina</value>
+    <comment>Etiqueta para Tiempo Maquina</comment>
+  </data>
+  <data name="lblTiempoSetup" xml:space="preserve">
+    <value>Tiempo Setup</value>
+    <comment>Etiqueta para Tiempo Setup</comment>
+  </data>
+  <data name="lblIngresarListaCentrostrabajo" xml:space="preserve">
+    <value>Ingresar Lista de Centros de Trabajo</value>
+    <comment>Etiqueta para ingresar una lista de centros de trabajo </comment>
+  </data>
+  <data name="lblCancelar" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Etiqueta de Cancelar</comment>
+  </data>
 </root>

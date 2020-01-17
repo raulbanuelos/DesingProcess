@@ -97,6 +97,7 @@ namespace Model.ControlDocumentos
             return documento;
         }
 
+
         public static List<Archivo> GetArchivoFiltrado(string CodigoValidacion)
         {
 
@@ -510,7 +511,6 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
-
         /// <summary>
         /// Método que obtiene todos los documentos liberados
         /// Llena el DataGrid del Frm_Busqueda_documentos
@@ -1594,6 +1594,50 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
+
+        /// <summary>
+        /// Método para obtener los registros de la tabla.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<CentrosTrabajo> GetCentroTrabajo(string TextoBusca)
+        {
+            //Se inicializan los servicios de Documento.
+            SO_CentrosDeTrabajo ct1 = new SO_CentrosDeTrabajo();
+            //SO_CentroTrabajo_ CT = new SO_CentroTrabajo_();
+
+            //Se crea una lista de tipo documento, la cual se va a retornar
+            ObservableCollection<CentrosTrabajo> Lista = new ObservableCollection<CentrosTrabajo>();
+
+            //obtenemos todo de la BD.
+            //IList ObjC = CT.GetCentroTrabajo_();
+            IList ObjC = ct1.GetCentrosTrabajo(TextoBusca);
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjC != null)
+            {
+                foreach (var item in ObjC)
+                {
+                   // Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto que contendrá la información de un registro.
+                    CentrosTrabajo ObjCentro = new CentrosTrabajo();
+
+                    //Asignamos los valores correspondientes.
+                    ObjCentro.CentroTrabajo = (string)tipo.GetProperty("CentroTrabajo1").GetValue(item, null);
+                    ObjCentro.TiempoSetup = (double)tipo.GetProperty("TiempoSetup").GetValue(item, null);
+                    ObjCentro.NombreOperacion = (string)tipo.GetProperty("NombreOperacion").GetValue(item, null);
+                    ObjCentro.ObjetoXML = (string)tipo.GetProperty("ObjetoXML").GetValue(item, null);
+                    ObjCentro.ObjetoXMLVista = (string)tipo.GetProperty("ObjetoXMLVista").GetValue(item, null);
+                    ObjCentro.NombreIngles = (string)tipo.GetProperty("NombreIngles").GetValue(item, null);
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(ObjCentro);
+                }
+            }
+
+            return Lista;
+        }
+
 
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_Tipo.

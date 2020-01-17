@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using View.Forms.Cotizaciones;
 
 namespace View.Services.ViewModel
 {
@@ -38,16 +40,64 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaCentroTrabajo");
             }
         }
+        private CentrosTrabajo selectedTipoCentroTrabajo; 
+        public CentrosTrabajo SelectedTipoCentroTrabajo
+        {
+            get
+            {
+                return selectedTipoCentroTrabajo;
+            }
+            set
+            {
+                selectedTipoCentroTrabajo = value;
+                NotifyChange("SelectedTipoCentroTrabajo");
+            }
 
+        }
         #endregion
 
         #region Constructors
+        public CrearCotizacionViewModel()
+        {
+            SelectedTipoCentroTrabajo = new CentrosTrabajo();
+            agregarCentroTrabajo();
+            
+        }
         #endregion
 
         #region Commands
+        public ICommand IrListaCentroTrabajo
+        {
+            get
+            {
+                return new RelayCommand(o => irListaCentroTrabajo());
+            }
+        }
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// /Método el cual nos envía a la pantalla de Lista de Centros de trabajo
+        /// </summary>
+        private void irListaCentroTrabajo()
+        {
+
+            FrmListaCentroTrabajo frm = new FrmListaCentroTrabajo();
+            ListaCentroTrabajoViewModel context = new ListaCentroTrabajoViewModel();
+            frm.DataContext = context;
+            frm.ShowDialog();
+            
+        }
+
+        /// <summary>
+        /// Método que obtiene los Centros de trabajo y los nombres de operación
+        /// </summary>
+        private void agregarCentroTrabajo()
+        {
+            _ListaCentroTrabajo = DataManagerControlDocumentos.GetCentroTrabajo("");
+            
+        }
         #endregion
     }
 }
