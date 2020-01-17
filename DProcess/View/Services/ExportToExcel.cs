@@ -12,7 +12,18 @@ namespace View.Services
 {
     public static class ExportToExcel
     {
-
+        /// <summary>
+        /// Método que exporta el herramental de Coil a una hoja de excel.
+        /// </summary>
+        /// <param name="componente"></param>
+        /// <param name="herrFeed"></param>
+        /// <param name="herrCenterGuide"></param>
+        /// <param name="herrEntranceGuide"></param>
+        /// <param name="idealExitGuide"></param>
+        /// <param name="aux1"></param>
+        /// <param name="aux2"></param>
+        /// <param name="aux3"></param>
+        /// <returns></returns>
         public static string  ExportToolCoilTHM(string componente, Herramental herrFeed, Herramental herrCenterGuide, Herramental herrEntranceGuide, Herramental idealExitGuide, Herramental aux1, Herramental aux2, Herramental aux3)
         {
             try
@@ -26,7 +37,184 @@ namespace View.Services
                 //Añadimos una nueva hoja de cálculo 
                 Excel.Worksheet ExcelWoorkSheet = ExcelWork.Sheets.Add();
 
+                #region Encabezado
+                ExcelWoorkSheet.Cells[4, 2] = "Componente";
+                ExcelWoorkSheet.Range["B4", "C4"].Merge();
+                ExcelWoorkSheet.Cells[4, 2].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                ExcelWoorkSheet.Cells[4, 2].Font.Bold = true;
+                ExcelWoorkSheet.Cells[4, 2].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
 
+                ExcelWoorkSheet.Cells[4, 4] = componente;
+                ExcelWoorkSheet.Range["D4", "J4"].Merge();
+                ExcelWoorkSheet.Cells[4, 4].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                ExcelWoorkSheet.Cells[4, 4].Font.Bold = true;
+                ExcelWoorkSheet.Cells[4, 4].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+
+                //Dibuja los Bordes
+                Excel.Borders border = ExcelWoorkSheet.Range["B4", "C4"].Borders;
+                border[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                border = ExcelWoorkSheet.Range["D4", "J4"].Borders;
+                border[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                #endregion
+
+                #region Columnas
+                ExcelWoorkSheet.Cells[5, 2] = "Ítem";
+                ExcelWoorkSheet.Cells[5, 3] = "Herramental";
+                ExcelWoorkSheet.Cells[5, 4] = "Plano";
+                ExcelWoorkSheet.Cells[5, 5] = "Code";
+                ExcelWoorkSheet.Cells[5, 6] = "DIM A";
+                ExcelWoorkSheet.Cells[5, 7] = "DIM B";
+                ExcelWoorkSheet.Cells[5, 8] = "DIM C";
+                ExcelWoorkSheet.Cells[5, 9] = "Cantidad";
+                ExcelWoorkSheet.Cells[5, 10] = "Código";
+                
+                ExcelWoorkSheet.Cells[5, 2].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 3].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 4].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 5].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 6].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 7].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 8].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 9].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 10].Font.Bold = true;
+
+                ExcelWoorkSheet.Cells[5, 2].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 3].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 4].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 5].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 6].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 7].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 8].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 9].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 10].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+
+                ExcelWoorkSheet.Cells[5, 2].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 3].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 4].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 5].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 6].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 7].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 8].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 9].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 10].Font.Color = Excel.XlRgbColor.rgbBlack;
+                #endregion
+
+                #region Feed Roller
+                ExcelWoorkSheet.Cells[6, 2] = "1";
+                ExcelWoorkSheet.Cells[6, 3] = herrFeed.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[6, 4] = herrFeed.Plano;
+                ExcelWoorkSheet.Cells[6, 5] = Module.GetValorPropiedadString("Detalle", herrFeed.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[6, 6] = Module.GetValorPropiedad("DIMA", herrFeed.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[6, 7] = "";
+                ExcelWoorkSheet.Cells[6, 8] = "";
+                ExcelWoorkSheet.Cells[6, 9] = herrFeed.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[6, 10] = herrFeed.Codigo;
+                #endregion
+
+                #region Entrance guide
+                ExcelWoorkSheet.Cells[7, 2] = "2";
+                ExcelWoorkSheet.Cells[7, 3] = herrEntranceGuide.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[7, 4] = herrEntranceGuide.Plano;
+                ExcelWoorkSheet.Cells[7, 5] = Module.GetValorPropiedadString("Detalle", herrEntranceGuide.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[7, 6] = Module.GetValorPropiedad("DIMA", herrEntranceGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[7, 7] = Module.GetValorPropiedad("DIMB", herrEntranceGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[7, 8] = Module.GetValorPropiedad("DIMC", herrEntranceGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[7, 9] = herrEntranceGuide.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[7, 10] = herrEntranceGuide.Codigo;
+                #endregion
+
+                #region Center Guide
+                ExcelWoorkSheet.Cells[8, 2] = "3";
+                ExcelWoorkSheet.Cells[8, 3] = herrCenterGuide.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[8, 4] = herrCenterGuide.Plano;
+                ExcelWoorkSheet.Cells[8, 5] = Module.GetValorPropiedadString("Detalle", herrCenterGuide.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[8, 6] = Module.GetValorPropiedad("DIMA", herrCenterGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[8, 7] = Module.GetValorPropiedad("DIMB", herrCenterGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[8, 8] = Module.GetValorPropiedad("DIMC", herrCenterGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[8, 9] = herrCenterGuide.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[8, 10] = herrCenterGuide.Codigo;
+                #endregion
+
+                #region Exit Guide
+                ExcelWoorkSheet.Cells[9, 2] = "4";
+                ExcelWoorkSheet.Cells[9, 3] = idealExitGuide.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[9, 4] = idealExitGuide.Plano;
+                ExcelWoorkSheet.Cells[9, 5] = Module.GetValorPropiedadString("Detalle", idealExitGuide.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[9, 6] = Module.GetValorPropiedad("DIMA", idealExitGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[9, 7] = Module.GetValorPropiedad("DIMB", idealExitGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[9, 8] = Module.GetValorPropiedad("DIMC", idealExitGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[9, 9] = idealExitGuide.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[9, 10] = idealExitGuide.Codigo;
+                #endregion
+
+                #region PARTE 1
+                ExcelWoorkSheet.Cells[10, 2] = "5";
+                ExcelWoorkSheet.Cells[10, 3] = aux1.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[10, 4] = aux1.Plano;
+                ExcelWoorkSheet.Cells[10, 5] = Module.GetValorPropiedadString("Detalle", aux1.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[10, 6] = Module.GetValorPropiedad("DIMA", aux1.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[10, 7] = Module.GetValorPropiedad("DIMB", aux1.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[10, 8] = Module.GetValorPropiedad("DIMC", aux1.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[10, 9] = aux1.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[10, 10] = aux1.Codigo;
+                #endregion
+
+                #region PARTE 2
+                ExcelWoorkSheet.Cells[11, 2] = "6";
+                ExcelWoorkSheet.Cells[11, 3] = aux2.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[11, 4] = aux2.Plano;
+                ExcelWoorkSheet.Cells[11, 5] = Module.GetValorPropiedadString("Detalle", aux2.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[11, 6] = Module.GetValorPropiedad("DIMA", aux2.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[11, 7] = Module.GetValorPropiedad("DIMB", aux2.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[11, 8] = Module.GetValorPropiedad("DIMC", aux2.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[11, 9] = aux2.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[11, 10] = aux2.Codigo;
+                #endregion
+
+                #region PARTE 3
+                ExcelWoorkSheet.Cells[12, 2] = "7";
+                ExcelWoorkSheet.Cells[12, 3] = aux3.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[12, 4] = aux3.Plano;
+                ExcelWoorkSheet.Cells[12, 5] = Module.GetValorPropiedadString("Detalle", aux3.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[12, 6] = Module.GetValorPropiedad("DIMA", aux3.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[12, 7] = Module.GetValorPropiedad("DIMB", aux3.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[12, 8] = Module.GetValorPropiedad("DIMC", aux3.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[12, 9] = aux3.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[12, 10] = aux3.Codigo;
+                #endregion
+
+                //Ajustamos el tamaño de las columnas.
+                ExcelWoorkSheet.Columns.AutoFit();
+
+                #region Formato Borders
+                int rowBegin = 5;
+                int columnBegin = 2;
+                int rowEnds = 12;
+                int columnEnds = 10;
+
+                for (int i = rowBegin; i <= rowEnds; i++)
+                {
+                    for (int j = columnBegin; j <= columnEnds; j++)
+                    {
+                        border = ExcelWoorkSheet.Cells[i, j].Borders;
+                        border[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        border[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        border[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        border[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                        if (j != 3)
+                            ExcelWoorkSheet.Cells[i, j].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    }
+                }
+                #endregion
 
                 //Muestra el documento.
                 ExcelApp.Visible = true;
@@ -40,6 +228,16 @@ namespace View.Services
             }
         }
 
+        /// <summary>
+        /// Método que exporta el herramental de Coil a una hoja de excel.
+        /// </summary>
+        /// <param name="componente"></param>
+        /// <param name="herrFeed"></param>
+        /// <param name="herrCenterGuide"></param>
+        /// <param name="herrEntranceGuide"></param>
+        /// <param name="idealExitGuide"></param>
+        /// <param name="herr1Piece"></param>
+        /// <returns></returns>
         public static string  ExportToolCoilCuadrado(string componente, Herramental herrFeed, Herramental herrCenterGuide, Herramental herrEntranceGuide, Herramental idealExitGuide, Herramental herr1Piece)
         {
             try
@@ -53,14 +251,160 @@ namespace View.Services
                 //Añadimos una nueva hoja de cálculo 
                 Excel.Worksheet ExcelWoorkSheet = ExcelWork.Sheets.Add();
 
+                #region Encabezado
                 ExcelWoorkSheet.Cells[4, 2] = "Componente";
                 ExcelWoorkSheet.Range["B4", "C4"].Merge();
-                
+                ExcelWoorkSheet.Cells[4, 2].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                ExcelWoorkSheet.Cells[4, 2].Font.Bold = true;
+                ExcelWoorkSheet.Cells[4, 2].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+
                 ExcelWoorkSheet.Cells[4, 4] = componente;
                 ExcelWoorkSheet.Range["D4", "J4"].Merge();
-                
+                ExcelWoorkSheet.Cells[4, 4].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                ExcelWoorkSheet.Cells[4, 4].Font.Bold = true;
+                ExcelWoorkSheet.Cells[4, 4].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
 
+                //Dibuja los Bordes
+                Excel.Borders border = ExcelWoorkSheet.Range["B4", "C4"].Borders;
+                border[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
 
+                border = ExcelWoorkSheet.Range["D4", "J4"].Borders;
+                border[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                border[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                #endregion
+
+                #region Columnas
+                ExcelWoorkSheet.Cells[5, 2] = "Ítem";
+                ExcelWoorkSheet.Cells[5, 3] = "Herramental";
+                ExcelWoorkSheet.Cells[5, 4] = "Plano";
+                ExcelWoorkSheet.Cells[5, 5] = "Code";
+                ExcelWoorkSheet.Cells[5, 6] = "DIM A";
+                ExcelWoorkSheet.Cells[5, 7] = "DIM B";
+                ExcelWoorkSheet.Cells[5, 8] = "DIM C";
+                ExcelWoorkSheet.Cells[5, 9] = "Cantidad";
+                ExcelWoorkSheet.Cells[5, 10] = "Código";
+
+                ExcelWoorkSheet.Cells[5, 2].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 3].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 4].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 5].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 6].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 7].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 8].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 9].Font.Bold = true;
+                ExcelWoorkSheet.Cells[5, 10].Font.Bold = true;
+
+                ExcelWoorkSheet.Cells[5, 2].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 3].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 4].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 5].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 6].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 7].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 8].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 9].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+                ExcelWoorkSheet.Cells[5, 10].Interior.Color = Excel.XlRgbColor.rgbLightBlue;
+
+                ExcelWoorkSheet.Cells[5, 2].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 3].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 4].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 5].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 6].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 7].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 8].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 9].Font.Color = Excel.XlRgbColor.rgbBlack;
+                ExcelWoorkSheet.Cells[5, 10].Font.Color = Excel.XlRgbColor.rgbBlack;
+                #endregion
+
+                #region Feed Roller
+                ExcelWoorkSheet.Cells[6, 2] = "1";
+                ExcelWoorkSheet.Cells[6, 3] = herrFeed.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[6, 4] = herrFeed.Plano;
+                ExcelWoorkSheet.Cells[6, 5] = Module.GetValorPropiedadString("Detalle", herrFeed.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[6, 6] = Module.GetValorPropiedad("DIMA", herrFeed.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[6, 7] = "";
+                ExcelWoorkSheet.Cells[6, 8] = "";
+                ExcelWoorkSheet.Cells[6, 9] = herrFeed.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[6, 10] = herrFeed.Codigo;
+                #endregion
+
+                #region Entrance guide
+                ExcelWoorkSheet.Cells[7, 2] = "2";
+                ExcelWoorkSheet.Cells[7, 3] = herrEntranceGuide.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[7, 4] = herrEntranceGuide.Plano;
+                ExcelWoorkSheet.Cells[7, 5] = Module.GetValorPropiedadString("Detalle", herrEntranceGuide.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[7, 6] = Module.GetValorPropiedad("DIMA", herrEntranceGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[7, 7] = Module.GetValorPropiedad("DIMB", herrEntranceGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[7, 8] = Module.GetValorPropiedad("DIMC", herrEntranceGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[7, 9] = herrEntranceGuide.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[7, 10] = herrEntranceGuide.Codigo;
+                #endregion
+
+                #region Center Guide
+                ExcelWoorkSheet.Cells[8, 2] = "3";
+                ExcelWoorkSheet.Cells[8, 3] = herrCenterGuide.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[8, 4] = herrCenterGuide.Plano;
+                ExcelWoorkSheet.Cells[8, 5] = Module.GetValorPropiedadString("Detalle", herrCenterGuide.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[8, 6] = Module.GetValorPropiedad("DIMA", herrCenterGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[8, 7] = Module.GetValorPropiedad("DIMB", herrCenterGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[8, 8] = Module.GetValorPropiedad("DIMC", herrCenterGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[8, 9] = herrCenterGuide.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[8, 10] = herrCenterGuide.Codigo;
+                #endregion
+
+                #region Exit Guide
+                ExcelWoorkSheet.Cells[9, 2] = "4";
+                ExcelWoorkSheet.Cells[9, 3] = idealExitGuide.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[9, 4] = idealExitGuide.Plano;
+                ExcelWoorkSheet.Cells[9, 5] = Module.GetValorPropiedadString("Detalle", idealExitGuide.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[9, 6] = Module.GetValorPropiedad("DIMA", idealExitGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[9, 7] = Module.GetValorPropiedad("DIMB", idealExitGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[9, 8] = Module.GetValorPropiedad("DIMC", idealExitGuide.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[9, 9] = idealExitGuide.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[9, 10] = idealExitGuide.Codigo;
+                #endregion
+
+                #region Internal Roller
+                ExcelWoorkSheet.Cells[10, 2] = "5";
+                ExcelWoorkSheet.Cells[10, 3] = herr1Piece.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[10, 4] = herr1Piece.Plano;
+                ExcelWoorkSheet.Cells[10, 5] = Module.GetValorPropiedadString("Detalle", herr1Piece.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[10, 6] = "";
+                ExcelWoorkSheet.Cells[10, 7] = Module.GetValorPropiedad("DIMB", herr1Piece.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[10, 8] = "";
+                ExcelWoorkSheet.Cells[10, 9] = herr1Piece.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[10, 10] = herr1Piece.Codigo;
+                #endregion
+
+                //Ajustamos el tamaño de las columnas.
+                ExcelWoorkSheet.Columns.AutoFit();
+
+                #region Formato Borders
+                int rowBegin = 5;
+                int columnBegin = 2;
+                int rowEnds = 10;
+                int columnEnds = 10;
+
+                for (int i = rowBegin; i <= rowEnds; i++)
+                {
+                    for (int j = columnBegin; j <= columnEnds; j++)
+                    {
+                        border = ExcelWoorkSheet.Cells[i, j].Borders;
+                        border[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        border[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        border[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        border[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                        if (j != 3)
+                            ExcelWoorkSheet.Cells[i, j].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    }
+                } 
+                #endregion
 
                 //Muestra el documento.
                 ExcelApp.Visible = true;
@@ -187,7 +531,6 @@ namespace View.Services
                 }
             });
            }
-
         
     }
 }
