@@ -69,6 +69,11 @@ namespace View.Services
             return propiedadesBool.Where(x => x.Nombre == nombrePropiedad).ToList().Count > 0 ? true : false;
         }
 
+        public static bool HasPropiedadOptional(string nombrePropiedad, ObservableCollection<PropiedadOptional> propiedadesOpcionales)
+        {
+            return propiedadesOpcionales.Where(x => x.lblTitle == nombrePropiedad).ToList().Count > 0 ? true : false;
+        }
+
         /// <summary>
         /// Método que busca el valor de una propiedad cadena en una lista.
         /// </summary>

@@ -175,6 +175,8 @@ namespace View.Services.Operaciones.Segmentos
 
             freeGapMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), freeGapMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), freeGapMin.Valor);
             freeGapMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), freeGapMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), freeGapMax.Valor);
+            freeGapMin.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+            freeGapMax.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
 
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*CORTE DE PUNTAS" + Environment.NewLine;

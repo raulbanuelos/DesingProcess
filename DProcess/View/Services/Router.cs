@@ -234,7 +234,11 @@ namespace View.Services
             int opcion = 0;
 
             //Verificamos las opciones que van a tener.
-            if (Module.HasPropiedad("ODCoatingNitrideMax", elAnillo.PerfilOD.Propiedades) || Module.HasPropiedad("ODCoatingNitrideMin", elAnillo.PerfilOD.Propiedades))
+            //if (Module.HasPropiedad("ODCoatingNitrideMax", elAnillo.PerfilOD.Propiedades) || Module.HasPropiedad("ODCoatingNitrideMin", elAnillo.PerfilOD.Propiedades))
+            //    opcion = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 1 : 2;
+            //else
+            //    opcion = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 3 : 4;
+            if (Module.HasPropiedadOptional("ESPEC_NITRURADO", elAnillo.PerfilOD.PropiedadesOpcionales))
                 opcion = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 1 : 2;
             else
                 opcion = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 3 : 4;

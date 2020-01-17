@@ -47,5 +47,10 @@ namespace DataAccess.ServiceObjects.Perfiles
         public virtual DbSet<TBL_ROLLOS_CAJA_SEGMENTOS> TBL_ROLLOS_CAJA_SEGMENTOS { get; set; }
         public virtual DbSet<TBL_ESPEC_GAS_NITRIDING_RAILS> TBL_ESPEC_GAS_NITRIDING_RAILS { get; set; }
         public virtual DbSet<TBL_ESPEC_PVD_RAILS> TBL_ESPEC_PVD_RAILS { get; set; }
+        public virtual DbSet<CAT_OPCION_PROPIEDAD_OPCIONAL> CAT_OPCION_PROPIEDAD_OPCIONAL { get; set; }
+        public virtual DbSet<CAT_PROPIEDAD_OPCIONAL> CAT_PROPIEDAD_OPCIONAL { get; set; }
+        public virtual DbSet<CAT_TABLA_PROPIEDAD_OPCIONAL> CAT_TABLA_PROPIEDAD_OPCIONAL { get; set; }
+        public virtual DbSet<TR_PROPIEDAD_OPCIONAL_PERFIL> TR_PROPIEDAD_OPCIONAL_PERFIL { get; set; }
+        public virtual DbSet<TBL_ARQUETIPO_PROPIEDADES_OPCIONAL> TBL_ARQUETIPO_PROPIEDADES_OPCIONAL { get; set; }
     }
 }

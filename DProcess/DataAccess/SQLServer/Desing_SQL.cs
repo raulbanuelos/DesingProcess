@@ -78,6 +78,33 @@ namespace DataAccess.SQLServer
             //Retornamos el dataset.
             return data;
         }
+        
+        /// <summary>
+        /// Método que ejecuta una consulta (query)
+        /// </summary>
+        /// <param name="query">Cadena que representa el Query.</param>
+        /// <returns></returns>
+        public DataTable EjecutarQuery(string query)
+        {
+            SqlConnection cn = new SqlConnection(StringDeConexion);
+            try
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand(query, cn);
+                SqlDataReader lector = cmd.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(lector);
+                return dt;
+            }
+            catch (Exception er)
+            {
+                return null;
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
         #endregion
     }
 }

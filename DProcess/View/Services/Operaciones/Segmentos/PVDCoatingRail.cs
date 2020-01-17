@@ -144,16 +144,13 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
-            string receta = Module.GetValorPropiedadString("EspecRecetaPVD", elPlano.PerfilOD.PropiedadesCadena);
-            double minCapaPVD = Module.GetValorPropiedad("CapaPVDMin", elPlano.PerfilOD.Propiedades);
+            PropiedadOptional propiedadEspec = elPlano.PerfilOD.PropiedadesOpcionales.Where(o => o.lblTitle == "ESPEC_PVD").FirstOrDefault();
 
-            Propiedad minCapa = Module.GetPropiedad("CapaPVDMin", elPlano.PerfilOD.Propiedades);
-            minCapa.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), minCapa.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), minCapa.Valor);
-
-            Propiedad durezaMinPVD = Module.GetPropiedad("HardnessMinPVD", elPlano.PerfilOD.Propiedades);
-            Propiedad durezaMaxPVD = Module.GetPropiedad("HardnessMaxPVD", elPlano.PerfilOD.Propiedades);
-
-            double minPDV = minCapa.Valor + 0.005;
+            DO_DataPVD dataPVD = DataManager.GetDataPVD(propiedadEspec.ElementSelected.ValorCadena);
+            
+            string receta = dataPVD.NoReceta;
+            
+            double minPDV = dataPVD.ThicknessMin + 0.005;
             double maxPVD = minPDV + 0.020;
 
             //Agregamos el texto con las instrucciones de la operación.
@@ -169,7 +166,7 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "MONTAR LOS MANDRILES EN LA MESA DE 18 POSICIONES (MESA 1)" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "ESPESOR PVD " + minPDV + " - " + maxPVD + " mm" + Environment.NewLine;
-            TextoProceso += "DUREZA DE " + durezaMinPVD.Valor + " - " + durezaMaxPVD.Valor + " " + durezaMaxPVD.Unidad + Environment.NewLine;
+            TextoProceso += "DUREZA DE " + dataPVD.DurezaMax + " - " + dataPVD.DurezaMax + " " + "HV" + Environment.NewLine;
             TextoProceso += "ESPECIFICACION " + receta + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "PROCEDIMIENTOS" + Environment.NewLine;

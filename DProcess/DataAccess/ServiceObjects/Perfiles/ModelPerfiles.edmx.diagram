@@ -47,6 +47,18 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS" Width="2.875" PointX="11.375" PointY="4.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_PVD_RAILS" Width="1.5" PointX="11.375" PointY="8.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_OPCION_PROPIEDAD_OPCIONAL" Width="2.625" PointX="14.5" PointY="17.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_OPCIONAL" Width="2.625" PointX="11.375" PointY="15.5" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.CAT_TABLA_PROPIEDAD_OPCIONAL" Width="2.625" PointX="13.625" PointY="19.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_OPCIONAL_PERFIL" Width="2.625" PointX="13.625" PointY="7.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_CAT_OPCION_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PERFIL" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_CAT_TABLA_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PROPIEDAD_OPCIONAL" ManuallyRouted="false" >
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Width="1.5" PointX="14.75" PointY="12.875" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_Arquetipo" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

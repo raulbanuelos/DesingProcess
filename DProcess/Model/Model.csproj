@@ -97,6 +97,8 @@
     <Compile Include="CriteriosSegmentos.cs" />
     <Compile Include="Cuffs.cs" />
     <Compile Include="DataManager.cs" />
+    <Compile Include="DO_DataGasNitridingRails.cs" />
+    <Compile Include="DO_DataPVD.cs" />
     <Compile Include="DO_DocumentosRechazados.cs" />
     <Compile Include="DO_Historial_Documento.cs" />
     <Compile Include="DO_Norma.cs" />

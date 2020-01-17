@@ -173,27 +173,34 @@ namespace View.Services.Operaciones.Segmentos
             #endregion
 
             #region Obtenemos la capa de nitrurado
-            Propiedad thicknessNitMin = Module.GetPropiedad("ODCoatingNitrideMin", elPlano.PerfilOD.Propiedades);
-            Propiedad thicknessNitMax = Module.GetPropiedad("ODCoatingNitrideMax", elPlano.PerfilOD.Propiedades);
-            thicknessNitMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessNitMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), thicknessNitMax.Valor);
-            thicknessNitMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessNitMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), thicknessNitMin.Valor);
+            //Propiedad thicknessNitMin = Module.GetPropiedad("ODCoatingNitrideMin", elPlano.PerfilOD.Propiedades);
+            //Propiedad thicknessNitMax = Module.GetPropiedad("ODCoatingNitrideMax", elPlano.PerfilOD.Propiedades);
+            //thicknessNitMax.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessNitMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), thicknessNitMax.Valor);
+            //thicknessNitMin.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), thicknessNitMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), thicknessNitMin.Valor);
+
+            PropiedadOptional especNitrurado = elPlano.PerfilOD.PropiedadesOpcionales.Where(o => o.lblTitle == "ESPEC_NITRURADO").FirstOrDefault();
+
+            DO_DataGasNitridingRails data = DataManager.GetDataGasNitriding(especNitrurado.ElementSelected.ValorCadena);
             #endregion
 
             double d1 = Module.ConvertTo(elPlano.D1.TipoDato, elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
             double h1 = Module.ConvertTo(elPlano.H1.TipoDato, elPlano.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.H1.Valor);
-            string recetaPVD = Module.GetValorPropiedadString("EspecRecetaPVD", elPlano.PerfilOD.PropiedadesCadena);
-            
+
+            PropiedadOptional propiedadEspec = elPlano.PerfilOD.PropiedadesOpcionales.Where(o => o.lblTitle == "ESPEC_PVD").FirstOrDefault();
+            DO_DataPVD dataPVD = DataManager.GetDataPVD(propiedadEspec.ElementSelected.ValorCadena);
+            string recetaPVD = dataPVD.NoReceta;
+
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*INSPECCION FINAL" + Environment.NewLine;
             TextoProceso += "*AUDITORIA DIM." + Environment.NewLine;
             TextoProceso += "ABERTURA       " + gapMin.Valor + " - " + gapMax.Valor + "" + Environment.NewLine;
             TextoProceso += "ESPESOR RADIAL " + thicknessMin.Valor + " - " + thicknessMax.Valor + "" + Environment.NewLine;
-            TextoProceso += "TH. NITRURADO  0.0004 - 0.0023" + Environment.NewLine;
+            TextoProceso += "TH. NITRURADO  " + data.ThicknessMin + " - " + data.ThicknessMax + "" + Environment.NewLine;
             TextoProceso += "ABERTURA LIBRE " + freeGapMin.Valor + " - " + freeGapMin.Valor + "" + Environment.NewLine;
             TextoProceso += "ESPESOR AXIAL  " + widthMin.Valor + " - " + widthMax.Valor + "" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "ESPECIFICACION PVD " + recetaPVD + Environment.NewLine;
-            TextoProceso += "ESPESOR PVD 0.0004 - 0.0011" + Environment.NewLine;
+            TextoProceso += "ESPESOR PVD " + dataPVD.ThicknessMin + " - " + dataPVD.ThicknessMax + Environment.NewLine;
             TextoProceso += "DIMENSION PARA REGIÓN INTERNA " + "" + " -" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "ALINEAR E INSPECCIONAR" + Environment.NewLine;
