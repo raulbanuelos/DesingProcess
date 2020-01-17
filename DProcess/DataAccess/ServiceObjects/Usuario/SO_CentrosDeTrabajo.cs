@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.ServiceObjects.ControlDocumentos;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

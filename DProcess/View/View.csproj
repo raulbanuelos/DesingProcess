@@ -99,9 +99,8 @@
       <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Encriptar, Version=1.0.5520.24840, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Documents\DesingProcess\View\bin\Debug\Encriptar.dll</HintPath>
+    <Reference Include="Encriptar">
+      <HintPath>Z:\RrrrUUUUUULLL\Encriptar.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -116,10 +115,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Gma.QrCodeNet.Encoding">
-      <HintPath>..\..\..\..\..\Desktop\Gma.QrCodeNet.Encoding.dll</HintPath>
+      <HintPath>Z:\RrrrUUUUUULLL\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="HamburgerMenuApp.Core">
-      <HintPath>bin\HamburgerMenuApp.Core.dll</HintPath>
+      <HintPath>..\..\..\..\..\Contacts\Desktop\HamburgerMenuApp.Core.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
@@ -312,6 +311,9 @@
     </Compile>
     <Compile Include="Forms\Cotizaciones\FrmCalculoTiemposEstandar.xaml.cs">
       <DependentUpon>FrmCalculoTiemposEstandar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Cotizaciones\FrmListaCentroTrabajo.xaml.cs">
+      <DependentUpon>FrmListaCentroTrabajo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\DataBase\PDataBase.xaml.cs">
       <DependentUpon>PDataBase.xaml</DependentUpon>
@@ -1107,6 +1109,7 @@
     <Compile Include="Services\ViewModel\HistorialVM.cs" />
     <Compile Include="Services\ViewModel\InsertarNuevaLeccionVW.cs" />
     <Compile Include="Services\ViewModel\LeccionesAprendidasVM.cs" />
+    <Compile Include="Services\ViewModel\ListaCrentoTrabajoViewModel.cs" />
     <Compile Include="Services\ViewModel\ListItemViewModel.cs" />
     <Compile Include="Services\ViewModel\LoadingGuideAnillosVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
@@ -1325,6 +1328,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Cotizaciones\FrmCalculoTiemposEstandar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Cotizaciones\FrmListaCentroTrabajo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

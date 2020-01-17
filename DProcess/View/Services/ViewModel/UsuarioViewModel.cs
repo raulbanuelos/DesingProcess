@@ -15,6 +15,7 @@ using TableDependency.SqlClient;
 using Notifications.Wpf;
 using View.Resources;
 using View.Forms.Shared;
+using View.Forms.Cotizaciones;
 
 namespace View.Services.ViewModel
 {
@@ -442,20 +443,23 @@ namespace View.Services.ViewModel
         {
             //FrmCalculoTiemposEstandar frm = new FrmCalculoTiemposEstandar();
 
-            //CrearCotizacion frm = new CrearCotizacion();
+            CrearCotizacion frm = new CrearCotizacion();
 
-            //CrearCotizacionViewModel context = new CrearCotizacionViewModel();
+            CrearCotizacionViewModel context = new CrearCotizacionViewModel();
 
-            //frm.DataContext = context;
+            frm.DataContext = context;
+
+            frm.ShowDialog();
+
 
             //lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
             //lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
-            
+
             //PropiedadOptionalViewModel vm = new PropiedadOptionalViewModel(lista, "Material");
-            
+
             //frm.DataContext = vm;
 
-            //frm.ShowDialog();
+
         }
 
         private void irDataBase()

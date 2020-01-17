@@ -467,6 +467,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cancel.
+        /// </summary>
+        public static string lblCancelar {
+            get {
+                return ResourceManager.GetString("lblCancelar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Special characters are not allowed in the description.
         /// </summary>
         public static string lblCaracteresEspeciales {
@@ -643,6 +652,15 @@ namespace View.Resources {
         public static string lblCriterio {
             get {
                 return ResourceManager.GetString("lblCriterio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a C.T.
+        /// </summary>
+        public static string lblCT {
+            get {
+                return ResourceManager.GetString("lblCT", resourceCulture);
             }
         }
         
@@ -1169,6 +1187,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Enter list of work centers.
+        /// </summary>
+        public static string lblIngresarListaCentrosTrabajo {
+            get {
+                return ResourceManager.GetString("lblIngresarListaCentrosTrabajo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Insert component number.
         /// </summary>
         public static string lblIngreseNumeroComponente {
@@ -1210,6 +1237,15 @@ namespace View.Resources {
         public static string lblInstruccionesLeccion {
             get {
                 return ResourceManager.GetString("lblInstruccionesLeccion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Item.
+        /// </summary>
+        public static string lblItem {
+            get {
+                return ResourceManager.GetString("lblItem", resourceCulture);
             }
         }
         
@@ -1390,6 +1426,15 @@ namespace View.Resources {
         public static string lblNombreDocumento {
             get {
                 return ResourceManager.GetString("lblNombreDocumento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Name Operation.
+        /// </summary>
+        public static string lblNombreOperacion {
+            get {
+                return ResourceManager.GetString("lblNombreOperacion", resourceCulture);
             }
         }
         
@@ -1813,6 +1858,33 @@ namespace View.Resources {
         public static string lblThickness {
             get {
                 return ResourceManager.GetString("lblThickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hand Time.
+        /// </summary>
+        public static string lblTiempoMano {
+            get {
+                return ResourceManager.GetString("lblTiempoMano", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Machine Time.
+        /// </summary>
+        public static string lblTiempoMaquina {
+            get {
+                return ResourceManager.GetString("lblTiempoMaquina", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Time Setup.
+        /// </summary>
+        public static string lblTiempoSetup {
+            get {
+                return ResourceManager.GetString("lblTiempoSetup", resourceCulture);
             }
         }
         
