@@ -15,37 +15,33 @@
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="91*"/>
-                <ColumnDefinition Width="214*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" Margin="10,0,0,0" Grid.ColumnSpan="2">
-                <Menu>
-                    <MenuItem Header="{x:Static recursos:StringResources.lblArchivo}">
-                        <MenuItem Header="{x:Static recursos:StringResources.lblSalir}" />
-                    </MenuItem>
-                    <MenuItem Header="{x:Static recursos:StringResources.lblHerramientas}">
-                        <MenuItem  Header="Ingresar Lista de Centros de Trabajo" Command="{Binding IrListaCentroTrabajo}" />
-                        <!--Command="{Binding Ir}-->
-                    </MenuItem>
-                </Menu>
-            </StackPanel>
-            <Label Content="{x:Static recursos:StringResources.lblOperaciones}"  FontSize="20" FontFamily="Calibri" FontWeight="Bold" Margin="10,27,30,67" Grid.ColumnSpan="2" />
-            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Margin="10,10,-10,-10">
-                <ComboBox x:Name="CmbCentroTrabajo" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCentroDeTrabajo}" HorizontalAlignment="Left" Width="160" Height="50" VerticalAlignment="Top" BorderBrush="#FFBDBDBD" FontSize="18"  DisplayMemberPath="CentroTrabajo" Margin="46,84,0,0" ItemsSource="{Binding ListaCentroTrabajo}"  SelectedItem="{Binding SelectedTipoCentroTrabajo}"/>
-                <TextBox x:Name="txtNombreOperacion" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDeOperacion}" 
-                         HorizontalAlignment="Left" Height="50" Margin="48,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="549" BorderBrush="#899B9999" 
-                         FontSize="18" Text="{Binding SelectedTipoCentroTrabajo.NombreOperacion}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" >
-                <Button HorizontalAlignment="left" Height="30"  Width="250"  Content="{x:Static recursos:StringResources.ttlButtonAgregarMPaCT}" Margin="10,142,0,496" />
-                <Button HorizontalAlignment="left" Height="30"  Width="161"  Content="{x:Static recursos:StringResources.ttlButtonEliminarCT}" Margin="12,142,0,496"/>
-                <Button HorizontalAlignment="left" Height="30"  Width="150"  Content="{x:Static recursos:StringResources.ttlButtonEliminarTodo}" Margin="12,142,0,496"/>
-                <Button HorizontalAlignment="left" Height="30"  Width="160"  Content="{x:Static recursos:StringResources.ttlButtonAgregarCTdeLista}" Margin="12,142,0,496" />
-            </StackPanel>
-
-            <Grid Margin="20,195,10,175" Grid.ColumnSpan="2">
-                <DataGrid Name="Tabla">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0" Grid.ColumnSpan="2">
+                    <Menu>
+                        <MenuItem Header="{x:Static recursos:StringResources.lblArchivo}">
+                            <MenuItem Header="{x:Static recursos:StringResources.lblSalir}" Command="{Binding Ircerrar}" />
+                        </MenuItem>
+                        <MenuItem Header="{x:Static recursos:StringResources.lblHerramientas}">
+                            <MenuItem  Header="{x:Static recursos:StringResources.lblIngresarListaCentrosTrabajo}" Command="{Binding IrListaCentroTrabajo}" />
+                        </MenuItem>
+                    </Menu>
+                </StackPanel>
+                <Label Content="{x:Static recursos:StringResources.lblOperaciones}"  FontSize="20" FontFamily="Calibri" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox x:Name="CmbCentroTrabajo" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCentroDeTrabajo}" HorizontalAlignment="Left" Width="160" Height="50" 
+                          VerticalAlignment="Top" BorderBrush="#FFBDBDBD" FontSize="18"  DisplayMemberPath="CentroTrabajo" Margin="20,0,0,0" ItemsSource="{Binding ListaCentroTrabajo}"  
+                          SelectedItem="{Binding SelectedTipoCentroTrabajo}" IsEditable="True" IsEnabled="True"/>
+                    <TextBox x:Name="txtNombreOperacion" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDeOperacion}" 
+                         HorizontalAlignment="Right" Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="549" BorderBrush="#899B9999" 
+                         FontSize="18" Text="{Binding SelectedTipoCentroTrabajo.NombreOperacion}" Margin="30,0,10,10"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button HorizontalAlignment="Left" Height="30" Width="250" Content="{x:Static recursos:StringResources.ttlButtonAgregarMPaCT}" Margin="20,10,0,0"/>
+                    <Button HorizontalAlignment="Left" Height="30" Width="161" Content="{x:Static recursos:StringResources.ttlButtonEliminarCT}" Margin="20,10,0,0"/>
+                    <Button HorizontalAlignment="Left" Height="30" Width="150" Content="{x:Static recursos:StringResources.ttlButtonEliminarTodo}" Margin="20,10,0,0"/>
+                    <Button HorizontalAlignment="Left" Height="30" Width="160" Content="{x:Static recursos:StringResources.ttlButtonAgregarCTdeLista}" Margin="20,10,0,0"/>
+                </StackPanel>
+                <DataGrid Name="Tabla" Margin="20,0,0,10" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{x:Static recursos:StringResources.lblItem}"/>
                         <DataGridTextColumn Header="{x:Static recursos:StringResources.lblCT}"/>
@@ -54,12 +50,16 @@
                         <DataGridTextColumn Header="{x:Static recursos:StringResources.lblTiempoMaquina}"/>
                         <DataGridTextColumn Header="{x:Static recursos:StringResources.lblTiempoMano}"/>
                     </DataGrid.Columns>
-
                 </DataGrid>
-            </Grid>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button IsDefault="True" Height="30" Width="210" Margin="20,550,0,0" Content="{x:Static recursos:StringResources.ttlButtonTiempoEstandar}" HorizontalAlignment="Center"/>
+                <Button IsCancel="True" HorizontalAlignment="Center" Height="30"  Width="170" Margin="20,550,0,0" Content="{x:Static recursos:StringResources.ttlButtonCotizacion}" RenderTransformOrigin="0.582,0.217" />
+
+            </StackPanel>
+            
         </Grid>
-        <Button HorizontalAlignment="Right" Height="30"  Width="210"  Margin="0,565,20,73" Content="{x:Static recursos:StringResources.ttlButtonTiempoEstandar}" RenderTransformOrigin="0.514,-1.671"/>
-        <Button HorizontalAlignment="Right" Height="30"  Width="170" Margin="20,565,250,73" Content="{x:Static recursos:StringResources.ttlButtonCotizacion}" RenderTransformOrigin="0.582,0.217" />
+        
 
     </Grid>
 </Controls:MetroWindow>

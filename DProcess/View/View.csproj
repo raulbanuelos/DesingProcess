@@ -315,6 +315,9 @@
     <Compile Include="Forms\Cotizaciones\FrmListaCentroTrabajo.xaml.cs">
       <DependentUpon>FrmListaCentroTrabajo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Cotizaciones\FrmVistaWPF.xaml.cs">
+      <DependentUpon>FrmVistaWPF.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DataBase\PDataBase.xaml.cs">
       <DependentUpon>PDataBase.xaml</DependentUpon>
     </Compile>
@@ -1332,6 +1335,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Cotizaciones\FrmListaCentroTrabajo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Cotizaciones\FrmVistaWPF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

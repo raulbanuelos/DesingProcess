@@ -1,4 +1,6 @@
-﻿using Model.ControlDocumentos;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using View.Forms.Cotizaciones;
+using View.Resources;
 
 namespace View.Services.ViewModel
 {
@@ -54,8 +58,6 @@ namespace View.Services.ViewModel
                 NotifyChange("texto");
             }
         }
-
-
         #endregion
 
         #region Constructors
@@ -77,7 +79,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void CrearListaCretroTrabajo()
         {
-            ListaCentroTrabajo = texto.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            ListaCentroTrabajo = texto.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
         #endregion
     }
