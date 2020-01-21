@@ -147,18 +147,22 @@ namespace View.Services.Operaciones.Segmentos
             CriteriosSegmentos Criterio = DataManager.GetCriteriosSegmentos();
             double layermin = Criterio.NitruLayerMin;
             double layermax = Criterio.NitruLayerMax;
-            double nitruradoMin = Module.GetValorPropiedadMin("ODCoatingNitrideMin", elPlano.PerfilOD.Propiedades, true);
-            double nitruradoMax = Module.GetValorPropiedadMin("ODCoatingNitrideMax", elPlano.PerfilOD.Propiedades, true);
-            double hardnessMin = Module.GetValorPropiedadMin("HardnessNitrideMin", elPlano.PerfilOD.Propiedades, true);
-            double hardnessMax = Module.GetValorPropiedadMin("HardnessNitrideMax", elPlano.PerfilOD.Propiedades, true);
-            double hardnessDPH = Module.GetValorPropiedadMin("DHPNitride", elPlano.PerfilOD.Propiedades, true);
+            PropiedadOptional especNitrurado = elPlano.PerfilOD.PropiedadesOpcionales.Where(o => o.lblTitle == "ESPEC_NITRURADO").FirstOrDefault();
+
+            DO_DataGasNitridingRails data = DataManager.GetDataGasNitriding(especNitrurado.ElementSelected.ValorCadena);
+
+            double nitruradoMin = data.ThicknessMin;
+            double nitruradoMax = data.ThicknessMax;
+            double hardnessMin = data.DurezaMin;
+            double hardnessMax = data.DurezaMax;
+            string widthLayer = data.WhiteLayer;
 
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*NITRURADO" + Environment.NewLine;
             TextoProceso += "DIFUSION LAYER THICKNESS " + nitruradoMin + " - " + nitruradoMax + "" + Environment.NewLine;
             TextoProceso += "CONSIDERAR DIAMETRO EXT. E INT." + Environment.NewLine;
-            TextoProceso += "HARDNESS " + hardnessMin + " - " + hardnessMax + " DPH HV " + hardnessDPH + "" + Environment.NewLine;
-            TextoProceso += "WHITE LAYER " + nitruradoMin + " MAX (" + nitruradoMax + " MM MAX)" + Environment.NewLine;
+            TextoProceso += "HARDNESS " + hardnessMin + " - " + hardnessMax + " DPH HV   " + Environment.NewLine;
+            TextoProceso += widthLayer + Environment.NewLine;
             TextoProceso += "EL SEGMENTO NO DEBERA ROMPERSE A" + Environment.NewLine;
             TextoProceso += "180 GRADOS EN LA PRUEBA DE TWIST" + Environment.NewLine;
             TextoProceso += "PROGRAMA PRG-10" + Environment.NewLine;

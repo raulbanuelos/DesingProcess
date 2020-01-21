@@ -50,6 +50,14 @@
           <Property Name="OvalityMaxValor" Type="float" />
           <Property Name="OvalityMaxUnidad" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="CAT_OPCION_PROPIEDAD_OPCIONAL">
+          <Key>
+            <PropertyRef Name="ID_OPCION_PROPIEDAD_OPCIONAL" />
+          </Key>
+          <Property Name="ID_OPCION_PROPIEDAD_OPCIONAL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_PROPIEDAD_OPCIONAL" Type="int" />
+          <Property Name="VALOR" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="CAT_PERFIL">
           <Key>
             <PropertyRef Name="ID_PERFIL" />
@@ -107,6 +115,27 @@
           <Property Name="ID_USUARIO_ACTUALIZACION" Type="int" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
         </EntityType>
+        <EntityType Name="CAT_PROPIEDAD_OPCIONAL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_OPCIONAL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" />
+          <Property Name="DESCRIPCION_LARGA" Type="varchar" MaxLength="200" />
+          <Property Name="DESCRIPCION_CORTA" Type="varchar" MaxLength="200" />
+          <Property Name="IMAGEN" Type="varbinary(max)" />
+          <Property Name="SOURCE" Type="int" />
+        </EntityType>
+        <EntityType Name="CAT_TABLA_PROPIEDAD_OPCIONAL">
+          <Key>
+            <PropertyRef Name="ID_TABLA_PROPIEDAD_OPCIONAL" />
+          </Key>
+          <Property Name="ID_TABLA_PROPIEDAD_OPCIONAL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_PROPIEDAD_OPCIONAL" Type="int" />
+          <Property Name="NOMBRE_TABLA" Type="varchar" MaxLength="50" />
+          <Property Name="CAMPO_ID" Type="varchar" MaxLength="50" />
+          <Property Name="CAMPO_MOSTRAR" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="CAT_TIPO_PERFIL">
           <Key>
             <PropertyRef Name="ID_TIPO_PERFIL" />
@@ -151,6 +180,15 @@
           <Property Name="ID_ARQUETIPO_PROPIEDADES_CADENA" Type="int" Nullable="false" />
           <Property Name="CODIGO" Type="char" MaxLength="18" Nullable="false" />
           <Property Name="ID_PROPIEDAD_CADENA" Type="int" Nullable="false" />
+          <Property Name="VALOR" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL">
+          <Key>
+            <PropertyRef Name="ID_ARQUETIPO_PROPIEDAD_OPCIONAL" />
+          </Key>
+          <Property Name="ID_ARQUETIPO_PROPIEDAD_OPCIONAL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="char" MaxLength="18" />
+          <Property Name="ID_PROPIEDAD_OPCIONA" Type="int" />
           <Property Name="VALOR" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="TBL_ESPEC_GAS_NITRIDING_RAILS">
@@ -244,6 +282,14 @@
           <Property Name="ID_PROPIEDAD_CADENA" Type="int" Nullable="false" />
           <Property Name="ID_PERFIL" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="TR_PROPIEDAD_OPCIONAL_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_OPCIONAL_PERFIL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_OPCIONAL_PERFIL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_PROPIEDAD_OPCIONAL" Type="int" />
+          <Property Name="ID_PERFIL" Type="int" />
+        </EntityType>
         <EntityType Name="TR_PROPIEDAD_PERFIL">
           <Key>
             <PropertyRef Name="ID_PROPIEDAD_PERFIL" />
@@ -264,6 +310,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CAT_OPCION_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+          <End Role="CAT_PROPIEDAD_OPCIONAL" Type="Self.CAT_PROPIEDAD_OPCIONAL" Multiplicity="0..1" />
+          <End Role="CAT_OPCION_PROPIEDAD_OPCIONAL" Type="Self.CAT_OPCION_PROPIEDAD_OPCIONAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Principal>
+            <Dependent Role="CAT_OPCION_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CAT_PERFIL_CAT_TIPO_PERFIL">
           <End Role="CAT_TIPO_PERFIL" Type="Self.CAT_TIPO_PERFIL" Multiplicity="1" />
           <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="*" />
@@ -273,6 +331,18 @@
             </Principal>
             <Dependent Role="CAT_PERFIL">
               <PropertyRef Name="ID_TIPO_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAT_TABLA_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+          <End Role="CAT_PROPIEDAD_OPCIONAL" Type="Self.CAT_PROPIEDAD_OPCIONAL" Multiplicity="0..1" />
+          <End Role="CAT_TABLA_PROPIEDAD_OPCIONAL" Type="Self.CAT_TABLA_PROPIEDAD_OPCIONAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Principal>
+            <Dependent Role="CAT_TABLA_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -345,6 +415,30 @@
             </Principal>
             <Dependent Role="TBL_ARQUETIPO_PROPIEDADES">
               <PropertyRef Name="ID_PROPIEDAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_Arquetipo">
+          <End Role="Arquetipo" Type="Self.Arquetipo" Multiplicity="0..1" />
+          <End Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Type="Self.TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+          <End Role="CAT_PROPIEDAD_OPCIONAL" Type="Self.CAT_PROPIEDAD_OPCIONAL" Multiplicity="0..1" />
+          <End Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Type="Self.TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Principal>
+            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -456,6 +550,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PERFIL">
+          <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="0..1" />
+          <End Role="TR_PROPIEDAD_OPCIONAL_PERFIL" Type="Self.TR_PROPIEDAD_OPCIONAL_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_OPCIONAL_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PROPIEDAD_OPCIONAL">
+          <End Role="CAT_PROPIEDAD_OPCIONAL" Type="Self.CAT_PROPIEDAD_OPCIONAL" Multiplicity="0..1" />
+          <End Role="TR_PROPIEDAD_OPCIONAL_PERFIL" Type="Self.TR_PROPIEDAD_OPCIONAL_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_OPCIONAL_PERFIL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL">
           <End Role="CAT_PERFIL" Type="Self.CAT_PERFIL" Multiplicity="1" />
           <End Role="TR_PROPIEDAD_PERFIL" Type="Self.TR_PROPIEDAD_PERFIL" Multiplicity="*" />
@@ -483,15 +601,19 @@
         <EntityContainer Name="DataAccessServiceObjectsPerfilesStoreContainer">
           <EntitySet Name="Arquetipo" EntityType="Self.Arquetipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArquetipoRings" EntityType="Self.ArquetipoRings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_OPCION_PROPIEDAD_OPCIONAL" EntityType="Self.CAT_OPCION_PROPIEDAD_OPCIONAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAT_PERFIL" EntityType="Self.CAT_PERFIL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAT_PROPIEDAD" EntityType="Self.CAT_PROPIEDAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAT_PROPIEDAD_BOOL" EntityType="Self.CAT_PROPIEDAD_BOOL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAT_PROPIEDAD_CADENA" EntityType="Self.CAT_PROPIEDAD_CADENA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_PROPIEDAD_OPCIONAL" EntityType="Self.CAT_PROPIEDAD_OPCIONAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_TABLA_PROPIEDAD_OPCIONAL" EntityType="Self.CAT_TABLA_PROPIEDAD_OPCIONAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAT_TIPO_PERFIL" EntityType="Self.CAT_TIPO_PERFIL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ColoresAnillos" EntityType="Self.ColoresAnillos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES" EntityType="Self.TBL_ARQUETIPO_PROPIEDADES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES_BOOL" EntityType="Self.TBL_ARQUETIPO_PROPIEDADES_BOOL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES_CADENA" EntityType="Self.TBL_ARQUETIPO_PROPIEDADES_CADENA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" EntityType="Self.TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESPEC_GAS_NITRIDING_RAILS" EntityType="Self.TBL_ESPEC_GAS_NITRIDING_RAILS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESPEC_PVD_RAILS" EntityType="Self.TBL_ESPEC_PVD_RAILS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_NO_CAJA" EntityType="Self.TBL_NO_CAJA" Schema="dbo" store:Type="Tables" />
@@ -502,14 +624,23 @@
           <EntitySet Name="TR_PERFIL_ARQUETIPO" EntityType="Self.TR_PERFIL_ARQUETIPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_PROPIEDAD_BOOL_PERFIL" EntityType="Self.TR_PROPIEDAD_BOOL_PERFIL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_PROPIEDAD_CADENA_PERFIL" EntityType="Self.TR_PROPIEDAD_CADENA_PERFIL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TR_PROPIEDAD_OPCIONAL_PERFIL" EntityType="Self.TR_PROPIEDAD_OPCIONAL_PERFIL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_PROPIEDAD_PERFIL" EntityType="Self.TR_PROPIEDAD_PERFIL" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ArquetipoRings_Arquetipo" Association="Self.FK_ArquetipoRings_Arquetipo">
             <End Role="Arquetipo" EntitySet="Arquetipo" />
             <End Role="ArquetipoRings" EntitySet="ArquetipoRings" />
           </AssociationSet>
+          <AssociationSet Name="FK_CAT_OPCION_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" Association="Self.FK_CAT_OPCION_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+            <End Role="CAT_PROPIEDAD_OPCIONAL" EntitySet="CAT_PROPIEDAD_OPCIONAL" />
+            <End Role="CAT_OPCION_PROPIEDAD_OPCIONAL" EntitySet="CAT_OPCION_PROPIEDAD_OPCIONAL" />
+          </AssociationSet>
           <AssociationSet Name="FK_CAT_PERFIL_CAT_TIPO_PERFIL" Association="Self.FK_CAT_PERFIL_CAT_TIPO_PERFIL">
             <End Role="CAT_TIPO_PERFIL" EntitySet="CAT_TIPO_PERFIL" />
             <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAT_TABLA_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" Association="Self.FK_CAT_TABLA_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+            <End Role="CAT_PROPIEDAD_OPCIONAL" EntitySet="CAT_PROPIEDAD_OPCIONAL" />
+            <End Role="CAT_TABLA_PROPIEDAD_OPCIONAL" EntitySet="CAT_TABLA_PROPIEDAD_OPCIONAL" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo" Association="Self.FK_TBL_ARQUETIPO_PROPIEDADES_Arquetipo">
             <End Role="Arquetipo" EntitySet="Arquetipo" />
@@ -534,6 +665,14 @@
           <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD" Association="Self.FK_TBL_ARQUETIPO_PROPIEDADES_CAT_PROPIEDAD">
             <End Role="CAT_PROPIEDAD" EntitySet="CAT_PROPIEDAD" />
             <End Role="TBL_ARQUETIPO_PROPIEDADES" EntitySet="TBL_ARQUETIPO_PROPIEDADES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_Arquetipo" Association="Self.FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_Arquetipo">
+            <End Role="Arquetipo" EntitySet="Arquetipo" />
+            <End Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" EntitySet="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" Association="Self.FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+            <End Role="CAT_PROPIEDAD_OPCIONAL" EntitySet="CAT_PROPIEDAD_OPCIONAL" />
+            <End Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" EntitySet="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA" Association="Self.FK_TBL_ROLLOS_CAJA_SEGMENTOS_TBL_NO_CAJA">
             <End Role="TBL_NO_CAJA" EntitySet="TBL_NO_CAJA" />
@@ -570,6 +709,14 @@
           <AssociationSet Name="FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA" Association="Self.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PROPIEDAD_CADENA">
             <End Role="CAT_PROPIEDAD_CADENA" EntitySet="CAT_PROPIEDAD_CADENA" />
             <End Role="TR_PROPIEDAD_CADENA_PERFIL" EntitySet="TR_PROPIEDAD_CADENA_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PERFIL" Association="Self.FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PERFIL">
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+            <End Role="TR_PROPIEDAD_OPCIONAL_PERFIL" EntitySet="TR_PROPIEDAD_OPCIONAL_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PROPIEDAD_OPCIONAL" Association="Self.FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PROPIEDAD_OPCIONAL">
+            <End Role="CAT_PROPIEDAD_OPCIONAL" EntitySet="CAT_PROPIEDAD_OPCIONAL" />
+            <End Role="TR_PROPIEDAD_OPCIONAL_PERFIL" EntitySet="TR_PROPIEDAD_OPCIONAL_PERFIL" />
           </AssociationSet>
           <AssociationSet Name="FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" Association="Self.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL">
             <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
@@ -687,6 +834,35 @@
           </AssociationSet>
           <EntitySet Name="TBL_ESPEC_GAS_NITRIDING_RAILS" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS" />
           <EntitySet Name="TBL_ESPEC_PVD_RAILS" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_PVD_RAILS" />
+          <EntitySet Name="CAT_OPCION_PROPIEDAD_OPCIONAL" EntityType="DataAccess.ServiceObjects.Perfiles.CAT_OPCION_PROPIEDAD_OPCIONAL" />
+          <EntitySet Name="CAT_PROPIEDAD_OPCIONAL" EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_OPCIONAL" />
+          <EntitySet Name="CAT_TABLA_PROPIEDAD_OPCIONAL" EntityType="DataAccess.ServiceObjects.Perfiles.CAT_TABLA_PROPIEDAD_OPCIONAL" />
+          <EntitySet Name="TR_PROPIEDAD_OPCIONAL_PERFIL" EntityType="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_OPCIONAL_PERFIL" />
+          <AssociationSet Name="FK_CAT_OPCION_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" Association="DataAccess.ServiceObjects.Perfiles.FK_CAT_OPCION_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+            <End Role="CAT_PROPIEDAD_OPCIONAL" EntitySet="CAT_PROPIEDAD_OPCIONAL" />
+            <End Role="CAT_OPCION_PROPIEDAD_OPCIONAL" EntitySet="CAT_OPCION_PROPIEDAD_OPCIONAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PERFIL" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PERFIL">
+            <End Role="CAT_PERFIL" EntitySet="CAT_PERFIL" />
+            <End Role="TR_PROPIEDAD_OPCIONAL_PERFIL" EntitySet="TR_PROPIEDAD_OPCIONAL_PERFIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAT_TABLA_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" Association="DataAccess.ServiceObjects.Perfiles.FK_CAT_TABLA_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+            <End Role="CAT_PROPIEDAD_OPCIONAL" EntitySet="CAT_PROPIEDAD_OPCIONAL" />
+            <End Role="CAT_TABLA_PROPIEDAD_OPCIONAL" EntitySet="CAT_TABLA_PROPIEDAD_OPCIONAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PROPIEDAD_OPCIONAL" Association="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PROPIEDAD_OPCIONAL">
+            <End Role="CAT_PROPIEDAD_OPCIONAL" EntitySet="CAT_PROPIEDAD_OPCIONAL" />
+            <End Role="TR_PROPIEDAD_OPCIONAL_PERFIL" EntitySet="TR_PROPIEDAD_OPCIONAL_PERFIL" />
+          </AssociationSet>
+          <EntitySet Name="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" />
+          <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_Arquetipo" Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_Arquetipo">
+            <End Role="Arquetipo" EntitySet="Arquetipo" />
+            <End Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" EntitySet="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" Association="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+            <End Role="CAT_PROPIEDAD_OPCIONAL" EntitySet="CAT_PROPIEDAD_OPCIONAL" />
+            <End Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" EntitySet="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Arquetipo">
           <Key>
@@ -702,6 +878,7 @@
           <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES_CADENA" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_CADENA_Arquetipo" FromRole="Arquetipo" ToRole="TBL_ARQUETIPO_PROPIEDADES_CADENA" />
           <NavigationProperty Name="TR_NORMAS_ARQUETIPO" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_NORMAS_ARQUETIPO_Arquetipo" FromRole="Arquetipo" ToRole="TR_NORMAS_ARQUETIPO" />
           <NavigationProperty Name="TR_PERFIL_ARQUETIPO" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PERFIL_ARQUETIPO_Arquetipo" FromRole="Arquetipo" ToRole="TR_PERFIL_ARQUETIPO" />
+          <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_Arquetipo" FromRole="Arquetipo" ToRole="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" />
         </EntityType>
         <EntityType Name="ArquetipoRings">
           <Key>
@@ -758,6 +935,7 @@
           <NavigationProperty Name="TR_PROPIEDAD_BOOL_PERFIL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_BOOL_PERFIL_CAT_PERFIL" FromRole="CAT_PERFIL" ToRole="TR_PROPIEDAD_BOOL_PERFIL" />
           <NavigationProperty Name="TR_PROPIEDAD_CADENA_PERFIL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_CADENA_PERFIL_CAT_PERFIL" FromRole="CAT_PERFIL" ToRole="TR_PROPIEDAD_CADENA_PERFIL" />
           <NavigationProperty Name="TR_PROPIEDAD_PERFIL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_PERFIL_CAT_PERFIL" FromRole="CAT_PERFIL" ToRole="TR_PROPIEDAD_PERFIL" />
+          <NavigationProperty Name="TR_PROPIEDAD_OPCIONAL_PERFIL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PERFIL" FromRole="CAT_PERFIL" ToRole="TR_PROPIEDAD_OPCIONAL_PERFIL" />
         </EntityType>
         <EntityType Name="CAT_PROPIEDAD">
           <Key>
@@ -1215,6 +1393,134 @@
           <Property Name="DUREZA_MAX" Type="Double" />
           <Property Name="NO_RECETA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="CAT_OPCION_PROPIEDAD_OPCIONAL">
+          <Key>
+            <PropertyRef Name="ID_OPCION_PROPIEDAD_OPCIONAL" />
+          </Key>
+          <Property Name="ID_OPCION_PROPIEDAD_OPCIONAL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PROPIEDAD_OPCIONAL" Type="Int32" />
+          <Property Name="VALOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CAT_PROPIEDAD_OPCIONAL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_CAT_OPCION_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" FromRole="CAT_OPCION_PROPIEDAD_OPCIONAL" ToRole="CAT_PROPIEDAD_OPCIONAL" />
+        </EntityType>
+        <EntityType Name="CAT_PROPIEDAD_OPCIONAL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_OPCIONAL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_LARGA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_CORTA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IMAGEN" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SOURCE" Type="Int32" />
+          <NavigationProperty Name="CAT_OPCION_PROPIEDAD_OPCIONAL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_CAT_OPCION_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" FromRole="CAT_PROPIEDAD_OPCIONAL" ToRole="CAT_OPCION_PROPIEDAD_OPCIONAL" />
+          <NavigationProperty Name="CAT_TABLA_PROPIEDAD_OPCIONAL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_CAT_TABLA_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" FromRole="CAT_PROPIEDAD_OPCIONAL" ToRole="CAT_TABLA_PROPIEDAD_OPCIONAL" />
+          <NavigationProperty Name="TR_PROPIEDAD_OPCIONAL_PERFIL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PROPIEDAD_OPCIONAL" FromRole="CAT_PROPIEDAD_OPCIONAL" ToRole="TR_PROPIEDAD_OPCIONAL_PERFIL" />
+          <NavigationProperty Name="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" FromRole="CAT_PROPIEDAD_OPCIONAL" ToRole="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" />
+        </EntityType>
+        <EntityType Name="CAT_TABLA_PROPIEDAD_OPCIONAL">
+          <Key>
+            <PropertyRef Name="ID_TABLA_PROPIEDAD_OPCIONAL" />
+          </Key>
+          <Property Name="ID_TABLA_PROPIEDAD_OPCIONAL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PROPIEDAD_OPCIONAL" Type="Int32" />
+          <Property Name="NOMBRE_TABLA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CAMPO_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CAMPO_MOSTRAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CAT_PROPIEDAD_OPCIONAL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_CAT_TABLA_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" FromRole="CAT_TABLA_PROPIEDAD_OPCIONAL" ToRole="CAT_PROPIEDAD_OPCIONAL" />
+        </EntityType>
+        <EntityType Name="TR_PROPIEDAD_OPCIONAL_PERFIL">
+          <Key>
+            <PropertyRef Name="ID_PROPIEDAD_OPCIONAL_PERFIL" />
+          </Key>
+          <Property Name="ID_PROPIEDAD_OPCIONAL_PERFIL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PROPIEDAD_OPCIONAL" Type="Int32" />
+          <Property Name="ID_PERFIL" Type="Int32" />
+          <NavigationProperty Name="CAT_PERFIL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PERFIL" FromRole="TR_PROPIEDAD_OPCIONAL_PERFIL" ToRole="CAT_PERFIL" />
+          <NavigationProperty Name="CAT_PROPIEDAD_OPCIONAL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PROPIEDAD_OPCIONAL" FromRole="TR_PROPIEDAD_OPCIONAL_PERFIL" ToRole="CAT_PROPIEDAD_OPCIONAL" />
+        </EntityType>
+        <Association Name="FK_CAT_OPCION_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_OPCIONAL" Role="CAT_PROPIEDAD_OPCIONAL" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_OPCION_PROPIEDAD_OPCIONAL" Role="CAT_OPCION_PROPIEDAD_OPCIONAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Principal>
+            <Dependent Role="CAT_OPCION_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PERFIL">
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PERFIL" Role="CAT_PERFIL" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_OPCIONAL_PERFIL" Role="TR_PROPIEDAD_OPCIONAL_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_OPCIONAL_PERFIL">
+              <PropertyRef Name="ID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAT_TABLA_PROPIEDAD_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_OPCIONAL" Role="CAT_PROPIEDAD_OPCIONAL" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_TABLA_PROPIEDAD_OPCIONAL" Role="CAT_TABLA_PROPIEDAD_OPCIONAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Principal>
+            <Dependent Role="CAT_TABLA_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_PROPIEDAD_OPCIONAL_PERFIL_CAT_PROPIEDAD_OPCIONAL">
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_OPCIONAL" Role="CAT_PROPIEDAD_OPCIONAL" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_OPCIONAL_PERFIL" Role="TR_PROPIEDAD_OPCIONAL_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Principal>
+            <Dependent Role="TR_PROPIEDAD_OPCIONAL_PERFIL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL">
+          <Key>
+            <PropertyRef Name="ID_ARQUETIPO_PROPIEDAD_OPCIONAL" />
+          </Key>
+          <Property Name="ID_ARQUETIPO_PROPIEDAD_OPCIONAL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="ID_PROPIEDAD_OPCIONA" Type="Int32" />
+          <Property Name="VALOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Arquetipo" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_Arquetipo" FromRole="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" ToRole="Arquetipo" />
+          <NavigationProperty Name="CAT_PROPIEDAD_OPCIONAL" Relationship="DataAccess.ServiceObjects.Perfiles.FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_CAT_PROPIEDAD_OPCIONAL" FromRole="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" ToRole="CAT_PROPIEDAD_OPCIONAL" />
+        </EntityType>
+        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_Arquetipo">
+          <End Type="DataAccess.ServiceObjects.Perfiles.Arquetipo" Role="Arquetipo" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arquetipo">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL">
+              <PropertyRef Name="CODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ARQUETIPO_PROPIEDADES_OPCIONAL_CAT_PROPIEDAD_OPCIONAL">
+          <End Type="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_OPCIONAL" Role="CAT_PROPIEDAD_OPCIONAL" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PROPIEDAD_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONAL" />
+            </Principal>
+            <Dependent Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL">
+              <PropertyRef Name="ID_PROPIEDAD_OPCIONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1487,6 +1793,57 @@
                 <ScalarProperty Name="THICKNESS_MIN" ColumnName="THICKNESS_MIN" />
                 <ScalarProperty Name="ESPECIFICACION_PVD" ColumnName="ESPECIFICACION_PVD" />
                 <ScalarProperty Name="ID_ESPEC_PVD_RAILS" ColumnName="ID_ESPEC_PVD_RAILS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_OPCION_PROPIEDAD_OPCIONAL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.CAT_OPCION_PROPIEDAD_OPCIONAL">
+              <MappingFragment StoreEntitySet="CAT_OPCION_PROPIEDAD_OPCIONAL">
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+                <ScalarProperty Name="ID_PROPIEDAD_OPCIONAL" ColumnName="ID_PROPIEDAD_OPCIONAL" />
+                <ScalarProperty Name="ID_OPCION_PROPIEDAD_OPCIONAL" ColumnName="ID_OPCION_PROPIEDAD_OPCIONAL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_PROPIEDAD_OPCIONAL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_OPCIONAL">
+              <MappingFragment StoreEntitySet="CAT_PROPIEDAD_OPCIONAL">
+                <ScalarProperty Name="SOURCE" ColumnName="SOURCE" />
+                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+                <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+                <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_PROPIEDAD_OPCIONAL" ColumnName="ID_PROPIEDAD_OPCIONAL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_TABLA_PROPIEDAD_OPCIONAL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.CAT_TABLA_PROPIEDAD_OPCIONAL">
+              <MappingFragment StoreEntitySet="CAT_TABLA_PROPIEDAD_OPCIONAL">
+                <ScalarProperty Name="CAMPO_MOSTRAR" ColumnName="CAMPO_MOSTRAR" />
+                <ScalarProperty Name="CAMPO_ID" ColumnName="CAMPO_ID" />
+                <ScalarProperty Name="NOMBRE_TABLA" ColumnName="NOMBRE_TABLA" />
+                <ScalarProperty Name="ID_PROPIEDAD_OPCIONAL" ColumnName="ID_PROPIEDAD_OPCIONAL" />
+                <ScalarProperty Name="ID_TABLA_PROPIEDAD_OPCIONAL" ColumnName="ID_TABLA_PROPIEDAD_OPCIONAL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TR_PROPIEDAD_OPCIONAL_PERFIL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TR_PROPIEDAD_OPCIONAL_PERFIL">
+              <MappingFragment StoreEntitySet="TR_PROPIEDAD_OPCIONAL_PERFIL">
+                <ScalarProperty Name="ID_PERFIL" ColumnName="ID_PERFIL" />
+                <ScalarProperty Name="ID_PROPIEDAD_OPCIONAL" ColumnName="ID_PROPIEDAD_OPCIONAL" />
+                <ScalarProperty Name="ID_PROPIEDAD_OPCIONAL_PERFIL" ColumnName="ID_PROPIEDAD_OPCIONAL_PERFIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_ARQUETIPO_PROPIEDADES_OPCIONAL">
+              <MappingFragment StoreEntitySet="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL">
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+                <ScalarProperty Name="ID_PROPIEDAD_OPCIONA" ColumnName="ID_PROPIEDAD_OPCIONA" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID_ARQUETIPO_PROPIEDAD_OPCIONAL" ColumnName="ID_ARQUETIPO_PROPIEDAD_OPCIONAL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -598,6 +598,34 @@ namespace Model
         }
 
         /// <summary>
+        /// Método que inserta un registro en la tabla TBL_ARQUETIPO_PROPIEDADES_OPCIONAL.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="idPropiedad"></param>
+        /// <param name="valor"></param>
+        /// <returns></returns>
+        public static int InsertArquetipoPropiedadesOpcionales(string codigo, int idPropiedad, string valor)
+        {
+            SO_PropiedadOpcional ServicePropiedad = new SO_PropiedadOpcional();
+
+            return ServicePropiedad.InsertArquetipoPropiedadOpcional(codigo, idPropiedad, valor);
+        }
+
+        /// <summary>
+        /// Método que actualiza un registro en la tabla TBL_ARQUETIPO_PROPIEDADES_OPCIONAL
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="idPropiedad"></param>
+        /// <param name="valor"></param>
+        /// <returns></returns>
+        public static int UpdateArquetipoPropiedadesOpcionales(string codigo, int idPropiedad, string valor)
+        {
+            SO_PropiedadOpcional ServicePropiedad = new SO_PropiedadOpcional();
+
+            return ServicePropiedad.UpdateArquetipoPropiedadOpcional(codigo, idPropiedad, valor);
+        }
+
+        /// <summary>
         /// Método que obtiene el componente previamente guardado.
         /// </summary>
         /// <param name="codigo"></param>
@@ -13293,6 +13321,80 @@ namespace Model
 
         #endregion
 
+        #region PDV Coating Rail
+
+        /// <summary>
+        /// Método que obtiene la información de las medidas específicas de cada espec de PVD.
+        /// </summary>
+        /// <param name="especPVD"></param>
+        /// <returns></returns>
+        public static DO_DataPVD GetDataPVD(string especPVD)
+        {
+            DO_DataPVD data = new DO_DataPVD();
+
+            SO_EspecPVDRails ServicePVD = new SO_EspecPVDRails();
+
+            IList informacionBD = ServicePVD.GetEspec(especPVD);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type type = item.GetType();
+
+                    data = new DO_DataPVD();
+
+                    data.EspecificacionPVD = especPVD;
+                    data.ThicknessMin = (double)type.GetProperty("THICKNESS_MIN").GetValue(item, null);
+                    data.ThicknessMax = (double)type.GetProperty("THICKNESS_MAX").GetValue(item, null);
+                    data.DurezaMin = (double)type.GetProperty("DUREZA_MIN").GetValue(item, null);
+                    data.DurezaMax = (double)type.GetProperty("DUREZA_MAX").GetValue(item, null);
+                    data.NoReceta = (string)type.GetProperty("NO_RECETA").GetValue(item, null);
+                }
+            }
+
+            return data;
+        }
+        #endregion
+
+        #region Nitriding
+
+        /// <summary>
+        /// Método que obtiene la información de las medidas específicas de cada especificación.
+        /// </summary>
+        /// <param name="especGasNitriding"></param>
+        /// <returns></returns>
+        public static DO_DataGasNitridingRails GetDataGasNitriding(string especGasNitriding)
+        {
+            DO_DataGasNitridingRails data = new DO_DataGasNitridingRails();
+
+            SO_EspecGasNitriding ServiceNitriding = new SO_EspecGasNitriding();
+
+            IList informacionBD = ServiceNitriding.GetEspec(especGasNitriding);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type type = item.GetType();
+
+                    data = new DO_DataGasNitridingRails();
+
+                    data.EspecificacionNitrurado = especGasNitriding;
+                    data.ThicknessMin = (double)type.GetProperty("THICKNESS_MIN").GetValue(item, null);
+                    data.ThicknessMax = (double)type.GetProperty("THICKNESS_MAX").GetValue(item, null);
+                    data.DurezaMin = (double)type.GetProperty("DUREZA_MIN").GetValue(item, null);
+                    data.DurezaMax = (double)type.GetProperty("DUREZA_MAX").GetValue(item, null);
+                    data.Receta = (string)type.GetProperty("RECETA").GetValue(item, null);
+                    data.WhiteLayer = (string)type.GetProperty("WHITE_LAYER").GetValue(item, null);
+
+                }
+            }
+
+            return data;
+        }
+        #endregion
+
         #endregion
 
         #region Rectificados Finos
@@ -16295,6 +16397,102 @@ namespace Model
             return ListaPropiedades;
         }
 
+        public static ObservableCollection<PropiedadOptional> GetAllPropiedadesOpcionalesByPerfil(int idPerfil)
+        {
+            SO_PropiedadOpcional ServiceOpcional = new SO_PropiedadOpcional();
+
+            IList informacionBD = ServiceOpcional.GetPropiedadesByPerfil(idPerfil);
+
+            ObservableCollection<PropiedadOptional> ListaPropiedades = new ObservableCollection<PropiedadOptional>();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    PropiedadOptional propiedad = new PropiedadOptional();
+
+                    propiedad.idPropiedadOpcional = (int)tipo.GetProperty("ID_PROPIEDAD_OPCIONAL").GetValue(item, null);
+                    propiedad.lblTitle = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.Source = (int)tipo.GetProperty("SOURCE").GetValue(item, null);
+
+                    if (propiedad.Source == 2)
+                    {
+                        IList informacionBDOpciones = ServiceOpcional.GetOpcionesByIdPropiedadOpcional(propiedad.idPropiedadOpcional);
+
+                        if (informacionBDOpciones != null)
+                        {
+                            propiedad.ListaOpcional = new ObservableCollection<FO_Item>();
+                            foreach (var opcion in informacionBDOpciones)
+                            {
+                                Type type = opcion.GetType();
+
+                                FO_Item elemento = new FO_Item();
+
+                                elemento.ValorCadena = (string)type.GetProperty("VALOR").GetValue(opcion, null);
+                                elemento.Nombre = (string)type.GetProperty("VALOR").GetValue(opcion, null);
+                                elemento.id = (int)type.GetProperty("ID_OPCION_PROPIEDAD_OPCIONAL").GetValue(opcion, null);
+
+                                propiedad.ListaOpcional.Add(elemento);
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (propiedad.Source == 1)
+                        {
+                            IList informacionTabla = ServiceOpcional.GetTablaSourcePropiedadOpcional(propiedad.idPropiedadOpcional);
+
+                            if (informacionTabla != null)
+                            {
+                                string table = string.Empty;
+                                string showField = string.Empty;
+                                string idField = string.Empty;
+
+                                foreach (var infoTable in informacionTabla)
+                                {
+                                    Type type = infoTable.GetType();
+
+                                    table = (string)type.GetProperty("NOMBRE_TABLA").GetValue(infoTable, null);
+                                    showField = (string)type.GetProperty("CAMPO_MOSTRAR").GetValue(infoTable, null);
+                                    idField = (string)type.GetProperty("CAMPO_ID").GetValue(infoTable, null);
+                                }
+
+                                if (!string.IsNullOrEmpty(table))
+                                {
+                                    DataTable informacionOpciones = ServiceOpcional.GetOpcionesFromTable(table, showField, idField);
+
+                                    if (informacionOpciones != null)
+                                    {
+                                        if (informacionOpciones.Rows.Count > 0)
+                                        {
+                                            foreach (DataRow data in informacionOpciones.Rows)
+                                            {
+                                                FO_Item elemento = new FO_Item();
+
+                                                elemento.Nombre = data[showField].ToString();
+                                                elemento.ValorCadena = data[idField].ToString();
+
+                                                propiedad.ListaOpcional.Add(elemento);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    
+
+                    ListaPropiedades.Add(propiedad);
+                }
+            }
+
+            return ListaPropiedades;
+        }
+
         /// <summary>
         /// Método que obtiene la propiedad a partir de el id de la propiedad.
         /// </summary>
@@ -16445,17 +16643,107 @@ namespace Model
         {
             ObservableCollection<PropiedadOptional> ListaResultante = new ObservableCollection<PropiedadOptional>();
 
-            PropiedadOptional pOptional = new PropiedadOptional();
-            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
-            lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
-            lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
-            pOptional.ListaOpcional = lista;
-            pOptional.lblTitle = "Material";
-            pOptional.TipoPerfil = "PERFIL O.D.";
+            SO_PropiedadOpcional ServicePropiedad = new SO_PropiedadOpcional();
 
-            ListaResultante.Add(pOptional);
+            IList InformacionBD = ServicePropiedad.GetPropiedadesByCodigo(codigo);
 
+            if (InformacionBD != null)
+            {
+                foreach (var item in InformacionBD)
+                {
+                    PropiedadOptional propiedadOpcional = new PropiedadOptional();
 
+                    Type type = item.GetType();
+                    string valorGuardado = (string)type.GetProperty("VALOR").GetValue(item, null);
+                    propiedadOpcional.idPropiedadOpcional = (int)type.GetProperty("ID_PROPIEDAD_OPCIONAL").GetValue(item, null);
+                    propiedadOpcional.lblTitle = (string)type.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedadOpcional.Source = (int)type.GetProperty("SOURCE").GetValue(item, null);
+                    propiedadOpcional.TipoPerfil = (string)type.GetProperty("TIPO_PERFIL").GetValue(item, null);
+
+                    if (propiedadOpcional.Source == 2)
+                    {
+                        IList informacionBDOpciones = ServicePropiedad.GetOpcionesByIdPropiedadOpcional(propiedadOpcional.idPropiedadOpcional);
+
+                        if (informacionBDOpciones != null)
+                        {
+                            propiedadOpcional.ListaOpcional = new ObservableCollection<FO_Item>();
+                            foreach (var opcion in informacionBDOpciones)
+                            {
+                                Type type1 = opcion.GetType();
+
+                                FO_Item elemento = new FO_Item();
+
+                                elemento.ValorCadena = (string)type1.GetProperty("VALOR").GetValue(opcion, null);
+                                elemento.Nombre = (string)type1.GetProperty("VALOR").GetValue(opcion, null);
+                                elemento.id = (int)type1.GetProperty("ID_OPCION_PROPIEDAD_OPCIONAL").GetValue(opcion, null);
+                                
+                                propiedadOpcional.ListaOpcional.Add(elemento);
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (propiedadOpcional.Source == 1)
+                        {
+                            IList informacionTabla = ServicePropiedad.GetTablaSourcePropiedadOpcional(propiedadOpcional.idPropiedadOpcional);
+
+                            if (informacionTabla != null)
+                            {
+                                string table = string.Empty;
+                                string showField = string.Empty;
+                                string idField = string.Empty;
+
+                                foreach (var infoTable in informacionTabla)
+                                {
+                                    Type type2 = infoTable.GetType();
+
+                                    table = (string)type2.GetProperty("NOMBRE_TABLA").GetValue(infoTable, null);
+                                    showField = (string)type2.GetProperty("CAMPO_MOSTRAR").GetValue(infoTable, null);
+                                    idField = (string)type2.GetProperty("CAMPO_ID").GetValue(infoTable, null);
+                                }
+
+                                if (!string.IsNullOrEmpty(table))
+                                {
+                                    DataTable informacionOpciones = ServicePropiedad.GetOpcionesFromTable(table, showField, idField);
+
+                                    if (informacionOpciones != null)
+                                    {
+                                        if (informacionOpciones.Rows.Count > 0)
+                                        {
+                                            foreach (DataRow data in informacionOpciones.Rows)
+                                            {
+                                                FO_Item elemento = new FO_Item();
+
+                                                elemento.Nombre = data[showField].ToString();
+                                                elemento.ValorCadena = data[idField].ToString();
+
+                                                propiedadOpcional.ListaOpcional.Add(elemento);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    propiedadOpcional.ElementSelected = propiedadOpcional.ListaOpcional.Where(o => o.ValorCadena == valorGuardado).FirstOrDefault();
+                   
+                    ListaResultante.Add(propiedadOpcional);
+                }
+            }
+            
+
+            //PropiedadOptional pOptional = new PropiedadOptional();
+            //ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+            //lista.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012 - S" });
+            //lista.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
+            //pOptional.ListaOpcional = lista;
+            //pOptional.lblTitle = "Material";
+            //pOptional.TipoPerfil = "PERFIL O.D.";
+
+            //ListaResultante.Add(pOptional);
+            
             return ListaResultante;
         }
 

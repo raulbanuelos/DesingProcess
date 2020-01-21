@@ -1004,13 +1004,14 @@ namespace View.Services.ViewModel
 
         #region Constructors
 
-        public AnilloViewModel(string nombreUsuario)
+        public AnilloViewModel(string nombreUsuario, Usuario user)
         {
             //Inicializamos el objeto anillo que representa nuestro modelo.
             ModelAnillo = new Anillo();
-
+            User = user;
             //Inicializamos los atributos
             NombreUsuario = nombreUsuario;
+
             ListaEspecificacionesMateriaPrima = DataManager.GetAllEspecificacionesMateriaPrima();
             ListaClientes = DataManager.GetAllClientes();
             ListaTreatment = DataManager.GetAllTreatment();
@@ -1544,7 +1545,7 @@ namespace View.Services.ViewModel
 
             ////Terminamos de simular el anillo 
             #endregion
-            
+
             #region Simulacion Anillo ACERO AL CARBON (ROLADOS)
             //PropiedadCadena especificacion = new PropiedadCadena();
             //especificacion.DescripcionCorta = "MATERIAL";
@@ -1557,7 +1558,7 @@ namespace View.Services.ViewModel
 
             //H1 = new Propiedad { DescripcionCorta = "H1", DescripcionLarga = "Width nominal", Imagen = null, Nombre = "H1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.05866 };
             //D1 = new Propiedad { DescripcionCorta = "D1", DescripcionLarga = "Diámetro nominal", Imagen = null, Nombre = "D1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 4.4055 };
-            
+
             //FreeGap = new Propiedad { DescripcionCorta = "Free Gap", DescripcionLarga = "Free Gap", Imagen = null, Nombre = "Total Free Gap Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.302 };
 
             //Propiedad h1 = new Propiedad { DescripcionCorta = "h1", DescripcionLarga = "Width", Imagen = null, Nombre = "h1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.05866 };
@@ -1568,15 +1569,18 @@ namespace View.Services.ViewModel
             //Propiedad Thickness = new Propiedad { DescripcionCorta = "Thickness", DescripcionLarga = "Thickness", Imagen = null, Nombre = "a1", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.131 };
             //Propiedad ThicknessMin = new Propiedad { DescripcionCorta = "Thickness Min", DescripcionLarga = "Thickness Min", Imagen = null, Nombre = "a1 Tol Min", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
             //Propiedad ThicknessMax = new Propiedad { DescripcionCorta = "Thickness Max", DescripcionLarga = "Thickness Max", Imagen = null, Nombre = "a1 Tol Max", TipoDato = "Distance", Unidad = "Inch (in)", Valor = 0.005 };
-            
+
             //PerfilID.Propiedades.Add(Thickness);
             //PerfilID.Propiedades.Add(ThicknessMin);
             //PerfilID.Propiedades.Add(ThicknessMax);
-            
+
             #endregion
 
+            double espesorRadialMP = 0.0;
+            double espesorAxialMP = 0.0;
+
             Anillo anilloProcesado = new Anillo();
-            DescripcionGeneral = string.Format("{0:0.00000}", D1.Valor) + " X " + string.Format("{0:0.00000}", H1.Valor) + " " + TipoAnillo;
+            DescripcionGeneral = string.Format("{0:0.00000}", Module.ConvertTo(D1.TipoDato, D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), D1.Valor)) + " X " + string.Format("{0:0.00000}", Module.ConvertTo(H1.TipoDato, H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), H1.Valor)) + " " + TipoAnillo;
             MaterialBase.Especificacion = EspecificacionMaterialSeleccionada;
 
             //Agregamos los valores iniciales del anillo. Esto se utiliza para el calculo de tiempos estandar.
@@ -1779,6 +1783,8 @@ namespace View.Services.ViewModel
                                 mpSeleccionada.Propiedades.Add(new Propiedad { Nombre = "espesorAxialMP", Valor = mpSeleccionada.ESP_AXIAL, TipoDato = "Distance", Unidad = "Inch (in)" });
                                 mpSeleccionada.Propiedades.Add(new Propiedad { Nombre = "espesorRadialMP", Valor = mpSeleccionada.ESP_RADIAL, TipoDato = "Distance", Unidad = "Inch (in)" });
                                 MaterialBase = mpSeleccionada;
+                                espesorAxialMP = mpSeleccionada.ESP_AXIAL;
+                                espesorRadialMP = mpSeleccionada.ESP_RADIAL;
                             }
                         }
                         
@@ -1813,8 +1819,8 @@ namespace View.Services.ViewModel
             anilloProcesado.TensionTol = ModelAnillo.TensionTol;
             anilloProcesado.TipoAnillo = ModelAnillo.TipoAnillo;
             anilloProcesado.FreeGap = ModelAnillo.FreeGap;
-
-            //Realizamos las operaciones
+            
+            #region Cálculo de Operaciones
             bool ban = true;
             Anillo aProcesado = new Anillo();
 
@@ -1823,7 +1829,7 @@ namespace View.Services.ViewModel
 
             int totalOperaciones = Operaciones.Count;
             int count = 0;
-            
+
             foreach (IOperacion element in Operaciones)
             {
                 element.NoOperacion = noOperacion;
@@ -1850,7 +1856,7 @@ namespace View.Services.ViewModel
                 }
 
                 string mensaje = "                                                                                                                    " + noOperacion / 10 + "/" + Operaciones.Count + Environment.NewLine +
-                    Resources.StringResources.msgDoingOperation + " " + noOperacion + "    " + element.NombreOperacion  + 
+                    Resources.StringResources.msgDoingOperation + " " + noOperacion + "    " + element.NombreOperacion +
                                 Environment.NewLine + Environment.NewLine + Resources.StringResources.lblWidth + ": " + currentWidth +
                                 "    " + Resources.StringResources.lblThickness + ": " + currentThickness +
                                 "    " + Resources.StringResources.lblDiameter + ": " + currentDiameter;
@@ -1877,16 +1883,100 @@ namespace View.Services.ViewModel
                 noOperacion += 10;
                 count += count;
             }
+            #endregion
+
+            #region Definición de Carátula
+            ModelAnillo.Caratula = DescripcionGeneral + Environment.NewLine;
+            ModelAnillo.Caratula += "FECHA REV.       " + DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year + Environment.NewLine;
+
+            if (clasificacionProducto == "Segmento")
+            {
+                #region Carátula para los segmentos
+                Propiedad h11Min = Module.GetPropiedad("h11 Min", PerfilLateral.Propiedades);
+                Propiedad h11Max = Module.GetPropiedad("h11 Max", PerfilLateral.Propiedades);
+                Propiedad a1Min = Module.GetPropiedad("a1 Min", PerfilID.Propiedades);
+                Propiedad a1Max = Module.GetPropiedad("a1 Max", PerfilID.Propiedades);
+
+                h11Min.Valor = Module.ConvertTo(h11Min.TipoDato, h11Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h11Min.Valor);
+                h11Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                h11Max.Valor = Module.ConvertTo(h11Max.TipoDato, h11Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h11Max.Valor);
+                h11Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                a1Min.Valor = Module.ConvertTo(a1Min.TipoDato, a1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Min.Valor);
+                a1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                a1Max.Valor = Module.ConvertTo(a1Max.TipoDato, a1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Max.Valor);
+                a1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                ModelAnillo.Caratula += "ESP. AXIAL       " + h11Min.Valor + " - " + h11Max.Valor + "" + Environment.NewLine; //  <-- Width
+                ModelAnillo.Caratula += "ESP RADIAL       " + a1Min.Valor + " - " + a1Max.Valor + "" + Environment.NewLine; // <-- Thickness
+
+                Propiedad s1Min = Module.GetPropiedad("s1 Min", PerfilPuntas.Propiedades);
+                Propiedad s1Max = Module.GetPropiedad("s1 Max", PerfilPuntas.Propiedades);
+                Propiedad freeGapMin = Module.GetPropiedad("freeGapMin", PerfilPuntas.Propiedades);
+                Propiedad freeGapMax = Module.GetPropiedad("freeGapMax", PerfilPuntas.Propiedades);
+
+                s1Min.Valor = Module.ConvertTo(s1Min.TipoDato, s1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), s1Min.Valor);
+                s1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                s1Max.Valor = Module.ConvertTo(s1Max.TipoDato, s1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), s1Max.Valor);
+                s1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                freeGapMin.Valor = Module.ConvertTo(freeGapMin.TipoDato, freeGapMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), freeGapMin.Valor);
+                freeGapMin.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                freeGapMax.Valor = Module.ConvertTo(freeGapMax.TipoDato, freeGapMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), freeGapMax.Valor);
+                freeGapMax.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+
+                ModelAnillo.Caratula += "ABERT.TRAB.      " + s1Min.Valor + " - " + s1Min.Valor + "" + Environment.NewLine;
+                ModelAnillo.Caratula += "ABERT.LIBRE      " + freeGapMin.Valor + " - " + freeGapMax.Valor + "" + Environment.NewLine;
+                ModelAnillo.Caratula += "MATERIAL         " + MaterialBase.Especificacion + Environment.NewLine;
+                ModelAnillo.Caratula += "CHAFLAN DIA. EXT 0.0004 - 0.0078 X 45 GRADOS" + Environment.NewLine;
+
+                if (Module.HasPropiedadOptional("ESPEC_NITRURADO", PerfilOD.PropiedadesOpcionales))
+                {
+                    PropiedadOptional especNitrurado = PerfilOD.PropiedadesOpcionales.Where(o => o.lblTitle == "ESPEC_NITRURADO").FirstOrDefault();
+                    DO_DataGasNitridingRails dataNitrurado = DataManager.GetDataGasNitriding(especNitrurado.ElementSelected.ValorCadena);
+                    ModelAnillo.Caratula += "NITRURADO        " + dataNitrurado.ThicknessMin + " - " + dataNitrurado.ThicknessMax + Environment.NewLine;
+                }
+
+                if (Module.HasPropiedadOptional("ESPEC_PVD", PerfilOD.PropiedadesOpcionales))
+                {
+                    PropiedadOptional propiedadEspec = PerfilOD.PropiedadesOpcionales.Where(o => o.lblTitle == "ESPEC_PVD").FirstOrDefault();
+                    DO_DataPVD dataPVD = DataManager.GetDataPVD(propiedadEspec.ElementSelected.ValorCadena);
+                    ModelAnillo.Caratula += "PVD " + dataPVD.NoReceta + "       " + dataPVD.ThicknessMin + " - " + dataPVD.ThicknessMax + Environment.NewLine;
+                }
+
+                ModelAnillo.Caratula += "NOTA:" + Environment.NewLine;
+                ModelAnillo.Caratula += "DIMENSION PARA REGIÓN INTERNA 0.0152 - .0169" + Environment.NewLine;
+                ModelAnillo.Caratula += "" + Environment.NewLine;
+                ModelAnillo.Caratula += "MAT. PRIMA" + Environment.NewLine;
+                ModelAnillo.Caratula += "PROV.HITACHI" + Environment.NewLine;
+                ModelAnillo.Caratula += "DIM ALAMBRE  " + espesorRadialMP + " X " + espesorAxialMP + Environment.NewLine;
+                ModelAnillo.Caratula += "ACERO 10% CROMO" + Environment.NewLine;
+                ModelAnillo.Caratula += "" + Environment.NewLine;
+                
+                 
+                #endregion
+            }
+
+            ModelAnillo.Caratula += "*IDENTIFICACION" + Environment.NewLine;
+            ModelAnillo.Caratula += "CLIENTE: " + cliente.NombreCliente + Environment.NewLine;
+            ModelAnillo.Caratula += "PTE. CLTE. " + CustomerPartNumber + " REV. " + CustomerRevisionLevel + "" + Environment.NewLine;
+            ModelAnillo.Caratula += "MEDIDA " + D1.Valor + " X " + H1.Valor + Environment.NewLine;
+            ModelAnillo.Caratula += "" + Environment.NewLine;
+            ModelAnillo.Caratula += "REVISADO " + User.Nombre + " " + User.ApellidoPaterno + Environment.NewLine;
+            ModelAnillo.Caratula += "        " + DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year + Environment.NewLine;
+            ModelAnillo.Caratula += "" + Environment.NewLine;
+            ModelAnillo.Caratula += "NOTAS:" + Environment.NewLine;
+            #endregion
 
             await Controller.CloseAsync();
             await dialogService.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgRoutingReady);
-            /*
-            string PrimerBloque = "1" + Environment.NewLine;
-            PrimerBloque += "2" + Environment.NewLine;
 
 
-            ModelAnillo.Caratula = PrimerBloque;
-             */
         }
 
         /// <summary>
@@ -2754,6 +2844,11 @@ namespace View.Services.ViewModel
                 {
                     DataManager.UpdateArquetipoPropiedadesBool(Codigo, propiedad.idPropiedad, propiedad.Valor);
                 }
+
+                foreach (PropiedadOptional propiedad in PerfilOD.PropiedadesOpcionales)
+                {
+                    DataManager.UpdateArquetipoPropiedadesOpcionales(Codigo, propiedad.idPropiedadOpcional, propiedad.ElementSelected.ValorCadena);
+                }
                 #endregion
                 
                 #region Update Propiedades Perfil ID
@@ -2771,8 +2866,13 @@ namespace View.Services.ViewModel
                 {
                     DataManager.UpdateArquetipoPropiedadesBool(Codigo, propiedad.idPropiedad, propiedad.Valor);
                 }
+
+                foreach (PropiedadOptional propiedad in PerfilID.PropiedadesOpcionales)
+                {
+                    DataManager.UpdateArquetipoPropiedadesOpcionales(Codigo, propiedad.idPropiedadOpcional, propiedad.ElementSelected.ValorCadena);
+                }
                 #endregion
-                
+
                 #region Update Propiedades Perfil Lateral
                 foreach (Propiedad propiedad in PerfilLateral.Propiedades)
                 {
@@ -2788,8 +2888,13 @@ namespace View.Services.ViewModel
                 {
                     DataManager.UpdateArquetipoPropiedadesBool(Codigo, propiedad.idPropiedad, propiedad.Valor);
                 }
+
+                foreach (PropiedadOptional propiedad in PerfilLateral.PropiedadesOpcionales)
+                {
+                    DataManager.UpdateArquetipoPropiedadesOpcionales(Codigo, propiedad.idPropiedadOpcional, propiedad.ElementSelected.ValorCadena);
+                }
                 #endregion
-                
+
                 #region Update Propiedades Perfil Puntas
                 foreach (Propiedad propiedad in PerfilPuntas.Propiedades)
                 {
@@ -2804,6 +2909,11 @@ namespace View.Services.ViewModel
                 foreach (PropiedadBool propiedad in PerfilPuntas.PropiedadesBool)
                 {
                     DataManager.UpdateArquetipoPropiedadesBool(Codigo, propiedad.idPropiedad, propiedad.Valor);
+                }
+
+                foreach (PropiedadOptional propiedad in PerfilPuntas.PropiedadesOpcionales)
+                {
+                    DataManager.UpdateArquetipoPropiedadesOpcionales(Codigo, propiedad.idPropiedadOpcional, propiedad.ElementSelected.ValorCadena);
                 }
                 #endregion
 
@@ -2844,6 +2954,11 @@ namespace View.Services.ViewModel
                     {
                         DataManager.InsertArquetipoPropiedadesBool(Codigo, propiedad.idPropiedad, propiedad.Valor);
                     }
+
+                    foreach (PropiedadOptional propiedad in PerfilOD.PropiedadesOpcionales)
+                    {
+                        DataManager.InsertArquetipoPropiedadesOpcionales(Codigo, propiedad.idPropiedadOpcional, propiedad.ElementSelected.ValorCadena);
+                    }
                     #endregion
 
                     #region Insert Perfil Lateral
@@ -2861,6 +2976,11 @@ namespace View.Services.ViewModel
                     foreach (PropiedadBool propiedad in PerfilLateral.PropiedadesBool)
                     {
                         DataManager.InsertArquetipoPropiedadesBool(Codigo, propiedad.idPropiedad, propiedad.Valor);
+                    }
+
+                    foreach (PropiedadOptional propiedad in PerfilLateral.PropiedadesOpcionales)
+                    {
+                        DataManager.InsertArquetipoPropiedadesOpcionales(Codigo, propiedad.idPropiedadOpcional, propiedad.ElementSelected.ValorCadena);
                     }
                     #endregion
 
@@ -2880,8 +3000,13 @@ namespace View.Services.ViewModel
                     {
                         DataManager.InsertArquetipoPropiedadesBool(Codigo, propiedad.idPropiedad, propiedad.Valor);
                     }
+
+                    foreach (PropiedadOptional propiedad in PerfilID.PropiedadesOpcionales)
+                    {
+                        DataManager.InsertArquetipoPropiedadesOpcionales(Codigo, propiedad.idPropiedadOpcional, propiedad.ElementSelected.ValorCadena);
+                    }
                     #endregion
-                    
+
                     #region Insert Perfil Puntas
                     DataManager.InsertPerfilArquetipo(Codigo, PerfilPuntas.idPerfil);
                     foreach (Propiedad propiedad in PerfilPuntas.Propiedades)
@@ -2897,6 +3022,11 @@ namespace View.Services.ViewModel
                     foreach (PropiedadBool propiedad in PerfilPuntas.PropiedadesBool)
                     {
                         DataManager.InsertArquetipoPropiedadesBool(Codigo, propiedad.idPropiedad, propiedad.Valor);
+                    }
+
+                    foreach (PropiedadOptional propiedad in PerfilPuntas.PropiedadesOpcionales)
+                    {
+                        DataManager.InsertArquetipoPropiedadesOpcionales(Codigo, propiedad.idPropiedadOpcional, propiedad.ElementSelected.ValorCadena);
                     }
                     #endregion
 
@@ -3456,23 +3586,23 @@ namespace View.Services.ViewModel
             PerfilOD.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilOD.idPerfil,IsMilimeter);
             PerfilOD.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilOD.idPerfil);
             PerfilOD.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilOD.idPerfil);
-            PerfilOD.PropiedadesOpcionales = DataManager.GetPropiedadOptionalSaved(Codigo); //Temporal.
+            PerfilOD.PropiedadesOpcionales = DataManager.GetAllPropiedadesOpcionalesByPerfil(PerfilOD.idPerfil);
 
             PerfilID.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilID.idPerfil,IsMilimeter);
             PerfilID.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilID.idPerfil);
             PerfilID.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilID.idPerfil);
-            PerfilID.PropiedadesOpcionales = DataManager.GetPropiedadOptionalSaved(Codigo); //Temporal.
+            PerfilID.PropiedadesOpcionales = DataManager.GetAllPropiedadesOpcionalesByPerfil(PerfilID.idPerfil);
 
             PerfilLateral.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilLateral.idPerfil,IsMilimeter);
             PerfilLateral.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilLateral.idPerfil);
             PerfilLateral.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilLateral.idPerfil);
-            PerfilLateral.PropiedadesOpcionales = DataManager.GetPropiedadOptionalSaved(Codigo); //Temporal.
+            PerfilLateral.PropiedadesOpcionales = DataManager.GetAllPropiedadesOpcionalesByPerfil(PerfilLateral.idPerfil);
 
             PerfilPuntas.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilPuntas.idPerfil,IsMilimeter);
             PerfilPuntas.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilPuntas.idPerfil);
             PerfilPuntas.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilPuntas.idPerfil);
-            PerfilPuntas.PropiedadesOpcionales = DataManager.GetPropiedadOptionalSaved(Codigo); //Temporal.
-            
+            PerfilPuntas.PropiedadesOpcionales = DataManager.GetAllPropiedadesOpcionalesByPerfil(PerfilPuntas.idPerfil);
+
             createNumericEntry();
 
             createTextEntry();
@@ -3493,7 +3623,6 @@ namespace View.Services.ViewModel
                 optionalEntry.DataContext = vm;
 
                 PropiedadesOptionalOD.Add(optionalEntry);
-                
             }
 
             PanelPropiedadesOpcionalesOD = SetOptionalEntryToStackPanel(PropiedadesOptionalOD, PerfilOD.PropiedadesOpcionales);
@@ -3582,7 +3711,7 @@ namespace View.Services.ViewModel
             }
             PanelPropiedadesBoolLateral = SetBoolEntryToStackPanel(PropiedadesBoolLateral, PerfilLateral.PropiedadesBool);
             #endregion
-
+              
             #region Puntas
             foreach (PropiedadBool propiedad in PerfilPuntas.PropiedadesBool)
             {

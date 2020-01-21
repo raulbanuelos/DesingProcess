@@ -106,7 +106,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_COIL_FEED_ROLLER" Width="1.5" PointX="10.375" PointY="76.625" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS" Width="1.5" PointX="15.875" PointY="7.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS" Width="1.5" PointX="15.875" PointY="10.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" Width="1.5" PointX="16.875" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS" Width="2.5" PointX="16.875" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Tooling.TBL_DISCOS_THOMPSON_SEGMENTOS" Width="1.5" PointX="10.375" PointY="73.875" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Tooling.FK_CODIGO_BUSHING" />

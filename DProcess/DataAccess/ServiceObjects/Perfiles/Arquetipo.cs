@@ -23,6 +23,7 @@ namespace DataAccess.ServiceObjects.Perfiles
             this.TBL_ARQUETIPO_PROPIEDADES_CADENA = new HashSet<TBL_ARQUETIPO_PROPIEDADES_CADENA>();
             this.TR_NORMAS_ARQUETIPO = new HashSet<TR_NORMAS_ARQUETIPO>();
             this.TR_PERFIL_ARQUETIPO = new HashSet<TR_PERFIL_ARQUETIPO>();
+            this.TBL_ARQUETIPO_PROPIEDADES_OPCIONAL = new HashSet<TBL_ARQUETIPO_PROPIEDADES_OPCIONAL>();
         }
     
         public string Codigo { get; set; }
@@ -42,5 +43,7 @@ namespace DataAccess.ServiceObjects.Perfiles
         public virtual ICollection<TR_NORMAS_ARQUETIPO> TR_NORMAS_ARQUETIPO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_PERFIL_ARQUETIPO> TR_PERFIL_ARQUETIPO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_ARQUETIPO_PROPIEDADES_OPCIONAL> TBL_ARQUETIPO_PROPIEDADES_OPCIONAL { get; set; }
     }
 }

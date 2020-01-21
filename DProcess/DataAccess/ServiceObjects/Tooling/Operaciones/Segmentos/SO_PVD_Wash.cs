@@ -34,7 +34,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         }
 
         /// <summary>
-        /// Función que retorna las posibles opciones de mesa de acuerdo al rango tecnicamente posible..
+        /// Función que retorna las posibles opciones de mesa de acuerdo al rango técnicamente posible.
         /// </summary>
         /// <param name="d1">Diámetro del anillo en mm</param>
         /// <returns></returns>

@@ -314,6 +314,15 @@
     <Compile Include="ServiceObjects\Perfiles\ArquetipoRings.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Perfiles\CAT_OPCION_PROPIEDAD_OPCIONAL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\CAT_PROPIEDAD_OPCIONAL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\CAT_TABLA_PROPIEDAD_OPCIONAL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Perfiles\ColoresAnillos.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
@@ -327,6 +336,10 @@
     <Compile Include="ServiceObjects\Perfiles\SO_PropiedadBool.cs" />
     <Compile Include="ServiceObjects\Perfiles\SO_PropiedadCadena.cs" />
     <Compile Include="ServiceObjects\Operaciones\SO_Operaciones.cs" />
+    <Compile Include="ServiceObjects\Perfiles\SO_PropiedadOpcional.cs" />
+    <Compile Include="ServiceObjects\Perfiles\TBL_ARQUETIPO_PROPIEDADES_OPCIONAL.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Perfiles\TBL_ESPEC_GAS_NITRIDING_RAILS.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
@@ -346,6 +359,9 @@
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Perfiles\TR_NORMAS_ARQUETIPO.cs">
+      <DependentUpon>ModelPerfiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Perfiles\TR_PROPIEDAD_OPCIONAL_PERFIL.cs">
       <DependentUpon>ModelPerfiles.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Tooling\BarrelLapAnillos_.cs">
