@@ -34,8 +34,8 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>3.2.0.%2a</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>3.2.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -308,6 +308,9 @@
     </Compile>
     <Compile Include="Forms\Cotizaciones\CrearCotizacion.xaml.cs">
       <DependentUpon>CrearCotizacion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Cotizaciones\FDinamicForm.xaml.cs">
+      <DependentUpon>FDinamicForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Cotizaciones\FrmCalculoTiemposEstandar.xaml.cs">
       <DependentUpon>FrmCalculoTiemposEstandar.xaml</DependentUpon>
@@ -1324,6 +1327,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Cotizaciones\CrearCotizacion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Cotizaciones\FDinamicForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
