@@ -2250,12 +2250,12 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>Tiempo Setup</value>
     <comment>Etiqueta para Tiempo Setup</comment>
   </data>
-  <data name="lblIngresarListaCentrostrabajo" xml:space="preserve">
-    <value>Ingresar Lista de Centros de Trabajo</value>
-    <comment>Etiqueta para ingresar una lista de centros de trabajo </comment>
-  </data>
   <data name="lblCancelar" xml:space="preserve">
     <value>Cancelar</value>
     <comment>Etiqueta de Cancelar</comment>
+  </data>
+  <data name="lblIngresarListaCentrostrabajo" xml:space="preserve">
+    <value>Ingresar lista de centros de trabajo</value>
+    <comment>Etiqueta para ingresar una lista de centros de trabajo</comment>
   </data>
 </root>

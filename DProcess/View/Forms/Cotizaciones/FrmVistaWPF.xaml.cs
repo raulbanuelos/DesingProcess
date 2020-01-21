@@ -10,26 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace View.Forms.Cotizaciones
 {
     /// <summary>
-    /// Lógica de interacción para FrmListaCentroTrabajo.xaml
+    /// Lógica de interacción para FrmVistaWPF.xaml
     /// </summary>
-    public partial class FrmListaCentroTrabajo : MahApps.Metro.Controls.MetroWindow
+    public partial class FrmVistaWPF : MahApps.Metro.Controls.MetroWindow
     {
-        public FrmListaCentroTrabajo()
+        public FrmVistaWPF()
         {
             InitializeComponent();
         }
-        //Se ejecuta cuando se da click en el botón
-        void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //Acepta el Dialog y retorna el DialogResults
-            this.DialogResult = true;
-        }
-
     }
 }

@@ -18,9 +18,8 @@
             <Label Content="Lista de Centros de trabajo"  FontSize="20" FontFamily="Calibri" FontWeight="Bold" />
             <TextBox  x:Name="txtListaControlDocumentos" HorizontalAlignment="Center" Height="450" Width="350" VerticalAlignment="Top" Text="{Binding texto}" AcceptsReturn="True"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Command="{Binding Aceptar}" x:Name="btnAceptar" Margin="10,10,0,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblAceptar}">
-                </Button>
-                <Button x:Name="btnCancelar" Margin="10,10,0,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblCancelar}"/>
+                <Button IsDefault="True" Click="Button_Click" Command="{Binding Aceptar}" x:Name="btnAceptar" Margin="10,10,0,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblAceptar}"/>
+                <Button IsCancel="True" Command="{Binding Ir}" x:Name="btnCancelar" Margin="10,10,0,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblCancelar}"/>
             </StackPanel>
         </StackPanel>
     </Grid>
