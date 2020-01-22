@@ -863,6 +863,7 @@
     <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo461.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo465.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo290.cs" />
+    <Compile Include="Services\TiempoEstandar\Gasolina\RectificadosFinos\CentroTrabajo151.cs" />
     <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo466.cs" />
     <Compile Include="Services\TiempoEstandar\Segmentos\CentroTrabajo468.cs" />
     <Compile Include="Services\TiempoEstandar\Gasolina\CentroTrabajo488.cs" />
