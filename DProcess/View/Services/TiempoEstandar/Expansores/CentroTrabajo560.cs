@@ -67,12 +67,6 @@ namespace View.Services.TiempoEstandar.Expansores
             set;
         }
 
-        public List<Model.PropiedadOptional> PropiedadesRequeridasOpcionles
-        {
-            get;
-            set;
-        }
-
         public List<string> Alertas
         {
             get;

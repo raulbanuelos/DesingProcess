@@ -61,6 +61,12 @@ namespace View.Services.TiempoEstandar.Segmentos
             set;
         }
 
+        public List<Model.PropiedadOptional> PropiedadesRequeridasOpcionles
+        {
+            get;
+            set;
+        }
+
         public List<string> Alertas
         {
             get;
