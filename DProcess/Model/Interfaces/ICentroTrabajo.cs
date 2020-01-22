@@ -19,6 +19,7 @@ namespace Model.Interfaces
         List<Propiedad> PropiedadesRequeridadas { get; set; }
         List<PropiedadBool> PropiedadesRequeridasBool { get; set; }
         List<PropiedadCadena> PropiedadesRequeridasCadena { get; set; }
+        List<PropiedadOptional> PropiedadesRequeridasOpcionles { get; set; }
 
         /// <summary>
         /// Método que calcula los tiempos estándar.
@@ -37,7 +38,7 @@ namespace Model.Interfaces
         /// <param name="ListaPropiedades">Lista de propiedades ingresadas por el usuario.</param>
         /// <param name="ListaPropiedadesBool">Lista de propiedades booleanos ingresados por el usuario.</param>
         /// <param name="ListaPropiedadesCadena">Lista de propiedades cadena ingresados por el usuario.</param>
-        void Calcular(List<Propiedad> ListaPropiedades, List<PropiedadBool> ListaPropiedadesBool, List<PropiedadCadena> ListaPropiedadesCadena);
+        void Calcular(List<Propiedad> ListaPropiedades, List<PropiedadBool> ListaPropiedadesBool, List<PropiedadCadena> ListaPropiedadesCadena, List<PropiedadOptional> ListaPropiedadesOpcionales);
         
         /// <summary>
         /// Colección que contiene los posibles errores generados por los cálculos de los tiempos.
