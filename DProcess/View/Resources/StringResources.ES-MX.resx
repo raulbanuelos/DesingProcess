@@ -2255,7 +2255,7 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <comment>Etiqueta de Cancelar</comment>
   </data>
   <data name="lblIngresarListaCentrostrabajo" xml:space="preserve">
-    <value>Ingresar lista de centros de trabajo</value>
+    <value>Lista de centros de trabajo</value>
     <comment>Etiqueta para ingresar una lista de centros de trabajo</comment>
   </data>
 </root>
