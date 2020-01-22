@@ -48,6 +48,12 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
             set;
         }
 
+        public List<Model.PropiedadOptional> PropiedadesRequeridasOpcionles
+        {
+            get;
+            set;
+        }
+
         public double TiempoLabor
         {
             get;
@@ -151,12 +157,13 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
             Calcular();
         }
 
-        public void Calcular(List<Propiedad> ListaPropiedades, List<PropiedadBool> ListaPropiedadesBool, List<PropiedadCadena> ListaPropiedadesCadena)
+        public void Calcular(List<Propiedad> ListaPropiedades, List<PropiedadBool> ListaPropiedadesBool, List<PropiedadCadena> ListaPropiedadesCadena, List<PropiedadOptional> ListaPropiedadesOpcionales)
         {
             //Obtenemos los valores de las propiedades requeridas.
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, ListaPropiedades);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, ListaPropiedadesBool);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, ListaPropiedadesCadena);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, ListaPropiedadesOpcionales);
 
             //Ejecutamos el método para calcular los tiempos estándar.
             Calcular();
