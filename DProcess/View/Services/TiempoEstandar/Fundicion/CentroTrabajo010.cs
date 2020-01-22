@@ -176,7 +176,6 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// <summary>
         /// Default constructor
         /// </summary>
-
         public CentroTrabajo010()
         {
             CentroTrabajo = "010";
@@ -184,6 +183,7 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
             //Inicializamos los datos requeridos para el cálculo.

@@ -213,6 +213,7 @@ namespace View.Services.ViewModel
             ObservableCollection<NumericEntry> propiedadesNumeric = new ObservableCollection<NumericEntry>();
             ObservableCollection<BoolEntry> propiedadesBool = new ObservableCollection<BoolEntry>();
             ObservableCollection<StringEntry> propiedadesCadena = new ObservableCollection<StringEntry>();
+            ObservableCollection<OptionalEntry> propiedadesOpcionales = new ObservableCollection<OptionalEntry>();
 
             FrmListaCentroTrabajo frm = new FrmListaCentroTrabajo();
             ListaCentroTrabajoViewModel context = new ListaCentroTrabajoViewModel();
@@ -262,6 +263,14 @@ namespace View.Services.ViewModel
                         stringEntry.DataContext = propiedadCadena;
                         propiedadesCadena.Add(stringEntry);
                     }
+
+                    foreach (PropiedadOptional propiedadOpcional in centroTrabajo.PropiedadesRequeridasOpcionles)
+                    {
+                        OptionalEntry optionalEntry = new OptionalEntry();
+                        PropiedadOptionalViewModel propiedadOpcionalViewModel = new PropiedadOptionalViewModel(propiedadOpcional);
+                        optionalEntry.DataContext = propiedadOpcionalViewModel;
+                        propiedadesOpcionales.Add(optionalEntry);
+                    }
                 }
 
                 foreach (NumericEntry numericEntry in propiedadesNumeric)
@@ -289,6 +298,15 @@ namespace View.Services.ViewModel
                     panel.Children.Add(stringEntry);
 
                     PanelPropiedadesCadena.Add(panel);
+                }
+
+                foreach (OptionalEntry optionalEntry in propiedadesOpcionales)
+                {
+                    StackPanel panel = new StackPanel();
+                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                    panel.Children.Add(optionalEntry);
+
+                    PanelPropiedadesOpcionales.Add(panel);
                 }
                 
                 FrmVistaWPF vista = new FrmVistaWPF();

@@ -148,6 +148,8 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
+
             Alertas = new List<string>();
 
             Propiedad mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
@@ -155,6 +157,19 @@ namespace View.Services.TiempoEstandar.Fundicion
 
             PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
             PropiedadesRequeridasCadena.Add(espeMaterial);
+
+            /**
+             Ejemplo de carga de una propiedad Opcional.
+              **/
+            //PropiedadOptional material = new PropiedadOptional();
+            //material.Source = 1;
+            //material.ListaOpcional.Add(new FO_Item { Nombre = "MF012-S", ValorCadena = "MF012-S" });
+            //material.ListaOpcional.Add(new FO_Item { Nombre = "SPR-128", ValorCadena = "SPR-128" });
+            //material.ListaOpcional.Add(new FO_Item { Nombre = "PCR-128", ValorCadena = "PCR-128" });
+            //material.lblTitle = "Espec Material";
+
+            //PropiedadesRequeridasOpcionles.Add(material);
+
         }
         #endregion
 
