@@ -1313,7 +1313,7 @@ namespace View.Services.ViewModel
                 Excel.Worksheet xlWorkSheetGraficar;
 
                 xlApp = new Excel.Application();
-                xlWorkBook = xlApp.Workbooks.Open(@"c:\perfilRGP\Copy of MACHOTE 19-04-10.xls", 0, false, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+                xlWorkBook = xlApp.Workbooks.Open(@"c:\perfilRGP\MACHOTE 19-04-10.xls", 0, false, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
                 xlWorkSheetDatos = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(2);
 
                 //xlApp.Visible = true;
@@ -1432,42 +1432,51 @@ namespace View.Services.ViewModel
             //Incializamos los servicios de dialog.
             DialogService dialog = new DialogService();
 
-            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
-            ProgressDialogController AsyncProgress;
 
-            #region Se define la medida de la herramienta
-            MedidaHerramienta = 0;
-            if ((mounting.Valor <= 5 && mounting.Valor >= 1) || diametro.Valor >= 0.400)
-                MedidaHerramienta = 0.375;
+
+            if (File.Exists(@"c:\perfilRGP\MACHOTE 19-04-10.xls"))
+            {
+                //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+                ProgressDialogController AsyncProgress;
+
+                #region Se define la medida de la herramienta
+                MedidaHerramienta = 0;
+                if ((mounting.Valor <= 5 && mounting.Valor >= 1) || diametro.Valor >= 0.400)
+                    MedidaHerramienta = 0.375;
+                else
+                {
+                    if (mounting.Valor >= 6 && mounting.Valor <= 20)
+                        MedidaHerramienta = 0.187;
+                }
+
+                //Obtenemos la ventana actual
+                var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+                window.MetroDialogOptions.DefaultText = MedidaHerramienta.ToString();
+
+                window.MetroDialogOptions.AffirmativeButtonText = "Confirmar";
+                window.MetroDialogOptions.NegativeButtonText = "Cancelar proceso";
+
+                //Formulario para ingresar el número de copias, 
+                string inputDiaHerramienta = await window.ShowInputAsync("Confirma el diámetro de la herramienta.", "El diámetro sugerido de la herramienta es: " + MedidaHerramienta + ", si deseas otro diámetro por favor capturalo.", null);
+
+                #endregion
+                if (!string.IsNullOrEmpty(inputDiaHerramienta))
+                {
+                    //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+                    AsyncProgress = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento, StringResources.ttlWorking);
+
+                    int a = await RunMacro();
+
+                    //Ejecutamos el método para cerrar el mensaje de espera.
+                    await AsyncProgress.CloseAsync();
+
+                    //si no se selecciono el area, no se libera el documento
+                    await dialog.SendMessage(StringResources.lblInformation, StringResources.ttlDone + "\n" + "El archivo fué guardado en la siguiente ruta:" + "\n" + @"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx");
+                }
+            }
             else
             {
-                if (mounting.Valor >= 6 && mounting.Valor <= 20)
-                    MedidaHerramienta = 0.187;
-            }
-
-            //Obtenemos la ventana actual
-            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
-            window.MetroDialogOptions.DefaultText = MedidaHerramienta.ToString();
-
-            window.MetroDialogOptions.AffirmativeButtonText = "Confirmar";
-            window.MetroDialogOptions.NegativeButtonText = "Cancelar proceso";
-
-            //Formulario para ingresar el número de copias, 
-            string inputDiaHerramienta = await window.ShowInputAsync("Confirma el diámetro de la herramienta.", "El diámetro sugerido de la herramienta es: " + MedidaHerramienta + ", si deseas otro diámetro por favor capturalo.", null);
-
-            #endregion
-            if (!string.IsNullOrEmpty(inputDiaHerramienta))
-            {
-                //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
-                AsyncProgress = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento, StringResources.ttlWorking);
-
-                int a = await RunMacro();
-
-                //Ejecutamos el método para cerrar el mensaje de espera.
-                await AsyncProgress.CloseAsync();
-
-                //si no se selecciono el area, no se libera el documento
-                await dialog.SendMessage(StringResources.lblInformation, StringResources.ttlDone + "\n" + "El archivo fué guardado en la siguiente ruta:" + "\n" + @"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx"); 
+                await dialog.SendMessage(StringResources.lblInformation, "No se puede crear el archivo con los puntos debido a que en su computadora no esta la macro. \n por favor comuniquese con el administrador del sistema.");
             }
         }
 

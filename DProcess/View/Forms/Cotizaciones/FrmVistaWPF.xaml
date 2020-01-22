@@ -17,16 +17,24 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                 <Border BorderThickness="2" BorderBrush="Gray" >
-                    <StackPanel Orientation="Horizontal" Width="195" Height="200"></StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="195" Height="200">
+                        <ItemsControl ItemsSource="{Binding PanelPropiedades}"></ItemsControl>
+                    </StackPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="Gray" >
-                    <StackPanel Orientation="Horizontal" Width="195" Height="200"></StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="195" Height="200">
+                        <ItemsControl ItemsSource="{Binding PanelPropiedadesBool}"></ItemsControl>
+                    </StackPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="Gray" >
-                    <StackPanel Orientation="Horizontal" Width="195" Height="200"></StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="195" Height="200">
+                        <ItemsControl ItemsSource="{Binding PanelPropiedadesCadena}"></ItemsControl>
+                    </StackPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="Gray" >
-                    <StackPanel Orientation="Horizontal" Width="195" Height="200"></StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="195" Height="200">
+                        <ItemsControl ItemsSource="{Binding PanelPropiedadesOpcionales}"></ItemsControl>
+                    </StackPanel>
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

@@ -68,7 +68,7 @@ namespace View.Services
         {
             return propiedadesBool.Where(x => x.Nombre == nombrePropiedad).ToList().Count > 0 ? true : false;
         }
-
+        
         public static bool HasPropiedadOptional(string nombrePropiedad, ObservableCollection<PropiedadOptional> propiedadesOpcionales)
         {
             return propiedadesOpcionales.Where(x => x.lblTitle == nombrePropiedad).ToList().Count > 0 ? true : false;
@@ -788,6 +788,11 @@ namespace View.Services
 
             //Retornamos la lista de propiedades cadena con los valores.
             return ListaPropiedades;
+        }
+
+        public static List<PropiedadOptional> AsignarValoresPropiedadesOpcionales(List<PropiedadOptional> propiedadesRequeridasOpcionles, List<PropiedadOptional> listaPropiedadesOpcionales)
+        {
+            return listaPropiedadesOpcionales;
         }
 
         /// <summary>
