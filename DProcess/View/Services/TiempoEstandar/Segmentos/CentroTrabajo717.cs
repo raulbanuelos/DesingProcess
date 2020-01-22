@@ -1,14 +1,10 @@
 ﻿using Model;
 using Model.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace View.Services.TiempoEstandar.Segmentos
 {
-    public class CentroTrabajo717 :ICentroTrabajo
+    public class CentroTrabajo717 : ICentroTrabajo
     {
         #region Propiedades
 

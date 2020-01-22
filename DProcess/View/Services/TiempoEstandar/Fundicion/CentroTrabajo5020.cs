@@ -1,14 +1,10 @@
 ﻿using Model;
 using Model.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
-    public class CentroTrabajo5020 :ICentroTrabajo
+    public class CentroTrabajo5020 : ICentroTrabajo
     {
         #region Propiedades
 

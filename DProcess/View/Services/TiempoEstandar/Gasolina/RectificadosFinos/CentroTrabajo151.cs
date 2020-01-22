@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace View.Services.TiempoEstandar.Fundicion
+namespace View.Services.TiempoEstandar.Gasolina.RectificadosFinos
 {
     public class CentroTrabajo151 : ICentroTrabajo
     {

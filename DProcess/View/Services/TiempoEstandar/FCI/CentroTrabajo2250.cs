@@ -1,14 +1,10 @@
 ﻿using Model;
 using Model.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace View.Services.TiempoEstandar.FCI
 {
-    public class CentroTrabajo2250 :ICentroTrabajo
+    public class CentroTrabajo2250 : ICentroTrabajo
     {
         #region Propiedades
 

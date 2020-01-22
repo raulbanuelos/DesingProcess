@@ -1404,8 +1404,10 @@ namespace View.Services.ViewModel
                     worksheet.Cells[2, 5].Value = noBarrenos;
                     worksheet.Cells[2, 6].Value = Codigo;
 
+                    string pathFile = IsRedondo ? @"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ") REDONDO" + ".xlsx" : @"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx";
+                    
                     //Configuramos el archivo de excel.
-                    FileInfo excelFile = new FileInfo(@"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx");
+                    FileInfo excelFile = new FileInfo(pathFile);
                     
                     //Guardamos el archivo de excel con los puntos.
                     elExcel.SaveAs(excelFile);

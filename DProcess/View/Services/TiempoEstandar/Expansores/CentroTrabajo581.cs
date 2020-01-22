@@ -1,14 +1,10 @@
 ﻿using Model;
 using Model.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace View.Services.TiempoEstandar.Expansores
 {
-    public class CentroTrabajo581 :ICentroTrabajo
+    public class CentroTrabajo581 : ICentroTrabajo
     {
         #region Propiedades
 

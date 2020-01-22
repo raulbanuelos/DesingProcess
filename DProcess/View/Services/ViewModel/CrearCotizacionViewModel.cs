@@ -240,14 +240,10 @@ namespace View.Services.ViewModel
                 {
                     foreach (Propiedad propiedad in centroTrabajo.PropiedadesRequeridadas)
                     {
-
-                        if (ListaDuplicado.Where(x => x == propiedad.Nombre).ToList().Count > 0)
-                        {
-                            NumericEntry numeric = new NumericEntry();
-                            PropiedadViewModel propiedadViewModel = new PropiedadViewModel(propiedad);
-                            numeric.DataContext = propiedadViewModel;
-                            propiedadesNumeric.Add(numeric);
-                        }
+                        NumericEntry numeric = new NumericEntry();
+                        PropiedadViewModel propiedadViewModel = new PropiedadViewModel(propiedad);
+                        numeric.DataContext = propiedadViewModel;
+                        propiedadesNumeric.Add(numeric);
                     }
 
                     foreach (PropiedadBool propiedadBool in centroTrabajo.PropiedadesRequeridasBool)
