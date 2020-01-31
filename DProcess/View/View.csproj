@@ -34,7 +34,7 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>3.2.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -341,6 +341,9 @@
     </Compile>
     <Compile Include="Forms\LeccionesAprendidas\FrmLeccionesAprendidas.xaml.cs">
       <DependentUpon>FrmLeccionesAprendidas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LeccionesAprendidas\FrmSelect.xaml.cs">
+      <DependentUpon>FrmSelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\LeccionesAprendidas\InformacionCambios.xaml.cs">
       <DependentUpon>InformacionCambios.xaml</DependentUpon>
@@ -1378,6 +1381,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\LeccionesAprendidas\FrmSelect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\LeccionesAprendidas\InformacionCambios.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2024,6 +2031,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="iconDProcess.ico" />
+    <Resource Include="Images\icons8-idea-48.png" />
     <Resource Include="Images\wireTHM.PNG" />
     <Resource Include="Images\wireCuadrado.PNG" />
     <Resource Include="Images\TLAMARILLO.png" />

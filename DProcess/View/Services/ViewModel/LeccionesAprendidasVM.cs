@@ -130,6 +130,20 @@ namespace View.Services.ViewModel
             set { _TotalRegistros = value; NotifyChange("TotalRegistros"); }
         }
 
+        private ObservableCollection<FO_Item> _ListaMotivos;
+        public ObservableCollection<FO_Item> ListaMotivos
+        {
+            get { return _ListaMotivos; }
+            set { _ListaMotivos = value; NotifyChange("ListaMotivos"); }
+        }
+
+        private FO_Item _MotivoSelected;
+        public FO_Item MotivoSelected
+        {
+            get { return _MotivoSelected; }
+            set { _MotivoSelected = value; NotifyChange("MotivoSelected"); }
+        }
+
 
         #endregion
 
@@ -194,6 +208,12 @@ namespace View.Services.ViewModel
             TotalRegistros = Lista.Count;
             FechaFinal = DateTime.Now;
             FechaInicial = DateTime.Now;
+            ListaMotivos = DataManagerControlDocumentos.GetMotivoCambio();
+            
+            if (ListaMotivos.Count>0)
+            {
+                MotivoSelected = ListaMotivos[0];
+            }
             CreateMenuItems();
         }
 
@@ -272,22 +292,39 @@ namespace View.Services.ViewModel
             setting.NegativeButtonText = "1";
 
             MessageDialogResult resul = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblDescripcionSimilar, setting, MessageDialogStyle.AffirmativeAndNegative);
+
             if (resul == MessageDialogResult.Affirmative)
             {
-                InsertarComponentes Descripcion = new InsertarComponentes();
-                InsertarNuevaLeccionVW Context = new InsertarNuevaLeccionVW(ModelUsuario, true);
+                FrmSelect frmLista = new FrmSelect();
+                frmLista.DataContext = this;
+                bool result = (bool)frmLista.ShowDialog();
 
-                Descripcion.DataContext = Context;
-                Descripcion.ShowDialog();
+                if (result)
+                {
+                    InsertarComponentes Descripcion = new InsertarComponentes();
+                    InsertarNuevaLeccionVW Context = new InsertarNuevaLeccionVW(ModelUsuario, true, MotivoSelected);
+                    Descripcion.DataContext = Context;
+                    Descripcion.ShowDialog();
+                }
+
                 Lista = DataManagerControlDocumentos.GetLec("");
 
             }
             else
             {
-                InsertarNuevaLeccion Insertar = new InsertarNuevaLeccion();
-                InsertarNuevaLeccionVW InsertarVW = new InsertarNuevaLeccionVW(ModelUsuario,false);
-                Insertar.DataContext = InsertarVW;
-                Insertar.ShowDialog();
+                FrmSelect frmLista = new FrmSelect();
+                frmLista.DataContext = this;
+
+                bool result = (bool)frmLista.ShowDialog();
+
+                if (result)
+                {
+                    InsertarNuevaLeccion Insertar = new InsertarNuevaLeccion();
+                    InsertarNuevaLeccionVW InsertarVW = new InsertarNuevaLeccionVW(ModelUsuario, false, MotivoSelected);
+                    Insertar.DataContext = InsertarVW;
+                    Insertar.ShowDialog();
+                }
+
                 Lista = DataManagerControlDocumentos.GetLec("");
             }
         }

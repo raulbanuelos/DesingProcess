@@ -26,6 +26,10 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_BITACORA_INGRESO" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_USERS_DETAILS" Width="2.5" PointX="3" PointY="15.125" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_TBL_USERS_DETAILS_Usuarios" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.CAT_MOTIVO_CAMBIO" Width="1.5" PointX="8.375" PointY="10.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Width="1.5" PointX="10.625" PointY="11.25" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_CAT_MOTIVO_CAMBIO" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_TBL_LECCIONES_APRENDIDAS" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

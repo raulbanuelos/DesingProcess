@@ -22,6 +22,7 @@ namespace View.Services.ViewModel
 {
     public class InsertarNuevaLeccionVW : INotifyPropertyChanged
     {
+        public FO_Item MotivoSelected { get; set; }
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -372,11 +373,11 @@ namespace View.Services.ViewModel
 
         #region Constructor
 
-        public InsertarNuevaLeccionVW(Usuario ModelUsuario, bool VariosComponentes)
+        public InsertarNuevaLeccionVW(Usuario ModelUsuario, bool VariosComponentes, FO_Item motivoSelected)
         {
             User = ModelUsuario;
             usuario = User.NombreUsuario;
-
+            MotivoSelected = motivoSelected;
             //Obtenemos los datos que se van a mostrar en las listas
             ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo("");
             ListaNivelesDeCambio = DataManagerControlDocumentos.GetNivelesDeCambio();
@@ -1043,6 +1044,9 @@ namespace View.Services.ViewModel
                     //Mandamos llamar el metodo para insertar la nueva leccion. Nos regresara el id de la leccion insertada y con eso podremos insertar los centros de trabajo seleccionados y los tipos de cambios
                     int Id_Leccion_Aprendida_Insertada = DataManagerControlDocumentos.InsertLeccion(ObjLec.COMPONENTE, ObjLec.DESCRIPCION_PROBLEMA, ObjLec.FECHA_ULTIMO_CAMBIO, ObjLec.FECHA_ACTUALIZACION, ObjLec.REPORTADO_POR, ObjLec.SOLICITUD_DE_TRABAJO, ObjLec.ID_USUARIO);
 
+                    //Mandamos llamar el método para insertar la relacion
+                    int trLeccionMotivo = DataManagerControlDocumentos.InsertTRLeccionMotivoCambio(Id_Leccion_Aprendida_Insertada, MotivoSelected.id);
+
                     if (Id_Leccion_Aprendida_Insertada != 0)
                     {
                         //Obtenemos los datos de los centros de trabajo seleccionados
@@ -1225,6 +1229,9 @@ namespace View.Services.ViewModel
 
                         //Insertamos la leccion aprendida
                         SetLeccion = DataManagerControlDocumentos.InsertLeccion(ObjDesc.Componente, _DescripcionProblema, ObjDesc.Fecha_Ultimo_Cambio, ObjDesc.Fecha_Actualizacion, _ReportadoPor, _SolicitudTrabajoIng, _usuario);
+
+                        //Mandamos llamar el método para insertar la relacion
+                        int trLeccionMotivo = DataManagerControlDocumentos.InsertTRLeccionMotivoCambio(SetLeccion, MotivoSelected.id);
 
                         foreach (var Centro in ListaCentrosDeTrabajoSeleccionados)
                         {

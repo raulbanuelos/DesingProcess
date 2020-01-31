@@ -3507,6 +3507,50 @@ namespace Model.ControlDocumentos
         #region Lecciones Aprendidas
 
         /// <summary>
+        /// Método que devuelve los registro de motivo cambio
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<FO_Item> GetMotivoCambio()
+        {
+            ObservableCollection<FO_Item> listaResultante = new ObservableCollection<FO_Item>();
+
+            SO_Motivo_Cambio serviceMotivo = new SO_Motivo_Cambio();
+
+            IList informacionBD = serviceMotivo.Get();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    FO_Item motivo = new FO_Item();
+
+                    motivo.id = Convert.ToInt32(tipo.GetProperty("ID_MOTIVO_CAMBIO").GetValue(item, null).ToString());
+                    motivo.Nombre = Convert.ToString(tipo.GetProperty("MOTIVO_CAMBIO").GetValue(item, null).ToString());
+                    motivo.Descripcion = (string)tipo.GetProperty("DESCRIPCION_CAMBIO").GetValue(item, null).ToString();
+                    
+                    listaResultante.Add(motivo);
+                }
+            }
+
+            return listaResultante;
+        }
+
+        /// <summary>
+        /// Método que inseta la relacion de lección con el motivo del cambio.
+        /// </summary>
+        /// <param name="idLeccion"></param>
+        /// <param name="idMotivo"></param>
+        /// <returns></returns>
+        public static int InsertTRLeccionMotivoCambio(int idLeccion, int idMotivo)
+        {
+            SO_Motivo_Cambio serviceMotivo = new SO_Motivo_Cambio();
+
+            return serviceMotivo.InsertTRMotivoCambioLeccion(idLeccion, idMotivo);
+        }
+
+        /// <summary>
         /// Método para insetar una nueva leccion aprendida
         /// </summary>
         /// <param name="idusuario"></param>
@@ -3606,6 +3650,32 @@ namespace Model.ControlDocumentos
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Método que obtiene el motivo del cambio de una lección aprendida.
+        /// </summary>
+        /// <param name="idLeccion"></param>
+        /// <returns></returns>
+        public static string GetMotivoCambioByLeccion(int idLeccion)
+        {
+            string motivo = string.Empty;
+
+            SO_Motivo_Cambio serviceMotivo = new SO_Motivo_Cambio();
+
+            IList informacionBD = serviceMotivo.Get(idLeccion);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    motivo = tipo.GetProperty("MOTIVO_CAMBIO").GetValue(item, null).ToString();
+                }
+            }
+
+            return motivo;
         }
 
         /// <summary>

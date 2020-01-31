@@ -60,7 +60,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="445"/>
                 <ColumnDefinition Width="455"/>
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.Resources>
@@ -250,7 +250,13 @@
                 
 
             </Grid>
-            
+
+            <Grid Grid.Column="2">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock FontWeight="Bold" FontSize="20">Motivo de la lección:</TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="18" Text="{Binding MotivoCambio}"></TextBlock>
+                </StackPanel>
+            </Grid>
         </Grid>
     </controls:HamburgerMenu>
 </controls:MetroWindow>

@@ -13066,13 +13066,10 @@ namespace Model
                 Herramental disco = new Herramental();
 
                 disco = GetDisco(discoCalculo);
-
-                if (disco.Encontrado)
-                {
-                    listaBushingDisco.Add(bushing);
-                    listaBushingDisco.Add(disco);
-                    return listaBushingDisco;
-                }
+                listaBushingDisco.Add(bushing);
+                listaBushingDisco.Add(disco);
+                return listaBushingDisco;
+                
             }
 
             return listaBushingDisco;
@@ -13086,8 +13083,8 @@ namespace Model
             CriteriosSegmentos criterio = GetCriteriosSegmentos();
 
             double medidaMin, medidaMax;
-            medidaMin = calculoDisco - criterio.DiscoMin;
-            medidaMax = calculoDisco + criterio.DiscoMax;
+            medidaMin = Math.Round(calculoDisco - criterio.DiscoMin,4);
+            medidaMax = Math.Round(calculoDisco + criterio.DiscoMax,4);
 
             Herramental disco = new Herramental();
 
@@ -13106,6 +13103,13 @@ namespace Model
                     disco.Encontrado = true;
 
                 }
+            }
+
+            if (!disco.Encontrado)
+            {
+                double dimA = calculoDisco;
+                disco.DescripcionRuta = "ESP. DE DISCO        " + dimA;
+                disco.Encontrado = false;
             }
 
             return disco;

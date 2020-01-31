@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DataAccess.ServiceObjects.Usuario.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CAT_MOTIVO_CAMBIO">
+          <Key>
+            <PropertyRef Name="ID_MOTIVO_CAMBIO" />
+          </Key>
+          <Property Name="ID_MOTIVO_CAMBIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MOTIVO_CAMBIO" Type="varchar" MaxLength="100" />
+          <Property Name="DESCRIPCION_CAMBIO" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="CentroTrabajo">
           <Key>
             <PropertyRef Name="CentroTrabajo" />
@@ -96,6 +104,14 @@
           <Property Name="URL_PHOTO" Type="varchar" MaxLength="500" />
           <Property Name="IS_AVAILABLE_EMAIL" Type="bit" />
           <Property Name="TEMPORAL_PASSWORD" Type="bit" />
+        </EntityType>
+        <EntityType Name="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO">
+          <Key>
+            <PropertyRef Name="ID_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
+          </Key>
+          <Property Name="ID_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_LECCION_APRENDIDA" Type="int" />
+          <Property Name="ID_MOTIVO_CAMBIO" Type="int" />
         </EntityType>
         <EntityType Name="TR_LECCIONES_CENTROSTRABAJO">
           <Key>
@@ -249,7 +265,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_CAT_MOTIVO_CAMBIO">
+          <End Role="CAT_MOTIVO_CAMBIO" Type="Self.CAT_MOTIVO_CAMBIO" Multiplicity="0..1" />
+          <End Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Type="Self.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_MOTIVO_CAMBIO">
+              <PropertyRef Name="ID_MOTIVO_CAMBIO" />
+            </Principal>
+            <Dependent Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO">
+              <PropertyRef Name="ID_MOTIVO_CAMBIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_TBL_LECCIONES_APRENDIDAS">
+          <End Role="TBL_LECCIONES_APRENDIDAS" Type="Self.TBL_LECCIONES_APRENDIDAS" Multiplicity="0..1" />
+          <End Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Type="Self.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_LECCIONES_APRENDIDAS">
+              <PropertyRef Name="ID_LECCIONES_APRENDIDAS" />
+            </Principal>
+            <Dependent Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO">
+              <PropertyRef Name="ID_LECCION_APRENDIDA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DataAccessServiceObjectsUsuarioStoreContainer">
+          <EntitySet Name="CAT_MOTIVO_CAMBIO" EntityType="Self.CAT_MOTIVO_CAMBIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CentroTrabajo" EntityType="Self.CentroTrabajo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivilegioUsuario" EntityType="Self.PrivilegioUsuario" Schema="dbo" store:Type="Tables" />
@@ -258,6 +299,7 @@
           <EntitySet Name="TBL_LECCIONES_APRENDIDAS" EntityType="Self.TBL_LECCIONES_APRENDIDAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TIPOCAMBIO" EntityType="Self.TBL_TIPOCAMBIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_USERS_DETAILS" EntityType="Self.TBL_USERS_DETAILS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" EntityType="Self.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_LECCIONES_CENTROSTRABAJO" EntityType="Self.TR_LECCIONES_CENTROSTRABAJO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_LECCIONES_TIPOCAMBIO" EntityType="Self.TR_LECCIONES_TIPOCAMBIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
@@ -300,6 +342,14 @@
           <AssociationSet Name="FK_TBL_USERS_DETAILS_Usuarios" Association="Self.FK_TBL_USERS_DETAILS_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_USERS_DETAILS" EntitySet="TBL_USERS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_CAT_MOTIVO_CAMBIO" Association="Self.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_CAT_MOTIVO_CAMBIO">
+            <End Role="CAT_MOTIVO_CAMBIO" EntitySet="CAT_MOTIVO_CAMBIO" />
+            <End Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" EntitySet="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_TBL_LECCIONES_APRENDIDAS" Association="Self.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_TBL_LECCIONES_APRENDIDAS">
+            <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
+            <End Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" EntitySet="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -374,6 +424,16 @@
           <AssociationSet Name="FK_TBL_USERS_DETAILS_Usuarios" Association="DataAccess.ServiceObjects.Usuario.FK_TBL_USERS_DETAILS_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_USERS_DETAILS" EntitySet="TBL_USERS_DETAILS" />
+          </AssociationSet>
+          <EntitySet Name="CAT_MOTIVO_CAMBIO" EntityType="DataAccess.ServiceObjects.Usuario.CAT_MOTIVO_CAMBIO" />
+          <EntitySet Name="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" EntityType="DataAccess.ServiceObjects.Usuario.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
+          <AssociationSet Name="FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_CAT_MOTIVO_CAMBIO" Association="DataAccess.ServiceObjects.Usuario.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_CAT_MOTIVO_CAMBIO">
+            <End Role="CAT_MOTIVO_CAMBIO" EntitySet="CAT_MOTIVO_CAMBIO" />
+            <End Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" EntitySet="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_TBL_LECCIONES_APRENDIDAS" Association="DataAccess.ServiceObjects.Usuario.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_TBL_LECCIONES_APRENDIDAS">
+            <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
+            <End Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" EntitySet="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Usuarios">
@@ -530,6 +590,7 @@
           <NavigationProperty Name="Usuarios1" Relationship="DataAccess.ServiceObjects.Usuario.FK__TBL_LECCI__ID_US__1DC6443F" FromRole="TBL_LECCIONES_APRENDIDAS" ToRole="Usuarios" />
           <NavigationProperty Name="TR_LECCIONES_TIPOCAMBIO" Relationship="DataAccess.ServiceObjects.Usuario.FK__TR_LECCIO__ID_LE__280EC888" FromRole="TBL_LECCIONES_APRENDIDAS" ToRole="TR_LECCIONES_TIPOCAMBIO" />
           <NavigationProperty Name="TR_LECCIONES_CENTROSTRABAJO" Relationship="DataAccess.ServiceObjects.Usuario.FK__TR_LECCIO__ID_LE__33807B34" FromRole="TBL_LECCIONES_APRENDIDAS" ToRole="TR_LECCIONES_CENTROSTRABAJO" />
+          <NavigationProperty Name="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Relationship="DataAccess.ServiceObjects.Usuario.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_TBL_LECCIONES_APRENDIDAS" FromRole="TBL_LECCIONES_APRENDIDAS" ToRole="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
         </EntityType>
         <Association Name="FK__TBL_ARCHI__ID_LE__1EBA6878">
           <End Type="DataAccess.ServiceObjects.Usuario.TBL_LECCIONES_APRENDIDAS" Role="TBL_LECCIONES_APRENDIDAS" Multiplicity="1" />
@@ -620,6 +681,49 @@
             </Principal>
             <Dependent Role="TBL_USERS_DETAILS">
               <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CAT_MOTIVO_CAMBIO">
+          <Key>
+            <PropertyRef Name="ID_MOTIVO_CAMBIO" />
+          </Key>
+          <Property Name="ID_MOTIVO_CAMBIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MOTIVO_CAMBIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_CAMBIO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Relationship="DataAccess.ServiceObjects.Usuario.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_CAT_MOTIVO_CAMBIO" FromRole="CAT_MOTIVO_CAMBIO" ToRole="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
+        </EntityType>
+        <EntityType Name="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO">
+          <Key>
+            <PropertyRef Name="ID_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
+          </Key>
+          <Property Name="ID_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_LECCION_APRENDIDA" Type="Int32" />
+          <Property Name="ID_MOTIVO_CAMBIO" Type="Int32" />
+          <NavigationProperty Name="CAT_MOTIVO_CAMBIO" Relationship="DataAccess.ServiceObjects.Usuario.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_CAT_MOTIVO_CAMBIO" FromRole="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" ToRole="CAT_MOTIVO_CAMBIO" />
+          <NavigationProperty Name="TBL_LECCIONES_APRENDIDAS" Relationship="DataAccess.ServiceObjects.Usuario.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_TBL_LECCIONES_APRENDIDAS" FromRole="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" ToRole="TBL_LECCIONES_APRENDIDAS" />
+        </EntityType>
+        <Association Name="FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_CAT_MOTIVO_CAMBIO">
+          <End Type="DataAccess.ServiceObjects.Usuario.CAT_MOTIVO_CAMBIO" Role="CAT_MOTIVO_CAMBIO" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Usuario.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_MOTIVO_CAMBIO">
+              <PropertyRef Name="ID_MOTIVO_CAMBIO" />
+            </Principal>
+            <Dependent Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO">
+              <PropertyRef Name="ID_MOTIVO_CAMBIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_TBL_LECCIONES_APRENDIDAS">
+          <End Type="DataAccess.ServiceObjects.Usuario.TBL_LECCIONES_APRENDIDAS" Role="TBL_LECCIONES_APRENDIDAS" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.Usuario.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_LECCIONES_APRENDIDAS">
+              <PropertyRef Name="ID_LECCIONES_APRENDIDAS" />
+            </Principal>
+            <Dependent Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO">
+              <PropertyRef Name="ID_LECCION_APRENDIDA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -761,6 +865,24 @@
                 <ScalarProperty Name="URL_PHOTO" ColumnName="URL_PHOTO" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
                 <ScalarProperty Name="ID_USERS_DETAILS" ColumnName="ID_USERS_DETAILS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_MOTIVO_CAMBIO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.CAT_MOTIVO_CAMBIO">
+              <MappingFragment StoreEntitySet="CAT_MOTIVO_CAMBIO">
+                <ScalarProperty Name="DESCRIPCION_CAMBIO" ColumnName="DESCRIPCION_CAMBIO" />
+                <ScalarProperty Name="MOTIVO_CAMBIO" ColumnName="MOTIVO_CAMBIO" />
+                <ScalarProperty Name="ID_MOTIVO_CAMBIO" ColumnName="ID_MOTIVO_CAMBIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO">
+              <MappingFragment StoreEntitySet="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO">
+                <ScalarProperty Name="ID_MOTIVO_CAMBIO" ColumnName="ID_MOTIVO_CAMBIO" />
+                <ScalarProperty Name="ID_LECCION_APRENDIDA" ColumnName="ID_LECCION_APRENDIDA" />
+                <ScalarProperty Name="ID_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" ColumnName="ID_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
