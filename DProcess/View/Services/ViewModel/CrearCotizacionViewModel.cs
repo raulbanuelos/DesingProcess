@@ -75,7 +75,7 @@ namespace View.Services.ViewModel
             get { return panelPropiedadesOpcionales; }
             set { panelPropiedadesOpcionales = value; NotifyChange("PanelPropiedadesOpcionales"); }
         }
-        
+
         private ObservableCollection<CentrosTrabajo> _ListaCentroTrabajo;
         public ObservableCollection<CentrosTrabajo> ListaCentroTrabajo
         {
@@ -176,7 +176,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private CentrosTrabajo selectedTipoCentroTrabajo; 
+        private CentrosTrabajo selectedTipoCentroTrabajo;
         public CentrosTrabajo SelectedTipoCentroTrabajo
         {
             get
@@ -361,9 +361,10 @@ namespace View.Services.ViewModel
             irListaCentroTrabajo(Lista);
         }
 
-        private void irListaCentroTrabajo(List<string>Lista)
+        private void irListaCentroTrabajo(List<string> Lista)
         {
             PanelPropiedades = new ObservableCollection<StackPanel>();
+
             PanelPropiedadesCadena = new ObservableCollection<StackPanel>();
             PanelPropiedadesBool = new ObservableCollection<StackPanel>();
             PanelPropiedadesOpcionales = new ObservableCollection<StackPanel>();
@@ -371,8 +372,8 @@ namespace View.Services.ViewModel
             IApplicationContext ctx;
             XmlApplicationContext file;
             ICentroTrabajo _elCentroTrabajo;
-           
-            
+
+
             ObservableCollection<Propiedad> propiedades_Numericas = new ObservableCollection<Propiedad>();
             ObservableCollection<PropiedadBool> propiedades_Bool = new ObservableCollection<PropiedadBool>();
             ObservableCollection<PropiedadCadena> propiedades_Cadenas = new ObservableCollection<PropiedadCadena>();
@@ -414,6 +415,7 @@ namespace View.Services.ViewModel
                     int b = ListaDuplicado.Where(x => x == propiedad.Nombre).ToList().Count;
                     if (b > 0)
                     {
+                        numeric.Name = propiedad.Nombre;
                         propiedades_Numericas.Add(propiedad);
                         propiedadesNumeric.Add(numeric);
                         PropiedadesViewModel.Add(propiedadViewModel);
@@ -422,6 +424,7 @@ namespace View.Services.ViewModel
                     {
                         if (propiedades_Numericas.Where(x => x.Nombre == propiedad.Nombre).ToList().Count == 0)
                         {
+                            numeric.Name = propiedad.Nombre;
                             propiedades_Numericas.Add(propiedad);
                             propiedadesNumeric.Add(numeric);
                             PropiedadesViewModel.Add(propiedadViewModel);
@@ -505,13 +508,21 @@ namespace View.Services.ViewModel
 
             foreach (NumericEntry numericEntry in propiedadesNumeric)
             {
-                StackPanel panel = new StackPanel();
-                panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                panel.Children.Add(numericEntry);
+                try
+                {
+                    StackPanel panel = new StackPanel();
+                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                    panel.Name = numericEntry.Name;
+                    panel.Children.Add(numericEntry);
 
-                PanelPropiedades.Add(panel);
+                    PanelPropiedades.Add(panel);
+                }
+                catch (Exception a)
+                {
+                    string aa = a.Message;
+                }
             }
-
+            
             foreach (BoolEntry boolEntry in propiedadesBool)
             {
                 StackPanel panel = new StackPanel();
@@ -542,6 +553,7 @@ namespace View.Services.ViewModel
             FrmVistaWPF vista = new FrmVistaWPF();
             vista.DataContext = this;
             vista.ShowDialog();
+
             if (vista.DialogResult.HasValue && vista.DialogResult.Value)
             {
                 foreach (var item in ListaCreadaCentroTrabajo)
@@ -549,7 +561,7 @@ namespace View.Services.ViewModel
                     ListaMostrar.Add(item);
                 }
                 //ListaMostrar = ListaCreadaCentroTrabajo;
-                
+
             }
 
         }

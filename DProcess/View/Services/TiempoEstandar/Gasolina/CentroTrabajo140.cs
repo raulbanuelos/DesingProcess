@@ -226,8 +226,6 @@ namespace View.Services.TiempoEstandar.Gasolina
 
             Propiedad _origenDesengrase = new Propiedad { Nombre = "origenDesengrase", TipoDato = "Distance", DescripcionCorta = "Origen desengrase:", DescripcionLarga = "Ingresar 1.-ByK; 2.- Diskus", Imagen = null, Unidad = "Cantidad", Valor = 0 };
             PropiedadesRequeridadas.Add(_origenDesengrase);
-
-
         } 
         #endregion
     }
