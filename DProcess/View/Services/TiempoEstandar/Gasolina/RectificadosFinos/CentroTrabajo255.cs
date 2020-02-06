@@ -8,11 +8,20 @@ using System.Threading.Tasks;
 
 namespace View.Services.TiempoEstandar.Gasolina.RectificadosFinos
 {
-    public class CentroTrabajo255 : ICentroTrabajo
+    public class CentroTrabajo255 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -84,6 +93,7 @@ namespace View.Services.TiempoEstandar.Gasolina.RectificadosFinos
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
             //Inicializamos los datos requeridos para el cálculo.
             PropiedadCadena _especAnillo = new PropiedadCadena { Nombre = "ESPEC_MATERIAL", DescripcionCorta = "Especificación de material", DescripcionLarga = "Especificación de material del anillo(MF012-S, SPR-128, ect)", Imagen = null };

@@ -50,7 +50,7 @@ namespace View.Services.ViewModel
         #endregion
         
         #region Atributos
-        private PropiedadCadena model;
+        public PropiedadCadena model;
         #endregion
 
         #region Constructores

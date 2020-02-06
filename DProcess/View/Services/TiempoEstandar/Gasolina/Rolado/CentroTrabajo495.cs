@@ -5,11 +5,20 @@ using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Gasolina.Rolado
 {
-    public class CentroTrabajo495 : ICentroTrabajo
+    public class CentroTrabajo495 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -144,6 +153,7 @@ namespace View.Services.TiempoEstandar.Gasolina.Rolado
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
 
             //Inicializamos los datos requeridos para el cálculo.
             Propiedad _d1 = new Propiedad { Nombre = "D1", TipoDato = "Distance", DescripcionCorta = "Diámetro nominal", DescripcionLarga = "Diámetro nominal del anillo", Imagen = null, Unidad = "inches (in)", Valor = 0 };

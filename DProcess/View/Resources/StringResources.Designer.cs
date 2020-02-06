@@ -1844,6 +1844,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Test.
+        /// </summary>
+        public static string lblTest {
+            get {
+                return ResourceManager.GetString("lblTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Long text.
         /// </summary>
         public static string lblTextoLargo {

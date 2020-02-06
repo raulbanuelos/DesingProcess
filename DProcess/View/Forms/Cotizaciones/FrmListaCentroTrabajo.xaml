@@ -16,10 +16,10 @@
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
             <Label Content="Lista de Centros de trabajo"  FontSize="20" FontFamily="Calibri" FontWeight="Bold" />
-            <TextBox  x:Name="txtListaControlDocumentos" HorizontalAlignment="Center" Height="450" Width="350" VerticalAlignment="Top" Text="{Binding texto}" AcceptsReturn="True"/>
+            <TextBox  x:Name="txtListaCentrosTrabajo" HorizontalAlignment="Center" Height="450" Width="350" VerticalAlignment="Top" Text="{Binding texto}" AcceptsReturn="True" TabIndex="1"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button IsDefault="True" Click="Button_Click" Command="{Binding Aceptar}" x:Name="btnAceptar" Margin="10,10,0,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblAceptar}"/>
-                <Button IsCancel="True" Command="{Binding Ir}" x:Name="btnCancelar" Margin="10,10,0,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblCancelar}"/>
+                <Button IsDefault="True" Click="Button_Click" Command="{Binding Aceptar}" x:Name="btnAceptar" Margin="10,10,0,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblAceptar}" TabIndex="2"/>
+                <Button IsCancel="True" Margin="10,10,0,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblCancelar}" TabIndex="3"/>
             </StackPanel>
         </StackPanel>
     </Grid>

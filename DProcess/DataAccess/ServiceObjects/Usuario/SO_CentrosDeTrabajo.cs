@@ -31,6 +31,35 @@ namespace DataAccess.ServiceObjects.Usuario
             }
         }
 
+
+
+
+
+
+
+
+
+        public string GetNombre (string TextoBuscar)
+        {
+            try
+            {
+                using (EntitiesUsuario Conexion = new EntitiesUsuario())
+                {
+                    string nom = (from d in Conexion.CentroTrabajo
+                                  where d.CentroTrabajo1 == TextoBuscar
+                                  select d.NombreOperacion).FirstOrDefault();
+                    return nom;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se genera un error retornamos un cero.
+                return null;
+            }
+        }
+
+
+
         /// <summary>
         /// Método que inserta una nueevo registro
         /// </summary>

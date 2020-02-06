@@ -750,7 +750,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StringResources.EN-US.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\CalculaMateriaPrima.cs" />
+    <Compile Include="Services\BaseCentroTrabajo.cs" />
+    <Compile Include="Services\TiempoEstandar\CalculaMateriaPrima.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\DibujaPattern.cs" />
     <Compile Include="Services\ExportToExcel.cs" />

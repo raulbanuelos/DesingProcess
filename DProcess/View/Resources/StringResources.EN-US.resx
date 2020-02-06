@@ -2257,4 +2257,8 @@ In a moment you will receive an email confirming your configuration.</value>
     <value>Cancel</value>
     <comment>Etiqueta de Cancelar</comment>
   </data>
+  <data name="lblTest" xml:space="preserve">
+    <value>Test</value>
+    <comment>Etiqueta para el boton test</comment>
+  </data>
 </root>

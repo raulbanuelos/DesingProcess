@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,6 +89,93 @@ namespace View.Services.ViewModel
                 NotifyChange("ListaCentroTrabajo");
             }
         }
+        private ObservableCollection<ICentroTrabajo> _ListaCreadaCentroTrabajo;
+        public ObservableCollection<ICentroTrabajo> ListaCreadaCentroTrabajo
+        {
+            get
+            {
+                return _ListaCreadaCentroTrabajo;
+            }
+            set
+            {
+                _ListaCreadaCentroTrabajo = value;
+                NotifyChange("ListaCreadaCentroTrabajo");
+            }
+
+        }
+
+        private ObservableCollection<ICentroTrabajo> _ListaMostrar;
+        public ObservableCollection<ICentroTrabajo> ListaMostrar
+        {
+            get
+            {
+                return _ListaMostrar;
+            }
+            set
+            {
+                _ListaMostrar = value;
+                NotifyChange("ListaMostrar");
+            }
+
+        }
+
+
+        private ObservableCollection<PropiedadViewModel> _PropiedadesViewModel;
+        public ObservableCollection<PropiedadViewModel> PropiedadesViewModel
+        {
+            get
+            {
+                return _PropiedadesViewModel;
+            }
+            set
+            {
+                _PropiedadesViewModel = value;
+                NotifyChange("PropiedadesViewModel");
+            }
+        }
+
+        private ObservableCollection<PropiedadBoolViewModel> _PropiedadesBoolViewModel;
+        public ObservableCollection<PropiedadBoolViewModel> PropiedadesBoolViewModel
+        {
+            get
+            {
+                return _PropiedadesBoolViewModel;
+            }
+            set
+            {
+                _PropiedadesBoolViewModel = value;
+                NotifyChange("PropiedadBoolViewModel");
+            }
+        }
+
+        private ObservableCollection<PropiedadCadenaViewModel> _PropiedadesCadenaViewModel;
+        public ObservableCollection<PropiedadCadenaViewModel> PropiedadesCadenaViewModel
+        {
+            get
+            {
+                return _PropiedadesCadenaViewModel;
+            }
+            set
+            {
+                _PropiedadesCadenaViewModel = value;
+                NotifyChange("PropiedadesCadenaViewModel");
+            }
+        }
+
+        private ObservableCollection<PropiedadOptionalViewModel> _PropiedadesOptionalViewModel;
+        public ObservableCollection<PropiedadOptionalViewModel> PropiedadesOptionalViewModel
+        {
+            get
+            {
+                return _PropiedadesOptionalViewModel;
+            }
+            set
+            {
+                _PropiedadesOptionalViewModel = value;
+                NotifyChange("PropiedadesOptionalViewModel");
+            }
+        }
+
         private CentrosTrabajo selectedTipoCentroTrabajo; 
         public CentrosTrabajo SelectedTipoCentroTrabajo
         {
@@ -102,19 +190,19 @@ namespace View.Services.ViewModel
             }
 
         }
-        private List<string> _Lista;
-        public List<string> Lista
-        {
-            get
-            {
-                return _Lista;
-            }
-            set
-            {
-                _Lista = value;
-                NotifyChange("Lista");
-            }
-        }
+        //private List<string> _Lista;
+        //public List<string> Lista
+        //{
+        //    get
+        //    {
+        //        return _Lista;
+        //    }
+        //    set
+        //    {
+        //        _Lista = value;
+        //        NotifyChange("Lista");
+        //    }
+        //}
         #endregion
 
         #region Constructors
@@ -123,34 +211,86 @@ namespace View.Services.ViewModel
             SelectedTipoCentroTrabajo = new CentrosTrabajo();
             agregarCentroTrabajo();
             cargarListaDuplicados();
+            PropiedadesViewModel = new ObservableCollection<PropiedadViewModel>();
+            PropiedadesBoolViewModel = new ObservableCollection<PropiedadBoolViewModel>();
+            PropiedadesCadenaViewModel = new ObservableCollection<PropiedadCadenaViewModel>();
+            PropiedadesOptionalViewModel = new ObservableCollection<PropiedadOptionalViewModel>();
+            ListaCreadaCentroTrabajo = new ObservableCollection<ICentroTrabajo>();
+            ListaMostrar = new ObservableCollection<ICentroTrabajo>();
+
+
+
         }
         #endregion
 
         #region Commands
+
         public ICommand IrListaCentroTrabajo
         {
             get
             {
-                return new RelayCommand(o => irListaCentroTrabajo());
+                return new RelayCommand(o => AbrirListaCentroTrabajo());
             }
         }
-        public ICommand Ir
+        public ICommand IrListaCT
         {
             get
             {
-                return new RelayCommand(param => irListaCentroTrabajo());
+                return new RelayCommand(o => AgregarCentroTrabajo());
             }
         }
+        public ICommand IrCalcular
+        {
+            get
+            {
+                return new RelayCommand(o => irCalcular());
+            }
+        }
+
         #endregion
 
         #region Methods
+
+        private void irCalcular()
+        {
+
+
+
+            int c = PropiedadesViewModel.Count;
+            List<Propiedad> Prop = new List<Propiedad>();
+            List<PropiedadBool> PBool = new List<PropiedadBool>();
+            List<PropiedadCadena> PCadena = new List<PropiedadCadena>();
+            List<PropiedadOptional> POptional = new List<PropiedadOptional>();
+
+
+            foreach (PropiedadViewModel datos in PropiedadesViewModel)
+            {
+                Prop.Add(datos.model);
+            }
+            foreach (PropiedadBoolViewModel datosBool in PropiedadesBoolViewModel)
+            {
+                PBool.Add(datosBool.model);
+            }
+            foreach (PropiedadCadenaViewModel datosCadena in PropiedadesCadenaViewModel)
+            {
+                PCadena.Add(datosCadena.model);
+            }
+            foreach (PropiedadOptionalViewModel datosOptional in PropiedadesOptionalViewModel)
+            {
+                POptional.Add(datosOptional.model);
+            }
+            foreach (ICentroTrabajo a in ListaCreadaCentroTrabajo)
+            {
+                a.Calcular(Prop, PBool, PCadena, POptional);
+            }
+        }
 
         private void cargarListaDuplicados()
         {
             ListaDuplicado = new ObservableCollection<string>();
             ListaDuplicado.Add("COLOCARBANDA");
-            ListaDuplicado.Add("RMP1_110");
-            ListaDuplicado.Add("RMP2_110");
+            ListaDuplicado.Add("RPM1_110");
+            ListaDuplicado.Add("RPM2_110");
             ListaDuplicado.Add("RMP_112");
             ListaDuplicado.Add("numeroDeJorobas");
             ListaDuplicado.Add("origenDesengrase");
@@ -194,11 +334,34 @@ namespace View.Services.ViewModel
             ListaDuplicado.Add("tCiclo2200");
             ListaDuplicado.Add("numeroPasadas180");
         }
+        private void AbrirListaCentroTrabajo()
+        {
+            //Vista de Listas de Trabajo
+            List<string> Lista = new List<string>();
+            FrmListaCentroTrabajo frm = new FrmListaCentroTrabajo();
+            ListaCentroTrabajoViewModel context = new ListaCentroTrabajoViewModel();
+            frm.DataContext = context;
+            frm.ShowDialog();
+            //Validacion del boton Aceptar o Cancelar
+            if (frm.DialogResult.HasValue && frm.DialogResult.Value)
+            {
+                //Se actualizan las listas
+                ListaMostrar = new ObservableCollection<ICentroTrabajo>();
+                ListaCreadaCentroTrabajo = new ObservableCollection<ICentroTrabajo>();
+                Lista = context.ListaCentroTrabajo;
+                irListaCentroTrabajo(Lista);
+            }
+        }
 
-        /// <summary>
-        /// /Método el cual nos envía a la pantalla de Lista de Centros de trabajo, insertar los valores en la lista, validar los botones de "Aceptar" y "Cancelar"
-        /// </summary>
-        private void irListaCentroTrabajo()
+        private void AgregarCentroTrabajo()
+        {
+            List<string> Lista = new List<string>();
+            ListaCreadaCentroTrabajo = new ObservableCollection<ICentroTrabajo>();
+            Lista.Add(SelectedTipoCentroTrabajo.CentroTrabajo);
+            irListaCentroTrabajo(Lista);
+        }
+
+        private void irListaCentroTrabajo(List<string>Lista)
         {
             PanelPropiedades = new ObservableCollection<StackPanel>();
             PanelPropiedadesCadena = new ObservableCollection<StackPanel>();
@@ -208,112 +371,187 @@ namespace View.Services.ViewModel
             IApplicationContext ctx;
             XmlApplicationContext file;
             ICentroTrabajo _elCentroTrabajo;
-            List<ICentroTrabajo> ListaCreadaCentroTrabajo = new List<ICentroTrabajo>();
+           
+            
+            ObservableCollection<Propiedad> propiedades_Numericas = new ObservableCollection<Propiedad>();
+            ObservableCollection<PropiedadBool> propiedades_Bool = new ObservableCollection<PropiedadBool>();
+            ObservableCollection<PropiedadCadena> propiedades_Cadenas = new ObservableCollection<PropiedadCadena>();
+            ObservableCollection<PropiedadOptional> propiedades_Opcionales = new ObservableCollection<PropiedadOptional>();
+
 
             ObservableCollection<NumericEntry> propiedadesNumeric = new ObservableCollection<NumericEntry>();
             ObservableCollection<BoolEntry> propiedadesBool = new ObservableCollection<BoolEntry>();
             ObservableCollection<StringEntry> propiedadesCadena = new ObservableCollection<StringEntry>();
             ObservableCollection<OptionalEntry> propiedadesOpcionales = new ObservableCollection<OptionalEntry>();
 
-            FrmListaCentroTrabajo frm = new FrmListaCentroTrabajo();
-            ListaCentroTrabajoViewModel context = new ListaCentroTrabajoViewModel();
-            frm.DataContext = context;
-            frm.ShowDialog();
+            PropiedadesViewModel = new ObservableCollection<PropiedadViewModel>();
+            PropiedadesCadenaViewModel = new ObservableCollection<PropiedadCadenaViewModel>();
+            PropiedadesBoolViewModel = new ObservableCollection<PropiedadBoolViewModel>();
+            PropiedadesOptionalViewModel = new ObservableCollection<PropiedadOptionalViewModel>();
 
-            if (frm.DialogResult.HasValue && frm.DialogResult.Value)
+            file = new XmlApplicationContext(@"\\agufileserv2\INGENIERIA\RESPRUTAS\RrrrUUUUUULLL\RepositoryCentroTrabajoDisenoProceso.xml");
+            ctx = file;
+
+
+            foreach (string item in Lista)
             {
-                Lista = context.ListaCentroTrabajo;
-
-                file = new XmlApplicationContext(@"\\agufileserv2\INGENIERIA\RESPRUTAS\RrrrUUUUUULLL\RepositoryCentroTrabajoDisenoProceso.xml");
-                ctx = file;
-
-                foreach (string item in Lista)
-                {
-                    //Obtenemos el ID del Centro de Trabajo.
-                    string id = ListaCentroTrabajo.Where(x => x.CentroTrabajo == item).FirstOrDefault().ObjetoXML;
-                    //Obtenemos un objeto del Centro de Trabajo.
-                    _elCentroTrabajo = (ICentroTrabajo)ctx.GetObject(id);
-                    //Asignamos el Centro de Trabajo a la lista.
-                    ListaCreadaCentroTrabajo.Add(_elCentroTrabajo);
-                }
-
-                foreach (ICentroTrabajo centroTrabajo in ListaCreadaCentroTrabajo)
-                {
-                    foreach (Propiedad propiedad in centroTrabajo.PropiedadesRequeridadas)
-                    {
-                        NumericEntry numeric = new NumericEntry();
-                        PropiedadViewModel propiedadViewModel = new PropiedadViewModel(propiedad);
-                        numeric.DataContext = propiedadViewModel;
-                        propiedadesNumeric.Add(numeric);
-                    }
-
-                    foreach (PropiedadBool propiedadBool in centroTrabajo.PropiedadesRequeridasBool)
-                    {
-                        BoolEntry boolEntry = new BoolEntry();
-                        PropiedadBoolViewModel propiedadBoolViewModel = new PropiedadBoolViewModel(propiedadBool);
-                        boolEntry.DataContext = propiedadBoolViewModel;
-                        propiedadesBool.Add(boolEntry);
-
-                    }
-
-                    foreach (PropiedadCadena propiedadCadena in centroTrabajo.PropiedadesRequeridasCadena)
-                    {
-                        StringEntry stringEntry = new StringEntry();
-                        PropiedadCadenaViewModel propiedadCadenaViewModel = new PropiedadCadenaViewModel(propiedadCadena);
-                        stringEntry.DataContext = propiedadCadena;
-                        propiedadesCadena.Add(stringEntry);
-                    }
-
-                    foreach (PropiedadOptional propiedadOpcional in centroTrabajo.PropiedadesRequeridasOpcionles)
-                    {
-                        OptionalEntry optionalEntry = new OptionalEntry();
-                        PropiedadOptionalViewModel propiedadOpcionalViewModel = new PropiedadOptionalViewModel(propiedadOpcional);
-                        optionalEntry.DataContext = propiedadOpcionalViewModel;
-                        propiedadesOpcionales.Add(optionalEntry);
-                    }
-                }
-
-                foreach (NumericEntry numericEntry in propiedadesNumeric)
-                {
-                    StackPanel panel = new StackPanel();
-                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                    panel.Children.Add(numericEntry);
-
-                    PanelPropiedades.Add(panel);
-                }
-
-                foreach (BoolEntry boolEntry in propiedadesBool)
-                {
-                    StackPanel panel = new StackPanel();
-                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                    panel.Children.Add(boolEntry);
-
-                    PanelPropiedadesBool.Add(panel);
-                }
-
-                foreach (StringEntry stringEntry in propiedadesCadena)
-                {
-                    StackPanel panel = new StackPanel();
-                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                    panel.Children.Add(stringEntry);
-
-                    PanelPropiedadesCadena.Add(panel);
-                }
-
-                foreach (OptionalEntry optionalEntry in propiedadesOpcionales)
-                {
-                    StackPanel panel = new StackPanel();
-                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                    panel.Children.Add(optionalEntry);
-
-                    PanelPropiedadesOpcionales.Add(panel);
-                }
-                
-                FrmVistaWPF vista = new FrmVistaWPF();
-                vista.DataContext = this;
-                vista.ShowDialog();
+                //Obtenemos el ID del Centro de Trabajo.
+                string id = ListaCentroTrabajo.Where(x => x.CentroTrabajo == item).FirstOrDefault().ObjetoXML;
+                //Obtenemos un objeto del Centro de Trabajo.
+                _elCentroTrabajo = (ICentroTrabajo)ctx.GetObject(id);
+                //Asignamos el Centro de Trabajo a la lista.
+                ListaCreadaCentroTrabajo.Add(_elCentroTrabajo);
             }
-            
+
+            foreach (ICentroTrabajo centroTrabajo in ListaCreadaCentroTrabajo)
+            {
+                foreach (Propiedad propiedad in centroTrabajo.PropiedadesRequeridadas)
+                {
+                    NumericEntry numeric = new NumericEntry();
+                    PropiedadViewModel propiedadViewModel = new PropiedadViewModel(propiedad);
+                    numeric.DataContext = propiedadViewModel;
+                    //Validar si el nombre esta en la lista de duplicados
+                    int b = ListaDuplicado.Where(x => x == propiedad.Nombre).ToList().Count;
+                    if (b > 0)
+                    {
+                        propiedades_Numericas.Add(propiedad);
+                        propiedadesNumeric.Add(numeric);
+                        PropiedadesViewModel.Add(propiedadViewModel);
+                    }
+                    else
+                    {
+                        if (propiedades_Numericas.Where(x => x.Nombre == propiedad.Nombre).ToList().Count == 0)
+                        {
+                            propiedades_Numericas.Add(propiedad);
+                            propiedadesNumeric.Add(numeric);
+                            PropiedadesViewModel.Add(propiedadViewModel);
+                        }
+                    }
+                }
+
+                foreach (PropiedadBool propiedadBool in centroTrabajo.PropiedadesRequeridasBool)
+                {
+                    BoolEntry boolEntry = new BoolEntry();
+                    PropiedadBoolViewModel propiedadBoolViewModel = new PropiedadBoolViewModel(propiedadBool);
+                    boolEntry.DataContext = propiedadBoolViewModel;
+                    //Validar si el nombre esta en la lista de duplicados
+                    int b = ListaDuplicado.Where(x => x == propiedadBool.Nombre).ToList().Count;
+                    if (b > 0)
+                    {
+                        propiedades_Bool.Add(propiedadBool);
+                        propiedadesBool.Add(boolEntry);
+                        PropiedadesBoolViewModel.Add(propiedadBoolViewModel);
+                    }
+                    else
+                    {
+                        if (propiedades_Bool.Where(x => x.Nombre == propiedadBool.Nombre).ToList().Count == 0)
+                        {
+                            propiedades_Bool.Add(propiedadBool);
+                            propiedadesBool.Add(boolEntry);
+                            PropiedadesBoolViewModel.Add(propiedadBoolViewModel);
+                        }
+                    }
+                }
+
+                foreach (PropiedadCadena propiedadCadena in centroTrabajo.PropiedadesRequeridasCadena)
+                {
+                    StringEntry stringEntry = new StringEntry();
+                    PropiedadCadenaViewModel propiedadCadenaViewModel = new PropiedadCadenaViewModel(propiedadCadena);
+                    stringEntry.DataContext = propiedadCadenaViewModel;
+                    //Validar si el nombre esta en la lista de duplicados
+                    int b = ListaDuplicado.Where(x => x == propiedadCadena.Nombre).ToList().Count;
+                    if (b > 0)
+                    {
+                        propiedades_Cadenas.Add(propiedadCadena);
+                        propiedadesCadena.Add(stringEntry);
+                        PropiedadesCadenaViewModel.Add(propiedadCadenaViewModel);
+                    }
+                    else
+                    {
+                        if (propiedades_Cadenas.Where(x => x.Nombre == propiedadCadena.Nombre).ToList().Count == 0)
+                        {
+                            propiedades_Cadenas.Add(propiedadCadena);
+                            propiedadesCadena.Add(stringEntry);
+                            PropiedadesCadenaViewModel.Add(propiedadCadenaViewModel);
+                        }
+                    }
+
+                }
+
+                foreach (PropiedadOptional propiedadOpcional in centroTrabajo.PropiedadesRequeridasOpcionles)
+                {
+                    OptionalEntry optionalEntry = new OptionalEntry();
+                    PropiedadOptionalViewModel propiedadOpcionalViewModel = new PropiedadOptionalViewModel(propiedadOpcional);
+                    optionalEntry.DataContext = propiedadOpcionalViewModel;
+                    //Validar si el nombre esta en la lista de duplicados
+                    int b = ListaDuplicado.Where(x => x == propiedadOpcional.Nombre).ToList().Count;
+                    if (b > 0)
+                    {
+                        propiedades_Opcionales.Add(propiedadOpcional);
+                        propiedadesOpcionales.Add(optionalEntry);
+                        PropiedadesOptionalViewModel.Add(propiedadOpcionalViewModel);
+                    }
+                    else
+                    {
+                        if (propiedades_Opcionales.Where(x => x.Nombre == propiedadOpcional.Nombre).ToList().Count == 0)
+                        {
+                            propiedades_Opcionales.Add(propiedadOpcional);
+                            propiedadesOpcionales.Add(optionalEntry);
+                            PropiedadesOptionalViewModel.Add(propiedadOpcionalViewModel);
+                        }
+                    }
+                }
+            }
+
+            foreach (NumericEntry numericEntry in propiedadesNumeric)
+            {
+                StackPanel panel = new StackPanel();
+                panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                panel.Children.Add(numericEntry);
+
+                PanelPropiedades.Add(panel);
+            }
+
+            foreach (BoolEntry boolEntry in propiedadesBool)
+            {
+                StackPanel panel = new StackPanel();
+                panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                panel.Children.Add(boolEntry);
+
+                PanelPropiedadesBool.Add(panel);
+            }
+
+            foreach (StringEntry stringEntry in propiedadesCadena)
+            {
+                StackPanel panel = new StackPanel();
+                panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                panel.Children.Add(stringEntry);
+
+                PanelPropiedadesCadena.Add(panel);
+            }
+
+            foreach (OptionalEntry optionalEntry in propiedadesOpcionales)
+            {
+                StackPanel panel = new StackPanel();
+                panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                panel.Children.Add(optionalEntry);
+
+                PanelPropiedadesOpcionales.Add(panel);
+            }
+
+            FrmVistaWPF vista = new FrmVistaWPF();
+            vista.DataContext = this;
+            vista.ShowDialog();
+            if (vista.DialogResult.HasValue && vista.DialogResult.Value)
+            {
+                foreach (var item in ListaCreadaCentroTrabajo)
+                {
+                    ListaMostrar.Add(item);
+                }
+                //ListaMostrar = ListaCreadaCentroTrabajo;
+                
+            }
+
         }
 
         /// <summary>

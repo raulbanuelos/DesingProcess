@@ -8,41 +8,52 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:View.Forms.User"
+                      
+        xmlns:im="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                      
         mc:Ignorable="d"
         Title="Vista WPF"
-         Height="300" Width="800" 
+         Height="400" Width="925" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                <Border BorderThickness="2" BorderBrush="Gray" >
-                    <StackPanel Orientation="Horizontal" Width="195" Height="200">
-                        <ItemsControl ItemsSource="{Binding PanelPropiedades}"></ItemsControl>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
+                <Border Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,8,8"  >
+                    <StackPanel Orientation="Horizontal" Width="221" Height="295">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="40,0,0,0">
+                            <ItemsControl ItemsSource="{Binding PanelPropiedades}"></ItemsControl>
+                        </ScrollViewer>
                     </StackPanel>
                 </Border>
-                <Border BorderThickness="2" BorderBrush="Gray" >
-                    <StackPanel Orientation="Horizontal" Width="195" Height="200">
-                        <ItemsControl ItemsSource="{Binding PanelPropiedadesBool}"></ItemsControl>
+
+                <Border Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,8,8" >
+                    <StackPanel Orientation="Horizontal" Width="222" Height="295">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,0,0,0">
+                            <ItemsControl ItemsSource="{Binding PanelPropiedadesBool}"></ItemsControl>
+                        </ScrollViewer>
                     </StackPanel>
                 </Border>
-                <Border BorderThickness="2" BorderBrush="Gray" >
-                    <StackPanel Orientation="Horizontal" Width="195" Height="200">
-                        <ItemsControl ItemsSource="{Binding PanelPropiedadesCadena}"></ItemsControl>
+                <Border Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,8,8"  >
+                    <StackPanel Orientation="Horizontal" Width="222" Height="295">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,0,0,0">
+                            <ItemsControl ItemsSource="{Binding PanelPropiedadesCadena}"></ItemsControl>
+                        </ScrollViewer>
                     </StackPanel>
                 </Border>
-                <Border BorderThickness="2" BorderBrush="Gray" >
-                    <StackPanel Orientation="Horizontal" Width="195" Height="200">
-                        <ItemsControl ItemsSource="{Binding PanelPropiedadesOpcionales}"></ItemsControl>
+                <Border Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,8,8"  >
+                    <StackPanel Orientation="Horizontal" Width="222" Height="295">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,0,0,0">
+                            <ItemsControl ItemsSource="{Binding PanelPropiedadesOpcionales}"></ItemsControl>
+                        </ScrollViewer>
                     </StackPanel>
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Command="" x:Name="btnAceptar" Margin="10,10,0,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblAceptar}"/>
-                <Button Command="{Binding Ircerrar}" x:Name="btnCancelar" Margin="10,10,20,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblCancelar}"/>
+                <Button  IsDefault="True" Click="Button_Click"  Height="25" Width="100" Content="{x:Static recursos:StringResources.lblAceptar}" Command="{Binding IrCalcular}"  Margin="10,10,0,10"/>
+                <Button  Margin="10,10,20,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblTest}"/>
             </StackPanel>
-            
         </StackPanel>
-
     </Grid>
 </Controls:MetroWindow>

@@ -23,6 +23,7 @@ namespace View.Forms.Cotizaciones
         public FrmListaCentroTrabajo()
         {
             InitializeComponent();
+            txtListaCentrosTrabajo.Focus();
         }
         //Se ejecuta cuando se da click en el botón
         void Button_Click(object sender, RoutedEventArgs e)

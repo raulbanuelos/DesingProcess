@@ -5,11 +5,20 @@ using Model.Interfaces;
 
 namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
 {
-    public class CentroTrabajo110 : ICentroTrabajo
+    public class CentroTrabajo110 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -81,6 +90,7 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
             //Inicializamos los datos requeridos para el cálculo.
@@ -92,7 +102,6 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
 
             PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
             PropiedadesRequeridasCadena.Add(espeMaterial);
-
         }
         #endregion
 

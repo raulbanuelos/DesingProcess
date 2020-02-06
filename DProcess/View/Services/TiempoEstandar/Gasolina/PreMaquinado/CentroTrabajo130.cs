@@ -8,10 +8,19 @@ using Model;
 
 namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
 {
-    public class CentroTrabajo130 : ICentroTrabajo
+    public class CentroTrabajo130 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Properties
         #region Properties of ICentroTrabajo
+
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public List<string> Alertas
         {
             get;
@@ -183,6 +192,7 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
                 PropiedadesRequeridadas = new List<Propiedad>();
                 PropiedadesRequeridasBool = new List<PropiedadBool>();
                 PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+                PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
                 Alertas = new List<string>();
 
                 Propiedad d1 = new Propiedad { Nombre = "d1", TipoDato = "Distance", DescripcionLarga = "Diámetro nominal del anillo", DescripcionCorta = "D1", Imagen = null };

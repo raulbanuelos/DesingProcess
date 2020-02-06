@@ -101,6 +101,8 @@ namespace DataAccess.ServiceObjects.Usuario
             }
         }
 
+        
+
         /// <summary>
         /// Método para modificar un registro existente mediante el id
         /// </summary>
