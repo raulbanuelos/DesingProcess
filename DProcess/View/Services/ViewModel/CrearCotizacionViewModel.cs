@@ -506,6 +506,7 @@ namespace View.Services.ViewModel
                 }
             }
 
+            //Se crea un try catch para que no truene.
             foreach (NumericEntry numericEntry in propiedadesNumeric)
             {
                 try
