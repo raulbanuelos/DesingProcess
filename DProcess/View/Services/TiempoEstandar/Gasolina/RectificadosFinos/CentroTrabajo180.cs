@@ -8,11 +8,20 @@ using System.Threading.Tasks;
 
 namespace View.Services.TiempoEstandar.Gasolina.RectificadosFinos
 {
-    public class CentroTrabajo180 : ICentroTrabajo
+    public class CentroTrabajo180 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -84,6 +93,7 @@ namespace View.Services.TiempoEstandar.Gasolina.RectificadosFinos
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
 
             //Inicializamos los datos requeridos para el cálculo.
             Propiedad _d1 = new Propiedad { Nombre = "NUM_PASADAS_180", TipoDato = "Cantidad", DescripcionCorta = "Num. Cortes NISSEI", DescripcionLarga = "Número de cortes en la operación NISSEI", Imagen = null, Unidad = "Unidades", Valor = 0 };

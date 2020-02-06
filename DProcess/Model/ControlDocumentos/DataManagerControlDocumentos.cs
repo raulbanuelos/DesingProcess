@@ -1596,6 +1596,32 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Método para obtener el Nombre de Operacion 
+        /// </summary>
+        /// <returns></returns>
+        public static string GetNombreOperacion(string TextoBusca)
+        {
+            //Se inicializan los servicios de Documento.
+            SO_CentrosDeTrabajo ct1 = new SO_CentrosDeTrabajo();
+            //SO_CentroTrabajo_ CT = new SO_CentroTrabajo_();
+
+            //obtenemos todo de la BD.
+            //IList ObjC = CT.GetCentroTrabajo_();
+            return ct1.GetNombre(TextoBusca);
+
+        }
+
+
+        //public static string GetNombreOpe(string TextoBusca)
+        //{
+        //    //Se inicializan los servicios de Documento.
+        //    SO_CentrosDeTrabajo ct1 = new SO_CentrosDeTrabajo();
+        //    return ct1.GetNombre(TextoBusca.CentroTrabajo);
+        //}
+
+
+
+        /// <summary>
         /// Método para obtener los registros de la tabla.
         /// </summary>
         /// <returns></returns>
@@ -1637,7 +1663,6 @@ namespace Model.ControlDocumentos
 
             return Lista;
         }
-
 
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_Tipo.

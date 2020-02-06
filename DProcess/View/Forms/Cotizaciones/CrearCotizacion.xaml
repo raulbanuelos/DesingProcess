@@ -39,27 +39,23 @@
                     <Button HorizontalAlignment="Left" Height="30" Width="250" Content="{x:Static recursos:StringResources.ttlButtonAgregarMPaCT}" Margin="20,10,0,0"/>
                     <Button HorizontalAlignment="Left" Height="30" Width="161" Content="{x:Static recursos:StringResources.ttlButtonEliminarCT}" Margin="20,10,0,0"/>
                     <Button HorizontalAlignment="Left" Height="30" Width="150" Content="{x:Static recursos:StringResources.ttlButtonEliminarTodo}" Margin="20,10,0,0"/>
-                    <Button HorizontalAlignment="Left" Height="30" Width="160" Content="{x:Static recursos:StringResources.ttlButtonAgregarCTdeLista}" Margin="20,10,0,0"/>
+                    <Button Command="{Binding IrListaCT}" HorizontalAlignment="Left" Height="30" Width="160" Content="{x:Static recursos:StringResources.ttlButtonAgregarCTdeLista}" Margin="20,10,0,0"/>
                 </StackPanel>
-                <DataGrid Name="Tabla" Margin="20,0,0,10" >
+                <DataGrid Name="Tabla" Margin="20,10,0,10" ItemsSource="{Binding ListaMostrar}" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblItem}"/>
-                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblCT}"/>
-                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblNombreOperacion}"/>
-                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblTiempoSetup}"/>
-                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblTiempoMaquina}"/>
-                        <DataGridTextColumn Header="{x:Static recursos:StringResources.lblTiempoMano}"/>
+                        <DataGridTextColumn x:Name="Item" Header="{x:Static recursos:StringResources.lblItem}" ClipboardContentBinding="{x:Null}"/>
+                        <DataGridTextColumn x:Name="CT" Binding="{Binding CentroTrabajo}" Header="{x:Static recursos:StringResources.lblCT}" ClipboardContentBinding="{x:Null}"/>
+                        <DataGridTextColumn x:Name="NombreOperacion" Binding="{Binding NombreOperacion}" Header="{x:Static recursos:StringResources.lblNombreOperacion}" ClipboardContentBinding="{x:Null}"/>
+                        <DataGridTextColumn x:Name="TiempoSetup" Binding="{Binding TiempoSetup}" Header="{x:Static recursos:StringResources.lblTiempoSetup}" ClipboardContentBinding="{x:Null}"/>
+                        <DataGridTextColumn x:Name="TiempoMaquina" Binding="{Binding TiempoMachine}" Header="{x:Static recursos:StringResources.lblTiempoMaquina}" ClipboardContentBinding="{x:Null}"/>
+                        <DataGridTextColumn x:Name="TiempoMano" Binding="{Binding TiempoLabor}" Header="{x:Static recursos:StringResources.lblTiempoMano}" ClipboardContentBinding="{x:Null}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Button IsDefault="True" Height="30" Width="210" Margin="20,550,0,0" Content="{x:Static recursos:StringResources.ttlButtonTiempoEstandar}" HorizontalAlignment="Center"/>
                 <Button IsCancel="True" HorizontalAlignment="Center" Height="30"  Width="170" Margin="20,550,0,0" Content="{x:Static recursos:StringResources.ttlButtonCotizacion}" RenderTransformOrigin="0.582,0.217" />
-
             </StackPanel>
-            
         </Grid>
-        
-
     </Grid>
 </Controls:MetroWindow>

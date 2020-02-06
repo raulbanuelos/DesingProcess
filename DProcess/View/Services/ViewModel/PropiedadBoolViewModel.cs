@@ -17,7 +17,7 @@ namespace View.Services.ViewModel
     public class PropiedadBoolViewModel : INotifyPropertyChanged
     {
         #region Atributos
-        private PropiedadBool model;
+        public PropiedadBool model;
         #endregion
 
         #region Propiedades del modelo

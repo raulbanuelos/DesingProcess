@@ -19,6 +19,8 @@ namespace Model
         
         public string TipoPerfil { get; set; }
 
+        public string Nombre { get; set; }
+
         public PropiedadOptional()
         {
             ListaOpcional = new ObservableCollection<FO_Item>();

@@ -5,16 +5,24 @@ using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
-    public class CentroTrabajo010 : ICentroTrabajo
+    public class CentroTrabajo010 : BaseCentroTrabajo,ICentroTrabajo
     {
         #region Atributtes
         private double mouting;
-        private double pesoCasting; 
+        private double pesoCasting;
         #endregion
 
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+
+        public string NombreOperacion {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -111,8 +119,7 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
 
-            pesoCasting = Module.GetValorPropiedad("PesoCasting", PropiedadesRequeridadas);
-            mouting = Module.GetValorPropiedad("MoutingCasting", PropiedadesRequeridadas);
+            
 
             //Ejecutamos el método para calcular los tiempos estándar.
             Calcular();
@@ -123,6 +130,8 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// </summary>
         public void Calcular()
         {
+            pesoCasting = Module.GetValorPropiedad("PesoCasting", PropiedadesRequeridadas);
+            mouting = Module.GetValorPropiedad("MoutingCasting", PropiedadesRequeridadas);
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
 
             double pesoEsqueleto = 0;

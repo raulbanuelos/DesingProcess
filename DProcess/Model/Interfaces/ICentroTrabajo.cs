@@ -15,6 +15,7 @@ namespace Model.Interfaces
         double FactorLabor { get; set; }
 
         string CentroTrabajo { get; set; }
+        string NombreOperacion { get; }
 
         List<Propiedad> PropiedadesRequeridadas { get; set; }
         List<PropiedadBool> PropiedadesRequeridasBool { get; set; }
@@ -50,5 +51,7 @@ namespace Model.Interfaces
         /// </summary>
         /// <returns></returns>
         bool Test();
+
+        string GetNombre(string CentroTrabajo);
     }
 }

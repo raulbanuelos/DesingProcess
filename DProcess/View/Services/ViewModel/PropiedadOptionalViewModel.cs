@@ -8,7 +8,7 @@ namespace View.Services.ViewModel
     public class PropiedadOptionalViewModel : INotifyPropertyChanged
     {
         #region Attributes
-        PropiedadOptional model;
+        public PropiedadOptional model;
         #endregion
 
         #region Properties

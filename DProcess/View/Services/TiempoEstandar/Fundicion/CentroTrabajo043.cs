@@ -4,11 +4,20 @@ using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
-    public class CentroTrabajo043 : ICentroTrabajo
+    public class CentroTrabajo043 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -81,6 +90,7 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
             _anillo = new Anillo();

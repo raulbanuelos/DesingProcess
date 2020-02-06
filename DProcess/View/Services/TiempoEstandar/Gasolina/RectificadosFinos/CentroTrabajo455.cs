@@ -8,11 +8,20 @@ using System.Threading.Tasks;
 
 namespace View.Services.TiempoEstandar.Gasolina.RectificadosFinos
 {
-    public class CentroTrabajo455 : ICentroTrabajo
+    public class CentroTrabajo455 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -84,6 +93,7 @@ namespace View.Services.TiempoEstandar.Gasolina.RectificadosFinos
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
             //Inicializamos los datos requeridos para el cálculo.
             Propiedad _h1 = new Propiedad { Nombre = "H1", TipoDato = "Distance", DescripcionCorta = "Width nominal", DescripcionLarga = "Width nominal del anillo", Imagen = null, Unidad = "Inches (in)", Valor = 0 };

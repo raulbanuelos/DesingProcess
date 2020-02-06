@@ -8,11 +8,20 @@ using System.Threading.Tasks;
 
 namespace View.Services.TiempoEstandar.Gasolina.Maquinado
 {
-    public class CentroTrabajo260 : ICentroTrabajo
+    public class CentroTrabajo260 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Properties
 
         #region Properties of ICentroTrabajo
+
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -182,6 +191,7 @@ namespace View.Services.TiempoEstandar.Gasolina.Maquinado
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
             //Inicializamos los datos requeridos para el cálculo.

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
-    public class CentroTrabajo020 : ICentroTrabajo
+    public class CentroTrabajo020 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Atributtes
         private string especMaterial;
@@ -15,6 +15,14 @@ namespace View.Services.TiempoEstandar.Fundicion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -149,6 +157,7 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
 
             Alertas = new List<string>();
 
@@ -157,6 +166,8 @@ namespace View.Services.TiempoEstandar.Fundicion
 
             PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
             PropiedadesRequeridasCadena.Add(espeMaterial);
+
+            
 
             /**
              Ejemplo de carga de una propiedad Opcional.

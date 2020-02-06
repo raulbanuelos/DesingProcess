@@ -1,14 +1,23 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
-    public class CentroTrabajo5004 : ICentroTrabajo
+    public class CentroTrabajo5004 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -78,11 +87,30 @@ namespace View.Services.TiempoEstandar.Fundicion
         public CentroTrabajo5004()
         {
             CentroTrabajo = "5004";
-            FactorLabor = 0.330;
+            FactorLabor = 0.737;
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
+
+            PropiedadBool a = new PropiedadBool { Nombre = "Prueba", DescripcionCorta = "Prueba", DescripcionLarga = "Prueba" };
+            PropiedadesRequeridasBool.Add(a);
+
+            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+
+            lista.Add(new FO_Item { Nombre = "Opcion 1", ValorCadena = "Opcion 1" });
+            lista.Add(new FO_Item { Nombre = "Opcion 2", ValorCadena = "Opcion 2" });
+
+            PropiedadOptional b = new PropiedadOptional { lblTitle = "pruebaa", ListaOpcional = lista };
+            PropiedadesRequeridasOpcionles.Add(b);
+
+            Propiedad mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
+            PropiedadesRequeridadas.Add(mounting);
+
+            PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
+            PropiedadesRequeridasCadena.Add(espeMaterial);
+
 
             _anillo = new Anillo();
         }

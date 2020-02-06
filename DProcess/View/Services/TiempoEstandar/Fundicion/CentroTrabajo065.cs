@@ -5,11 +5,19 @@ using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
-    public class CentroTrabajo065 : ICentroTrabajo
+    public class CentroTrabajo065 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+        public string NombreOperacion
+        {
+            get
+            {
+                return GetNombre(CentroTrabajo);
+            }
+        }
+
         public double TiempoSetup
         {
             get;
@@ -156,6 +164,7 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
+            PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
             //Inicializamos los datos requeridos para el cálculo.
@@ -164,6 +173,7 @@ namespace View.Services.TiempoEstandar.Fundicion
 
             PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
             PropiedadesRequeridasCadena.Add(espeMaterial);
+
         }
         #endregion
 
