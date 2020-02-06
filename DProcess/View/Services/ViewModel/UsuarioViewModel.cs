@@ -16,6 +16,7 @@ using Notifications.Wpf;
 using View.Resources;
 using View.Forms.Shared;
 using View.Forms.Cotizaciones;
+using View.Forms.DashBoard;
 
 namespace View.Services.ViewModel
 {
@@ -541,13 +542,15 @@ namespace View.Services.ViewModel
 
         private void irLeccion()
         {
-
             FrmLeccionesAprendidas frm = new FrmLeccionesAprendidas();
-
             LeccionesAprendidasVM context = new LeccionesAprendidasVM(ModelUsuario);
-
             frm.DataContext = context;
             Pagina = frm;
+
+            //FDashBoard dashboard = new FDashBoard();
+            //DashboardViewModel viewmodel = new DashboardViewModel();
+            //dashboard.DataContext = viewmodel;
+            //Pagina = dashboard;
 
         }
 

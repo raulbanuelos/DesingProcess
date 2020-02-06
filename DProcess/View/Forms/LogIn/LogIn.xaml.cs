@@ -21,6 +21,7 @@ using View.Forms.Routing;
 using System.IO;
 using System.Collections;
 using View.Forms.User;
+using View.Forms.DashBoard;
 
 namespace View.Forms.LogIn
 {
@@ -160,10 +161,9 @@ namespace View.Forms.LogIn
                                     await this.ShowMessageAsync(StringResources.ttlOcurrioError, StringResources.msgErrorVincular);
                                 }
                             }
-                        } 
+                        }
 
                         #endregion
-                        
                         //Una vez que el usuario hizo clic en aceptar el mensaje de bienvenida, se procede con la codificación de la presentación de la pantalla inicial.
                         //Creamos un objeto de tipo Home, la cual es la pantalla inicial del sistema.
                         Home PantallaHome = new Home(usuarioConectado.NombreUsuario);
@@ -172,10 +172,11 @@ namespace View.Forms.LogIn
                         //UsuarioViewModel context = new UsuarioViewModel { ModelUsuario = usuarioConectado, Pagina = PantallaHome };
                         UsuarioViewModel context = new UsuarioViewModel(usuarioConectado, PantallaHome);
                         context.ModelUsuario = usuarioConectado;
+
+                        //NOTA IMPORTANTE: Se hizo una redundancia al asignarle en la propiedad página su misma pantalla. Solo es por ser la primeva vez y tenernos en donde descanzar la primera pantalla.
                         context.Pagina = PantallaHome;
 
                         //Asignamos al DataContext de la PantallaHome el context creado anteriormente.
-                        //NOTA IMPORTANTE: Se hizo una redundancia al asignarle en la propiedad página su misma pantalla. Solo es por ser la primeva vez y tenernos en donde descanzar la primera pantalla.
                         PantallaHome.DataContext = context;
 
                         //Declaramos la pantalla en la que descanzan todas las páginas.
@@ -186,6 +187,50 @@ namespace View.Forms.LogIn
 
                         //Ejecutamos el método el cual despliega la pantalla.
                         masterPage.ShowDialog();
+
+                        ////Si el usuario es administrador, le mostramos la pantalla de Dashboard.
+                        //if (Module.UsuarioIsRol(usuarioConectado.Roles, 2))
+                        //{
+                        //    FDashBoard pDashBoard = new FDashBoard();
+                        //    DashboardViewModel wm = new DashboardViewModel(pDashBoard, usuarioConectado);
+                        //    pDashBoard.DataContext = wm;
+
+                        //    //Declaramos la pantalla en la que descanzan todas las páginas.
+                        //    Layout masterPage1 = new Layout();
+
+                        //    //Asingamos el DataContext.
+                        //    masterPage1.DataContext = wm;
+
+                        //    //Ejecutamos el método el cual despliega la pantalla.
+                        //    masterPage1.ShowDialog();
+
+                        //}
+                        //else
+                        //{
+                        //    //Una vez que el usuario hizo clic en aceptar el mensaje de bienvenida, se procede con la codificación de la presentación de la pantalla inicial.
+                        //    //Creamos un objeto de tipo Home, la cual es la pantalla inicial del sistema.
+                        //    Home PantallaHome = new Home(usuarioConectado.NombreUsuario);
+
+                        //    //Creamos un objeto UsuarioViewModel, y le asignamos los valores correspondientes, a la propiedad Pagina se le asigna la pantalla inicial de Home.
+                        //    //UsuarioViewModel context = new UsuarioViewModel { ModelUsuario = usuarioConectado, Pagina = PantallaHome };
+                        //    UsuarioViewModel context = new UsuarioViewModel(usuarioConectado, PantallaHome);
+                        //    context.ModelUsuario = usuarioConectado;
+
+                        //    //NOTA IMPORTANTE: Se hizo una redundancia al asignarle en la propiedad página su misma pantalla. Solo es por ser la primeva vez y tenernos en donde descanzar la primera pantalla.
+                        //    context.Pagina = PantallaHome;
+
+                        //    //Asignamos al DataContext de la PantallaHome el context creado anteriormente.
+                        //    PantallaHome.DataContext = context;
+
+                        //    //Declaramos la pantalla en la que descanzan todas las páginas.
+                        //    Layout masterPage = new Layout();
+
+                        //    //Asingamos el DataContext.
+                        //    masterPage.DataContext = context;
+
+                        //    //Ejecutamos el método el cual despliega la pantalla.
+                        //    masterPage.ShowDialog();
+                        //}
                     }
 				}
 				else

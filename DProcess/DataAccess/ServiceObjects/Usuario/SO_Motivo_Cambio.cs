@@ -75,5 +75,27 @@ namespace DataAccess.ServiceObjects.Usuario
                 return null;
             }
         }
+
+        public IList GetMotivoGroup()
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    var lista = (from a in Conexion.CAT_MOTIVO_CAMBIO
+                                 join b in Conexion.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO on a.ID_MOTIVO_CAMBIO equals b.ID_MOTIVO_CAMBIO
+                                 group a by a.MOTIVO_CAMBIO into table
+                                 select new {
+                                     MOTIVO = table.Key,
+                                     CONTADOR = table.Count(),
+                                 }).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

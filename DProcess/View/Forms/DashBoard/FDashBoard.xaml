@@ -1,0 +1,194 @@
+﻿<Page x:Class="View.Forms.DashBoard.FDashBoard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:View.Forms.DashBoard"
+      mc:Ignorable="d" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      
+      Title="FDashBoard" Background="LightGray">
+
+    <Grid Margin="2">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="400"></RowDefinition>
+                <RowDefinition Height="400"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="350"></ColumnDefinition>
+                    <ColumnDefinition Width="700"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="400"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <!--Resúmen de lecciones aprendidas (Candidad de lecciones y Total lecciones mes actual)-->
+                <Grid Grid.Column="0" Grid.Row="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"></RowDefinition>
+                        <RowDefinition Height="50*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Total de Lecciones Aprendidas-->
+                    <Border Grid.Row="0" CornerRadius="10" Background="White" Margin="5">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding TotalLeccionesAprendidas, StringFormat='{}{0:0,0}'}" HorizontalAlignment="Center" Margin="0,40,0,0"
+                                   FontWeight="Bold" FontSize="38"></TextBlock>
+                            <TextBlock Text="Lecciones Aprendidas" HorizontalAlignment="Center"
+                                   FontWeight="Light" FontSize="26"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <!--Total de Lecciones Aprendidas en el mes Actual-->
+                    <Border Grid.Row="1" CornerRadius="10" Background="White" Margin="5">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding TotalLeccionesMesActual.Valor, StringFormat='{}{0:0,0}'}" HorizontalAlignment="Center" Margin="0,40,0,0"
+                                   FontWeight="Bold" FontSize="38"></TextBlock>
+                            <TextBlock Text="Lecciones Aprendidas" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"
+                                   FontWeight="Light" FontSize="26"></TextBlock>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="en " HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="Light" FontSize="26"></TextBlock>
+                                <TextBlock Text="{Binding TotalLeccionesMesActual.Nombre}" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="Light" FontSize="26"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!--Grafica Lecciones Aprendidas (Motivos)-->
+                <Border Grid.Column="1" Grid.Row="0" Background="White" CornerRadius="10" Margin="0,10,5,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Motivos lecciones aprendidas" HorizontalAlignment="Center"
+                               FontWeight="Light" FontSize="26"></TextBlock>
+                        <lvc:PieChart VerticalAlignment="Top"  Grid.Column="0" Grid.Row="1"
+                          HorizontalAlignment="Center" Series="{Binding Series}" 
+                          InnerRadius="60" Width="300" Height="300">
+                            <lvc:PieChart.ChartLegend>
+                                <lvc:DefaultLegend BulletSize="15"></lvc:DefaultLegend>
+
+                            </lvc:PieChart.ChartLegend>
+                            <lvc:PieChart.DataTooltip>
+                                <lvc:DefaultTooltip BulletSize="15"></lvc:DefaultTooltip>
+                            </lvc:PieChart.DataTooltip>
+                        </lvc:PieChart>
+                    </Grid>
+
+                </Border>
+
+                <!--Grafica Lecciones aprendidas últimos 5 meses-->
+                <Border Grid.Column="2" Grid.Row="0" Background="White" CornerRadius="10" Margin="5,10,5,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Registros de lecciones aprendidas" HorizontalAlignment="Center"
+                               FontWeight="Light" FontSize="26"></TextBlock>
+                        <lvc:CartesianChart Series="{Binding SerieLeccionesMensual}" Grid.Row="1">
+
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Mes" FontWeight="Bold" FontStretch="UltraCondensed"  Labels="{Binding Labels}" FontSize="12"></lvc:Axis>
+
+                            </lvc:CartesianChart.AxisX>
+
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Cantidad" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+
+                        </lvc:CartesianChart>
+                    </Grid>
+                </Border>
+
+                <!--Imagen Photo-->
+                <!--<StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Orientation="Vertical"
+                        Grid.Column="3" Grid.Row="0" Margin="0,15,15,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="80" Width="80">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Details.PathPhoto}"></ImageBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="White" Margin="0,15,15,0"></Label>
+                            <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0,0,15,0"></Label>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>-->
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="700"></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <!--Resúmen de Control de Documentos-->
+                <Grid Grid.Column="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"></RowDefinition>
+                        <RowDefinition Height="50*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+
+                    <!--Total de Documentos-->
+                    <Border Grid.Row="0" CornerRadius="10" Background="White" Margin="5">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding TotalDocumentos, StringFormat='{}{0:0,0}'}" HorizontalAlignment="Center" Margin="0,40,0,0"
+                                       FontWeight="Bold" FontSize="38"></TextBlock>
+                            <TextBlock Text="Documentos Activos" HorizontalAlignment="Center"
+                                       FontWeight="Light" FontSize="26"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!--Total de documentos pendientes por liberar-->
+                    <Border Grid.Row="1" CornerRadius="10" Background="White" Margin="5">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding TotalDocumentosPorLiberar, StringFormat='{}{0:0,0}'}" HorizontalAlignment="Center" Margin="0,40,0,0"
+                                       FontWeight="Bold" FontSize="38"></TextBlock>
+                            <TextBlock Text="Documentos pendientes por liberar" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"
+                                       FontWeight="Light" FontSize="26"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!--Gráfica Documentos-->
+                <Border Grid.Column="1" Grid.Row="0" CornerRadius="10" Background="White" Margin="0,10">
+                    <lvc:CartesianChart Series="{Binding SeriesCollectionDocumento}" LegendLocation="Bottom">
+                        <lvc:CartesianChart.AxisX>
+                            <!--<lvc:Axis Title="Browser" Labels="{Binding LabelsDocumento}"  />-->
+                            <lvc:Axis Title="Meses" FontWeight="Bold" FontStretch="UltraCondensed"  Labels="{Binding LabelsDocumento}" FontSize="12"></lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                    </lvc:CartesianChart>
+
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

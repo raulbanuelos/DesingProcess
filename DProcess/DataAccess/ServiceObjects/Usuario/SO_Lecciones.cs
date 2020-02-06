@@ -14,6 +14,11 @@ namespace DataAccess.ServiceObjects.Usuario
 {
     public class SO_Lecciones
     {
+        #region Attributtes
+        private string SP_LA_GET_TOTAL_LECCIONES_MES_ACTUAL = "SP_LA_GET_TOTAL_LECCIONES_MES_ACTUAL";
+        private string SP_LA_GET_CANTIDAD_LECCIONES_ULTIMOS_MESES = "SP_LA_GET_CANTIDAD_LECCIONES_ULTIMOS_MESES";
+        #endregion
+
         #region Métodos
         /// <summary>
         /// Método que obtiene la lista de las lecciones aprendidas
@@ -328,6 +333,71 @@ namespace DataAccess.ServiceObjects.Usuario
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el total de lecciones del mes actual.
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetTotalLeccionesMesActual()
+        {
+            try
+            {
+                DataSet Lista = null;
+
+                Desing_SQL conexion = new Desing_SQL();
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                Lista = conexion.EjecutarStoredProcedure(SP_LA_GET_TOTAL_LECCIONES_MES_ACTUAL, parametros);
+
+                return Lista;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el total de lecciones aprendidas por mes de los últimos meses.
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetTotalLeccionesUltimosMeses()
+        {
+            try
+            {
+                DataSet Lista = null;
+                Desing_SQL conexion = new Desing_SQL();
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                Lista = conexion.EjecutarStoredProcedure(SP_LA_GET_CANTIDAD_LECCIONES_ULTIMOS_MESES, parametros);
+
+                return Lista;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método para obtener el numero total de lecciones aprendidas registradas.
+        /// </summary>
+        /// <returns></returns>
+        public int GetTotalLeccionesAprendidas()
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    int n = Conexion.TBL_LECCIONES_APRENDIDAS.ToList().Count;
+                    return n;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
             }
         }
         #endregion

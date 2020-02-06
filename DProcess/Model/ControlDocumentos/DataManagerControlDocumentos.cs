@@ -3507,6 +3507,72 @@ namespace Model.ControlDocumentos
         #region Lecciones Aprendidas
 
         /// <summary>
+        /// Método que retorna el total de lecciones aprendidas.
+        /// </summary>
+        /// <returns></returns>
+        public static int GetTotalLecciones()
+        {
+            SO_Lecciones serviceLecciones = new SO_Lecciones();
+
+            return serviceLecciones.GetTotalLeccionesAprendidas();
+        }
+
+        /// <summary>
+        /// Método que obtiene el total de lecciones aprendidas del mes actual.
+        /// </summary>
+        /// <returns></returns>
+        public static FO_Item GetTotalLeccionesMesActual()
+        {
+            FO_Item r = new FO_Item(); ;
+
+            SO_Lecciones serviceLecciones = new SO_Lecciones();
+
+            DataSet informacionBD = serviceLecciones.GetTotalLeccionesMesActual();
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        r = new FO_Item();
+                        r.Valor = Convert.ToDouble(item["TOTAL_LECCIONES_APRENDIDAS"]);
+                        r.Nombre = Convert.ToString(item["MES"]);
+                    }
+                }
+            }
+
+            return r;
+        }
+
+        public static List<FO_Item> GetTotalLeccionesPorMes()
+        {
+            SO_Lecciones serviceLecciones = new SO_Lecciones();
+
+            List<FO_Item> lista = new List<FO_Item>();
+
+            DataSet informacionBD = serviceLecciones.GetTotalLeccionesUltimosMeses();
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        FO_Item foItem = new FO_Item();
+
+                        foItem.Nombre = Convert.ToString(item["NOMBRE_MES"]);
+                        foItem.Valor = Convert.ToDouble(item["NO_LECCIONES_APRENDIDAS"]);
+                        
+                        lista.Add(foItem);
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+        /// <summary>
         /// Método que devuelve los registro de motivo cambio
         /// </summary>
         /// <returns></returns>
@@ -3531,6 +3597,36 @@ namespace Model.ControlDocumentos
                     motivo.Descripcion = (string)tipo.GetProperty("DESCRIPCION_CAMBIO").GetValue(item, null).ToString();
                     
                     listaResultante.Add(motivo);
+                }
+            }
+
+            return listaResultante;
+        }
+
+        /// <summary>
+        /// Método que obtiene el número total por motivo de lecciones aprendidas.
+        /// </summary>
+        /// <returns></returns>
+        public static List<FO_Item> GetMotivoCambioGrafica()
+        {
+            List<FO_Item> listaResultante = new List<FO_Item>();
+
+            SO_Motivo_Cambio serviceMotivo = new SO_Motivo_Cambio();
+
+            IList informacionBD = serviceMotivo.GetMotivoGroup();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    FO_Item foItem = new FO_Item();
+
+                    foItem.Nombre = (string)tipo.GetProperty("MOTIVO").GetValue(item, null).ToString();
+                    foItem.Valor = Convert.ToDouble(tipo.GetProperty("CONTADOR").GetValue(item, null).ToString());
+
+                    listaResultante.Add(foItem);
                 }
             }
 
