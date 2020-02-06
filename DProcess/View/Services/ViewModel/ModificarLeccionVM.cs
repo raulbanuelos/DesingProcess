@@ -37,6 +37,13 @@ namespace View.Services.ViewModel
 
         #region Propiedades
 
+        private string _MotivoCambio;
+        public string MotivoCambio
+        {
+            get { return _MotivoCambio; }
+            set { _MotivoCambio = value; NotifyChange("MotivoCambio"); }
+        }
+        
         private ObservableCollection<objUsuario> _ListaUsuarios;
         public ObservableCollection<objUsuario> ListaUsuarios
         {
@@ -378,7 +385,12 @@ namespace View.Services.ViewModel
                 //Obtenemos todos los centros de trabajo
                 ListaCentrosDeTrabajo = DataManagerControlDocumentos.GetCentrosDeTrabajo("");
 
+                //Obtenemos el motivo del cambio de la lección.
+                MotivoCambio = DataManagerControlDocumentos.GetMotivoCambioByLeccion(SelectedLeccion.ID_LECCIONES_APRENDIDAS);
 
+                //Si no tiene motivo registrado se le asigna un N/A
+                MotivoCambio = string.IsNullOrEmpty(MotivoCambio) ? "N/A" : MotivoCambio;
+                
                 //Obtenemos todos los tipos de cambio
                 ListaNivelesDeCambio = DataManagerControlDocumentos.GetNivelesDeCambio();
 

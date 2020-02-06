@@ -20,6 +20,7 @@ namespace DataAccess.ServiceObjects.Usuario
             this.TBL_ARCHIVO_LECCIONES = new HashSet<TBL_ARCHIVO_LECCIONES>();
             this.TR_LECCIONES_TIPOCAMBIO = new HashSet<TR_LECCIONES_TIPOCAMBIO>();
             this.TR_LECCIONES_CENTROSTRABAJO = new HashSet<TR_LECCIONES_CENTROSTRABAJO>();
+            this.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO = new HashSet<TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO>();
         }
     
         public int ID_LECCIONES_APRENDIDAS { get; set; }
@@ -39,5 +40,7 @@ namespace DataAccess.ServiceObjects.Usuario
         public virtual ICollection<TR_LECCIONES_TIPOCAMBIO> TR_LECCIONES_TIPOCAMBIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_LECCIONES_CENTROSTRABAJO> TR_LECCIONES_CENTROSTRABAJO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO> TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO { get; set; }
     }
 }
