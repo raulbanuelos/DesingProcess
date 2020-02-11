@@ -2,6 +2,7 @@
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
@@ -16,7 +17,13 @@ namespace View.Services.TiempoEstandar.Fundicion
 
         #region Propiedades ICentroTrabajo
 
-        public string NombreOperacion {
+        public int NumeroOperacion
+        {
+            get;
+            set;
+        }
+        public string NombreOperacion
+        {
             get
             {
                 return GetNombre(CentroTrabajo);
@@ -194,6 +201,16 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
+
+            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+
+            lista.Add(new FO_Item { Nombre = "Opcion 1", ValorCadena = "Opcion 1" });
+            lista.Add(new FO_Item { Nombre = "Opcion 2", ValorCadena = "Opcion 2" });
+
+            PropiedadOptional b = new PropiedadOptional { lblTitle = "pruebaa1", ListaOpcional = lista };
+            PropiedadesRequeridasOpcionles.Add(b);
+
+
 
             //Inicializamos los datos requeridos para el cálculo.
             Propiedad mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };

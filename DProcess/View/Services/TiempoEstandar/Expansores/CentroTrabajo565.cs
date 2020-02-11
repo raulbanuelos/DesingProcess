@@ -10,6 +10,11 @@ namespace View.Services.TiempoEstandar.Expansores
 
         #region Propiedades ICentroTrabajo
 
+        public int NumeroOperacion
+        {
+            get;
+            set;
+        }
         public string NombreOperacion
         {
             get

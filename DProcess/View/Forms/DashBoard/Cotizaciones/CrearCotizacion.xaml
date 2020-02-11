@@ -37,13 +37,14 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Button HorizontalAlignment="Left" Height="30" Width="250" Content="{x:Static recursos:StringResources.ttlButtonAgregarMPaCT}" Margin="20,10,0,0"/>
-                    <Button HorizontalAlignment="Left" Height="30" Width="161" Content="{x:Static recursos:StringResources.ttlButtonEliminarCT}" Margin="20,10,0,0"/>
-                    <Button HorizontalAlignment="Left" Height="30" Width="150" Content="{x:Static recursos:StringResources.ttlButtonEliminarTodo}" Margin="20,10,0,0"/>
+                    <Button Command="{Binding IrEliminarUno}" HorizontalAlignment="Left" Height="30" Width="161" Content="{x:Static recursos:StringResources.ttlButtonEliminarCT}" Margin="20,10,0,0"/>
+                    <Button Command="{Binding IrEliminarTodo}" HorizontalAlignment="Left" Height="30" Width="150" Content="{x:Static recursos:StringResources.ttlButtonEliminarTodo}" Margin="20,10,0,0"/>
                     <Button Command="{Binding IrListaCT}" HorizontalAlignment="Left" Height="30" Width="160" Content="{x:Static recursos:StringResources.ttlButtonAgregarCTdeLista}" Margin="20,10,0,0"/>
                 </StackPanel>
-                <DataGrid Name="Tabla" Margin="20,10,0,10" ItemsSource="{Binding ListaMostrar}" AutoGenerateColumns="False" >
+                <DataGrid x:Name="dataGridView1" Margin="20,10,20,10" ItemsSource="{Binding ListaMostrar}" AutoGenerateColumns="False" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="383" SelectedItem="{Binding SelectedRow}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn x:Name="Item" Header="{x:Static recursos:StringResources.lblItem}" ClipboardContentBinding="{x:Null}"/>
+                        <!--<DataGridTextColumn  x:Name="Item" Binding="{Binding NumeroOperacion}" Header="{x:Static recursos:StringResources.lblItem}" ClipboardContentBinding="{x:Null}"/> --> 
                         <DataGridTextColumn x:Name="CT" Binding="{Binding CentroTrabajo}" Header="{x:Static recursos:StringResources.lblCT}" ClipboardContentBinding="{x:Null}"/>
                         <DataGridTextColumn x:Name="NombreOperacion" Binding="{Binding NombreOperacion}" Header="{x:Static recursos:StringResources.lblNombreOperacion}" ClipboardContentBinding="{x:Null}"/>
                         <DataGridTextColumn x:Name="TiempoSetup" Binding="{Binding TiempoSetup}" Header="{x:Static recursos:StringResources.lblTiempoSetup}" ClipboardContentBinding="{x:Null}"/>

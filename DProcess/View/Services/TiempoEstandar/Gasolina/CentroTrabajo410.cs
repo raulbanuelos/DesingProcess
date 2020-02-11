@@ -10,6 +10,12 @@ namespace View.Services.TiempoEstandar.Gasolina
 
         #region Propiedades ICentroTrabajo
 
+        public int NumeroOperacion
+        {
+            get;
+            set;
+        }
+
         public string NombreOperacion
         {
             get

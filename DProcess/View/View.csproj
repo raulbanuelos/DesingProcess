@@ -314,19 +314,19 @@
     <Compile Include="Forms\ControlDocumentos\Frm_DocumentosSimilares.xaml.cs">
       <DependentUpon>Frm_DocumentosSimilares.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Cotizaciones\CrearCotizacion.xaml.cs">
+    <Compile Include="Forms\DashBoard\Cotizaciones\CrearCotizacion.xaml.cs">
       <DependentUpon>CrearCotizacion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Cotizaciones\FDinamicForm.xaml.cs">
+    <Compile Include="Forms\DashBoard\Cotizaciones\FDinamicForm.xaml.cs">
       <DependentUpon>FDinamicForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Cotizaciones\FrmCalculoTiemposEstandar.xaml.cs">
+    <Compile Include="Forms\DashBoard\Cotizaciones\FrmCalculoTiemposEstandar.xaml.cs">
       <DependentUpon>FrmCalculoTiemposEstandar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Cotizaciones\FrmListaCentroTrabajo.xaml.cs">
+    <Compile Include="Forms\DashBoard\Cotizaciones\FrmListaCentroTrabajo.xaml.cs">
       <DependentUpon>FrmListaCentroTrabajo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Cotizaciones\FrmVistaWPF.xaml.cs">
+    <Compile Include="Forms\DashBoard\Cotizaciones\FrmVistaWPF.xaml.cs">
       <DependentUpon>FrmVistaWPF.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\DashBoard\FDashBoard.xaml.cs">
@@ -1346,23 +1346,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\Cotizaciones\CrearCotizacion.xaml">
+    <Page Include="Forms\DashBoard\Cotizaciones\CrearCotizacion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\Cotizaciones\FDinamicForm.xaml">
+    <Page Include="Forms\DashBoard\Cotizaciones\FDinamicForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\Cotizaciones\FrmCalculoTiemposEstandar.xaml">
+    <Page Include="Forms\DashBoard\Cotizaciones\FrmCalculoTiemposEstandar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\Cotizaciones\FrmListaCentroTrabajo.xaml">
+    <Page Include="Forms\DashBoard\Cotizaciones\FrmListaCentroTrabajo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\Cotizaciones\FrmVistaWPF.xaml">
+    <Page Include="Forms\DashBoard\Cotizaciones\FrmVistaWPF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

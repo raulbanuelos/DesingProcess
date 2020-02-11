@@ -10,6 +10,12 @@ namespace View.Services.TiempoEstandar.LargeBore
 
         #region Propiedades ICentroTrabajo
 
+        public int NumeroOperacion
+        {
+            get;
+            set;
+        }
+
         public string NombreOperacion
         {
             get

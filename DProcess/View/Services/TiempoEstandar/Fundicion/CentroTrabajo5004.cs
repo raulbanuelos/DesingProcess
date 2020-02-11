@@ -10,6 +10,12 @@ namespace View.Services.TiempoEstandar.Fundicion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+        public int NumeroOperacion
+        {
+            get;
+            set;
+        }
+
         public string NombreOperacion
         {
             get
@@ -94,8 +100,11 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+
             PropiedadBool a = new PropiedadBool { Nombre = "Prueba", DescripcionCorta = "Prueba", DescripcionLarga = "Prueba" };
             PropiedadesRequeridasBool.Add(a);
+
+            
 
             ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
 

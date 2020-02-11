@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Model;
 using Model.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
 {
@@ -10,6 +11,12 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+
+        public int NumeroOperacion
+        {
+            get;
+            set;
+        }
 
         public string NombreOperacion
         {

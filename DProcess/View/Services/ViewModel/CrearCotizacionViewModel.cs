@@ -190,19 +190,22 @@ namespace View.Services.ViewModel
             }
 
         }
-        //private List<string> _Lista;
-        //public List<string> Lista
-        //{
-        //    get
-        //    {
-        //        return _Lista;
-        //    }
-        //    set
-        //    {
-        //        _Lista = value;
-        //        NotifyChange("Lista");
-        //    }
-        //}
+
+        private ICentroTrabajo selectedRow;
+        public ICentroTrabajo SelectedRow
+        {
+            get
+            {
+                return selectedRow;
+            }
+            set
+            {
+                selectedRow = value;
+                NotifyChange("SelectedRow");
+            }
+
+        }
+
         #endregion
 
         #region Constructors
@@ -217,9 +220,6 @@ namespace View.Services.ViewModel
             PropiedadesOptionalViewModel = new ObservableCollection<PropiedadOptionalViewModel>();
             ListaCreadaCentroTrabajo = new ObservableCollection<ICentroTrabajo>();
             ListaMostrar = new ObservableCollection<ICentroTrabajo>();
-
-
-
         }
         #endregion
 
@@ -239,6 +239,20 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => AgregarCentroTrabajo());
             }
         }
+        public ICommand IrEliminarTodo
+        {
+            get
+            {
+                return new RelayCommand(o => irEliminarTodo());
+            }
+        }
+        public ICommand IrEliminarUno
+        {
+            get
+            {
+                return new RelayCommand(o => irEliminarUno());
+            }
+        }
         public ICommand IrCalcular
         {
             get
@@ -253,8 +267,6 @@ namespace View.Services.ViewModel
 
         private void irCalcular()
         {
-
-
 
             int c = PropiedadesViewModel.Count;
             List<Propiedad> Prop = new List<Propiedad>();
@@ -334,9 +346,26 @@ namespace View.Services.ViewModel
             ListaDuplicado.Add("tCiclo2200");
             ListaDuplicado.Add("numeroPasadas180");
         }
+        /// <summary>
+        /// Metodo para eliminar todas las filas de Datagrid
+        /// </summary>
+        private void irEliminarTodo()
+        {
+            ListaMostrar = new ObservableCollection<ICentroTrabajo>();
+            ListaCreadaCentroTrabajo = new ObservableCollection<ICentroTrabajo>();
+        }
+        /// <summary>
+        /// Metodo para eliminar la fila seleccionada en el Datagrid
+        /// </summary>
+        private void irEliminarUno()
+        {
+            ListaMostrar.Remove(SelectedRow);
+        }
+        /// <summary>
+        /// Metodo que se ejecuta cuando se agrega una lista de Centros de Trabajo
+        /// </summary>
         private void AbrirListaCentroTrabajo()
         {
-            //Vista de Listas de Trabajo
             List<string> Lista = new List<string>();
             FrmListaCentroTrabajo frm = new FrmListaCentroTrabajo();
             ListaCentroTrabajoViewModel context = new ListaCentroTrabajoViewModel();
@@ -350,9 +379,12 @@ namespace View.Services.ViewModel
                 ListaCreadaCentroTrabajo = new ObservableCollection<ICentroTrabajo>();
                 Lista = context.ListaCentroTrabajo;
                 irListaCentroTrabajo(Lista);
+                
             }
         }
-
+        /// <summary>
+        /// Metodo que se ejecutacuando se agrega un centro de trabajo
+        /// </summary>
         private void AgregarCentroTrabajo()
         {
             List<string> Lista = new List<string>();
@@ -392,16 +424,17 @@ namespace View.Services.ViewModel
 
             file = new XmlApplicationContext(@"\\agufileserv2\INGENIERIA\RESPRUTAS\RrrrUUUUUULLL\RepositoryCentroTrabajoDisenoProceso.xml");
             ctx = file;
-
-
+            
             foreach (string item in Lista)
             {
                 //Obtenemos el ID del Centro de Trabajo.
                 string id = ListaCentroTrabajo.Where(x => x.CentroTrabajo == item).FirstOrDefault().ObjetoXML;
                 //Obtenemos un objeto del Centro de Trabajo.
                 _elCentroTrabajo = (ICentroTrabajo)ctx.GetObject(id);
+
                 //Asignamos el Centro de Trabajo a la lista.
                 ListaCreadaCentroTrabajo.Add(_elCentroTrabajo);
+                
             }
 
             foreach (ICentroTrabajo centroTrabajo in ListaCreadaCentroTrabajo)
@@ -505,8 +538,6 @@ namespace View.Services.ViewModel
                     }
                 }
             }
-
-            //Se crea un try catch para que no truene.
             foreach (NumericEntry numericEntry in propiedadesNumeric)
             {
                 try
@@ -526,29 +557,50 @@ namespace View.Services.ViewModel
             
             foreach (BoolEntry boolEntry in propiedadesBool)
             {
-                StackPanel panel = new StackPanel();
-                panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                panel.Children.Add(boolEntry);
+                try
+                {
+                    StackPanel panel = new StackPanel();
+                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                    panel.Children.Add(boolEntry);
 
-                PanelPropiedadesBool.Add(panel);
+                    PanelPropiedadesBool.Add(panel);
+                }
+                catch (Exception a)
+                {
+                    string aa = a.Message;
+                }
             }
 
             foreach (StringEntry stringEntry in propiedadesCadena)
             {
-                StackPanel panel = new StackPanel();
-                panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                panel.Children.Add(stringEntry);
+                try
+                {
+                    StackPanel panel = new StackPanel();
+                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                    panel.Children.Add(stringEntry);
 
-                PanelPropiedadesCadena.Add(panel);
+                    PanelPropiedadesCadena.Add(panel);
+                }
+                catch (Exception a)
+                {
+                    string aa = a.Message;
+                }
             }
 
             foreach (OptionalEntry optionalEntry in propiedadesOpcionales)
             {
-                StackPanel panel = new StackPanel();
-                panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                panel.Children.Add(optionalEntry);
+                try
+                {
+                    StackPanel panel = new StackPanel();
+                    panel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                    panel.Children.Add(optionalEntry);
 
-                PanelPropiedadesOpcionales.Add(panel);
+                    PanelPropiedadesOpcionales.Add(panel);
+                }
+                catch (Exception a)
+                {
+                    string aa = a.Message;
+                }
             }
 
             FrmVistaWPF vista = new FrmVistaWPF();
@@ -557,14 +609,12 @@ namespace View.Services.ViewModel
 
             if (vista.DialogResult.HasValue && vista.DialogResult.Value)
             {
-                foreach (var item in ListaCreadaCentroTrabajo)
+                foreach (var item   in ListaCreadaCentroTrabajo)
                 {
+                    //Agrega a ja lista los datos por mostrar en el Datagrid
                     ListaMostrar.Add(item);
                 }
-                //ListaMostrar = ListaCreadaCentroTrabajo;
-
             }
-
         }
 
         /// <summary>
