@@ -2,6 +2,7 @@
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
@@ -15,6 +16,12 @@ namespace View.Services.TiempoEstandar.Fundicion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+        public int NumeroOperacion
+        {
+            get;
+            set;
+        }
+
         public string NombreOperacion
         {
             get
@@ -161,13 +168,22 @@ namespace View.Services.TiempoEstandar.Fundicion
 
             Alertas = new List<string>();
 
-            Propiedad mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
-            PropiedadesRequeridadas.Add(mounting);
+            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
 
-            PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
-            PropiedadesRequeridasCadena.Add(espeMaterial);
+            lista.Add(new FO_Item { Nombre = "Opcion 1", ValorCadena = "Opcion 1" });
+            lista.Add(new FO_Item { Nombre = "Opcion 2", ValorCadena = "Opcion 2" });
 
-            
+            PropiedadOptional b = new PropiedadOptional { lblTitle = "pruebaa", ListaOpcional = lista };
+            PropiedadesRequeridasOpcionles.Add(b);
+
+
+            //Propiedad mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
+            //PropiedadesRequeridadas.Add(mounting);
+
+            //PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
+            //PropiedadesRequeridasCadena.Add(espeMaterial);
+
+
 
             /**
              Ejemplo de carga de una propiedad Opcional.

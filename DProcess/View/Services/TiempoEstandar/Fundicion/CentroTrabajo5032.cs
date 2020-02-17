@@ -9,6 +9,12 @@ namespace View.Services.TiempoEstandar.Fundicion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
+        public int NumeroOperacion
+        {
+            get;
+            set;
+        }
+
         public string NombreOperacion
         {
             get

@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -23,5 +24,11 @@ namespace View.Forms.Cotizaciones
         {
             InitializeComponent();
         }
+        void Salir_Click(object sender, RoutedEventArgs e)
+        {
+            // Close this window
+            this.Close();
+        }
+
     }
 }

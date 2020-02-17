@@ -16,6 +16,7 @@ namespace Model.Interfaces
 
         string CentroTrabajo { get; set; }
         string NombreOperacion { get; }
+        int NumeroOperacion { get; set; }
 
         List<Propiedad> PropiedadesRequeridadas { get; set; }
         List<PropiedadBool> PropiedadesRequeridasBool { get; set; }

@@ -31,14 +31,6 @@ namespace DataAccess.ServiceObjects.Usuario
             }
         }
 
-
-
-
-
-
-
-
-
         public string GetNombre (string TextoBuscar)
         {
             try
