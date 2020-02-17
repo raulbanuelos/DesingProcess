@@ -47,13 +47,14 @@
 
             </Grid>
             
-            <Grid Height="500" Width="905">
+            <Grid Height="600" Width="905">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="300" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="150" />
                     <RowDefinition Height="150" />
                     <RowDefinition Height="150" />
                     <RowDefinition Height="150" />
@@ -303,6 +304,34 @@
                                     <Setter Property="Content">
                                         <Setter.Value>
                                             <TextBlock Text="{x:Static local:StringResources.ttlLeccionesAprendidasAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Controls:Tile.Style>
+                </Controls:Tile>
+                
+                <!--DashBoard-->
+                <Controls:Tile Command="{Binding IrDashboard}" Background="Orange" TiltFactor="2" Title="{x:Static local:StringResources.ttlDashboard}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="3" Cursor="Hand" IsEnabled="{Binding PerfilAdministrador}">
+                    <Controls:Tile.Style>
+                        <Style TargetType="Controls:Tile">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <StackPanel Orientation="Vertical">
+                                        <Rectangle Width="90" Height="90" Fill="White">
+                                            <Rectangle.OpacityMask>
+                                                <VisualBrush Visual="{StaticResource appbar_graph_line}" Stretch="Fill" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                    </StackPanel>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock Text="Clic para ir al Tablero general" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>

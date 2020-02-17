@@ -4451,6 +4451,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Dashboard.
+        /// </summary>
+        public static string ttlDashboard {
+            get {
+                return ResourceManager.GetString("ttlDashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Data.
         /// </summary>
         public static string ttlData {

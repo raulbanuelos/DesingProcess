@@ -17,6 +17,7 @@ namespace DataAccess.ServiceObjects.Usuario
         #region Attributtes
         private string SP_LA_GET_TOTAL_LECCIONES_MES_ACTUAL = "SP_LA_GET_TOTAL_LECCIONES_MES_ACTUAL";
         private string SP_LA_GET_CANTIDAD_LECCIONES_ULTIMOS_MESES = "SP_LA_GET_CANTIDAD_LECCIONES_ULTIMOS_MESES";
+        private string SP_CIT_GET_NUMERO_LECCIONES_APRENDIDAS_BY_USUARIO = "SP_CIT_GET_NUMERO_LECCIONES_APRENDIDAS_BY_USUARIO";
         #endregion
 
         #region Métodos
@@ -374,6 +375,30 @@ namespace DataAccess.ServiceObjects.Usuario
                 Lista = conexion.EjecutarStoredProcedure(SP_LA_GET_CANTIDAD_LECCIONES_ULTIMOS_MESES, parametros);
 
                 return Lista;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la cantidad de lecciones aprendidas por usuario del año en curso.
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetCantidadLeccionesAprendidasByUsuario()
+        {
+            try
+            {
+                DataSet datos = new DataSet();
+
+                Desing_SQL conexion = new Desing_SQL();
+
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                datos = conexion.EjecutarStoredProcedure(SP_CIT_GET_NUMERO_LECCIONES_APRENDIDAS_BY_USUARIO,parametros);
+
+                return datos;
             }
             catch (Exception)
             {

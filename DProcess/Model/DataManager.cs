@@ -13059,17 +13059,47 @@ namespace Model
                 }
             }
 
-            foreach (var bushing in listaBushing)
+            if (listaBushing.Count > 0)
             {
-                double bushingSeleccionado = bushing.Propiedades[0].Valor;
+                foreach (var bushing in listaBushing)
+                {
+                    double bushingSeleccionado = bushing.Propiedades[0].Valor;
+                    double discoCalculo = Math.Round(((bushingSeleccionado - d1) * Math.PI) + mediaGapProceso, 3);
+                    Herramental disco = new Herramental();
+
+                    disco = GetDisco(discoCalculo);
+                    listaBushingDisco.Add(bushing);
+                    listaBushingDisco.Add(disco);
+                    return listaBushingDisco;
+
+                }
+            }
+            else //Este else es para cuando no se encuentre el Bushing Codificado.
+            {
+                Herramental bushingPropuesto = new Herramental();
+                bushingPropuesto.Codigo = "CODIFICAR";
+                bushingPropuesto.DescripcionGeneral = "BUSHING";
+                
+                Propiedad propiedaddima = new Propiedad();
+                
+                propiedaddima.Valor = Math.Round((bushingMin + bushingMax) / 2, 3);
+
+                bushingPropuesto.DescripcionRuta = "DIA. DEL BUJE          " + propiedaddima.Valor;
+                
+                bushingPropuesto.Propiedades.Add(propiedaddima);
+
+                listaBushingDisco.Add(bushingPropuesto);
+
+
+                double bushingSeleccionado = bushingPropuesto.Propiedades[0].Valor;
                 double discoCalculo = Math.Round(((bushingSeleccionado - d1) * Math.PI) + mediaGapProceso, 3);
                 Herramental disco = new Herramental();
 
                 disco = GetDisco(discoCalculo);
-                listaBushingDisco.Add(bushing);
                 listaBushingDisco.Add(disco);
+
                 return listaBushingDisco;
-                
+
             }
 
             return listaBushingDisco;

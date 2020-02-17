@@ -17,6 +17,9 @@ using View.Resources;
 using View.Forms.Shared;
 using View.Forms.Cotizaciones;
 using View.Forms.DashBoard;
+using System.Windows;
+using MahApps.Metro.Controls;
+using System.Linq;
 
 namespace View.Services.ViewModel
 {
@@ -218,6 +221,15 @@ namespace View.Services.ViewModel
             set { ModelUsuario.PerfilHelp = value; NotifyChange("PerfilHelp"); }
         }
 
+        public bool PerfilAdministrador
+        {
+            get
+            {
+                return Module.UsuarioIsRol(ModelUsuario.Roles, 2);
+            }
+        }
+
+
         //Privilegios
         private bool privilegioRGP;
         public bool PrivilegioRGP
@@ -305,8 +317,10 @@ namespace View.Services.ViewModel
         public UsuarioViewModel(Usuario modelUsuario, Page pagina)
         {
             ModelUsuario = modelUsuario;
+            
             this.pagina = pagina;
-            //initNotifications();
+
+            ////initNotifications();
         }
 
         #endregion
@@ -387,6 +401,14 @@ namespace View.Services.ViewModel
             get
             {
                 return new RelayCommand(o => irLeccion());
+            }
+        }
+
+        public ICommand IrDashboard
+        {
+            get
+            {
+                return new RelayCommand(o => irDashboard());
             }
         }
 
@@ -551,6 +573,36 @@ namespace View.Services.ViewModel
             //DashboardViewModel viewmodel = new DashboardViewModel();
             //dashboard.DataContext = viewmodel;
             //Pagina = dashboard;
+
+        }
+
+        private void irDashboard()
+        {
+            //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+            //Cerramos la pantalla.
+            window.Close();
+
+            DashboardViewModel context;
+            FDashBoard pDashBoard = new FDashBoard();
+            context = new DashboardViewModel(ModelUsuario);
+            context.ModelUsuario = ModelUsuario;
+
+            //NOTA IMPORTANTE: Se hizo una redundancia al asignarle en la propiedad página su misma pantalla. Solo es por ser la primeva vez y tenernos en donde descanzar la primera pantalla.
+            context.Pagina = pDashBoard;
+
+            //Asignamos al DataContext de la PantallaHome el context creado anteriormente.
+            pDashBoard.DataContext = context;
+
+            //Declaramos la pantalla en la que descanzan todas las páginas.
+            Layout masterPage = new Layout();
+
+            //Asingamos el DataContext.
+            masterPage.DataContext = context;
+
+            //Ejecutamos el método el cual despliega la pantalla.
+            masterPage.ShowDialog();
 
         }
 
