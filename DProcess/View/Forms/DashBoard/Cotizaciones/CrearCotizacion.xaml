@@ -19,10 +19,10 @@
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0" Grid.ColumnSpan="2">
                     <Menu>
                         <MenuItem Header="{x:Static recursos:StringResources.lblArchivo}">
-                            <MenuItem Header="{x:Static recursos:StringResources.lblSalir}" Command="{Binding Ircerrar}" />
+                            <MenuItem Click="Salir_Click" Header="{x:Static recursos:StringResources.lblSalir}" Command="{Binding Ircerrar}" />
                         </MenuItem>
                         <MenuItem Header="{x:Static recursos:StringResources.lblHerramientas}">
-                            <MenuItem  Header="{x:Static recursos:StringResources.lblIngresarListaCentrosTrabajo}" Command="{Binding IrListaCentroTrabajo}" />
+                            <MenuItem Header="{x:Static recursos:StringResources.lblIngresarListaCentrosTrabajo}" Command="{Binding IrListaCentroTrabajo}" />
                         </MenuItem>
                     </Menu>
                 </StackPanel>
@@ -33,18 +33,17 @@
                           SelectedItem="{Binding SelectedTipoCentroTrabajo}" IsEditable="True" IsEnabled="True"/>
                     <TextBox x:Name="txtNombreOperacion" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDeOperacion}" 
                          HorizontalAlignment="Right" Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="549" BorderBrush="#899B9999" 
-                         FontSize="18" Text="{Binding SelectedTipoCentroTrabajo.NombreOperacion}" Margin="30,0,10,10"/>
+                         FontSize="18" Text="{Binding SelectedTipoCentroTrabajo.NombreOperacion}" Margin="30,0,10,10" IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Button HorizontalAlignment="Left" Height="30" Width="250" Content="{x:Static recursos:StringResources.ttlButtonAgregarMPaCT}" Margin="20,10,0,0"/>
-                    <Button Command="{Binding IrEliminarUno}" HorizontalAlignment="Left" Height="30" Width="161" Content="{x:Static recursos:StringResources.ttlButtonEliminarCT}" Margin="20,10,0,0"/>
-                    <Button Command="{Binding IrEliminarTodo}" HorizontalAlignment="Left" Height="30" Width="150" Content="{x:Static recursos:StringResources.ttlButtonEliminarTodo}" Margin="20,10,0,0"/>
+                    <Button HorizontalAlignment="Left" Height="30" Width="250" Content="{x:Static recursos:StringResources.ttlButtonAgregarMPaCT}" Margin="20,10,0,0" IsEnabled="{Binding Habilitar}" />
+                    <Button Command="{Binding IrEliminarUno}" HorizontalAlignment="Left" Height="30" Width="161" Content="{x:Static recursos:StringResources.ttlButtonEliminarCT}" Margin="20,10,0,0" IsEnabled="{Binding Habilitar}"/>
+                    <Button Command="{Binding IrEliminarTodo}" HorizontalAlignment="Left" Height="30" Width="150" Content="{x:Static recursos:StringResources.ttlButtonEliminarTodo}" Margin="20,10,0,0" IsEnabled="{Binding Habilitar}"/>
                     <Button Command="{Binding IrListaCT}" HorizontalAlignment="Left" Height="30" Width="160" Content="{x:Static recursos:StringResources.ttlButtonAgregarCTdeLista}" Margin="20,10,0,0"/>
                 </StackPanel>
                 <DataGrid x:Name="dataGridView1" Margin="20,10,20,10" ItemsSource="{Binding ListaMostrar}" AutoGenerateColumns="False" 
                           ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="383" SelectedItem="{Binding SelectedRow}">
                     <DataGrid.Columns>
-                        <!--<DataGridTextColumn  x:Name="Item" Binding="{Binding NumeroOperacion}" Header="{x:Static recursos:StringResources.lblItem}" ClipboardContentBinding="{x:Null}"/> --> 
                         <DataGridTextColumn x:Name="CT" Binding="{Binding CentroTrabajo}" Header="{x:Static recursos:StringResources.lblCT}" ClipboardContentBinding="{x:Null}"/>
                         <DataGridTextColumn x:Name="NombreOperacion" Binding="{Binding NombreOperacion}" Header="{x:Static recursos:StringResources.lblNombreOperacion}" ClipboardContentBinding="{x:Null}"/>
                         <DataGridTextColumn x:Name="TiempoSetup" Binding="{Binding TiempoSetup}" Header="{x:Static recursos:StringResources.lblTiempoSetup}" ClipboardContentBinding="{x:Null}"/>
@@ -54,8 +53,8 @@
                 </DataGrid>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button IsDefault="True" Height="30" Width="210" Margin="20,550,0,0" Content="{x:Static recursos:StringResources.ttlButtonTiempoEstandar}" HorizontalAlignment="Center"/>
-                <Button IsCancel="True" HorizontalAlignment="Center" Height="30"  Width="170" Margin="20,550,0,0" Content="{x:Static recursos:StringResources.ttlButtonCotizacion}" RenderTransformOrigin="0.582,0.217" />
+                <Button CommandParameter="{Binding ElementName=gridExport}" Command="{Binding IrExportExcel}" IsDefault="True" Height="30" Width="210" Margin="20,550,0,0" Content="{x:Static recursos:StringResources.ttlButtonTiempoEstandar}" HorizontalAlignment="Center" IsEnabled="{Binding Habilitar}"/>
+                <Button IsCancel="True" HorizontalAlignment="Center" Height="30"  Width="170" Margin="20,550,0,0" Content="{x:Static recursos:StringResources.ttlButtonCotizacion}" RenderTransformOrigin="0.582,0.217" IsEnabled="{Binding Habilitar}" />
             </StackPanel>
         </Grid>
     </Grid>

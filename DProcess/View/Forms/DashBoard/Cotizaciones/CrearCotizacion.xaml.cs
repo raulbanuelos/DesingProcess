@@ -24,6 +24,11 @@ namespace View.Forms.Cotizaciones
         {
             InitializeComponent();
         }
+        void Salir_Click(object sender, RoutedEventArgs e)
+        {
+            // Close this window
+            this.Close();
+        }
 
     }
 }
