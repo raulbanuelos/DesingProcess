@@ -30,7 +30,7 @@
                 <StackPanel Orientation="Horizontal">
                     <ComboBox x:Name="CmbCentroTrabajo" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblCentroDeTrabajo}" HorizontalAlignment="Left" Width="160" Height="50" 
                           VerticalAlignment="Top" BorderBrush="#FFBDBDBD" FontSize="18"  DisplayMemberPath="CentroTrabajo" Margin="20,0,0,0" ItemsSource="{Binding ListaCentroTrabajo}"  
-                          SelectedItem="{Binding SelectedTipoCentroTrabajo}" IsEditable="True" IsEnabled="True"/>
+                          SelectedItem="{Binding SelectedTipoCentroTrabajo}"  IsEnabled="True"/>
                     <TextBox x:Name="txtNombreOperacion" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNombreDeOperacion}" 
                          HorizontalAlignment="Right" Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="549" BorderBrush="#899B9999" 
                          FontSize="18" Text="{Binding SelectedTipoCentroTrabajo.NombreOperacion}" Margin="30,0,10,10" IsReadOnly="True"/>

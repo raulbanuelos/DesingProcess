@@ -501,8 +501,9 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Metodo que se ejecutacuando se agrega un centro de trabajo
         /// </summary>
-        private void AgregarCentroTrabajo()
+        private async void AgregarCentroTrabajo()
         {
+            DialogService dialog = new DialogService();
             List<string> Lista = new List<string>();
             ListaCreadaCentroTrabajo = new ObservableCollection<ICentroTrabajo>();
             Lista.Add(SelectedTipoCentroTrabajo.CentroTrabajo);
@@ -511,6 +512,10 @@ namespace View.Services.ViewModel
             {
                 irListaCentroTrabajo(Lista);
                 Habilitar = true;
+            }
+            else
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccioneCT);
             }
         }
 

@@ -1187,7 +1187,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Enter list of work centers.
+        ///   Busca una cadena traducida similar a Enter list of CT.
         /// </summary>
         public static string lblIngresarListaCentrosTrabajo {
             get {
@@ -3943,6 +3943,15 @@ namespace View.Resources {
         public static string msgSeleccioneArchivo {
             get {
                 return ResourceManager.GetString("msgSeleccioneArchivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select a CT to continue.
+        /// </summary>
+        public static string msgSeleccioneCT {
+            get {
+                return ResourceManager.GetString("msgSeleccioneCT", resourceCulture);
             }
         }
         

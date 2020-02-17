@@ -2254,12 +2254,15 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>Cancelar</value>
     <comment>Etiqueta de Cancelar</comment>
   </data>
-  <data name="lblIngresarListaCentrostrabajo" xml:space="preserve">
-    <value>Ingresar lista de centros de trabajo</value>
-    <comment>Etiqueta para ingresar una lista de centros de trabajo</comment>
-  </data>
   <data name="lblTest" xml:space="preserve">
     <value>Test</value>
     <comment>Etiqueta para el boton test</comment>
+  </data>
+  <data name="lblIngresarListaCentrosTrabajo" xml:space="preserve">
+    <value>Ingresar lista de centros de trabajo</value>
+    <comment>Etiqueta para ingresar una lista de centros de trabajo </comment>
+  </data>
+  <data name="msgSeleccioneCT" xml:space="preserve">
+    <value>Seleccione un CT para continuar</value>
   </data>
 </root>

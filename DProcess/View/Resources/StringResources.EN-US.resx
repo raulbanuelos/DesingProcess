@@ -2249,10 +2249,6 @@ In a moment you will receive an email confirming your configuration.</value>
     <value>Time Setup</value>
     <comment>Etiqueta para Tiempo Setup</comment>
   </data>
-  <data name="lblIngresarListaCentrosTrabajo" xml:space="preserve">
-    <value>Enter list of work centers</value>
-    <comment>Etiqueta para ingresar una lista de centros de trabajo</comment>
-  </data>
   <data name="lblCancelar" xml:space="preserve">
     <value>Cancel</value>
     <comment>Etiqueta de Cancelar</comment>
@@ -2260,5 +2256,12 @@ In a moment you will receive an email confirming your configuration.</value>
   <data name="lblTest" xml:space="preserve">
     <value>Test</value>
     <comment>Etiqueta para el boton test</comment>
+  </data>
+  <data name="lblIngresarListaCentrosTrabajo" xml:space="preserve">
+    <value>Enter list of CT</value>
+    <comment>Etiqueta para ingresar una lista de centros de trabajo</comment>
+  </data>
+  <data name="msgSeleccioneCT" xml:space="preserve">
+    <value>Select a CT to continue</value>
   </data>
 </root>
