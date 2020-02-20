@@ -34,8 +34,8 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>3.2.3.%2a</ApplicationVersion>
+    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2048,6 +2048,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="iconDProcess.ico" />
+    <Resource Include="Images\circle_red.png" />
+    <Resource Include="Images\circle_green.png" />
     <Resource Include="Images\icons8-idea-48.png" />
     <Resource Include="Images\wireTHM.PNG" />
     <Resource Include="Images\wireCuadrado.PNG" />

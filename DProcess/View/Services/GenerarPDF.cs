@@ -65,13 +65,13 @@ namespace View.Services
         /// <param name="fondo"></param>
         /// <param name="paginaActual"></param>
         /// <param name="TotalPaginas"></param>
-        private static void EncabezadoPagina(XGraphics gfx, PdfPage pag, XFont fondo)
+        private static void EncabezadoPagina(XGraphics gfx, PdfPage pag, XFont fondo, string CodigoComponente)
         {
             DateTime fecha = DataManagerControlDocumentos.Get_DateTime();
             //escribimos en el PDF.
             gfx.DrawString("Fecha de elaboración : " + fecha, fondo, XBrushes.Black, new XRect(35, 15, pag.Width.Point, pag.Height.Point), XStringFormats.TopLeft);
 #pragma warning disable CS0618 // El tipo o el miembro están obsoletos
-            gfx.DrawString("No. de Componente : ", fondo, XBrushes.Black, new XRect(35, 25, pag.Width.Point, pag.Height.Point), XStringFormat.TopLeft);
+            gfx.DrawString("No. de Componente : " + CodigoComponente , fondo, XBrushes.Black, new XRect(35, 25, pag.Width.Point, pag.Height.Point), XStringFormat.TopLeft);
 #pragma warning restore CS0618 // El tipo o el miembro están obsoletos
 
             LineaSeparadoraEncabezado(gfx);
@@ -159,7 +159,7 @@ namespace View.Services
             TotalPaginas = (int)Math.Ceiling(r);
 
             //Agregamos el encabezado a la primer pagina
-            EncabezadoPagina(gfx, pag, TextoEncabezado);
+            EncabezadoPagina(gfx, pag, TextoEncabezado,Componente.Codigo);
             //Agregamos el pie de pagina a la primer hoja
             PaginaActual = 1;
             PiePagina(gfx, pag, TextoEncabezado);
@@ -173,11 +173,11 @@ namespace View.Services
                 margenSuperior += 10;
 
                 //Mandamos llamar el metodo para ver si se necesita agregar mas hojas
-                margenSuperior = ControlDePaginas(margenSuperior, TextoEncabezado);
+                margenSuperior = ControlDePaginas(margenSuperior, TextoEncabezado, Componente.Codigo);
             }
 
             //Mandamos llamar el metodo para imprimir las operaciones y los herramentales
-            TercerBloque(margenSuperior, MargenIzquierdo, Componente, TextoEncabezado);
+            TercerBloque(margenSuperior, MargenIzquierdo, Componente, TextoEncabezado, Componente.Codigo);
 
             //Generamos una cadena aleatoria para concatenarsela al nombre del archivo y poder mostrarlo
             string aleatorio = Module.GetRandomString(5);
@@ -201,7 +201,7 @@ namespace View.Services
         /// <param name="margenizq"></param>
         /// <param name="pag"></param>
         /// <returns></returns>
-        private static int  SegundoBloque(int margensup, int margenizq, XFont Encabezado)
+        private static int  SegundoBloque(int margensup, int margenizq, XFont Encabezado, string CodigoComponente)
         {
 
             //Definimos el tipo de letra para el texto en general del PDF
@@ -226,7 +226,7 @@ namespace View.Services
                 margensup += 10;
 
                 //Mandamos llamar el método para verificar que no se necesiten agregar mas hojas
-                margensup = ControlDePaginas(margensup, Encabezado);
+                margensup = ControlDePaginas(margensup, Encabezado,CodigoComponente);
 
             }
             //Regresamos el valor con el que se quedo el margen superior para que a partir de ahi se comience a escribir
@@ -243,7 +243,7 @@ namespace View.Services
         /// <param name="paga"></param>
         /// <param name="Model"></param>
         /// <returns></returns>
-        private static void TercerBloque(int margensup, int margenizq, Anillo Model, XFont TextoEncabezado)
+        private static void TercerBloque(int margensup, int margenizq, Anillo Model, XFont TextoEncabezado, string CodigoComponente)
         {
             //Definimos el tipo de letra para el txto de herramentales
             XFont TextoHerramentales = new XFont("Arial", 10, XFontStyle.Bold);
@@ -254,7 +254,7 @@ namespace View.Services
             foreach (var operacion in Model.Operaciones)
             {
                 //Mandamos llamar el segundo bloque. regresa un valor entero que es donde se quedo al imprimir el cuadro y de ahi comenzaremos a escribir las operaciones
-                int Comenzar = SegundoBloque(margensup, margenizq, TextoEncabezado);
+                int Comenzar = SegundoBloque(margensup, margenizq, TextoEncabezado,CodigoComponente);
 
                 //obtenemos las operaciones y las separamos por saltos de linea
                 string[] ListaOperaciones = operacion.TextoSyteline.Split('\n');
@@ -274,14 +274,14 @@ namespace View.Services
                             Comenzar += 10;
 
                             //Mandamos llamar el método para verificar que no se necesiten agregar mas hojas
-                            Comenzar = ControlDePaginas(Comenzar, TextoEncabezado);
+                            Comenzar = ControlDePaginas(Comenzar, TextoEncabezado,CodigoComponente);
                         }else
                         {
                             gfx.DrawString(ListaOperaciones[i], TextoOperacion, XBrushes.Black, new XRect(150, Comenzar, pag.Width.Point, pag.Height.Point), XStringFormats.TopLeft);
                             Comenzar += 10;
 
                             //Mandamos llamar el método para verificar que no se necesiten agregar mas hojas
-                            Comenzar = ControlDePaginas(Comenzar, TextoEncabezado);
+                            Comenzar = ControlDePaginas(Comenzar, TextoEncabezado,CodigoComponente);
                         }
                     }      
                 }
@@ -304,7 +304,7 @@ namespace View.Services
                         Comenzar += 10;
 
                         //Mandamos llamar el método para verificar que no se necesiten agregar mas hojas
-                        Comenzar = ControlDePaginas(Comenzar, TextoEncabezado);
+                        Comenzar = ControlDePaginas(Comenzar, TextoEncabezado,CodigoComponente);
                         //rompemos el ciclo si ya se encontro un herramental para que no se impriman los titulos mas de una vez
                         break;
                     }
@@ -325,7 +325,7 @@ namespace View.Services
 
                     Comenzar += 10;
                     //Mandamos llamar el método para verificar que no se necesiten agregar mas hojas
-                    Comenzar = ControlDePaginas(Comenzar, TextoEncabezado);
+                    Comenzar = ControlDePaginas(Comenzar, TextoEncabezado,CodigoComponente);
                 }
 
                 //Asignamos el valor de comenzar para llevar un control de los margenes
@@ -336,7 +336,7 @@ namespace View.Services
         /// <summary>
         /// Método para llevar el control de las hojas que se van agregando al documento PDF.
         /// </summary>
-        private static int ControlDePaginas(int margensup ,XFont Encabezado)
+        private static int ControlDePaginas(int margensup ,XFont Encabezado, string CodigoComponente)
         {
             if (margensup >= 765)
             {
@@ -350,7 +350,7 @@ namespace View.Services
                 PaginaActual++;                
 
                 //Mandamos llamar el método para que se imprima el encabezado en la nueva hoja
-                EncabezadoPagina(gfx, pag, Encabezado);
+                EncabezadoPagina(gfx, pag, Encabezado,CodigoComponente);
                 //Mandamos llamar el método para que se imprima el pie de pagina en la nueva hoja
                 PiePagina(gfx, pag, Encabezado);
             }

@@ -1370,6 +1370,33 @@ namespace Model.ControlDocumentos
             return List;
         }
 
+        public static FO_Item GetCantidadDocumentoLiberado(string proceso, int mes)
+        {
+            string[] months = new string[] {"ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"};
+            FO_Item foItem = new FO_Item();
+
+            SO_Documento serviceDocumento = new SO_Documento();
+
+            DataSet informacionBD = serviceDocumento.GetDocumentosProceso(proceso, mes);
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        
+                        foItem.Valor = Convert.ToDouble(item["CONTADOR"].ToString());
+                        int month = Convert.ToInt32(item["MES"].ToString());
+                        foItem.Nombre = months[month - 1];
+
+                    }
+                }
+            }
+
+            return foItem;
+        }
+        
         #endregion
 
         #region Rol
@@ -4172,6 +4199,35 @@ namespace Model.ControlDocumentos
                 }
             }
             return ComponentesSimilares;
+        }
+
+        /// <summary>
+        /// Método que retorna la cantidad de lecciones aprendidas registradas por usuario del año en curso.
+        /// </summary>
+        /// <returns></returns>
+        public static List<FO_Item> GetCantidadLeccionesAprendidasByUsuario()
+        {
+            SO_Lecciones serviceLecciones = new SO_Lecciones();
+
+            DataSet informacionBD = serviceLecciones.GetCantidadLeccionesAprendidasByUsuario();
+
+            List<FO_Item> listaResultante = new List<FO_Item>();
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count>0)
+                {
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        FO_Item foItem = new FO_Item();
+                        foItem.Nombre = item["NOMBRE"].ToString();
+                        foItem.Valor = Convert.ToDouble(item["CANTIDAD"].ToString());
+                        listaResultante.Add(foItem);
+                    }
+                }
+            }
+
+            return listaResultante;
         }
         #endregion
 

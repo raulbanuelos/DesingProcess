@@ -1392,5 +1392,25 @@ namespace View.Services
         {
             return ListaNormas.Where(o => o.especificacion == norma && o.IsSelected == true).ToList().Count > 0 ? true : false;
         }
+
+        /// <summary>
+        /// Método que retorna la fecha actual de manera formateada DD/MM/YYYY
+        /// </summary>
+        /// <returns></returns>
+        public static string GetDate()
+        {
+            string fecha = string.Empty;
+
+            int mes = DateTime.Now.Month;
+            int dia = DateTime.Now.Day;
+            int anio = DateTime.Now.Year;
+
+            string smes = mes.ToString().Length == 1 ? "0" + mes : mes.ToString();
+            string sdia = dia.ToString().Length == 1 ? "0" + dia : dia.ToString();
+
+            fecha = sdia + "/" + smes + "/" + anio;
+
+            return fecha;
+        }
     }
 }

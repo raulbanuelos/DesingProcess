@@ -3338,6 +3338,7 @@ namespace View.Services.ViewModel
                     //Si la lista no tiene otro archivo adjunto
                     if (ListaDocumentos.Count == 0)
                     {
+
                         //Abre la ventana de explorador de archivos
                         Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 

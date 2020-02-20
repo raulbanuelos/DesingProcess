@@ -14,6 +14,10 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 {
     public class SO_Documento
     {
+        #region attributes
+        private string SP_CIT_GET_DOCUMENTOS_LIBERADOS = "SP_CIT_GET_DOCUMENTOS_LIBERADOS";
+        #endregion
+
         /// <summary>
         /// Método para obtener todos los registro de la tabla.
         /// </summary>
@@ -1248,7 +1252,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método la cantidad de documentos dependiendo de los parámetros recibido.
+        /// Método que retorna la cantidad de documentos dependiendo de los parámetros recibido.
         /// </summary>
         /// <param name="fecha_inicio"></param>
         /// <param name="fecha_fin"></param>
@@ -1287,6 +1291,39 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
             //Retorna el número de elementos en la tabla.
             return datos;
+        }
+
+        /// <summary>
+        /// Metodo que obtiene de un determinado mes anterior los documentos liberados dependiedo si fueron por proceso manual(Procedimientos, MIE, Formatos) o automático (Ayudas visuales, HII,HOE,JES)
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="mes"></param>
+        /// <returns></returns>
+        public DataSet GetDocumentosProceso(string proceso, int mes)
+        {
+            DataSet datos = new DataSet();
+            try
+            {
+                //Se crea conexion a la BD.
+                Desing_SQL conexion = new Desing_SQL();
+
+                //Se inicializa un dictionario que contiene propiedades de tipo string y un objeto.
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                //se agregan el nombre y el objeto de los parámetros.
+                parametros.Add("proceso", proceso);
+                parametros.Add("mes", mes);
+
+                //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
+                datos = conexion.EjecutarStoredProcedure(SP_CIT_GET_DOCUMENTOS_LIBERADOS, parametros);
+
+                return datos;
+            }
+            catch (Exception)
+            {
+                //Retorna el número de elementos en la tabla.
+                return datos;
+            }
         }
 
         /// <summary>

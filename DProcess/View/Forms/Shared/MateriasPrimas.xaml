@@ -32,6 +32,11 @@
                             <materialDesign:PackIcon Kind="Newspaper" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Acero" Cursor="Hand" Command="{Binding IrMateriaPrimaRolado}">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Newspaper" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
             </Menu>
         </Grid>

@@ -2258,6 +2258,10 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>Test</value>
     <comment>Etiqueta para el boton test</comment>
   </data>
+  <data name="ttlDashboard" xml:space="preserve">
+    <value>Tablero</value>
+    <comment>Título para Dashboard</comment>
+  </data>
   <data name="lblIngresarListaCentrosTrabajo" xml:space="preserve">
     <value>Ingresar lista de centros de trabajo</value>
     <comment>Etiqueta para ingresar una lista de centros de trabajo </comment>

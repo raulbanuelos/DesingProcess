@@ -155,18 +155,22 @@ namespace View.Services.Operaciones.Segmentos
             thicknessMax = Module.GetValorPropiedadMax("a1", elPlano.PerfilID.Propiedades, true);
             
             double diaBobinado = elPlano.D1.Valor;
-            double pesoAlambre = Math.Round((elPlano.D1.Valor)*(Math.PI) * (elPlano.H1.Valor) * (((thicknessMin + thicknessMax) / 2)) * (128.5),2);
 
+            //double pesoAlambre = Math.Round((elPlano.D1.Valor)*(Math.PI) * (elPlano.H1.Valor) * (((thicknessMin + thicknessMax) / 2)) * (128.5),2);
             //Obtenemos las medidas de la materia prima.
             double espesorAxialMP = 0;
             double espesorRadialMP = 0;
-            
             espesorAxialMP = Module.GetValorPropiedad("espesorAxialMP", elPlano.MaterialBase.Propiedades);
             espesorRadialMP = Module.GetValorPropiedad("espesorRadialMP", elPlano.MaterialBase.Propiedades);
+
+            double d1Inch = Module.ConvertTo(elPlano.D1.TipoDato, elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
+            double h1Inch = Module.ConvertTo(elPlano.H1.TipoDato, elPlano.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.H1.Valor);
+            
+            double pesoAlambre =  Math.Round((d1Inch * Math.PI) * espesorAxialMP * espesorRadialMP * 128.5,4);
             
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*BOBINADO" + Environment.NewLine;
-            TextoProceso += "LONG DE LA BOBINA 6.330-.000+.072" + Environment.NewLine;
+            TextoProceso += "LONG DE LA BOBINA 6.330 - 0.000 + 0.072" + Environment.NewLine;
             TextoProceso += "PULL - BACK 8%" + Environment.NewLine;
             TextoProceso += "VELOCIDAD 250 RPM +/- 25 RPM" + Environment.NewLine;
             TextoProceso += "PRESION DEL ROLADOR SUPERIOR 15 - 45PSI" + Environment.NewLine;

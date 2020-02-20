@@ -2257,6 +2257,10 @@ In a moment you will receive an email confirming your configuration.</value>
     <value>Test</value>
     <comment>Etiqueta para el boton test</comment>
   </data>
+  <data name="ttlDashboard" xml:space="preserve">
+    <value>Dashboard</value>
+    <comment>Título para Dashboard</comment>
+  </data>
   <data name="lblIngresarListaCentrosTrabajo" xml:space="preserve">
     <value>Enter list of CT</value>
     <comment>Etiqueta para ingresar una lista de centros de trabajo</comment>
