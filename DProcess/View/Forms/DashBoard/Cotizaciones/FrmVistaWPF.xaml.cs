@@ -23,11 +23,5 @@ namespace View.Forms.Cotizaciones
         {
             InitializeComponent();
         }
-        //Se ejecuta cuando se da click en el botón
-        void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //Acepta el Dialog y retorna el DialogResults
-            this.DialogResult = true;
-        }
     }
 }

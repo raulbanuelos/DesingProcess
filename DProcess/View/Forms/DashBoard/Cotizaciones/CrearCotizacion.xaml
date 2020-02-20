@@ -12,7 +12,7 @@
         Title="{x:Static recursos:StringResources.ttlCrearCotizacion}"
          Height="700" Width="925" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" >
     <Grid>
         <Grid>
             <StackPanel Orientation="Vertical">
@@ -53,8 +53,21 @@
                 </DataGrid>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button CommandParameter="{Binding ElementName=gridExport}" Command="{Binding IrExportExcel}" IsDefault="True" Height="30" Width="210" Margin="20,550,0,0" Content="{x:Static recursos:StringResources.ttlButtonTiempoEstandar}" HorizontalAlignment="Center" IsEnabled="{Binding Habilitar}"/>
-                <Button IsCancel="True" HorizontalAlignment="Center" Height="30"  Width="170" Margin="20,550,0,0" Content="{x:Static recursos:StringResources.ttlButtonCotizacion}" RenderTransformOrigin="0.582,0.217" IsEnabled="{Binding Habilitar}" />
+                
+                <Button Command="{Binding IrExportExcel}" IsDefault="True" Height="35" Width="210" Margin="20,550,0,0" HorizontalAlignment="Center" IsEnabled="{Binding Habilitar}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FileExcel" Height="24" Width="24" />
+                        <Label  Content="{x:Static recursos:StringResources.ttlButtonTiempoEstandar}" Foreground="White"/>
+                    </StackPanel>
+                </Button>
+
+                <Button IsCancel="True" HorizontalAlignment="Center" Height="35"  Width="170" Margin="20,550,0,0"  RenderTransformOrigin="0.582,0.217" IsEnabled="{Binding Habilitar}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FileExcel" Height="24" Width="24" />
+                        <Label Content="{x:Static recursos:StringResources.ttlButtonCotizacion}" Foreground="White"/>
+                    </StackPanel>
+                </Button>
+                
             </StackPanel>
         </Grid>
     </Grid>

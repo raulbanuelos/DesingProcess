@@ -2270,4 +2270,8 @@ In a moment you will receive an email confirming your configuration.</value>
   <data name="msgSeleccioneCT" xml:space="preserve">
     <value>Select a CT to continue</value>
   </data>
+  <data name="msgDatosIncorrectos" xml:space="preserve">
+    <value>The data are incorrect</value>
+    <comment>Mensaje que indica que los datos son incorrectos</comment>
+  </data>
 </root>

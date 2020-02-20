@@ -22,11 +22,6 @@ using View.Forms.Cotizaciones;
 using View.Forms.UserControls;
 using View.Resources;
 using NsExcel = Microsoft.Office.Interop.Excel;
-
-
-
-
-
 namespace View.Services.ViewModel
 {
     public class CrearCotizacionViewModel : INotifyPropertyChanged
@@ -224,7 +219,20 @@ namespace View.Services.ViewModel
                 NotifyChange("Habilitar");
             }
         }
-
+        private bool cerrarVentanaWPF;
+        public bool CerrarVentanaWPF
+        {
+            get
+            {
+                return cerrarVentanaWPF;
+            }
+            set
+            {
+                cerrarVentanaWPF = value;
+                NotifyChange("CerrarVentanaWPF");
+            }
+        }
+        FrmVistaWPF vista = new FrmVistaWPF();
 
         #endregion
 
@@ -303,8 +311,7 @@ namespace View.Services.ViewModel
         public void ListToExcel()
 
         {
-
-            // NsExcel.ApplicationClass excapp = new NsExcel.ApplicationClass();
+            int letras = 0;
             var excel = new Microsoft.Office.Interop.Excel.Application();
             excel.Visible = true;
             var workbook = excel.Workbooks.Add(NsExcel.XlWBATemplate.xlWBATWorksheet);
@@ -313,13 +320,15 @@ namespace View.Services.ViewModel
 
 
             var rango = sheet.get_Range("A1", "A1");
-            rango.Value2 = "Nombre Operacion";
-
-            rango.Font.Bold = true;
+            rango.Value2 = "Operacion";
+            
+            rango.Font.Bold = true; 
+            letras = rango.Value2.Length;
             rango.Columns.AutoFit();
 
+
             rango = sheet.get_Range("B1", "B1");
-            rango.Value2 = "Centro Trabajo"; 
+            rango.Value2 = "Centro de trabajo"; 
 
             rango.Font.Bold = true;
             rango.Columns.AutoFit();
@@ -336,25 +345,32 @@ namespace View.Services.ViewModel
             rango.Font.Bold = true;
             rango.Columns.AutoFit();
 
+
             rango = sheet.get_Range("E1", "E1");
             rango.Value2 = "T.Labor";
 
             rango.Font.Bold = true;
             rango.Columns.AutoFit();
 
-            string cellNom;           
-
+            string cellNom;
+            int cantidadLetras = 0;
             int count = 2;
             foreach (var item in ListaMostrar)
             {
                 cellNom = "A" + count.ToString();
                 var rangoDatos = sheet.get_Range(cellNom);
                 rangoDatos.Value2 = item.NombreOperacion.ToString();
-                rango.Columns.AutoFit();
+                cantidadLetras = item.NombreOperacion.Length;
+                //Validacion del numero de letras que contiene
+                if (letras < cantidadLetras)
+                {
+                    letras = cantidadLetras;
+                    rangoDatos.Columns.AutoFit();
+                }
 
                 cellNom = "B" + count.ToString();
                 rangoDatos = sheet.get_Range(cellNom);
-                rangoDatos.Value2 = item.CentroTrabajo.ToString();
+                rangoDatos.Value2 = "'" + item.CentroTrabajo.ToString();
 
                 cellNom = "C" + count.ToString();
                 rangoDatos = sheet.get_Range(cellNom);
@@ -370,9 +386,10 @@ namespace View.Services.ViewModel
 
                 ++count;
             }
+
         }
 
-        private void irCalcular()
+        private async void irCalcular()
         {
 
             int c = PropiedadesViewModel.Count;
@@ -380,7 +397,7 @@ namespace View.Services.ViewModel
             List<PropiedadBool> PBool = new List<PropiedadBool>();
             List<PropiedadCadena> PCadena = new List<PropiedadCadena>();
             List<PropiedadOptional> POptional = new List<PropiedadOptional>();
-
+            DialogService dialog = new DialogService();
 
             foreach (PropiedadViewModel datos in PropiedadesViewModel)
             {
@@ -398,10 +415,33 @@ namespace View.Services.ViewModel
             {
                 POptional.Add(datosOptional.model);
             }
-            foreach (ICentroTrabajo a in ListaCreadaCentroTrabajo)
+            int cont = 0;
+            foreach (var item in ListaCreadaCentroTrabajo)
             {
-                a.Calcular(Prop, PBool, PCadena, POptional);
+                if(item.Test() == false)
+                {
+                    cont++; 
+                }
             }
+            if (cont >= 1)
+            {
+                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgDatosIncorrectos);
+            }
+            else
+            {
+                foreach (ICentroTrabajo a in ListaCreadaCentroTrabajo)
+                {
+                    a.Calcular(Prop, PBool, PCadena, POptional);
+                }
+                foreach (var item in ListaCreadaCentroTrabajo)
+                {
+                    //Agrega a la lista los datos por mostrar en el Datagrid
+                    ListaMostrar.Add(item);
+
+                }
+                vista.Close();
+            }
+
         }
 
         private void cargarListaDuplicados()
@@ -548,6 +588,8 @@ namespace View.Services.ViewModel
             PropiedadesBoolViewModel = new ObservableCollection<PropiedadBoolViewModel>();
             PropiedadesOptionalViewModel = new ObservableCollection<PropiedadOptionalViewModel>();
 
+            DialogService dialog = new DialogService();
+
             file = new XmlApplicationContext(@"\\agufileserv2\INGENIERIA\RESPRUTAS\RrrrUUUUUULLL\RepositoryCentroTrabajoDisenoProceso.xml");
             ctx = file;
 
@@ -563,7 +605,6 @@ namespace View.Services.ViewModel
                     // Asignamos el Centro de Trabajo a la lista.
                     ListaCreadaCentroTrabajo.Add(_elCentroTrabajo);
                 }
-
 
             }
 
@@ -733,18 +774,21 @@ namespace View.Services.ViewModel
                 }
             }
 
-            FrmVistaWPF vista = new FrmVistaWPF();
+            vista = new FrmVistaWPF();
             vista.DataContext = this;
-            vista.ShowDialog();
 
-            if (vista.DialogResult.HasValue && vista.DialogResult.Value)
-            {
-                foreach (var item in ListaCreadaCentroTrabajo)
-                {
-                    //Agrega a ja lista los datos por mostrar en el Datagrid
-                    ListaMostrar.Add(item);
-                }
-            }
+            vista.ShowDialog();
+           
+           
+
+            //if (vista.DialogResult.HasValue && vista.DialogResult.Value)
+            //{
+            //    foreach (var item in ListaCreadaCentroTrabajo)
+            //    {
+            //        //Agrega a la lista los datos por mostrar en el Datagrid
+            //        ListaMostrar.Add(item);
+            //    }
+            //}
         }
 
         /// <summary>

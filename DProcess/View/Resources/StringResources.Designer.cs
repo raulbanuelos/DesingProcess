@@ -2507,6 +2507,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The data are incorrect.
+        /// </summary>
+        public static string msgDatosIncorrectos {
+            get {
+                return ResourceManager.GetString("msgDatosIncorrectos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a , must be: .
         /// </summary>
         public static string msgDBCr {

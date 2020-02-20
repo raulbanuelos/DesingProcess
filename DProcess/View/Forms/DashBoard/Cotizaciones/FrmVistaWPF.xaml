@@ -16,7 +16,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         Title="Vista WPF"
          Height="400" Width="925" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" IsCloseButtonEnabled="{Binding CerrarVentanaWPF}" >
     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
@@ -51,7 +51,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button  IsDefault="True" Click="Button_Click"  Height="25" Width="100" Content="{x:Static recursos:StringResources.lblAceptar}" Command="{Binding IrCalcular}"  Margin="10,10,0,10"/>
+                <Button  IsDefault="True"  Height="25" Width="100" Content="{x:Static recursos:StringResources.lblAceptar}" Command="{Binding IrCalcular}"  Margin="10,10,0,10" IsCancel="{Binding CerrarVentanaWPF}"/>
                 <Button  Margin="10,10,20,10" Height="25" Width="100" Content="{x:Static recursos:StringResources.lblTest}"/>
             </StackPanel>
         </StackPanel>
