@@ -354,6 +354,28 @@ namespace DataAccess.ServiceObjects.Usuario
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Método que retorna el número de usuarios activos.
+        /// </summary>
+        /// <returns></returns>
+        public string getUserActive()
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    int c = Conexion.Usuarios.Where(x => x.Bloqueado == false).ToList().Count;
+
+                    return "Usuarios Activos: " + c;
+                    //return "Error";
+                }
+            }
+            catch (Exception)
+            {
+                return "Error";
+            }
+        }
         #endregion
     }
 }

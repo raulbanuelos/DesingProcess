@@ -25,6 +25,19 @@ namespace View.Services.ViewModel
 {
     public class AnilloViewModel : INotifyPropertyChanged
     {
+
+        public enum UnidadDistance
+        {
+            [Description("Inch (in)")]
+            Inch,
+
+            [Description("Millimeter (mm)")]
+            Milimeter,
+
+            [Description("centimeter(cm)")]
+            Centimeter
+        }
+
         #region Attributes
         private Anillo ModelAnillo;
         private CalculaMateriaPrima calcularMateriaPrima;
@@ -1887,7 +1900,7 @@ namespace View.Services.ViewModel
 
             #region Definición de Carátula
             ModelAnillo.Caratula = DescripcionGeneral + Environment.NewLine;
-            ModelAnillo.Caratula += "FECHA REV.       " + DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year + Environment.NewLine;
+            ModelAnillo.Caratula += "FECHA REV.       " + Module.GetDate() + Environment.NewLine;
 
             if (clasificacionProducto == "Segmento")
             {
@@ -1930,10 +1943,10 @@ namespace View.Services.ViewModel
                 freeGapMax.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
 
 
-                ModelAnillo.Caratula += "ABERT.TRAB.      " + s1Min.Valor + " - " + s1Min.Valor + "" + Environment.NewLine;
+                ModelAnillo.Caratula += "ABERT.TRAB.      " + s1Min.Valor + " - " + s1Max.Valor + "" + Environment.NewLine;
                 ModelAnillo.Caratula += "ABERT.LIBRE      " + freeGapMin.Valor + " - " + freeGapMax.Valor + "" + Environment.NewLine;
                 ModelAnillo.Caratula += "MATERIAL         " + MaterialBase.Especificacion + Environment.NewLine;
-                ModelAnillo.Caratula += "CHAFLAN DIA. EXT 0.0004 - 0.0078 X 45 GRADOS" + Environment.NewLine;
+                ModelAnillo.Caratula += "CHAFLAN DIA. EXT 0.002 - 0.0078" + Environment.NewLine;
 
                 if (Module.HasPropiedadOptional("ESPEC_NITRURADO", PerfilOD.PropiedadesOpcionales))
                 {
@@ -1950,7 +1963,7 @@ namespace View.Services.ViewModel
                 }
 
                 ModelAnillo.Caratula += "NOTA:" + Environment.NewLine;
-                ModelAnillo.Caratula += "DIMENSION PARA REGIÓN INTERNA 0.0152 - .0169" + Environment.NewLine;
+                ModelAnillo.Caratula += "DIMENSION PARA REGIÓN INTERNA 0.0152 - 0.0169" + Environment.NewLine;
                 ModelAnillo.Caratula += "" + Environment.NewLine;
                 ModelAnillo.Caratula += "MAT. PRIMA" + Environment.NewLine;
                 ModelAnillo.Caratula += "PROV.HITACHI" + Environment.NewLine;
@@ -1965,10 +1978,10 @@ namespace View.Services.ViewModel
             ModelAnillo.Caratula += "*IDENTIFICACION" + Environment.NewLine;
             ModelAnillo.Caratula += "CLIENTE: " + cliente.NombreCliente + Environment.NewLine;
             ModelAnillo.Caratula += "PTE. CLTE. " + CustomerPartNumber + " REV. " + CustomerRevisionLevel + "" + Environment.NewLine;
-            ModelAnillo.Caratula += "MEDIDA " + D1.Valor + " X " + H1.Valor + Environment.NewLine;
+            ModelAnillo.Caratula += "MEDIDA " + Module.ConvertTo(D1.TipoDato, D1.Unidad,EnumEx.GetEnumDescription(UnidadDistance.Inch), D1.Valor) + " X " + Module.ConvertTo(H1.TipoDato,H1.Unidad,EnumEx.GetEnumDescription(UnidadDistance.Inch),  H1.Valor) + Environment.NewLine;
             ModelAnillo.Caratula += "" + Environment.NewLine;
             ModelAnillo.Caratula += "REVISADO " + User.Nombre + " " + User.ApellidoPaterno + Environment.NewLine;
-            ModelAnillo.Caratula += "        " + DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year + Environment.NewLine;
+            ModelAnillo.Caratula += "        " + Module.GetDate() + Environment.NewLine;
             ModelAnillo.Caratula += "" + Environment.NewLine;
             ModelAnillo.Caratula += "NOTAS:" + Environment.NewLine;
             #endregion

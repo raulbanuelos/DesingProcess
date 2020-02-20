@@ -15480,6 +15480,18 @@ namespace Model
 
         #region Usuario
 
+        public static Task<String> GetStatusConection()
+        {
+            return Task.Run(() => {
+                SO_Usuario ServiceUsuario = new SO_Usuario();
+
+                string respuesta = ServiceUsuario.getUserActive();
+
+                return respuesta;
+
+            });
+        }
+
         /// <summary>
         /// Método que obtiene la información del usuario a partir de un usuario y una contraseña.
         /// </summary>

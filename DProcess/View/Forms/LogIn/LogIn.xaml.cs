@@ -22,6 +22,7 @@ using System.IO;
 using System.Collections;
 using View.Forms.User;
 using View.Forms.DashBoard;
+using System.Windows.Media.Imaging;
 
 namespace View.Forms.LogIn
 {
@@ -34,6 +35,43 @@ namespace View.Forms.LogIn
 		{
 			InitializeComponent();
             lblVersion.Content = StringResources.lblVersion +" "+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            checkConnection();
+        }
+
+        async void checkConnection()
+        {
+            DialogService dialog = new DialogService();
+
+            ProgressDialogController AsyncProgress;
+
+            //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
+            AsyncProgress = await dialog.SendProgressAsync("Espere...", "Verificando el estatus de la conexión");
+
+            string respuesta = await DataManager.GetStatusConection();
+
+            if (respuesta == "Error")
+            {
+                btn_ingresar.IsEnabled = false;
+                Uri resource = new Uri("/Images/circle_red.png", UriKind.Relative);
+                imgEnLinea.Source = new BitmapImage(resource);
+                lblEstatus.Content = "Offline";
+
+            }
+            else
+            {
+                Uri resource = new Uri("/Images/circle_green.png", UriKind.Relative);
+                imgEnLinea.Source = new BitmapImage(resource);
+                lblEstatus.Content = "on-Line";
+            }
+
+            //Ejecutamos el método para cerrar el mensaje de espera.
+            await AsyncProgress.CloseAsync();
+
         }
 		
 		async void Btn_ingresar_Click(object sender, RoutedEventArgs e)
@@ -288,5 +326,7 @@ namespace View.Forms.LogIn
             //Establecemos el idioma por default es el ingles.
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
         }
+
+        
     }
 }
