@@ -438,6 +438,13 @@ namespace View.Services.ViewModel
                 return new RelayCommand(a => _IrMateriaPrimaRolado());
             }
         }
+        public ICommand IrMaterialPrimaAcero
+        {
+            get
+            {
+                return new RelayCommand(a => _IrMaterialPrimaAcero());
+            }
+        }
 
         #endregion
 
@@ -640,6 +647,19 @@ namespace View.Services.ViewModel
 
             Pag = form;
         }
+
+        private void _IrMaterialPrimaAcero()
+        {
+            MateriaPrimaAcero form = new MateriaPrimaAcero();
+            MateriaPrimaAceroVM context = new MateriaPrimaAceroVM();
+
+            form.DataContext = context;
+
+            Pag = form;
+
+        }
+
+
         #endregion
 
         public static string definirSaludo()

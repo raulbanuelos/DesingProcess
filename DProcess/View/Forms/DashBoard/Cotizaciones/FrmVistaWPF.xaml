@@ -16,7 +16,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         Title="Vista WPF"
          Height="400" Width="925" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" 
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" IsCloseButtonEnabled="{Binding CerrarVentanaWPF}" >
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10">

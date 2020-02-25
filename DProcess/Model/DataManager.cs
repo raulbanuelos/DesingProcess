@@ -1032,6 +1032,8 @@ namespace Model
             return servicio.Insert(Data.Codigo, Data.Especificacion, Data.Thickness, Data.Groove, Data.UM, Data._Width, Data.DescripcionGeneral, Data.Ubicacion, Data.EspecPefil);
 
         }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -14960,40 +14962,7 @@ namespace Model
 
         #region Materia Prima Rolado
 
-        public static ObservableCollection<MateriaPrimaRolado> GetAllMateriaPrimaRolado(string busqueda)
-        {
-            ObservableCollection<MateriaPrimaRolado> ListaResultante = new ObservableCollection<MateriaPrimaRolado>();
-
-            SO_MateriaPrimaRolado ServiceMPRolado = new SO_MateriaPrimaRolado();
-
-            IList informacionBD = ServiceMPRolado.GetAll(busqueda);
-
-            if (informacionBD != null)
-            {
-                foreach (var item in informacionBD)
-                {
-                    MateriaPrimaRolado materiaPrima = new MateriaPrimaRolado();
-
-                    Type tipo = item.GetType();
-
-                    materiaPrima.Codigo = (string)tipo.GetProperty("ID_MATERIA_PRIMA_ROLADO").GetValue(item, null);
-                    materiaPrima.Especificacion = (string)tipo.GetProperty("ID_ESPECIFICACION").GetValue(item, null);
-                    materiaPrima.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
-                    materiaPrima.UM = (string)tipo.GetProperty("UM").GetValue(item, null);
-                    materiaPrima._Width = (double)tipo.GetProperty("WIDTH").GetValue(item, null);
-                    materiaPrima.Groove = (double)tipo.GetProperty("GROOVE").GetValue(item, null);
-                    materiaPrima.Thickness = (double)tipo.GetProperty("THICKNESS").GetValue(item, null);
-                    materiaPrima.Ubicacion = (string)tipo.GetProperty("UBICACION").GetValue(item, null);
-                    materiaPrima.EspecPefil = (string)tipo.GetProperty("ESPEC_PERFIL").GetValue(item, null);
-
-                    ListaResultante.Add(materiaPrima);
-
-                }
-            }
-
-            return ListaResultante;
-        }
-
+       
         /// <summary>
         /// Método que retorna la materia prima ideal a partir de los datos recibidos en los parámetros.
         /// </summary>
@@ -15054,31 +15023,107 @@ namespace Model
             return ServiceMPRolado.Delete(codigoMateriaPrima);
         }
 
+
+
+        public static ObservableCollection<MateriaPrimaRolado> GetAllMateriaPrimaRolado(string busqueda)
+        {
+            ObservableCollection<MateriaPrimaRolado> ListaResultante = new ObservableCollection<MateriaPrimaRolado>();
+
+            SO_MateriaPrimaRolado ServiceMPRolado = new SO_MateriaPrimaRolado();
+
+            IList informacionBD = ServiceMPRolado.GetAll(busqueda);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    MateriaPrimaRolado materiaPrima = new MateriaPrimaRolado();
+
+                    Type tipo = item.GetType();
+
+                    materiaPrima.Codigo = (string)tipo.GetProperty("ID_MATERIA_PRIMA_ROLADO").GetValue(item, null);
+                    materiaPrima.Especificacion = (string)tipo.GetProperty("ID_ESPECIFICACION").GetValue(item, null);
+                    materiaPrima.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    materiaPrima.UM = (string)tipo.GetProperty("UM").GetValue(item, null);
+                    materiaPrima._Width = (double)tipo.GetProperty("WIDTH").GetValue(item, null);
+                    materiaPrima.Groove = (double)tipo.GetProperty("GROOVE").GetValue(item, null);
+                    materiaPrima.Thickness = (double)tipo.GetProperty("THICKNESS").GetValue(item, null);
+                    materiaPrima.Ubicacion = (string)tipo.GetProperty("UBICACION").GetValue(item, null);
+                    materiaPrima.EspecPefil = (string)tipo.GetProperty("ESPEC_PERFIL").GetValue(item, null);
+
+                    ListaResultante.Add(materiaPrima);
+
+                }
+            }
+
+            return ListaResultante;
+        }
+
         #endregion
 
-        #region Materia Prima Aceros
 
+        #region Materia Prima Aceros
+        public static ObservableCollection<MateriaPrimaAceros> GetAllMateriaPrimaAcero(string busqueda)
+        {
+            ObservableCollection<MateriaPrimaAceros> ListaResultante = new ObservableCollection<MateriaPrimaAceros>();
+            SO_CatMateriaPrimaAceros ServiceMAcero = new SO_CatMateriaPrimaAceros();
+
+            IList informacionBD = ServiceMAcero.GetAll(busqueda);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    MateriaPrimaAceros materiaPrima = new MateriaPrimaAceros();
+                    Type tipo = item.GetType();
+                    materiaPrima.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    materiaPrima.Especificacion = (string)tipo.GetProperty("ID_MATERIAL").GetValue(item, null);
+                    materiaPrima.ESP_AXIAL = (double)tipo.GetProperty("ESP_AXIAL").GetValue(item, null);
+                    materiaPrima.ESP_RADIAL = (double)tipo.GetProperty("ESP_RADIAL").GetValue(item, null);
+                    materiaPrima.PROVEEDOR = (string)tipo.GetProperty("PROVEEDOR").GetValue(item, null);
+                    materiaPrima.PROVEEDOR2 = (string)tipo.GetProperty("PROVEEDOR2").GetValue(item, null);
+
+                    ListaResultante.Add(materiaPrima);
+                }
+            }
+            return ListaResultante;
+        }
+
+        public static int updateacero(MateriaPrimaAceros data)
+        {
+            SO_CatMateriaPrimaAceros Service = new SO_CatMateriaPrimaAceros();
+            return Service.UpdateCatMateriaPrimaAcero(data.Codigo, data.Especificacion, data.ESP_AXIAL, data.ESP_RADIAL, data.PROVEEDOR, data.PROVEEDOR2);
+        }
+       
+        
+        /// <summary>
+        /// Método para actualizar un registro
+        /// </summary>
+        //public static int updatecatmateriaprimaacero(string codigo, string id_material, double esp_axial, double esp_radial, string proveedor, string proovedor2)
+        //{
+        //    SO_CatMateriaPrimaAceros Service = new SO_CatMateriaPrimaAceros();
+
+        //    return Service.UpdateCatMateriaPrimaAcero(codigo, id_material, esp_axial, esp_radial, proveedor, proovedor2);
+        //}
 
         /// <summary>
         /// Método para insertar un registro
         /// </summary>
-        /// <param name="id_norma"></param>
-        /// <returns></returns>
-        public static string setcatmateriaprimaacero(string codigo, string id_material, double esp_axial, double esp_radial, string proveedor, string proovedor2)
+        /// <param name = "id_norma" ></ param >
+        /// < returns ></ returns >
+        //public static string setcatmateriaprimaacero(string codigo, string id_material, double esp_axial, double esp_radial, string proveedor, string proovedor2)
+        //{
+        //    SO_CatMateriaPrimaAceros Service = new SO_CatMateriaPrimaAceros();
+
+        //    return Service.SetCatMateriaPrimaAcero(codigo, id_material, esp_axial, esp_radial, proveedor, proovedor2);
+        //}
+
+        public static int setcatmateriaprimaacero(MateriaPrimaAceros dato)
         {
-            SO_CatMateriaPrimaAceros Service = new SO_CatMateriaPrimaAceros();
+            SO_CatMateriaPrimaAceros servicio = new SO_CatMateriaPrimaAceros();
 
-            return Service.SetCatMateriaPrimaAcero(codigo, id_material, esp_axial, esp_radial, proveedor, proovedor2);
-        }
+            return servicio.SetCatMateriaPrimaAcero(dato.Codigo, dato.Especificacion, dato.ESP_AXIAL, dato.ESP_RADIAL, dato.PROVEEDOR,dato.PROVEEDOR2);
 
-        /// <summary>
-        /// Método para actualizar un registro
-        /// </summary>
-        public static int updatecatmateriaprimaacero(string codigo, string id_material, double esp_axial, double esp_radial, string proveedor, string proovedor2)
-        {
-            SO_CatMateriaPrimaAceros Service = new SO_CatMateriaPrimaAceros();
-
-            return Service.UpdateCatMateriaPrimaAcero(codigo, id_material, esp_axial, esp_radial, proveedor, proovedor2);
         }
 
         /// <summary>

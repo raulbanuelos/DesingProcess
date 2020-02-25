@@ -10,6 +10,25 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 {
     public class SO_CatMateriaPrimaAceros
     {
+        public IList GetAll(string busqueda)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesMateriaPrima())
+                {
+                    var lista = (from a in Conexion.CAT_MATERIA_PRIMA_ACEROS
+                                 where a.ID_MATERIAL.Contains(busqueda) || a.CODIGO.Contains(busqueda) 
+                                 select a).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
         /// <summary>
         /// Método para insertar un registro a la tabla CAT_MATERIA_PRIMA_ACEROS
         /// </summary>
@@ -20,7 +39,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         /// <param name="proveedor"></param>
         /// <param name="proveedor2"></param>
         /// <returns></returns>
-        public string SetCatMateriaPrimaAcero(string codigo, string id_material, double esp_axial, double esp_radial, string proveedor, string proovedor2)
+        public int SetCatMateriaPrimaAcero(string codigo, string id_material, double esp_axial, double esp_radial, string proveedor, string proovedor2)
         {
             try
             {
@@ -41,18 +60,49 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     //Agregar el objeto a la tabla
                     Conexion.CAT_MATERIA_PRIMA_ACEROS.Add(obj);
                     //Guardamos los cambios
-                    Conexion.SaveChanges();
+                   
 
                     //Retornamos el id
-                    return obj.CODIGO;
+                    return Conexion.SaveChanges();
                 }
             }
             catch (Exception)
             {
                 // Si hay error retornamos 0
-                return null;
+                return 0;
             }
         }
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// Método para modificar un registro de la tabla CAT_MATERIA_PRIMA_ACEROS
@@ -88,7 +138,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 //Si hay error, retornamos cero.
                 return 0;

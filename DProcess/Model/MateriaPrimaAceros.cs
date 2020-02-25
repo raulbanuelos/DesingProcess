@@ -8,6 +8,7 @@ namespace Model
 {
     public class MateriaPrimaAceros : MateriaPrima
     {
+        
         public double ESP_AXIAL { get; set; }
         public double ESP_RADIAL { get; set; }
         public string PROVEEDOR { get; set; }

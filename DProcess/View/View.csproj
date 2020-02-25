@@ -398,6 +398,9 @@
     <Compile Include="Forms\RawMaterial\frmSelectRawMaterial.xaml.cs">
       <DependentUpon>frmSelectRawMaterial.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RawMaterial\MateriaPrimaAcero.xaml.cs">
+      <DependentUpon>MateriaPrimaAcero.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RawMaterial\PPattern.xaml.cs">
       <DependentUpon>PPattern.xaml</DependentUpon>
     </Compile>
@@ -1135,6 +1138,7 @@
     <Compile Include="Services\ViewModel\ListaCrentoTrabajoViewModel.cs" />
     <Compile Include="Services\ViewModel\ListItemViewModel.cs" />
     <Compile Include="Services\ViewModel\LoadingGuideAnillosVM.cs" />
+    <Compile Include="Services\ViewModel\MateriaPrimaAceroVM.cs" />
     <Compile Include="Services\ViewModel\MateriaPrimaViewModel.cs" />
     <Compile Include="Services\ViewModel\MisSuscripcionesVM.cs" />
     <Compile Include="Services\ViewModel\ModificarDatosUsuario.cs" />
@@ -1455,6 +1459,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\RawMaterial\frmSelectRawMaterial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RawMaterial\MateriaPrimaAcero.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
