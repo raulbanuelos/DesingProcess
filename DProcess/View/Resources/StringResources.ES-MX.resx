@@ -2273,4 +2273,40 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>Los datos son incorrectos</value>
     <comment>Mensaje que indica que los datos son incorrectos</comment>
   </data>
+  <data name="lblCodigoMateriaPrima" xml:space="preserve">
+    <value>Código material prima</value>
+    <comment>Etiqueta de código de materia prima</comment>
+  </data>
+  <data name="lblEspacioAxial" xml:space="preserve">
+    <value>Espacio axial</value>
+    <comment>Etiqueta de espacio axial</comment>
+  </data>
+  <data name="lblEspacioRadial" xml:space="preserve">
+    <value>Espacio radial</value>
+    <comment>Etiqueta de espacio radial</comment>
+  </data>
+  <data name="lblEspecificacionMaterial" xml:space="preserve">
+    <value>Especificación material</value>
+    <comment>Etiqueta de especificacion material</comment>
+  </data>
+  <data name="lblProveedor1" xml:space="preserve">
+    <value>Proveedor 1</value>
+    <comment>Etiqueta de proveedor 1</comment>
+  </data>
+  <data name="lblProveedor2" xml:space="preserve">
+    <value>Proveedor 2</value>
+    <comment>Etiqueta de proveedor 2</comment>
+  </data>
+  <data name="lblEspecificacionPerfil" xml:space="preserve">
+    <value>Especificación perfil </value>
+    <comment>Etiqueta ´para especificación perfil</comment>
+  </data>
+  <data name="lblGroove" xml:space="preserve">
+    <value>Groove</value>
+    <comment>Etiqueta para Groove</comment>
+  </data>
+  <data name="lblUM" xml:space="preserve">
+    <value>UM</value>
+    <comment>Etiqueta de UM</comment>
+  </data>
 </root>

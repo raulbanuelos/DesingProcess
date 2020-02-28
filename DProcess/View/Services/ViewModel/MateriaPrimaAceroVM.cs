@@ -32,6 +32,20 @@ namespace View.Services.ViewModel
         }
         #endregion
         #region Propiedades
+        private string _textoBuscar;
+        public string TextoBuscar
+        {
+            get
+            {
+                return _textoBuscar;
+            }
+            set
+            {
+                _textoBuscar = value;
+                NotifyChange("TextoBuscar");
+            }
+        }
+
         private Page pagina;
         public Page Pagina
         {
@@ -195,11 +209,24 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => _SelecccionarPlaca());
             }
         }
+        public ICommand BuscarMateriaPrima
+        {
+            get
+            {
+                return new RelayCommand(o => _BuscarMateriaPrima((string)o));
+            }
+        }
         #endregion
 
 
 
         #region Métodos
+        public void _BuscarMateriaPrima(string TextoBusqueda)
+        {
+            ListaCatMateriaAcero = DataManager.GetAllMateriaPrimaAcero(TextoBusqueda);
+        }
+
+
         /// <summary>
         /// Inicializa los valores de los campos
         /// </summary>
@@ -341,6 +368,7 @@ namespace View.Services.ViewModel
                 SelectedMateriaPrima = new MateriaPrimaAceros();
             }
             CodigoMateriaPrima = SelectedMateriaPrima.Codigo;
+            
             ESP_AXIAL = SelectedMateriaPrima.ESP_AXIAL;
             ESP_RADIAL = SelectedMateriaPrima.ESP_RADIAL;
             PROVEEDOR1 = SelectedMateriaPrima.PROVEEDOR;

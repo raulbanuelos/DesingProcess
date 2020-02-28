@@ -37,7 +37,9 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
                     var lista = (from a in Conexion.CAT_MATERIA_PRIMA_ROLADO
-                                 where a.ID_MATERIA_PRIMA_ROLADO.Contains(busqueda) || a.ID_ESPECIFICACION.Contains(busqueda) || a.DESCRIPCION.Contains(busqueda)
+                                 where a.ID_MATERIA_PRIMA_ROLADO.Contains(busqueda) || a.ID_ESPECIFICACION.Contains(busqueda) || 
+                                    a.DESCRIPCION.Contains(busqueda) || a.UM.Contains(busqueda) || a.WIDTH.ToString().Contains(busqueda) || 
+                                    a.GROOVE.ToString().Contains(busqueda) || a.THICKNESS.ToString().Contains(busqueda) || a.UBICACION.Contains(busqueda) || a.ESPEC_PERFIL.Contains(busqueda)
                                  select a).ToList();
                     return lista;
                 }

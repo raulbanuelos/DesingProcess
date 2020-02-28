@@ -34,6 +34,20 @@ namespace View.Services.ViewModel
 
         #region Propiedades
 
+        private string _textoBuscar;
+        public string TextoBuscar
+        {
+            get
+            {
+                return _textoBuscar;
+            }
+            set
+            {
+                _textoBuscar = value;
+                NotifyChange("TextoBuscar");
+            }
+        }
+
         private Page pagina;
         public Page Pagina
         {
@@ -217,6 +231,13 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => _AbrirPlaca());
             }
         }
+        public ICommand BuscarMateriaPrima
+        {
+            get
+            {
+                return new RelayCommand(o => _BuscarMateriaPrima((string)o));
+            }
+        }
         #endregion
 
         #region Métodos
@@ -224,9 +245,16 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Inicializa los valores de los campos
         /// </summary>
+        /// 
+        public void _BuscarMateriaPrima(string TextoBusqueda)
+        {
+            ListaCatMateriaRolado = DataManager.GetAllMateriaPrimaRolado(TextoBusqueda);
+        }
+
         public void _NuevoMateriaPrima()
         {
             Alta = false;
+
             GuardarCambio = false;
 
             CodigoMateriaPrima = string.Empty;

@@ -57,92 +57,103 @@
                                 PaneBackground="#33a6cc" Grid.RowSpan="3">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*"></RowDefinition>
+                <RowDefinition Height="60*"></RowDefinition>
                 <RowDefinition Height="50*"></RowDefinition>
             </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical">
+                <TextBox Grid.Row="0" Name="txt_busqueda" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblBuscar}" Text="{Binding TextoBuscar}" TextAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20" Margin="50,0,555,0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+									Command="{Binding BuscarMateriaPrima}"
+                                    CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Horizontal" Margin="50,10,10,10">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="1">
 
-            <Grid.ColumnDefinitions>
-
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Row="0">
-                <StackPanel Orientation="Horizontal" Margin="50,10,10,10">
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="1">
-                        <TextBox materialDesign:HintAssist.Hint="CÓDIGO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Codigo}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="DIAMETER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding medida.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="WIDTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diametro.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <ComboBox materialDesign:HintAssist.Hint="Customer" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding CustomersList}" DisplayMemberPath="NombreCliente" SelectedValuePath="IdCliente" SelectedValue="{Binding customer.IdCliente}"></ComboBox>
-                        <TextBox materialDesign:HintAssist.Hint="MOUTING" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding mounting.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="ON 14'' RD GATE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding on_14_rd_gate.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="BUTTON" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding button.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
-                        <TextBox materialDesign:HintAssist.Hint="CONE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cone.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="1/2 CIRCLE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding M_Circle.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="RING WIDTH MIN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_w_min.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="RING WIDTH MAX" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_w_max.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="B DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding B_Dia.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="FIN DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding fin_Dia.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="TURN ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding turn_allow.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
-                        <TextBox materialDesign:HintAssist.Hint="CSTG. SM. OD." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cstg_sm_od.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="SHRINK ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding shrink_allow.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="PATT. SM. OD." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_sm_od.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="PIECE IN PATT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding piece_in_patt.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="BORE ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding bore_allow.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="PATT. SM I.D." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_sm_id.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="PATT. THICKNESS" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_thickness.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
-                        <TextBox materialDesign:HintAssist.Hint="JOINT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding joint.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="NICK" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding nick.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="NICK DRAF" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding nick_draf.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="NICK DEPTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding nick_depth.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="SIDE RELIEF" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding side_relief.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="CAM" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cam.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="CAM ROLL" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cam_roll.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
-                        <TextBox materialDesign:HintAssist.Hint="RISE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding rise.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="OD" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding OD.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="ID" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ID.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="DIFF" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diff.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <ComboBox materialDesign:HintAssist.Hint="TIPO" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding TipoMPList}" DisplayMemberPath="ValorCadena" SelectedValuePath="id" SelectedValue="{Binding TipoMateriaPrima.id}"></ComboBox>
-                        <TextBox materialDesign:HintAssist.Hint="FACTOR K" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding factor_k.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                        <TextBox materialDesign:HintAssist.Hint="RISE BUILT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding rise_built.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
-                                <TextBox materialDesign:HintAssist.Hint="RING TH MIN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_th_min.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                <TextBox materialDesign:HintAssist.Hint="RING TH MAX" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_th_max.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                <TextBox materialDesign:HintAssist.Hint="PLATO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding plato.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                <TextBox materialDesign:HintAssist.Hint="DETALLE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding detalle.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
-                                <TextBox materialDesign:HintAssist.Hint="MOUNTED BY" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding mounted.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                <TextBox materialDesign:HintAssist.Hint="ORDERED BY" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ordered.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                <TextBox materialDesign:HintAssist.Hint="CHECKED BY" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Checked.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                <TextBox materialDesign:HintAssist.Hint="DATE CHECKED" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding date_checked.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                            </StackPanel>
+                            <TextBox materialDesign:HintAssist.Hint="CÓDIGO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Codigo}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="DIAMETER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding medida.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="WIDTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diametro.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <ComboBox materialDesign:HintAssist.Hint="Customer" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding CustomersList}" DisplayMemberPath="NombreCliente" SelectedValuePath="IdCliente" SelectedValue="{Binding customer.IdCliente}"></ComboBox>
+                            <TextBox materialDesign:HintAssist.Hint="MOUTING" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding mounting.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="ON 14'' RD GATE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding on_14_rd_gate.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="BUTTON" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding button.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                         </StackPanel>
-                        <StackPanel VerticalAlignment="Bottom">
-                            <TextBox materialDesign:HintAssist.Hint="ESPECIAL INSTRUCTIONS" AcceptsReturn="True"
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                            <TextBox materialDesign:HintAssist.Hint="CONE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cone.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="1/2 CIRCLE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding M_Circle.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="RING WIDTH MIN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_w_min.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="RING WIDTH MAX" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_w_max.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="B DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding B_Dia.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="FIN DIA" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding fin_Dia.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="TURN ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding turn_allow.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                            <TextBox materialDesign:HintAssist.Hint="CSTG. SM. OD." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cstg_sm_od.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="SHRINK ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding shrink_allow.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="PATT. SM. OD." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_sm_od.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="PIECE IN PATT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding piece_in_patt.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="BORE ALLOW" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding bore_allow.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="PATT. SM I.D." FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_sm_id.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="PATT. THICKNESS" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_thickness.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                            <TextBox materialDesign:HintAssist.Hint="JOINT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding joint.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="NICK" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding nick.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="NICK DRAF" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding nick_draf.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="NICK DEPTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding nick_depth.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="SIDE RELIEF" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding side_relief.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="CAM" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cam.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="CAM ROLL" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding cam_roll.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                            <TextBox materialDesign:HintAssist.Hint="RISE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding rise.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="OD" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding OD.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="ID" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ID.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="DIFF" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diff.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <ComboBox materialDesign:HintAssist.Hint="TIPO" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding TipoMPList}" DisplayMemberPath="ValorCadena" SelectedValuePath="id" SelectedValue="{Binding TipoMateriaPrima.id}"></ComboBox>
+                            <TextBox materialDesign:HintAssist.Hint="FACTOR K" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding factor_k.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox materialDesign:HintAssist.Hint="RISE BUILT" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding rise_built.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                                    <TextBox materialDesign:HintAssist.Hint="RING TH MIN" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_th_min.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <TextBox materialDesign:HintAssist.Hint="RING TH MAX" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ring_th_max.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <TextBox materialDesign:HintAssist.Hint="PLATO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding plato.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <TextBox materialDesign:HintAssist.Hint="DETALLE" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding detalle.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="20,1,1,1">
+                                    <TextBox materialDesign:HintAssist.Hint="MOUNTED BY" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding mounted.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <TextBox materialDesign:HintAssist.Hint="ORDERED BY" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding ordered.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <TextBox materialDesign:HintAssist.Hint="CHECKED BY" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Checked.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                    <TextBox materialDesign:HintAssist.Hint="DATE CHECKED" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding date_checked.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Bottom">
+                                <TextBox materialDesign:HintAssist.Hint="ESPECIAL INSTRUCTIONS" AcceptsReturn="True"
                                  FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" 
                                  Text="{Binding esp_inst.Valor}"  Height="180"  TextWrapping="Wrap"
                                  Width="500" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                            </TextBox>
+                                </TextBox>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Grid>
+                </Grid>
+
+
+            </StackPanel>
+
+            
             <DataGrid Grid.Row="1" ItemsSource="{Binding Path=ListaPattern}" x:Name="dataGrid"
                                       ScrollViewer.CanContentScroll="True" 
                                       ScrollViewer.VerticalScrollBarVisibility="Auto" 

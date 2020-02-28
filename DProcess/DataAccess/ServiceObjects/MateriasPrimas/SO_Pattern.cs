@@ -27,7 +27,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
         /// Método con el cual se obtienen  todas las placas modelo del sistema.
         /// </summary>
         /// <returns></returns>
-        public IList GetAllPattern()
+        public IList GetAllPattern(string busqueda)
         {
             try
             {
@@ -38,6 +38,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     var Lista = (from p in Conexion.Pattern2
                                  join c in Conexion.Cliente on p.CUSTOMER equals c.id_cliente
                                  join t in Conexion.Tipo_Materia_Prima on p.TIPO equals t.id_tipo_mp
+                                 where p.codigo.Contains(busqueda)
                                  select new {
                                      p.codigo,
                                      DIAMETRO = p.MEDIDA,

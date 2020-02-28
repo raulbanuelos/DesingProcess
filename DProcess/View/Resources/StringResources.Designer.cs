@@ -566,6 +566,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Raw material code.
+        /// </summary>
+        public static string lblCodigoMateriaPrima {
+            get {
+                return ResourceManager.GetString("lblCodigoMateriaPrima", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Start.
         /// </summary>
         public static string lblComenzar {
@@ -917,6 +926,42 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a AXIAL SPACE.
+        /// </summary>
+        public static string lblEspacioAxial {
+            get {
+                return ResourceManager.GetString("lblEspacioAxial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RADIAL SPACE.
+        /// </summary>
+        public static string lblEspacioRadial {
+            get {
+                return ResourceManager.GetString("lblEspacioRadial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Material specification.
+        /// </summary>
+        public static string lblEspecificacionMaterial {
+            get {
+                return ResourceManager.GetString("lblEspecificacionMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Profile Specification.
+        /// </summary>
+        public static string lblEspecificacionPerfil {
+            get {
+                return ResourceManager.GetString("lblEspecificacionPerfil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Thickness.
         /// </summary>
         public static string lblEspesor {
@@ -1102,6 +1147,15 @@ namespace View.Resources {
         public static string lblGrafica {
             get {
                 return ResourceManager.GetString("lblGrafica", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Groove.
+        /// </summary>
+        public static string lblGroove {
+            get {
+                return ResourceManager.GetString("lblGroove", resourceCulture);
             }
         }
         
@@ -1655,6 +1709,24 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Supplier 1.
+        /// </summary>
+        public static string lblProveedor1 {
+            get {
+                return ResourceManager.GetString("lblProveedor1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Supplier 2.
+        /// </summary>
+        public static string lblProveedor2 {
+            get {
+                return ResourceManager.GetString("lblProveedor2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Inch (in).
         /// </summary>
         public static string lblPulgadas {
@@ -1957,6 +2029,15 @@ namespace View.Resources {
         public static string lblUbicacion {
             get {
                 return ResourceManager.GetString("lblUbicacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a UM.
+        /// </summary>
+        public static string lblUM {
+            get {
+                return ResourceManager.GetString("lblUM", resourceCulture);
             }
         }
         
@@ -4177,15 +4258,6 @@ namespace View.Resources {
         public static string msgVersionAnterior {
             get {
                 return ResourceManager.GetString("msgVersionAnterior", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

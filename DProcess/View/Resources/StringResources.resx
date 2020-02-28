@@ -1905,9 +1905,6 @@ The document may not be released correctly.</value>
     <value>Bool Properties</value>
     <comment>Título para propiedades boolean</comment>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="ttlNormas" xml:space="preserve">
     <value>Specifications</value>
     <comment>Título para Normas</comment>
@@ -2277,5 +2274,41 @@ In a moment you will receive an email confirming your configuration.</value>
   <data name="msgDatosIncorrectos" xml:space="preserve">
     <value>The data are incorrect</value>
     <comment>Mensaje que indica que los datos son incorrectos</comment>
+  </data>
+  <data name="lblCodigoMateriaPrima" xml:space="preserve">
+    <value>Raw material code</value>
+    <comment>Etiqueta de código de materia prima</comment>
+  </data>
+  <data name="lblEspacioAxial" xml:space="preserve">
+    <value>AXIAL SPACE</value>
+    <comment>Etiqueta de espacio axial</comment>
+  </data>
+  <data name="lblEspacioRadial" xml:space="preserve">
+    <value>RADIAL SPACE</value>
+    <comment>Etiqueta de espacio radial</comment>
+  </data>
+  <data name="lblEspecificacionMaterial" xml:space="preserve">
+    <value>Material specification</value>
+    <comment>Etiqueta de especificacion material</comment>
+  </data>
+  <data name="lblProveedor1" xml:space="preserve">
+    <value>Supplier 1</value>
+    <comment>Etiqueta de proveedor 1</comment>
+  </data>
+  <data name="lblProveedor2" xml:space="preserve">
+    <value>Supplier 2</value>
+    <comment>Etiqueta de proveedor 2</comment>
+  </data>
+  <data name="lblEspecificacionPerfil" xml:space="preserve">
+    <value>Profile Specification</value>
+    <comment>Etiqueta para especificación perfil</comment>
+  </data>
+  <data name="lblGroove" xml:space="preserve">
+    <value>Groove</value>
+    <comment>Etiqueta para Groove</comment>
+  </data>
+  <data name="lblUM" xml:space="preserve">
+    <value>UM</value>
+    <comment>Etiqueta de UM</comment>
   </data>
 </root>

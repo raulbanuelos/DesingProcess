@@ -13741,7 +13741,7 @@ namespace Model
         /// Método que obtiene todos los registros de la tabla Pattern2.
         /// </summary>
         /// <returns></returns>Lista obaservable con todos los datos de la  tabla Pattern2.
-        public static ObservableCollection<Pattern> GetAllPattern()
+        public static ObservableCollection<Pattern> GetAllPattern(string busqueda)
         {
             //Inicializamos los servicios de Pattern 
             SO_Pattern ServicePattern = new SO_Pattern();
@@ -13750,7 +13750,7 @@ namespace Model
             ObservableCollection<Pattern> Lista = new ObservableCollection<Pattern>();
 
             //Se obtiene las placas modelo de la BD;
-            IList PatternBD = ServicePattern.GetAllPattern();
+            IList PatternBD = ServicePattern.GetAllPattern(busqueda);
 
             //Verifcamos que la información de la base de datos no se encuentre vacía.
             if (PatternBD != null)
