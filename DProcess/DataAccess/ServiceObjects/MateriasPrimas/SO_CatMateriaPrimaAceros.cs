@@ -17,7 +17,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 using (var Conexion = new EntitiesMateriaPrima())
                 {
                     var lista = (from a in Conexion.CAT_MATERIA_PRIMA_ACEROS
-                                 where a.ID_MATERIAL.Contains(busqueda) || a.CODIGO.Contains(busqueda) 
+                                 where a.ID_MATERIAL.Contains(busqueda) || a.CODIGO.Contains(busqueda) || a.ESP_AXIAL.ToString().Contains(busqueda) || a.ESP_RADIAL.ToString().Contains(busqueda) || a.PROVEEDOR.Contains(busqueda) || a.PROVEEDOR2.Contains(busqueda)
                                  select a).ToList();
                     return lista;
                 }

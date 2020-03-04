@@ -435,8 +435,24 @@ namespace View.Services.ViewModel
         }
 
         #endregion
-        
+
         #region Properties of anillo
+        private string _textoBuscar;
+        public string TextoBuscar
+        {
+            get
+            {
+                return _textoBuscar;
+            }
+            set
+            {
+                _textoBuscar = value;
+                NotifyChange("TextoBuscar");
+            }
+        }
+
+
+
         /// <summary>
         /// Cadena que representa la descripción general del elemento existente en sistema ERP.
         /// </summary>
@@ -1180,7 +1196,7 @@ namespace View.Services.ViewModel
             //Inicializamos el objeto anillo que representa nuestro modelo.
             ModelAnillo = new Anillo();
 
-            ListaPattern = DataManager.GetAllPattern();
+            ListaPattern = DataManager.GetAllPattern("");
 
             CustomersList = DataManager.GetAllClientes();
 
@@ -1286,12 +1302,23 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => setMaterialRemover());
             }
         }
+        public ICommand BuscarMateriaPrima
+        {
+            get
+            {
+                return new RelayCommand(o => _BuscarMateriaPrima((string)o));
+            }
+        }
 
-        
 
         #endregion
 
         #region Methods
+        public void _BuscarMateriaPrima(string TextoBusqueda)
+        {
+            ListaPattern = DataManager.GetAllPattern(TextoBusqueda);
+        }
+
 
         private void exportarSAP()
         {
@@ -2103,7 +2130,7 @@ namespace View.Services.ViewModel
 
                     //Inicializamos el objeto anillo que representa nuestro modelo.
                     Inicializar();
-                    ListaPattern = DataManager.GetAllPattern();
+                    ListaPattern = DataManager.GetAllPattern("");
                 }
                 else
                     await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgError);
@@ -2230,7 +2257,7 @@ namespace View.Services.ViewModel
                     //Inicializamos el objeto anillo que representa nuestro modelo.
                     ModelAnillo = new Anillo();
 
-                    ListaPattern = DataManager.GetAllPattern();
+                    ListaPattern = DataManager.GetAllPattern("");
 
                     CustomersList = DataManager.GetAllClientes();
 
