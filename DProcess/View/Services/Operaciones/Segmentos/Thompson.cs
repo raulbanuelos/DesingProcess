@@ -185,13 +185,12 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "CALIBRADOR        " + elPlano.D1.Valor + Environment.NewLine;
             TextoProceso += "ESP. AXIAL        " + widthMin.Valor + "  -  " + widthMax.Valor + Environment.NewLine;
             TextoProceso += "ESP RADIAL        " + thicknessMin.Valor + "  -  " + thicknessMax.Valor + Environment.NewLine;
-            TextoProceso += "ABERTURA          " + gapMedia + " +/- " + gapTolerancia + " <SC>" + Environment.NewLine;
+            TextoProceso += "ABERTURA          " + gapMedia + " +/- 0.003 <SC>" + Environment.NewLine;
             TextoProceso += "ABERTURA LIBRE    " + freeGapMin.Valor + "  -  " + freeGapMax.Valor + "" + Environment.NewLine;
-            TextoProceso += "CHAFLÁN DIA. EXT. 0.0004  -  0.0078 X 45 GRADOS" + Environment.NewLine;
+            TextoProceso += "CHAFLÁN DIA. EXT. 0.0004  -  0.0078" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "NOTA: LIBRE DE REBABAS EN PUNTAS" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-          
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();

@@ -2272,4 +2272,8 @@ In a moment you will receive an email confirming your configuration.</value>
     <value>The data are incorrect</value>
     <comment>Mensaje que indica que los datos son incorrectos</comment>
   </data>
+  <data name="lblOnlyOnePage" xml:space="preserve">
+    <value>Only 1 Page per Sheet is allowed.</value>
+    <comment>Etiqueta para solo una página</comment>
+  </data>
 </root>

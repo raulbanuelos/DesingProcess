@@ -153,6 +153,9 @@ namespace View.Services.Operaciones.Segmentos
             double minPDV = dataPVD.ThicknessMin + 0.005;
             double maxPVD = minPDV + 0.020;
 
+            double d1mm = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), elPlano.D1.Valor);
+            string noMesa = DataManager.GetMesaPVDWash(d1mm);
+            
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "RECUBRIMIENTO PVD (KOBELCO)" + Environment.NewLine;
             TextoProceso += "RECETA: " + receta + Environment.NewLine;
@@ -163,7 +166,7 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "NOTA:" + Environment.NewLine;
             TextoProceso += "MANEJAR EL MATERIAL CON GUANTES LIMPIOS DE NITRILO O LATEX" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "MONTAR LOS MANDRILES EN LA MESA DE 18 POSICIONES (MESA 1)" + Environment.NewLine;
+            TextoProceso += "MONTAR LOS MANDRILES EN LA MESA DE 18 POSICIONES (MESA " + noMesa + ")" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "ESPESOR PVD " + minPDV + " - " + maxPVD + " mm" + Environment.NewLine;
             TextoProceso += "DUREZA DE " + dataPVD.DurezaMax + " - " + dataPVD.DurezaMax + " " + "HV" + Environment.NewLine;

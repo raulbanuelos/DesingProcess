@@ -273,7 +273,6 @@ namespace View.Services
                     ListaOperaciones.Add(new PVDCoatingWash(elAnillo));
                     ListaOperaciones.Add(new PVDCoatingDRYBlast(elAnillo));
                     ListaOperaciones.Add(new PVDCoatingRail(elAnillo));
-                    ListaOperaciones.Add(new Scotchbrite(elAnillo));
                     ListaOperaciones.Add(new Thompson(elAnillo));
                     ListaOperaciones.Add(new Lapeado(elAnillo));
                     ListaOperaciones.Add(new DesengraseLapeado(elAnillo));
@@ -310,7 +309,6 @@ namespace View.Services
                             ListaOperaciones.Add(new PVDCoatingWash(elAnillo));
                             ListaOperaciones.Add(new PVDCoatingDRYBlast(elAnillo));
                             ListaOperaciones.Add(new PVDCoatingRail(elAnillo));
-                            ListaOperaciones.Add(new Scotchbrite(elAnillo));
                             ListaOperaciones.Add(new Thompson(elAnillo));
                             ListaOperaciones.Add(new Lapeado(elAnillo));
                             ListaOperaciones.Add(new DesengraseLapeado(elAnillo));

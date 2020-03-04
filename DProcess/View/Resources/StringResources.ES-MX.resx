@@ -2273,4 +2273,8 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>Los datos son incorrectos</value>
     <comment>Mensaje que indica que los datos son incorrectos</comment>
   </data>
+  <data name="lblOnlyOnePage" xml:space="preserve">
+    <value>Solo se permite tener 1 Página por Hoja.</value>
+    <comment>Etiqueta para solo una página</comment>
+  </data>
 </root>

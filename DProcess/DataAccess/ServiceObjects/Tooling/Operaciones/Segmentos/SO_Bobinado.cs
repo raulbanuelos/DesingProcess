@@ -622,6 +622,10 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         /// <returns></returns>
         public IList GetCenterWafer(double h1, double d1, double centerwaferh1min, double centerwaferh1max)
         {
+            double h1Min, h1Max;
+
+            h1Min = h1 - centerwaferh1min;
+            h1Max = h1 + centerwaferh1max;
             try
             {
                 using (var Conexion = new EntitiesTooling())
@@ -629,7 +633,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     var listaHerramentales = (from a in Conexion.TBL_BOBINADO_CENTER_WAFER
                                               join m in Conexion.MaestroHerramentales on a.CODIGO equals m.Codigo
                                               join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
-                                              where a.WIRE_WIDTH >= h1 - centerwaferh1min && a.WIRE_WIDTH <= h1 + centerwaferh1max && d1 >= a.DIM_A_MIN && d1 <= a.DIM_A_MAX
+                                              where a.WIRE_WIDTH >= h1Min && a.WIRE_WIDTH <= h1Max && d1 >= a.DIM_A_MIN && d1 <= a.DIM_A_MAX
                                               select new
                                               {
                                                   Codigo = a.CODIGO,
