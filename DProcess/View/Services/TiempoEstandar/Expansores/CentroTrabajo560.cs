@@ -6,6 +6,11 @@ namespace View.Services.TiempoEstandar.Expansores
 {
     public class CentroTrabajo560 : BaseCentroTrabajo, ICentroTrabajo
     {
+
+        #region Atributos
+        private double _d;
+        private double jorobas;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +105,11 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+            Propiedad NumJornadas = new Propiedad { DescripcionCorta = "Numero Jornadas", DescripcionLarga = "Numero de Jornadas", Imagen = null, Nombre = "NumJornadas" };
+            PropiedadesRequeridadas.Add(NumJornadas);
+
+            Propiedad diaNominalAnillo = new Propiedad { DescripcionCorta = "Diametro Nominal", DescripcionLarga = "Diametro Nominal", Imagen = null, Nombre = "diaNominalAnillo" };
+            PropiedadesRequeridadas.Add(diaNominalAnillo);
         }
         #endregion
 
@@ -146,10 +156,10 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
+            _d = Module.GetValorPropiedad("diaNominalAnillo", PropiedadesRequeridadas);
+            jorobas = Module.GetValorPropiedad("NumJornadas", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = ((0.1702 + (jorobas * ((_d * 4.4954) / 3.1988) / 27)) / 36) * 100;
             TiempoLabor = TiempoMachine * FactorLabor;
 
         }

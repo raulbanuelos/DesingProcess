@@ -1,11 +1,18 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.Expansores
 {
     public class CentroTrabajo499 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double width_a;
+        private double widthNominal;
+
+
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -86,6 +93,7 @@ namespace View.Services.TiempoEstandar.Expansores
 
         //Modelo del anillo
         private Anillo _anillo;
+        
         #endregion
 
         #region Contructor
@@ -100,6 +108,8 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width", DescripcionLarga = "Width Nominal", Imagen = null, Nombre = "WidthNominal" };
+            PropiedadesRequeridadas.Add(widthNominal);
         }
         #endregion
 
@@ -147,12 +157,12 @@ namespace View.Services.TiempoEstandar.Expansores
         public void Calcular()
         {
 
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+            width_a = widthNominal;
+            width_a = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round(36031.13 / (36 * (160 * ((6.5825 / width_a) * 2))) * 100, 3);
+            TiempoLabor = TiempoMachine;
 
-            int a = 1;
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
 
         }
         #endregion
@@ -165,6 +175,7 @@ namespace View.Services.TiempoEstandar.Expansores
         public bool Test()
         {
             return true;
+            
         }
         #endregion
 

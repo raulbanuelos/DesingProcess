@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
@@ -144,12 +145,11 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
             //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
 
+            TiempoMachine = Math.Round(0.3466 * 100, 3);
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

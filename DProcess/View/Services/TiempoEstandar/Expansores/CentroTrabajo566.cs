@@ -6,6 +6,12 @@ namespace View.Services.TiempoEstandar.Expansores
 {
     public class CentroTrabajo566 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double d1;
+        private double tciclo;
+        private double aCiclicas;
+        private double aNCiclicas;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +106,8 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+            Propiedad DiametroNominal = new Propiedad { DescripcionCorta = "Diametro Nominal", DescripcionLarga = "Diametro Nominal", Imagen = null, Nombre = "DiametroNominal" };
+            PropiedadesRequeridadas.Add(DiametroNominal);
         }
         #endregion
 
@@ -146,12 +154,22 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            d1 = Module.GetValorPropiedad("DiametroNominal", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            if (d1 >= 3)
+            {
+                tciclo = 2.75923077;
+                aCiclicas = 2.57060734;
+                aNCiclicas = 2.04128219;
+            }
+            else
+            {
+                tciclo = 2.92545455;
+                aCiclicas = 7.43378870;
+                aNCiclicas = 0.11551304;
+            }
+            TiempoMachine = ((tciclo + aCiclicas + aNCiclicas) / 36) * 100;
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

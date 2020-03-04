@@ -1637,6 +1637,7 @@ namespace Model.ControlDocumentos
             return ct1.GetNombre(TextoBusca);
 
         }
+       
 
 
         //public static string GetNombreOpe(string TextoBusca)

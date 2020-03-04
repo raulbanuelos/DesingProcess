@@ -30,6 +30,26 @@ namespace DataAccess.ServiceObjects.Usuario
                 return null;
             }
         }
+        public string buscar_setupin(string TextoBuscar)
+        {
+            try
+            {
+                using (EntitiesUsuario Conexion = new EntitiesUsuario())
+                {
+                    string timesetup = (from d in Conexion.CentroTrabajo
+                                  where d.CentroTrabajo1 == TextoBuscar
+                                  select d.TiempoSetup.ToString()).FirstOrDefault();
+                    return timesetup;
+                }
+            }
+            catch (Exception)
+            {
+                //Si se genera un error retornamos un cero.
+                return null;
+            }
+        }
+
+
 
         public string GetNombre (string TextoBuscar)
         {

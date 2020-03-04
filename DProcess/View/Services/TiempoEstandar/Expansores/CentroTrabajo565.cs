@@ -6,6 +6,9 @@ namespace View.Services.TiempoEstandar.Expansores
 {
     public class CentroTrabajo565 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double Num_pasos;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +103,9 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            Propiedad NumPasos = new Propiedad { DescripcionCorta = "Num Pasos", DescripcionLarga = "Numero de pasos", Imagen = null, Nombre = "NumPasos" };
+            PropiedadesRequeridadas.Add(NumPasos);
         }
         #endregion
 
@@ -146,12 +152,10 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            Num_pasos = Module.GetValorPropiedad("NumPasos", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = (((1.95 * ((Num_pasos * 2) - 1) / 195) + 0.0676) / 36) * 100;
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 
@@ -162,7 +166,14 @@ namespace View.Services.TiempoEstandar.Expansores
         #region ICentroTrabajo Function´s
         public bool Test()
         {
-            return true;
+            if (Num_pasos == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         #endregion
 

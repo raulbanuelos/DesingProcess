@@ -92,7 +92,7 @@ namespace View.Services.TiempoEstandar.Expansores
         public CentroTrabajo563()
         {
             CentroTrabajo = "563";
-            FactorLabor = 1;
+            FactorLabor = 0.247402;
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
@@ -147,10 +147,9 @@ namespace View.Services.TiempoEstandar.Expansores
         public void Calcular()
         {
 
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = FactorLabor * 100;
+            TiempoLabor = TiempoMachine;
 
         }
         #endregion

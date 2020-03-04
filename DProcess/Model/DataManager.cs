@@ -789,6 +789,12 @@ namespace Model
             return ServicesCentroTrabajo.GetTimeLabor(centroDeTrabajo);
         }
 
+         public static string GetTiempo(string TextoBusca)
+        {
+            SO_CentrosDeTrabajo ct1 = new SO_CentrosDeTrabajo();
+            return ct1.buscar_setupin(TextoBusca);
+        }
+
         #endregion
 
         #region Material

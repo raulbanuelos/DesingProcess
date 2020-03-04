@@ -6,6 +6,9 @@ namespace View.Services.TiempoEstandar.Expansores
 {
     public class CentroTrabajo581 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double jorobas;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +103,9 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            Propiedad jorobas = new Propiedad { DescripcionCorta = "Jorobas", DescripcionLarga = "Jorobas", Imagen = null, Nombre = "jorobas" };
+            PropiedadesRequeridadas.Add(jorobas);
         }
         #endregion
 
@@ -146,12 +152,10 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            jorobas = Module.GetValorPropiedad("jorobas", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = ((0.4289 + ((2.8 * jorobas) / 93)) / 36) * 100;
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

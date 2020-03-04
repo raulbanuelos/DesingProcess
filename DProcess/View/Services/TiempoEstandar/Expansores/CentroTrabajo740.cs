@@ -6,6 +6,9 @@ namespace View.Services.TiempoEstandar.Expansores
 {
     public class CentroTrabajo740 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double h1;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +103,9 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width Nominal", Imagen = null, Nombre = "WidthNominal" };
+            PropiedadesRequeridadas.Add(widthNominal);
         }
         #endregion
 
@@ -146,12 +152,10 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            h1 = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = ((516.7207 * h1) / 3024) * 100;
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

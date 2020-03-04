@@ -1,11 +1,16 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.Expansores
 {
     public class CentroTrabajo570 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double _width;
+        private double _jorobas;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -101,6 +106,12 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            Propiedad WidthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width Nominal", Imagen = null, Nombre = "WidthNominal" };
+            PropiedadesRequeridadas.Add(WidthNominal);
+
+            Propiedad jorobas = new Propiedad { DescripcionCorta = "Jorobas", DescripcionLarga = "Jorobas", Imagen = null, Nombre = "jorobas" };
+            PropiedadesRequeridadas.Add(jorobas);
         }
         #endregion
 
@@ -147,12 +158,11 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            _width = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
+            _jorobas = Module.GetValorPropiedad("jorobas", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = System.Math.Round( Math.Round(((((((_jorobas * 0.48) * (7.4 / _width)) + 81.585) * _width)) / 266.4) * 100, 3),3, MidpointRounding.AwayFromZero);
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

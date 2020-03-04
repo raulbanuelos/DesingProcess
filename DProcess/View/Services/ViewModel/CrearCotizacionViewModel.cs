@@ -436,6 +436,7 @@ namespace View.Services.ViewModel
                 foreach (var item in ListaCreadaCentroTrabajo)
                 {
                     //Agrega a la lista los datos por mostrar en el Datagrid
+                   
                     ListaMostrar.Add(item);
 
                 }
