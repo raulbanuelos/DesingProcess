@@ -60,6 +60,45 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
         #region Manga PVD Wash
 
         /// <summary>
+        /// Método que retorna la manga dependiendo de la dim A
+        /// </summary>
+        /// <param name="dimA"></param>
+        /// <returns></returns>
+        public IList GetManga(double dimA)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    var lista = (from a in Conexion.TBL_MANGA_PVD_WASH
+                                 join m in Conexion.MaestroHerramentales on a.CODIGO equals m.Codigo
+                                 join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
+                                 where a.DIM_A == dimA
+                                 select new
+                                 {
+                                     Codigo = a.CODIGO,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual,
+                                     DIM_A = a.DIM_A
+                                 }).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Consulta para traer los datos de un registro Manga PVD Wash por su código
         /// </summary>
         /// <param name="codigo"></param>
@@ -201,7 +240,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                 return 0;
             }
         }
-
+        
         #endregion
     }
 }

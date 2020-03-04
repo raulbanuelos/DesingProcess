@@ -154,7 +154,7 @@ namespace View.Services.Operaciones.Segmentos
 
 
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*LAPEADO" + Environment.NewLine;
+            TextoProceso = "*LAPEADO 2" + Environment.NewLine;
             TextoProceso += "PROGRAMA " + Environment.NewLine;
             TextoProceso += "USAR PASTA DE CROMO" + Environment.NewLine;
             TextoProceso += "LAPEAR HASTA OBTENER UNA CAIDA" + Environment.NewLine;
@@ -199,7 +199,7 @@ namespace View.Services.Operaciones.Segmentos
             catch (Exception er)
             {
                 //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
-                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
+                AlertasOperacion.Add("Error en cálculo de tiempos  . \n" + er.StackTrace);
             }
         }
 

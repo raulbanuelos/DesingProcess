@@ -11,6 +11,10 @@ namespace View.Services.Operaciones.Segmentos
 {
     public class PVDCoatingWash : GenericOperation, IOperacion
     {
+        #region Attributes
+        double medidaManga = 0; 
+        #endregion
+
         #region Properties
 
         #region Propiedades de IOperacion
@@ -159,9 +163,7 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "**********************************************" + Environment.NewLine;
             TextoProceso += "ENSAMBLE DE HERRAMENTAL Y BOBINAS" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-
-            double medidaManga = 0;
-
+            
             double d1mm = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), elPlano.D1.Valor);
             Propiedad a1Min = Module.GetPropiedad("a1 Min", elPlano.PerfilID.Propiedades);
             Propiedad a1Max = Module.GetPropiedad("a1 Max", elPlano.PerfilID.Propiedades);
@@ -206,11 +208,9 @@ namespace View.Services.Operaciones.Segmentos
 
         public void BuscarHerramentales()
         {
+            ListaHerramentales.Add(DataManager.GetMangaPVDWash(medidaManga));
 
-            double d1mm = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Milimeter), elPlano.D1.Valor);
-            string noMesa = DataManager.GetMesaPVDWash(d1mm);
-
-            TextoHerramienta = "MESA " + noMesa + Environment.NewLine;
+            TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 
         /// <summary>

@@ -11477,7 +11477,7 @@ namespace Model
             else
             {
                 //Si no se encontro
-                herramental.DescripcionRuta = "RODILLO FINAL      ";
+                herramental.DescripcionRuta = "RODILLO FINAL      " + medidaA + " X " + medidaB;
                 herramental.Encontrado = false;
                 herramental.DescripcionMedidasBusqueda = "A: " + medidaA + "\nB:" + medidaB;
                 herramental.Codigo = "CODIFICAR";
@@ -13135,7 +13135,6 @@ namespace Model
                     Type tipo = item.GetType();
 
                     disco = ReadInformacionHerramentalEncontrado(informacionBD);
-                    disco.Encontrado = true;
                     double dimA = (double)tipo.GetProperty("MEDIDA").GetValue(item, null);
                     disco.DescripcionRuta = "ESP. DE DISCO        " + dimA;
                     disco.Encontrado = true;
@@ -13271,6 +13270,45 @@ namespace Model
             }
 
             return noMesa;
+        }
+
+        /// <summary>
+        /// Método que 
+        /// </summary>
+        /// <param name="dimA"></param>
+        /// <returns></returns>
+        public static Herramental GetMangaPVDWash(double dimA)
+        {
+            SO_PVD_Wash ServiceMangaWash = new SO_PVD_Wash();
+
+            Herramental manga = new Herramental();
+
+            // Ejecutamos el método para obtener la información
+            IList informacionDB = ServiceMangaWash.GetManga(dimA);
+
+            if (informacionDB != null)
+            {
+                foreach (var item in informacionDB)
+                {
+                    Type type = item.GetType();
+
+                    manga = ReadInformacionHerramentalEncontrado(informacionDB);
+
+                    manga.Encontrado = true;
+                    double dima = (double)type.GetProperty("DIM_A").GetValue(item, null);
+                    manga.DescripcionRuta = "MANGA        " + dimA;
+
+                }
+            }
+
+            if (!manga.Encontrado)
+            {
+                manga.DescripcionRuta = "MANGA        " + dimA;
+                manga.Encontrado = false;
+                manga.MedidasFabricacion = "DIM A = " + dimA;
+            }
+
+            return manga;
         }
 
         /// <summary>

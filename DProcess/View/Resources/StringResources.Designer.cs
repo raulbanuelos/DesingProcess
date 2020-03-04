@@ -1610,6 +1610,15 @@ namespace View.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Only 1 Page per Sheet is allowed..
+        /// </summary>
+        public static string lblOnlyOnePage {
+            get {
+                return ResourceManager.GetString("lblOnlyOnePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Operation.
         /// </summary>
         public static string lblOperacion {
