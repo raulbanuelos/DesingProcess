@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.Expansores
 {
@@ -148,7 +149,7 @@ namespace View.Services.TiempoEstandar.Expansores
         {
 
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoMachine = FactorLabor * 100;
+            TiempoMachine = Math.Round((FactorLabor * 100), 3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
 
         }

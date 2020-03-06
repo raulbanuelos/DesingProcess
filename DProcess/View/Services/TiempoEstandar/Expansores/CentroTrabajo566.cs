@@ -1,7 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
-
+using System;
 namespace View.Services.TiempoEstandar.Expansores
 {
     public class CentroTrabajo566 : BaseCentroTrabajo, ICentroTrabajo
@@ -168,7 +168,8 @@ namespace View.Services.TiempoEstandar.Expansores
                 aCiclicas = 7.43378870;
                 aNCiclicas = 0.11551304;
             }
-            TiempoMachine = ((tciclo + aCiclicas + aNCiclicas) / 36) * 100;
+             
+            TiempoMachine = Math.Round((((tciclo + aCiclicas + aNCiclicas) / 36) * 100), 3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
         }
         #endregion

@@ -161,7 +161,8 @@ namespace View.Services.TiempoEstandar.Expansores
             _width = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
             _jorobas = Module.GetValorPropiedad("jorobas", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoMachine = System.Math.Round( Math.Round(((((((_jorobas * 0.48) * (7.4 / _width)) + 81.585) * _width)) / 266.4) * 100, 3),3, MidpointRounding.AwayFromZero);
+            TiempoMachine = Math.Round( (Math.Round(((((((_jorobas * 0.48) * (7.4 / _width)) + 81.585) * _width)) / 266.4) * 100, 3)), 3, MidpointRounding.AwayFromZero); 
+            //TiempoMachine = System.Math.Round( Math.Round(((((((_jorobas * 0.48) * (7.4 / _width)) + 81.585) * _width)) / 266.4) * 100, 3),3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
         }
         #endregion

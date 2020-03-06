@@ -160,7 +160,7 @@ namespace View.Services.TiempoEstandar.Expansores
             width_a = widthNominal;
             width_a = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoMachine = Math.Round(36031.13 / (36 * (160 * ((6.5825 / width_a) * 2))) * 100, 3);
+            TiempoMachine = Math.Round(Math.Round(36031.13 / (36 * (160 * ((6.5825 / width_a) * 2))) * 100, 3),3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
 
 

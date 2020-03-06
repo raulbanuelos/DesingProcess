@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.Expansores
 {
@@ -159,7 +160,7 @@ namespace View.Services.TiempoEstandar.Expansores
             _d = Module.GetValorPropiedad("diaNominalAnillo", PropiedadesRequeridadas);
             jorobas = Module.GetValorPropiedad("NumJornadas", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoMachine = ((0.1702 + (jorobas * ((_d * 4.4954) / 3.1988) / 27)) / 36) * 100;
+            TiempoMachine = Math.Round( (((0.1702 + (jorobas * ((_d * 4.4954) / 3.1988) / 27)) / 36) * 100),3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine * FactorLabor;
 
         }

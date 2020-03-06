@@ -249,9 +249,6 @@ namespace View.Services.ViewModel
             PropiedadesOptionalViewModel = new ObservableCollection<PropiedadOptionalViewModel>();
             ListaCreadaCentroTrabajo = new ObservableCollection<ICentroTrabajo>();
             ListaMostrar = new ObservableCollection<ICentroTrabajo>();
-
-
-
         }
         #endregion
 

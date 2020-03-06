@@ -1,11 +1,15 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.FCI
 {
     public class CentroTrabajo2020 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double _widthCasting;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +104,9 @@ namespace View.Services.TiempoEstandar.FCI
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            Propiedad widthCastingMayor = new Propiedad { DescripcionCorta = "Width de casting mayor", DescripcionLarga = "Width de casting mayor", Imagen = null, Nombre = "widthCastingMayor" };
+            PropiedadesRequeridadas.Add(widthCastingMayor);
         }
         #endregion
 
@@ -146,11 +153,10 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
+            _widthCasting = Module.GetValorPropiedad("widthCastingMayor", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round( (((81.85929429 * _widthCasting) / 154.8) * 100), 3, MidpointRounding.AwayFromZero);
+            TiempoLabor = TiempoMachine;
 
         }
         #endregion

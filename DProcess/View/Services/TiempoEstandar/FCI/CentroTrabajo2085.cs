@@ -1,11 +1,17 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.FCI
 {
     public class CentroTrabajo2085 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double _numeroPasadas2085;
+        private double t_ciclo = 0.52;
+
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +106,9 @@ namespace View.Services.TiempoEstandar.FCI
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            Propiedad numeroPasadas2085 = new Propiedad { DescripcionCorta = "No. Pasadas", DescripcionLarga = "No. Pasadas", Imagen = null, Nombre = "numeroPasadas2085" };
+            PropiedadesRequeridadas.Add(numeroPasadas2085);
         }
         #endregion
 
@@ -146,12 +155,11 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
+            _numeroPasadas2085 = Module.GetValorPropiedad("numeroPasadas2085", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = ((0.0032 + (t_ciclo * _numeroPasadas2085)) / 36);
+            TiempoMachine = Math.Round(TiempoMachine * 100, 3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine * FactorLabor;
-
         }
         #endregion
 

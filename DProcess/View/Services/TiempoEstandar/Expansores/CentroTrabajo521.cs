@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.Expansores
 {
@@ -153,7 +154,7 @@ namespace View.Services.TiempoEstandar.Expansores
         {
             espesor = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoLabor = (2.5336288060 * espesor) * 100;
+            TiempoLabor = Math.Round(((2.5336288060 * espesor) * 100), 3, MidpointRounding.AwayFromZero); 
             TiempoMachine = TiempoLabor;
 
         }

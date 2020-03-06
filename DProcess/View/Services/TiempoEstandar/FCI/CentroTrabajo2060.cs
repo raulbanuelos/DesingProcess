@@ -1,11 +1,19 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.FCI
 {
     public class CentroTrabajo2060 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+
+        private double _width;
+        private double _espesorEspaciado;
+        private double No_espaciadores;
+        #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +108,15 @@ namespace View.Services.TiempoEstandar.FCI
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width Nominal", Imagen = null, Nombre = "WidthNominal" };
+            PropiedadesRequeridadas.Add(widthNominal);
+
+            Propiedad espesorEspaciador2060 = new Propiedad { DescripcionCorta = "Espesor Espaciador", DescripcionLarga = "Espesor Espaciador", Imagen = null, Nombre = "espesorEspaciador2060" };
+            PropiedadesRequeridadas.Add(espesorEspaciador2060);
+
+            Propiedad noEspaciadores2060 = new Propiedad { DescripcionCorta = "No. de espaciadores", DescripcionLarga = "No. de espaciadores", Imagen = null, Nombre = "noEspaciadores2060" };
+            PropiedadesRequeridadas.Add(noEspaciadores2060);
         }
         #endregion
 
@@ -146,12 +163,12 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            _width = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
+            _espesorEspaciado = Module.GetValorPropiedad("espesorEspaciador2060", PropiedadesRequeridadas);
+            No_espaciadores = Module.GetValorPropiedad("noEspaciadores2060", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round((((_width) * (99.8379971681416)) / (36 * ((_espesorEspaciado * No_espaciadores) + 0.465))) * 100, 3, MidpointRounding.AwayFromZero);
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

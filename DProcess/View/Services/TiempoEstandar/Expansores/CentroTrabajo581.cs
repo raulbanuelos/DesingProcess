@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.Expansores
 {
@@ -154,7 +155,7 @@ namespace View.Services.TiempoEstandar.Expansores
         {
             jorobas = Module.GetValorPropiedad("jorobas", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoMachine = ((0.4289 + ((2.8 * jorobas) / 93)) / 36) * 100;
+            TiempoMachine = Math.Round( (((0.4289 + ((2.8 * jorobas) / 93)) / 36) * 100), 3, MidpointRounding.AwayFromZero); 
             TiempoLabor = TiempoMachine;
         }
         #endregion

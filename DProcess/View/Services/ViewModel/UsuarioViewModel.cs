@@ -320,7 +320,7 @@ namespace View.Services.ViewModel
             
             this.pagina = pagina;
 
-            initNotifications();
+            //initNotifications();
         }
 
         #endregion

@@ -109,7 +109,7 @@ namespace View.Services.TiempoEstandar.Expansores
 
             ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
 
-            lista.Add(new FO_Item { Nombre = "0.0787", Valor = 0.0787});
+            lista.Add(new FO_Item { Nombre = "0.0787", Valor = 0.0787 });
             lista.Add(new FO_Item { Nombre = "0.0984", Valor = 0.0984 });
             lista.Add(new FO_Item { Nombre = "0.1102", Valor = 0.1102 });
             lista.Add(new FO_Item { Nombre = "0.1181", Valor = 0.1181 });

@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.Expansores
 {
@@ -154,7 +155,7 @@ namespace View.Services.TiempoEstandar.Expansores
         {
             Num_pasos = Module.GetValorPropiedad("NumPasos", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoMachine = (((1.95 * ((Num_pasos * 2) - 1) / 195) + 0.0676) / 36) * 100;
+            TiempoMachine = Math.Round(((((1.95 * ((Num_pasos * 2) - 1) / 195) + 0.0676) / 36) * 100), 3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
         }
         #endregion
@@ -166,14 +167,7 @@ namespace View.Services.TiempoEstandar.Expansores
         #region ICentroTrabajo Function´s
         public bool Test()
         {
-            if (Num_pasos == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return true;
         }
         #endregion
 
