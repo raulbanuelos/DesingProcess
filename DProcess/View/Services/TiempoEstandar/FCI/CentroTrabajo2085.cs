@@ -107,7 +107,7 @@ namespace View.Services.TiempoEstandar.FCI
 
             _anillo = new Anillo();
 
-            Propiedad numeroPasadas2085 = new Propiedad { DescripcionCorta = "No. Pasadas", DescripcionLarga = "No. Pasadas", Imagen = null, Nombre = "numeroPasadas2085" };
+            Propiedad numeroPasadas2085 = new Propiedad { DescripcionCorta = "No. Pasadas", DescripcionLarga = "Numero de pasadas en la operación FINISH ROUGH GRIND NORTON (FRANKLIN)", Imagen = null, Nombre = "numeroPasadas2085", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
             PropiedadesRequeridadas.Add(numeroPasadas2085);
         }
         #endregion

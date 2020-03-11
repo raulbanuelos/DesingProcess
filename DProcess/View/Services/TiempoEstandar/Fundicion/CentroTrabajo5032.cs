@@ -1,11 +1,15 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
     public class CentroTrabajo5032 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributtes
+        private double _rpm5032;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +104,8 @@ namespace View.Services.TiempoEstandar.Fundicion
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+            Propiedad rpm5032 = new Propiedad { DescripcionCorta = "RPM Solidificación", DescripcionLarga = "Cantidad de RPM en operación CENTRIFUGAL CASTING L.B", Imagen = null, Nombre = "rpm5032", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
+            PropiedadesRequeridadas.Add(rpm5032);
         }
         #endregion
 
@@ -146,12 +152,10 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            _rpm5032 = Module.GetValorPropiedad("rpm5032", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round(((262.89 + ((193.45 * _rpm5032) / 1353)) / 36) * 100, 3);
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

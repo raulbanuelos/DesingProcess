@@ -2,11 +2,16 @@
 using Model.Interfaces;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
     public class CentroTrabajo5002 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double _rpm;
+        #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -99,9 +104,9 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
-
-
             _anillo = new Anillo();
+            Propiedad rpm5002 = new Propiedad { DescripcionCorta = "RPM's", DescripcionLarga = "Cantidad de RPM en operación LONG CENTRIF. TUBE (GASOLINE)", Imagen = null, Nombre = "rpm5002", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
+            PropiedadesRequeridadas.Add(rpm5002);
         }
         #endregion
 
@@ -147,12 +152,10 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            _rpm = Module.GetValorPropiedad("rpm5002", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round(((128.24 + ((_rpm * 121.28) / 1496)) / 432) * 100, 3);
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

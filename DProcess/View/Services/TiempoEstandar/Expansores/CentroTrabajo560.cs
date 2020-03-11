@@ -106,10 +106,10 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
-            Propiedad NumJornadas = new Propiedad { DescripcionCorta = "Numero Jornadas", DescripcionLarga = "Numero de Jornadas", Imagen = null, Nombre = "NumJornadas" };
+            Propiedad NumJornadas = new Propiedad { DescripcionCorta = "Numero Jornadas", DescripcionLarga = "Numero de jorobas del Componente", Imagen = null, Nombre = "NumJornadas", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
             PropiedadesRequeridadas.Add(NumJornadas);
 
-            Propiedad diaNominalAnillo = new Propiedad { DescripcionCorta = "Diametro Nominal", DescripcionLarga = "Diametro Nominal", Imagen = null, Nombre = "diaNominalAnillo" };
+            Propiedad diaNominalAnillo = new Propiedad { DescripcionCorta = "Diametro Nominal", DescripcionLarga = "Diámetro nominal del anillo (Plano)", Imagen = null, Nombre = "diaNominalAnillo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
             PropiedadesRequeridadas.Add(diaNominalAnillo);
         }
         #endregion

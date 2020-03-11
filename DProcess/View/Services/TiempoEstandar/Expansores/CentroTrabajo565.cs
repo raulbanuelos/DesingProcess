@@ -105,7 +105,7 @@ namespace View.Services.TiempoEstandar.Expansores
 
             _anillo = new Anillo();
 
-            Propiedad NumPasos = new Propiedad { DescripcionCorta = "Num Pasos", DescripcionLarga = "Numero de pasos", Imagen = null, Nombre = "NumPasos" };
+            Propiedad NumPasos = new Propiedad { DescripcionCorta = "Num Pasos", DescripcionLarga = "Numero de pasos en el engrane", Imagen = null, Nombre = "NumPasos", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
             PropiedadesRequeridadas.Add(NumPasos);
         }
         #endregion

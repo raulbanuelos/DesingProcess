@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -93,7 +94,7 @@ namespace View.Services.TiempoEstandar.Fundicion
         public CentroTrabajo5004()
         {
             CentroTrabajo = "5004";
-            FactorLabor = 0.737;
+            FactorLabor = 0.330;
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
@@ -101,24 +102,22 @@ namespace View.Services.TiempoEstandar.Fundicion
             Alertas = new List<string>();
 
 
-            PropiedadBool a = new PropiedadBool { Nombre = "Prueba", DescripcionCorta = "Prueba", DescripcionLarga = "Prueba" };
-            PropiedadesRequeridasBool.Add(a);
+            //PropiedadBool a = new PropiedadBool { Nombre = "Prueba", DescripcionCorta = "Prueba", DescripcionLarga = "Prueba" };
+            //PropiedadesRequeridasBool.Add(a);            
 
-            
+            //ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
 
-            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+            //lista.Add(new FO_Item { Nombre = "Opcion 1", ValorCadena = "Opcion 1" });
+            //lista.Add(new FO_Item { Nombre = "Opcion 2", ValorCadena = "Opcion 2" });
 
-            lista.Add(new FO_Item { Nombre = "Opcion 1", ValorCadena = "Opcion 1" });
-            lista.Add(new FO_Item { Nombre = "Opcion 2", ValorCadena = "Opcion 2" });
+            //PropiedadOptional b = new PropiedadOptional { lblTitle = "pruebaa", ListaOpcional = lista };
+            //PropiedadesRequeridasOpcionles.Add(b);
 
-            PropiedadOptional b = new PropiedadOptional { lblTitle = "pruebaa", ListaOpcional = lista };
-            PropiedadesRequeridasOpcionles.Add(b);
+            //Propiedad mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
+            //PropiedadesRequeridadas.Add(mounting);
 
-            Propiedad mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
-            PropiedadesRequeridadas.Add(mounting);
-
-            PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
-            PropiedadesRequeridasCadena.Add(espeMaterial);
+            //PropiedadCadena espeMaterial = new PropiedadCadena { Nombre = "Material MAHLE", DescripcionCorta = "Material:", DescripcionLarga = "Especificación de materia prima (MF012-S,SPR-128,ETC)" };
+            //PropiedadesRequeridasCadena.Add(espeMaterial);
 
 
             _anillo = new Anillo();
@@ -167,11 +166,9 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round(0.198889003 * 100, 3);
+            TiempoLabor = Math.Round(TiempoMachine * FactorLabor, 3);
 
         }
         #endregion

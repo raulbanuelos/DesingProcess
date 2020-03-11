@@ -1,11 +1,15 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.FCI
 {
     public class CentroTrabajo2250 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double _h1;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +104,9 @@ namespace View.Services.TiempoEstandar.FCI
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
+            PropiedadesRequeridadas.Add(widthNominal);
         }
         #endregion
 
@@ -146,11 +153,10 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
+            _h1 = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round(((61.0566663348416 * _h1) / 226.8) * 100, 3, MidpointRounding.AwayFromZero);
+            TiempoLabor = TiempoMachine;
 
         }
         #endregion

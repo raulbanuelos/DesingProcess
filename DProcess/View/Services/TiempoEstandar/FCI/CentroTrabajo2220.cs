@@ -1,11 +1,16 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.FCI
 {
     public class CentroTrabajo2220 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double _h1;
+        private double _tiempoCiclo;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +105,11 @@ namespace View.Services.TiempoEstandar.FCI
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+            Propiedad widthNominalAnillo = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "widthNominalAnillo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
+            PropiedadesRequeridadas.Add(widthNominalAnillo);
+
+            Propiedad tiempoCiclo = new Propiedad { DescripcionCorta = "Tiempo Ciclo", DescripcionLarga = "Tiempo ciclo Gang A.F.T. KATAOKA FRANKLIN", Imagen = null, Nombre = "tiempoCiclo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Tiempo) };
+            PropiedadesRequeridadas.Add(tiempoCiclo);
         }
         #endregion
 
@@ -146,12 +156,11 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
+            _tiempoCiclo = Module.GetValorPropiedad("widthNominalAnillo", PropiedadesRequeridadas);
+            _h1 = Module.GetValorPropiedad("tiempoCiclo", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round(((_tiempoCiclo * _h1) / 26.928) * 100,3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine * FactorLabor;
-
         }
         #endregion
 

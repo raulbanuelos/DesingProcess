@@ -1,11 +1,17 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.FCI
 {
     public class CentroTrabajo2290 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double _h1;
+        private double _d1;
+        private int b;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -101,6 +107,11 @@ namespace View.Services.TiempoEstandar.FCI
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+            Propiedad widthNominalAnillo = new Propiedad { DescripcionCorta = "Width nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "widthNominalAnillo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
+            PropiedadesRequeridadas.Add(widthNominalAnillo);
+
+            Propiedad diaNominalAnillo = new Propiedad { DescripcionCorta = "Diámetro nominal", DescripcionLarga = "Diámetro nominal del anillo (Plano)", Imagen = null, Nombre = "diaNominalAnillo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
+            PropiedadesRequeridadas.Add(diaNominalAnillo);
         }
         #endregion
 
@@ -147,12 +158,37 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
+            int bastidor;
+            double carga, ciclo_por_carga;
+            _d1 = Module.GetValorPropiedad("diaNominalAnillo", PropiedadesRequeridadas);
+            _h1 = Module.GetValorPropiedad("widthNominalAnillo", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            bastidor = buscar_bastidor();
+            carga = Math.Round(((bastidor * 20) / _h1), 0);
+            ciclo_por_carga = 1264.82915;
+            TiempoMachine = Math.Round((100 * (ciclo_por_carga / 3600) / (carga)) * 100, 3, MidpointRounding.AwayFromZero);
+            TiempoLabor = TiempoMachine;
+        }
 
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+        private int buscar_bastidor()
+        {
+            if(_d1 >= 5.71)
+            {
+                b = 5;
+            }else if (_d1 >= 4.6)
+            {
+                b = 9;
+            }else if(_d1 >= 4.1)
+            {
+                b = 11;
+            }else if (_d1 >= 1.75)
+            {
+                b = 15;
+            }else if (_d1 >= 0.8268)
+            {
+                b = 29;
+            }
+            return b;
         }
         #endregion
 

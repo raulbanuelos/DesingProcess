@@ -105,7 +105,7 @@ namespace View.Services.TiempoEstandar.FCI
 
             _anillo = new Anillo();
 
-            Propiedad widthCastingMayor = new Propiedad { DescripcionCorta = "Width de casting mayor", DescripcionLarga = "Width de casting mayor", Imagen = null, Nombre = "widthCastingMayor" };
+            Propiedad widthCastingMayor = new Propiedad { DescripcionCorta = "Width de casting mayor", DescripcionLarga = "Width del casting nominal", Imagen = null, Nombre = "widthCastingMayor", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
             PropiedadesRequeridadas.Add(widthCastingMayor);
         }
         #endregion

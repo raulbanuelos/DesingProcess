@@ -6,6 +6,15 @@ namespace View.Services.TiempoEstandar.Fundicion
 {
     public class CentroTrabajo136 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double factor1 = 0.48;
+        private double factor2 = 7.4;
+        private double factor3 = 81.585;
+        private double factor4 = 266.4;
+
+        private double espesor;
+        private double jorobas;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +109,13 @@ namespace View.Services.TiempoEstandar.Fundicion
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            Propiedad widthNominalAnillo = new Propiedad { DescripcionCorta = "Width nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "widthNominalAnillo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
+            PropiedadesRequeridadas.Add(widthNominalAnillo);
+
+
+            Propiedad numeroDeJorobas = new Propiedad { DescripcionCorta = "Numero de jorobas", DescripcionLarga = "Numero de jorobas del Componente", Imagen = null, Nombre = "numeroDeJorobas", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
+            PropiedadesRequeridadas.Add(numeroDeJorobas);
         }
         #endregion
 
@@ -145,11 +161,11 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
+            espesor = Module.GetValorPropiedad("widthNominalAnillo", PropiedadesRequeridadas);
+            jorobas = Module.GetValorPropiedad("numeroDeJorobas", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = ((((((((jorobas * factor1) * (factor2 / espesor)) + factor3) * espesor)) / factor4)) * 100);
+            TiempoLabor = TiempoMachine;
 
         }
         #endregion

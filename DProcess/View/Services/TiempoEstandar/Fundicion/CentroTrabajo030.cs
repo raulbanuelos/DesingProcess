@@ -123,7 +123,7 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
 
-            pesoCasting = Module.GetValorPropiedad("PesoCasting", PropiedadesRequeridadas);
+           
 
             //Ejecutamos el método para calcular los tiempos estándar.
             Calcular();
@@ -134,11 +134,11 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// </summary>
         public void Calcular()
         {
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+            pesoCasting = Module.GetValorPropiedad("PesoCasting", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round((1011.99 * pesoCasting / 4776156) * 100, 3, MidpointRounding.AwayFromZero);
 
-            TiempoMachine = Math.Round((1011.99 * pesoCasting / 4776156) * 100, 3);
-
-            TiempoLabor = Math.Round(TiempoMachine * FactorLabor, 3);
+            TiempoLabor = Math.Round(TiempoMachine * FactorLabor, 3, MidpointRounding.AwayFromZero);
         }
         #endregion
 

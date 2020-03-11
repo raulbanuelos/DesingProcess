@@ -1,11 +1,19 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.FCI
 {
     public class CentroTrabajo2200 : BaseCentroTrabajo, ICentroTrabajo
     {
+
+        #region Atributos
+
+        private double tiempoCiclo;
+
+        #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +108,9 @@ namespace View.Services.TiempoEstandar.FCI
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+            Propiedad tCiclo2200 = new Propiedad { DescripcionCorta = "Tiempo ciclo", DescripcionLarga = "Tiempo ciclo de la operación Auto Finish Turn (Franklin)", Imagen = null, Nombre = "tCiclo2200", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Tiempo), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadTiempo.Second) };
+            PropiedadesRequeridadas.Add(tCiclo2200);
+
         }
         #endregion
 
@@ -146,12 +157,10 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
+            tiempoCiclo = Module.GetValorPropiedad("tCiclo2200", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round((((tiempoCiclo)) / 36) * 100, 3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine * FactorLabor;
-
         }
         #endregion
 

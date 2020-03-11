@@ -109,13 +109,13 @@ namespace View.Services.TiempoEstandar.FCI
 
             _anillo = new Anillo();
 
-            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width Nominal", Imagen = null, Nombre = "WidthNominal" };
+            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width nominal del anillo(Franklin)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
             PropiedadesRequeridadas.Add(widthNominal);
 
-            Propiedad espesorEspaciador2060 = new Propiedad { DescripcionCorta = "Espesor Espaciador", DescripcionLarga = "Espesor Espaciador", Imagen = null, Nombre = "espesorEspaciador2060" };
+            Propiedad espesorEspaciador2060 = new Propiedad { DescripcionCorta = "Espesor Espaciador", DescripcionLarga = "Espesor espaciador en operación SPLITTER CUFFS (FRANKLIN)", Imagen = null, Nombre = "espesorEspaciador2060", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
             PropiedadesRequeridadas.Add(espesorEspaciador2060);
 
-            Propiedad noEspaciadores2060 = new Propiedad { DescripcionCorta = "No. de espaciadores", DescripcionLarga = "No. de espaciadores", Imagen = null, Nombre = "noEspaciadores2060" };
+            Propiedad noEspaciadores2060 = new Propiedad { DescripcionCorta = "No. de espaciadores", DescripcionLarga = "Numero de espaciadores en operación SPLITTER CUFFS (FRANKLIN)", Imagen = null, Nombre = "noEspaciadores2060", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
             PropiedadesRequeridadas.Add(noEspaciadores2060);
         }
         #endregion

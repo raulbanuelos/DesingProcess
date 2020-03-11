@@ -1,11 +1,15 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
     public class CentroTrabajo5033 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos 
+        private double _peso_tubo;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +104,9 @@ namespace View.Services.TiempoEstandar.Fundicion
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            Propiedad pesoTubo = new Propiedad { DescripcionCorta = "Peso por tubo", DescripcionLarga = "Peso del tubo seleccionado", Imagen = null, Nombre = "pesoTubo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Kilogram) };
+            PropiedadesRequeridadas.Add(pesoTubo);
         }
         #endregion
 
@@ -146,12 +153,10 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            _peso_tubo = Module.GetValorPropiedad("pesoTubo", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round(((43555.40 * _peso_tubo) / 28800) * 100, 3);
+            TiempoLabor = 262.32;
         }
         #endregion
 

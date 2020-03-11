@@ -6,6 +6,11 @@ namespace View.Services.TiempoEstandar.FCI
 {
     public class CentroTrabajo2240 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double _h1;
+        private double _NoVentilas;
+        private double _d1;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +105,14 @@ namespace View.Services.TiempoEstandar.FCI
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+            Propiedad numeroVentilasAnillo = new Propiedad { DescripcionCorta = "Número de ventilas", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "numeroVentilasAnillo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
+            PropiedadesRequeridadas.Add(numeroVentilasAnillo); 
+
+            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
+            PropiedadesRequeridadas.Add(widthNominal);
+
+            Propiedad diaNominalAnillo = new Propiedad { DescripcionCorta = "´Diámetro del anillo", DescripcionLarga = "Diámetro nominal del anillo (Plano)", Imagen = null, Nombre = "diaNominalAnillo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
+            PropiedadesRequeridadas.Add(diaNominalAnillo);
         }
         #endregion
 
@@ -146,12 +159,10 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            _h1 = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
+            _NoVentilas = Module.GetValorPropiedad("numeroVentilasAnillo", PropiedadesRequeridadas);
+            _d1 = Module.GetValorPropiedad("diaNominalAnillo", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
         }
         #endregion
 

@@ -88,6 +88,12 @@ namespace View.Services.TiempoEstandar.Expansores
             get;
             set;
         }
+
+        public ObservableCollection<FO_Item> lista
+        {
+            get;
+            set;
+        }
         #endregion
 
         //Modelo del anillo
@@ -107,8 +113,6 @@ namespace View.Services.TiempoEstandar.Expansores
 
             _anillo = new Anillo();
 
-            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
-
             lista.Add(new FO_Item { Nombre = "0.0787", Valor = 0.0787 });
             lista.Add(new FO_Item { Nombre = "0.0984", Valor = 0.0984 });
             lista.Add(new FO_Item { Nombre = "0.1102", Valor = 0.1102 });
@@ -121,10 +125,12 @@ namespace View.Services.TiempoEstandar.Expansores
             lista.Add(new FO_Item { Nombre = "0.1575", Valor = 0.1575 });
             lista.Add(new FO_Item { Nombre = "0.1875", Valor = 0.1875 });
             lista.Add(new FO_Item { Nombre = "0.1968", Valor = 0.1968 });
+            
 
-
-            PropiedadOptional widthNominal = new PropiedadOptional {ListaOpcional = lista };
+            PropiedadOptional widthNominal = new PropiedadOptional {ListaOpcional = lista,  Nombre = "WidthNominal" };
             PropiedadesRequeridasOpcionles.Add(widthNominal);
+
+
 
 
         }
