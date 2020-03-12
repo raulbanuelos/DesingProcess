@@ -113,22 +113,22 @@ namespace View.Services.TiempoEstandar.Expansores
 
             _anillo = new Anillo();
 
-            lista.Add(new FO_Item { Nombre = "0.0787", Valor = 0.0787 });
-            lista.Add(new FO_Item { Nombre = "0.0984", Valor = 0.0984 });
-            lista.Add(new FO_Item { Nombre = "0.1102", Valor = 0.1102 });
-            lista.Add(new FO_Item { Nombre = "0.1181", Valor = 0.1181 });
-            lista.Add(new FO_Item { Nombre = "0.125", Valor = 0.125 });
-            lista.Add(new FO_Item { Nombre = "0.1378", Valor = 0.1378 });
-            lista.Add(new FO_Item { Nombre = "0.1562", Valor = 0.1562 });
-            lista.Add(new FO_Item { Nombre = "0.1563", Valor = 0.1563 });
-            lista.Add(new FO_Item { Nombre = "0.1574", Valor = 0.1574 });
-            lista.Add(new FO_Item { Nombre = "0.1575", Valor = 0.1575 });
-            lista.Add(new FO_Item { Nombre = "0.1875", Valor = 0.1875 });
-            lista.Add(new FO_Item { Nombre = "0.1968", Valor = 0.1968 });
+            //lista.Add(new FO_Item { Nombre = "0.0787", Valor = 0.0787 });
+            //lista.Add(new FO_Item { Nombre = "0.0984", Valor = 0.0984 });
+            //lista.Add(new FO_Item { Nombre = "0.1102", Valor = 0.1102 });
+            //lista.Add(new FO_Item { Nombre = "0.1181", Valor = 0.1181 });
+            //lista.Add(new FO_Item { Nombre = "0.125", Valor = 0.125 });
+            //lista.Add(new FO_Item { Nombre = "0.1378", Valor = 0.1378 });
+            //lista.Add(new FO_Item { Nombre = "0.1562", Valor = 0.1562 });
+            //lista.Add(new FO_Item { Nombre = "0.1563", Valor = 0.1563 });
+            //lista.Add(new FO_Item { Nombre = "0.1574", Valor = 0.1574 });
+            //lista.Add(new FO_Item { Nombre = "0.1575", Valor = 0.1575 });
+            //lista.Add(new FO_Item { Nombre = "0.1875", Valor = 0.1875 });
+            //lista.Add(new FO_Item { Nombre = "0.1968", Valor = 0.1968 });
             
 
-            PropiedadOptional widthNominal = new PropiedadOptional {ListaOpcional = lista,  Nombre = "WidthNominal" };
-            PropiedadesRequeridasOpcionles.Add(widthNominal);
+            //PropiedadOptional widthNominal = new PropiedadOptional {ListaOpcional = lista,  Nombre = "WidthNominal" };
+            //PropiedadesRequeridasOpcionles.Add(widthNominal);
 
 
 
