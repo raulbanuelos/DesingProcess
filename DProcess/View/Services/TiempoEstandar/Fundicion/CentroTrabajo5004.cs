@@ -103,7 +103,7 @@ namespace View.Services.TiempoEstandar.Fundicion
 
 
             //PropiedadBool a = new PropiedadBool { Nombre = "Prueba", DescripcionCorta = "Prueba", DescripcionLarga = "Prueba" };
-            //PropiedadesRequeridasBool.Add(a);            
+            //PropiedadesRequeridasBool.Add(a);
 
             //ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
 

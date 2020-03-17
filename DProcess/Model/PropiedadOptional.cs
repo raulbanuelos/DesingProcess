@@ -21,6 +21,8 @@ namespace Model
 
         public string Nombre { get; set; }
 
+        public double Valor { get; set; }
+
         public PropiedadOptional()
         {
             ListaOpcional = new ObservableCollection<FO_Item>();

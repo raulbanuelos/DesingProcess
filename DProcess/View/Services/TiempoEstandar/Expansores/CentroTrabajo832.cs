@@ -1,11 +1,19 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System;
 
 namespace View.Services.TiempoEstandar.Expansores
 {
     public class CentroTrabajo832 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos 
+        private double pzsXrollo;
+        private double _noFranjas;
+        private double AcP;
+        private bool _tipo;
+        #endregion
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +108,55 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+            lista.Add(new FO_Item { Nombre = "<--ES80-->" });
+            lista.Add(new FO_Item { Nombre = "0.0590", Valor = 0.0590 });
+            lista.Add(new FO_Item { Nombre = "0.0772", Valor = 0.0772 });
+            lista.Add(new FO_Item { Nombre = "0.0787", Valor = 0.0787 });
+            lista.Add(new FO_Item { Nombre = "0.0984", Valor = 0.0984 });
+            lista.Add(new FO_Item { Nombre = "0.1102", Valor = 0.1102 });
+            lista.Add(new FO_Item { Nombre = "0.1181", Valor = 0.1181 });
+            lista.Add(new FO_Item { Nombre = "0.1378", Valor = 0.1378 });
+            lista.Add(new FO_Item { Nombre = "0.1575", Valor = 0.1575 });
+            lista.Add(new FO_Item { Nombre = "0.1577", Valor = 0.1577 });
+            lista.Add(new FO_Item { Nombre = "0.1840", Valor = 0.1840 });
+            lista.Add(new FO_Item { Nombre = "0.1875", Valor = 0.1875 });
+            lista.Add(new FO_Item { Nombre = "0.0590", Valor = 0.0590 });
+
+            lista.Add(new FO_Item { Nombre = "<--SS50-->" });
+            lista.Add(new FO_Item { Nombre = "0.0984", Valor = 0.0984 });
+            lista.Add(new FO_Item { Nombre = "0.1100", Valor = 0.1100 });
+            lista.Add(new FO_Item { Nombre = "0.1102", Valor = 0.1102 });
+            lista.Add(new FO_Item { Nombre = "0.1180", Valor = 0.1180 });
+            lista.Add(new FO_Item { Nombre = "0.1181", Valor = 0.1181 });
+            lista.Add(new FO_Item { Nombre = "0.1250", Valor = 0.1250 });
+            lista.Add(new FO_Item { Nombre = "0.1378", Valor = 0.1378 });
+            lista.Add(new FO_Item { Nombre = "0.1560", Valor = 0.1560 });
+            lista.Add(new FO_Item { Nombre = "0.1575", Valor = 0.1575 });
+            lista.Add(new FO_Item { Nombre = "0.1577", Valor = 0.1577 });
+            lista.Add(new FO_Item { Nombre = "0.1772", Valor = 0.1772 });
+            lista.Add(new FO_Item { Nombre = "0.1840", Valor = 0.1840 });
+            lista.Add(new FO_Item { Nombre = "0.1870", Valor = 0.1870 });
+            lista.Add(new FO_Item { Nombre = "0.1875", Valor = 0.1875 });
+            lista.Add(new FO_Item { Nombre = "0.1969", Valor = 0.1969 });
+            lista.Add(new FO_Item { Nombre = "0.1970", Valor = 0.1970 });
+            lista.Add(new FO_Item { Nombre = "0.2480", Valor = 0.2480 });
+            lista.Add(new FO_Item { Nombre = "0.2490", Valor = 0.2490 });
+            lista.Add(new FO_Item { Nombre = "0.2500", Valor = 0.2500 });
+
+            PropiedadOptional widthNominal = new PropiedadOptional { ListaOpcional = lista, lblTitle = "Width Nominal" };
+            PropiedadesRequeridasOpcionles.Add(widthNominal);
+
+            Propiedad numeroDeFranjasPintura = new Propiedad { DescripcionCorta = "No. de franjas a pintar", DescripcionLarga = "Numero de franjas de pintura", Imagen = null, Nombre = "numeroDeFranjasPintura", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
+            PropiedadesRequeridadas.Add(numeroDeFranjasPintura);
+
+            PropiedadBool tipoExpansorSS50 = new PropiedadBool { Nombre = "SS50", DescripcionCorta = "SS50", DescripcionLarga = "SS50" };
+            PropiedadesRequeridasBool.Add(tipoExpansorSS50);
+
+            PropiedadBool tipoExpansorES80 = new PropiedadBool { Nombre = "ES80", DescripcionCorta = "ES80", DescripcionLarga = "ES80" };
+            PropiedadesRequeridasBool.Add(tipoExpansorES80);
+
         }
         #endregion
 
@@ -146,12 +203,84 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
+            _noFranjas = Module.GetValorPropiedad("numeroDeFranjasPintura", PropiedadesRequeridadas);
 
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+            FO_Item espesor = PropiedadesRequeridasOpcionles[0].ElementSelected;
 
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            if (_noFranjas > 0)
+                AcP = 2.4410206;
 
+            
+            //-----------------------------EXPANSOR ES80------------------------------
+            if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.0590)
+                pzsXrollo = 380;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.0772)
+                pzsXrollo = 330;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.0787)
+                pzsXrollo = 320;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.0984)
+                pzsXrollo = 230;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.1102)
+                pzsXrollo = 220;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.1181)
+                pzsXrollo = 210;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.1378)
+                pzsXrollo = 160;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.1575)
+                pzsXrollo = 140;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.1577)
+                pzsXrollo = 140;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.1840)
+                pzsXrollo = 110;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.1875)
+                pzsXrollo = 380;
+            else if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.0590)
+                pzsXrollo = 380;
+
+            ////-----------------------------EXPANSOR SS50------------------------------
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.0984)
+                pzsXrollo = 140;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1100)
+                pzsXrollo = 125;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1102)
+                pzsXrollo = 125;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1180)
+                pzsXrollo = 120;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1181)
+                pzsXrollo = 120;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1250)
+                pzsXrollo = 110;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1378)
+                pzsXrollo = 110;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1560)
+                pzsXrollo = 90;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1575)
+                pzsXrollo = 90;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1577)
+                pzsXrollo = 90;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1772)
+                pzsXrollo = 80;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1840)
+                pzsXrollo = 70;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1870)
+                pzsXrollo = 75;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1875)
+                pzsXrollo = 75;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1969)
+                pzsXrollo = 70;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.1970)
+                pzsXrollo = 70;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.2480)
+                pzsXrollo = 55;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.2490)
+                pzsXrollo = 55;
+            else if (PropiedadesRequeridasBool[0].Valor == true && espesor.Valor == 0.2500)
+                pzsXrollo = 55;
+
+            TiempoMachine = Math.Round(((98.855494 + (17.43625 * _noFranjas) + (AcP)) / (36 * pzsXrollo)) * 100,3, MidpointRounding.AwayFromZero);
+            TiempoLabor = TiempoMachine;
+            TiempoMachine = 0;
         }
         #endregion
 

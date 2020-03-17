@@ -11,6 +11,9 @@ namespace View.Services
 {
     public static class Module
     {
+
+
+
         /// <summary>
 		/// Método que busca el valor de una propiedad cadena en una lista.
 		/// </summary>
@@ -167,7 +170,6 @@ namespace View.Services
             //Retornamos el valor obtenido.
             return valor;
         }
-
 
 
 

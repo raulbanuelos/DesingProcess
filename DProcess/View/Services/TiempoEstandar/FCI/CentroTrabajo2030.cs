@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace View.Services.TiempoEstandar.FCI
 {
@@ -100,6 +101,25 @@ namespace View.Services.TiempoEstandar.FCI
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+
+            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
+            ObservableCollection<Material> lista1 = new ObservableCollection<Material>();
+            lista1 = DataManager.GetAllMaterial();
+
+            foreach (var item in lista1)
+            {
+                FO_Item f = new FO_Item();
+ 
+                f.Nombre = item.id_material;
+                f.ValorCadena = item.descripcion;
+                lista.Add(f);
+            }
+
+            Propiedad RPM = new Propiedad { DescripcionCorta = "RPM", DescripcionLarga = "Revoluciones por Minuto 2030", Imagen = null, Nombre = "RPM" };
+            PropiedadesRequeridadas.Add(RPM);
+
+            PropiedadOptional material_ = new PropiedadOptional { ListaOpcional = lista, lblTitle = "Material" };
+            PropiedadesRequeridasOpcionles.Add(material_);
         }
         #endregion
 
@@ -146,12 +166,7 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
         }
         #endregion
 
