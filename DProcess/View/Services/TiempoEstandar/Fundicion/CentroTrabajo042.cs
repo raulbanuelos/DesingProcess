@@ -146,9 +146,7 @@ namespace View.Services.TiempoEstandar.Fundicion
         public void Calcular()
         {
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            //Obtenermos el valor específico de las propiedades requeridas.
-
-            TiempoMachine = Math.Round(0.3466 * 100, 3);
+            TiempoMachine = Math.Round(0.3466 * 100, 3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
         }
         #endregion

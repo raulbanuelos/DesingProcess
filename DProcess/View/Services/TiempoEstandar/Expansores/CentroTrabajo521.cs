@@ -104,7 +104,7 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
-            Propiedad espesor = new Propiedad { DescripcionCorta = "Width", DescripcionLarga = "Width Nominal", Imagen = null, Nombre = "WidthNominal" };
+            Propiedad espesor = new Propiedad { DescripcionCorta = "Width", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
             PropiedadesRequeridadas.Add(espesor);
         }
         #endregion

@@ -10,6 +10,12 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
 {
     public class CentroTrabajo810 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double _h1;
+        private double carga;
+        private double cxc;
+        #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -105,8 +111,8 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
 
             _anillo = new Anillo();
 
-            Propiedad _h1 = new Propiedad { Nombre = "h1", TipoDato = "Distance", DescripcionLarga = "Width nominal del anillo", Imagen = null, DescripcionCorta = "Width del anillo:" };
-            PropiedadesRequeridadas.Add(_h1);
+            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
+            PropiedadesRequeridadas.Add(widthNominal);
 
         }
         #endregion
@@ -154,20 +160,17 @@ namespace View.Services.TiempoEstandar.Gasolina.PreMaquinado
         /// </summary>
         public void Calcular()
         {
+            _h1 = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
 
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            double _h1 = 0;
-            _h1 = _anillo.H1.Valor;
 
             //Comienza cálculo de tiempo estándar
-            double carga = Math.Round(19.77/_h1);
-            double cxc = 145.52626457;
+            carga = Math.Round(19.77 / _h1, 0);
+            cxc = 145.52626457;
 
             TiempoMachine = Math.Round(((100 * ((cxc) / 3600) / (carga))) * 100, 3);
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            TiempoLabor = TiempoMachine;
+            TiempoMachine = 0;
             //Termina cálculo de tiempo estándar.
         }
         #endregion

@@ -1,11 +1,16 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.FCI
 {
     public class CentroTrabajo2230 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributos
+        private double _h1;
+        private double _NoVentilas;
+        #endregion 
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -100,6 +105,11 @@ namespace View.Services.TiempoEstandar.FCI
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+            Propiedad widthNominalAnillo = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "widthNominalAnillo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
+            PropiedadesRequeridadas.Add(widthNominalAnillo);
+
+            Propiedad numeroVentilasAnillo = new Propiedad { DescripcionCorta = "Tiempo Ciclo", DescripcionLarga = "Numero de ventilas en el Anillo", Imagen = null, Nombre = "numeroVentilasAnillo", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Tiempo) };
+            PropiedadesRequeridadas.Add(numeroVentilasAnillo);
         }
         #endregion
 
@@ -146,12 +156,11 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            _NoVentilas = Module.GetValorPropiedad("widthNominalAnillo", PropiedadesRequeridadas);
+            _h1 = Module.GetValorPropiedad("tiempoCiclo", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round(((45.5086293886231 + ((40.4 * _NoVentilas) / 8)) / (36 * (2 * ((2.1 / _h1) - 2)))) * 100, 3, MidpointRounding.AwayFromZero);
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

@@ -107,10 +107,10 @@ namespace View.Services.TiempoEstandar.Expansores
 
             _anillo = new Anillo();
 
-            Propiedad WidthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width Nominal", Imagen = null, Nombre = "WidthNominal" };
+            Propiedad WidthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
             PropiedadesRequeridadas.Add(WidthNominal);
 
-            Propiedad jorobas = new Propiedad { DescripcionCorta = "Jorobas", DescripcionLarga = "Jorobas", Imagen = null, Nombre = "jorobas" };
+            Propiedad jorobas = new Propiedad { DescripcionCorta = "Jorobas", DescripcionLarga = "Numero de jorobas del Componente", Imagen = null, Nombre = "jorobas", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
             PropiedadesRequeridadas.Add(jorobas);
         }
         #endregion

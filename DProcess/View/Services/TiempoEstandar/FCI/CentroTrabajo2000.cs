@@ -104,7 +104,7 @@ namespace View.Services.TiempoEstandar.FCI
 
             _anillo = new Anillo();
 
-            Propiedad rmp = new Propiedad { DescripcionCorta = "RMP", DescripcionLarga = "RMP", Imagen = null, Nombre = "RMP" };
+            Propiedad rmp = new Propiedad { DescripcionCorta = "RMP", DescripcionLarga = "RPM en la operación FIRST ROUGH GRIND FRANKLIN", Imagen = null, Nombre = "RMP", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
             PropiedadesRequeridadas.Add(rmp);
         }
         #endregion

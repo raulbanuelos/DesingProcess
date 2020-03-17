@@ -1,4 +1,5 @@
 ﻿using DataAccess.ServiceObjects.ControlDocumentos;
+using DataAccess.ServiceObjects.MateriasPrimas;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,9 +49,6 @@ namespace DataAccess.ServiceObjects.Usuario
                 return null;
             }
         }
-
-
-
         public string GetNombre (string TextoBuscar)
         {
             try

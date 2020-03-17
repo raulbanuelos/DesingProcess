@@ -1,11 +1,17 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.Fundicion
 {
     public class CentroTrabajo044 : BaseCentroTrabajo, ICentroTrabajo
     {
+        #region Atributtes
+        private double _width;
+        private double _dia;
+        #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -99,6 +105,12 @@ namespace View.Services.TiempoEstandar.Fundicion
             Alertas = new List<string>();
 
             _anillo = new Anillo();
+            Propiedad diaCasting = new Propiedad { DescripcionCorta = "Diámetro casting", DescripcionLarga = "Diametro nominal del casting", Imagen = null, Nombre = "diaCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance)};
+            PropiedadesRequeridadas.Add(diaCasting);
+
+
+            Propiedad widthCasting = new Propiedad { DescripcionCorta = "Width casting", DescripcionLarga = "Width del casting nominal", Imagen = null, Nombre = "widthCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance)};
+            PropiedadesRequeridadas.Add(widthCasting);
         }
         #endregion
 
@@ -144,12 +156,11 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            _width = Module.GetValorPropiedad("widthCasting", PropiedadesRequeridadas);
+            _dia = Module.GetValorPropiedad("diaCasting", PropiedadesRequeridadas);
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round(((_width * (7.3683 + ((15.74 * _dia) / 9.062)) / 110.88)) * 100, 3, MidpointRounding.AwayFromZero);
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

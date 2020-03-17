@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace View.Services.TiempoEstandar.FCI
 {
@@ -146,12 +147,9 @@ namespace View.Services.TiempoEstandar.FCI
         /// </summary>
         public void Calcular()
         {
-
-            TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
-
-            //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
-
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round(0.02562550 * 100, 3, MidpointRounding.AwayFromZero);
+            TiempoLabor = TiempoMachine;
         }
         #endregion
 

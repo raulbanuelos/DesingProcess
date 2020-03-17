@@ -107,10 +107,10 @@ namespace View.Services.TiempoEstandar.FCI
 
             _anillo = new Anillo();
 
-            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width Nominal", Imagen = null, Nombre = "WidthNominal" };
+            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
             PropiedadesRequeridadas.Add(widthNominal);
 
-            Propiedad numeroPasadas2005 = new Propiedad { DescripcionCorta = "No. pasadas", DescripcionLarga = "No. pasadas", Imagen = null, Nombre = "numeroPasadas2005" };
+            Propiedad numeroPasadas2005 = new Propiedad { DescripcionCorta = "No. pasadas", DescripcionLarga = "Numero de pasadas en la operación FIRST ROUGH GRIND NORTON (FRANKLIN)", Imagen = null, Nombre = "numeroPasadas2005", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
             PropiedadesRequeridadas.Add(numeroPasadas2005);
         }
         #endregion

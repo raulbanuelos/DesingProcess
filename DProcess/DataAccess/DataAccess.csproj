@@ -212,6 +212,7 @@
     <Compile Include="ServiceObjects\MateriasPrimas\material.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\Material_TipoMate.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\ModelMateriasPrimas.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -257,6 +258,7 @@
     <Compile Include="ServiceObjects\MateriasPrimas\Tipo_Anillo.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\Tipo_Material.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\Tipo_Materia_Prima.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>

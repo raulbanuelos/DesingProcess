@@ -106,7 +106,7 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
-            Propiedad DiametroNominal = new Propiedad { DescripcionCorta = "Diametro Nominal", DescripcionLarga = "Diametro Nominal", Imagen = null, Nombre = "DiametroNominal" };
+            Propiedad DiametroNominal = new Propiedad { DescripcionCorta = "Diametro Nominal", DescripcionLarga = "Diámetro nominal del anillo (Plano)", Imagen = null, Nombre = "DiametroNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
             PropiedadesRequeridadas.Add(DiametroNominal);
         }
         #endregion
