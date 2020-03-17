@@ -1610,7 +1610,7 @@ namespace View.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Only 1 Page per Sheet is allowed..
+        ///   Busca una cadena traducida similar a Only one page per sheet is allowed..
         /// </summary>
         public static string lblOnlyOnePage {
             get {

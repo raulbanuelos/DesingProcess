@@ -2309,4 +2309,8 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>UM</value>
     <comment>Etiqueta de UM</comment>
   </data>
+  <data name="lblOnlyOnePage" xml:space="preserve">
+    <value>Solo se permite una página por hoja.</value>
+    <comment>Only one page per sheet is allowed.</comment>
+  </data>
 </root>

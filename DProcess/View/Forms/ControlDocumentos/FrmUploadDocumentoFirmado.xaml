@@ -1,0 +1,42 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.ControlDocumentos.FrmUploadDocumentoFirmado"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
+        mc:Ignorable="d"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:recursos="clr-namespace:View.Resources"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="FrmUploadDocumentoFirmado" Height="300" Width="500">
+    <Grid ShowGridLines="True" Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0">
+            <ComboBox Grid.Column="0" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroDocumento}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                              Height="50" Width="420"  Background="Transparent" BorderBrush="#89535353" FontSize="18" 
+                              HorizontalAlignment="Left"
+                              ItemsSource="{Binding ListaNumeroDocumento}"
+                              DisplayMemberPath="nombre"  
+                              SelectedItem="{Binding SelectedDocumento}" 
+                              IsEnabled="{Binding NombreEnabled}">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding CambiarCombo}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+        </StackPanel>
+        
+        
+    </Grid>
+</Controls:MetroWindow>

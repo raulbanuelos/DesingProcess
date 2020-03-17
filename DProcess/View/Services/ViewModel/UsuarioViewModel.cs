@@ -20,6 +20,7 @@ using View.Forms.DashBoard;
 using System.Windows;
 using MahApps.Metro.Controls;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace View.Services.ViewModel
 {

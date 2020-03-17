@@ -6349,6 +6349,7 @@ namespace View.Services.ViewModel
                             Tag = StringResources.lblPendienteCorregir,
                         }
                     );
+                    
                     break;
 
                 case "DocumentoLiberado":

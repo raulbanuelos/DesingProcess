@@ -68,6 +68,17 @@
           <Property Name="EXT" Type="varchar" MaxLength="10" />
           <Property Name="FECHA_ELIMINO" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="TBL_DOCUMENTO_FIRMADO">
+          <Key>
+            <PropertyRef Name="ID_DOCUMENTO_FIRMADO" />
+          </Key>
+          <Property Name="ID_DOCUMENTO_FIRMADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_VERSION" Type="int" />
+          <Property Name="PATH_DOCUMENTO" Type="varchar(max)" />
+          <Property Name="ARCHIVO" Type="varbinary(max)" />
+          <Property Name="NOMBRE_ARCHIVO" Type="varchar" MaxLength="100" />
+          <Property Name="EXT" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="TBL_ESTATUS_DOCUMENTO">
           <Key>
             <PropertyRef Name="ID_ESTATUS_DOCUMENTO" />
@@ -244,6 +255,18 @@
           <Property Name="Correo" Type="varchar" MaxLength="100" />
           <Property Name="Pathnsf" Type="varchar" MaxLength="500" />
         </EntityType>
+        <Association Name="FK__TBL_DOCUM__ID_VE__4D804459">
+          <End Role="TBL_VERSION" Type="Self.TBL_VERSION" Multiplicity="0..1" />
+          <End Role="TBL_DOCUMENTO_FIRMADO" Type="Self.TBL_DOCUMENTO_FIRMADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_VERSION">
+              <PropertyRef Name="ID_VERSION" />
+            </Principal>
+            <Dependent Role="TBL_DOCUMENTO_FIRMADO">
+              <PropertyRef Name="ID_VERSION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TBL_GRUPO__ID_US__04B07DB2">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="TBL_GRUPOS" Type="Self.TBL_GRUPOS" Multiplicity="*" />
@@ -539,6 +562,7 @@
           <EntitySet Name="TBL_DEPARTAMENTO" EntityType="Self.TBL_DEPARTAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_DOCUMENTO" EntityType="Self.TBL_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_DOCUMENTO_ELIMINADO" EntityType="Self.TBL_DOCUMENTO_ELIMINADO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_DOCUMENTO_FIRMADO" EntityType="Self.TBL_DOCUMENTO_FIRMADO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_DOCUMENTO" EntityType="Self.TBL_ESTATUS_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ESTATUS_VERSION" EntityType="Self.TBL_ESTATUS_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_GRUPOS" EntityType="Self.TBL_GRUPOS" Schema="dbo" store:Type="Tables" />
@@ -557,6 +581,10 @@
           <EntitySet Name="TR_USUARIO_NOTIFICACION_VERSION" EntityType="Self.TR_USUARIO_NOTIFICACION_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_VALIDACION_TIPO_DOCUMENTO" EntityType="Self.TR_VALIDACION_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TBL_DOCUM__ID_VE__4D804459" Association="Self.FK__TBL_DOCUM__ID_VE__4D804459">
+            <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
+            <End Role="TBL_DOCUMENTO_FIRMADO" EntitySet="TBL_DOCUMENTO_FIRMADO" />
+          </AssociationSet>
           <AssociationSet Name="FK__TBL_GRUPO__ID_US__04B07DB2" Association="Self.FK__TBL_GRUPO__ID_US__04B07DB2">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_GRUPOS" EntitySet="TBL_GRUPOS" />
@@ -778,6 +806,11 @@
           <AssociationSet Name="FK_USUARIO_SUSCRITO" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_USUARIO_SUSCRITO">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_SUSCRIPCION_DOCUMENTO" EntitySet="TBL_SUSCRIPCION_DOCUMENTO" />
+          </AssociationSet>
+          <EntitySet Name="TBL_DOCUMENTO_FIRMADO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO_FIRMADO" />
+          <AssociationSet Name="FK__TBL_DOCUM__ID_VE__4D804459" Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_DOCUM__ID_VE__4D804459">
+            <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
+            <End Role="TBL_DOCUMENTO_FIRMADO" EntitySet="TBL_DOCUMENTO_FIRMADO" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="TBL_ARCHIVO">
@@ -1142,6 +1175,7 @@
           <NavigationProperty Name="Usuarios" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="TBL_VERSION" ToRole="Usuarios" />
           <NavigationProperty Name="Usuarios1" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" FromRole="TBL_VERSION" ToRole="Usuarios" />
           <NavigationProperty Name="TR_USUARIO_NOTIFICACION_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_USUARI__ID_VE__17C35226" FromRole="TBL_VERSION" ToRole="TR_USUARIO_NOTIFICACION_VERSION" />
+          <NavigationProperty Name="TBL_DOCUMENTO_FIRMADO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_DOCUM__ID_VE__4D804459" FromRole="TBL_VERSION" ToRole="TBL_DOCUMENTO_FIRMADO" />
         </EntityType>
         <Association Name="FK_TBL_ARCHIVO_TBL_VERSION">
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="1" />
@@ -1352,6 +1386,30 @@
             </Principal>
             <Dependent Role="TBL_SUSCRIPCION_DOCUMENTO">
               <PropertyRef Name="ID_USUARIO_SUSCRITO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_DOCUMENTO_FIRMADO">
+          <Key>
+            <PropertyRef Name="ID_DOCUMENTO_FIRMADO" />
+          </Key>
+          <Property Name="ID_DOCUMENTO_FIRMADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_VERSION" Type="Int32" />
+          <Property Name="PATH_DOCUMENTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ARCHIVO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="NOMBRE_ARCHIVO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EXT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_DOCUM__ID_VE__4D804459" FromRole="TBL_DOCUMENTO_FIRMADO" ToRole="TBL_VERSION" />
+        </EntityType>
+        <Association Name="FK__TBL_DOCUM__ID_VE__4D804459">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO_FIRMADO" Role="TBL_DOCUMENTO_FIRMADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_VERSION">
+              <PropertyRef Name="ID_VERSION" />
+            </Principal>
+            <Dependent Role="TBL_DOCUMENTO_FIRMADO">
+              <PropertyRef Name="ID_VERSION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1621,6 +1679,18 @@
                 <ScalarProperty Name="ID_DOCUMENTO" ColumnName="ID_DOCUMENTO" />
                 <ScalarProperty Name="ID_USUARIO_SUSCRITO" ColumnName="ID_USUARIO_SUSCRITO" />
                 <ScalarProperty Name="ID_SUSCRIPCION_DOC" ColumnName="ID_SUSCRIPCION_DOC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_DOCUMENTO_FIRMADO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO_FIRMADO">
+              <MappingFragment StoreEntitySet="TBL_DOCUMENTO_FIRMADO">
+                <ScalarProperty Name="EXT" ColumnName="EXT" />
+                <ScalarProperty Name="NOMBRE_ARCHIVO" ColumnName="NOMBRE_ARCHIVO" />
+                <ScalarProperty Name="ARCHIVO" ColumnName="ARCHIVO" />
+                <ScalarProperty Name="PATH_DOCUMENTO" ColumnName="PATH_DOCUMENTO" />
+                <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
+                <ScalarProperty Name="ID_DOCUMENTO_FIRMADO" ColumnName="ID_DOCUMENTO_FIRMADO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

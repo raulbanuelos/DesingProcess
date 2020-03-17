@@ -20,6 +20,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             this.TBL_ARCHIVO = new HashSet<TBL_ARCHIVO>();
             this.TBL_VALIDACION_VERSION = new HashSet<TBL_VALIDACION_VERSION>();
             this.TR_USUARIO_NOTIFICACION_VERSION = new HashSet<TR_USUARIO_NOTIFICACION_VERSION>();
+            this.TBL_DOCUMENTO_FIRMADO = new HashSet<TBL_DOCUMENTO_FIRMADO>();
         }
     
         public int ID_VERSION { get; set; }
@@ -43,5 +44,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual Usuarios Usuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TR_USUARIO_NOTIFICACION_VERSION> TR_USUARIO_NOTIFICACION_VERSION { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_DOCUMENTO_FIRMADO> TBL_DOCUMENTO_FIRMADO { get; set; }
     }
 }

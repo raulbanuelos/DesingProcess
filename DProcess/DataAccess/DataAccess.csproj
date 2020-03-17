@@ -125,6 +125,9 @@
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_DOCUMENTO_ELIMINADO.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\ControlDocumentos\TBL_DOCUMENTO_FIRMADO.cs">
+      <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\ControlDocumentos\TBL_ESTATUS_DOCUMENTO.cs">
       <DependentUpon>ModelControlDocumentos.tt</DependentUpon>
     </Compile>

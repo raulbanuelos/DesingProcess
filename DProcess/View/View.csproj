@@ -34,8 +34,8 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>7</ApplicationRevision>
-    <ApplicationVersion>4.0.1.%2a</ApplicationVersion>
+    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationVersion>4.0.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -298,6 +298,9 @@
     </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmRecursosTipoDocumento.xaml.cs">
       <DependentUpon>FrmRecursosTipoDocumento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ControlDocumentos\FrmUploadDocumentoFirmado.xaml.cs">
+      <DependentUpon>FrmUploadDocumentoFirmado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\ControlDocumentos\FrmValidacion_Tipo.xaml.cs">
       <DependentUpon>FrmValidacion_Tipo.xaml</DependentUpon>
@@ -1108,6 +1111,7 @@
     <Compile Include="Services\ViewModel\DataBaseViewModel.cs" />
     <Compile Include="Services\ViewModel\DibujaPlacaViewModel.cs" />
     <Compile Include="Services\ViewModel\DimensionsViewModel.cs" />
+    <Compile Include="Services\ViewModel\DocumentoFirmadoViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentosLiberarQR.cs" />
     <Compile Include="Services\ViewModel\DocumentosNoEntregadosViewModel.cs" />
     <Compile Include="Services\ViewModel\DocumentosPendientesViewM.cs" />
@@ -1327,6 +1331,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ControlDocumentos\FrmRecursosTipoDocumento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ControlDocumentos\FrmUploadDocumentoFirmado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
