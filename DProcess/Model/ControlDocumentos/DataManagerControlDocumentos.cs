@@ -3012,6 +3012,7 @@ namespace Model.ControlDocumentos
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.version.id_version = Convert.ToInt32(tipo.GetProperty("ID_VERSION").GetValue(item, null));
                     //se añaden a la lista resultante
                     Lista.Add(obj);
 
@@ -5116,6 +5117,51 @@ namespace Model.ControlDocumentos
             return ListaObtenida;
         }
 
+        #endregion
+
+        #region Documento Firmado
+
+        /// <summary>
+        /// Método que obtiene un registro de tipo Archivo de la tabla TBL_DOCUMENTO_FIRMADO dependiendo el ID_VERSION.
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <returns></returns>
+        public static Archivo GetDocumentoFirmado(int idVersion)
+        {
+            Archivo archivo = new Archivo();
+
+            SO_DocumentoFirmado serviceDocumentoFirmado = new SO_DocumentoFirmado();
+
+            IList informacionBD = serviceDocumentoFirmado.Get(idVersion);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type type = item.GetType();
+
+                    archivo.archivo = (byte[])type.GetProperty("ARCHIVO").GetValue(item, null);
+                    archivo.nombre = (string)type.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+                    archivo.ext = (string)type.GetProperty("EXT").GetValue(item, null);
+                    
+                }
+            }
+
+            return archivo;
+        }
+
+        /// <summary>
+        /// Método que inserta un registro en la tabla TBL_DOCUMENTO_FIRMADO.
+        /// </summary>
+        /// <param name="archivo"></param>
+        /// <param name="idVersion"></param>
+        /// <returns></returns>
+        public static int InsertDocumentoFirmado(Archivo archivo, int idVersion)
+        {
+            SO_DocumentoFirmado serviceDocumentoFirmado = new SO_DocumentoFirmado();
+
+            return serviceDocumentoFirmado.Insert(idVersion, archivo.archivo, archivo.nombre, archivo.ext);
+        }
         #endregion
     }
 }

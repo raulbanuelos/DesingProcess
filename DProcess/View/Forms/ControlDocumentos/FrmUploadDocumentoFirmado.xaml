@@ -4,29 +4,63 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Forms.ControlDocumentos"
-        mc:Ignorable="d"
+        mc:Ignorable="d" BorderBrush="Blue" BorderThickness="1"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:recursos="clr-namespace:View.Resources"
                       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="FrmUploadDocumentoFirmado" Height="300" Width="500">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="FrmUploadDocumentoFirmado" Height="500" Width="700">
     <Grid ShowGridLines="True" Margin="5">
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+            <!--Lista de Archivos-->
+            <DataTemplate x:Key="Lista">
+                <Border  Padding="6" BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}" Width="400">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70" ></ColumnDefinition>
+                            <ColumnDefinition >
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!--Columna1-->
+                        <Grid Grid.Column="1" Width="305">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="170"></ColumnDefinition>
+                                <ColumnDefinition Width="40"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="45"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontWeight="Bold" Text="{Binding Path=nombre}" TextWrapping="WrapWithOverflow"  Grid.Column="0" ></TextBlock>
+                            <TextBlock Text="{Binding Path=ext}" Grid.Column="1"  FontWeight="Bold" ></TextBlock>
+
+                            <Button  Grid.Column="2" Content="{materialDesign:PackIcon Eye}" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Ver Archivo" Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding Path=SelectedItem}"/>
+                        </Grid>
+                        <!--Columna0-->
+                        <Image Name="img_icono" Source="{Binding Path=ruta}" Grid.Column="0" HorizontalAlignment="Stretch" Width="45" VerticalAlignment="Stretch"></Image>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+
+        </Grid.Resources>
+        
         <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
             <RowDefinition Height="70"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0">
+        <TextBlock Text="Puede subir el archivo firmado escaneado  para que la administración del CIT pueda liberar su documento." Grid.Row="0"></TextBlock>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
             <ComboBox Grid.Column="0" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroDocumento}"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                              Height="50" Width="420"  Background="Transparent" BorderBrush="#89535353" FontSize="18" 
+                              Height="50" Width="500"  Background="Transparent" BorderBrush="#89535353" FontSize="18" 
                               HorizontalAlignment="Left"
                               ItemsSource="{Binding ListaNumeroDocumento}"
                               DisplayMemberPath="nombre"  
-                              SelectedItem="{Binding SelectedDocumento}" 
-                              IsEnabled="{Binding NombreEnabled}">
+                              SelectedItem="{Binding SelectedDocumento}">
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -35,8 +69,23 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
+
+            <Button  Grid.Row="1" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding _AdjuntarArchivo}" ToolTip="{x:Static recursos:StringResources.lblAdjuntarArchivo}">
+                <materialDesign:PackIcon Kind="Paperclip" Height="24" Width="24" />
+            </Button>
         </StackPanel>
-        
-        
+        <!--Lista de Archivos-->
+        <StackPanel Grid.Row="2" Margin="5,5,0,0">
+            <Label Content="{x:Static recursos:StringResources.lblVerArchivo}" FontWeight="Bold"></Label>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{x:Static recursos:StringResources.lblverarchivo2}" FontWeight="Bold" HorizontalAlignment="Left"></Label>
+                <Label Content="{materialDesign:PackIcon eye}" HorizontalAlignment="Left"></Label>
+                <Label Content=" ó " FontWeight="Bold"></Label>
+                <Label Content="{materialDesign:PackIcon Close}"></Label>
+            </StackPanel>
+
+            <ListBox  ItemsSource="{Binding ListaDocumentos}" ItemTemplate="{StaticResource Lista}" HorizontalAlignment="Left" BorderBrush="#FFB8B6B6" Background="Transparent" Foreground="#DD040404" SelectedItem="{Binding Path=SelectedItem}" Margin="5" />
+        </StackPanel>
+
     </Grid>
 </Controls:MetroWindow>

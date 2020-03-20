@@ -41,6 +41,7 @@ namespace View.Services.ViewModel
         public Usuario User;
         Archivo ArchivoTemporal;
         string codeValidation = string.Empty;
+        Archivo archivoFirmado;
 
         #endregion
 
@@ -1351,6 +1352,8 @@ namespace View.Services.ViewModel
                 ListaDocumentos.Add(objArchivo);
             }
 
+            archivoFirmado = DataManagerControlDocumentos.GetDocumentoFirmado(selectedDocumento.version.id_version);
+
             //establecemos el tipo de ventana para saber que opciones del menu se van a mostrar        
             VentanaProcedencia = "PendienteLiberar";
             //mandamos llamar el método que construye el menú
@@ -1373,6 +1376,14 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Commands
+
+        public ICommand DownLoadFileScanned
+        {
+            get
+            {
+                return new RelayCommand(o => downLoadFileScanned());
+            }
+        }
 
         /// <summary>
         /// Comando que valida usuarios seleccionados para notificar
@@ -1655,6 +1666,29 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
+
+        private async void downLoadFileScanned()
+        {
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+            if (archivoFirmado != null)
+            {
+                try
+                {
+                    //se asigna el nombre del archivo temporal, se concatena el nombre del archivo, la posicion de la lista y la extensión.
+                    string filename = GetPathTempFile(archivoFirmado);
+
+                    //Crea un archivo nuevo temporal, escribe en él los bytes extraídos de la BD.
+                    File.WriteAllBytes(filename, archivoFirmado.archivo);
+                    //Se inicializa el programa para visualizar el archivo.
+                    Process.Start(filename);
+                }
+                catch (Exception)
+                {
+                    await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);
+                }
+            }
+        }
 
         private int validarArchivo(out string mensaje)
         {
@@ -6349,6 +6383,14 @@ namespace View.Services.ViewModel
                             Tag = StringResources.lblPendienteCorregir,
                         }
                     );
+
+                    this.MenuItems.Add(
+                        new HamburgerMenuIconItem() {
+                            Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Scanner},
+                            Label = "Descargar documento firmado",
+                            Command = DownLoadFileScanned,
+                            Tag = "Descargar documento firmado"
+                        });
                     
                     break;
 

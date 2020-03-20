@@ -92,6 +92,7 @@
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Bloqueo.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Departamento.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Documento.cs" />
+    <Compile Include="ServiceObjects\ControlDocumentos\SO_DocumentoFirmado.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_Documento_Eliminado.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_EstatusVersion.cs" />
     <Compile Include="ServiceObjects\ControlDocumentos\SO_GRUPOS.cs" />

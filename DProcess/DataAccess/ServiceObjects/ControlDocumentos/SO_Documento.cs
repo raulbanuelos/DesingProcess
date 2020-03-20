@@ -925,7 +925,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      d.NOMBRE,
                                      NOMBRE_USUARIO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
                                      t.TIPO_DOCUMENTO,
-                                     v.No_VERSION
+                                     v.No_VERSION,
+                                     v.ID_VERSION
                                  }).ToList();
 
                     //Regresa la lista

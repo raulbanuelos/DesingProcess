@@ -281,6 +281,14 @@ namespace View.Services.ViewModel
 
         #region Commands
 
+        public ICommand UploadFileScanned
+        {
+            get
+            {
+                return new RelayCommand(o => uploadFileScanned());
+            }
+        }
+
         public ICommand LiberarQR
         {
             get
@@ -545,6 +553,14 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
+
+        private void uploadFileScanned()
+        {
+            DocumentoFirmadoViewModel context = new DocumentoFirmadoViewModel(usuario);
+            FrmUploadDocumentoFirmado frmUploadDocumentoFirmado = new FrmUploadDocumentoFirmado();
+            frmUploadDocumentoFirmado.DataContext = context;
+            frmUploadDocumentoFirmado.ShowDialog();
+        }
 
         private void liberarQR()
         {
@@ -1325,6 +1341,15 @@ namespace View.Services.ViewModel
                         Command = LiberarQR,
                         Tag = "Liberar por QR"
                     });
+
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Scanner},
+                        Label = "Subir archivo escaneado",
+                        Command = UploadFileScanned,
+                        Tag = "Subir archivo escaneado"
+                    });
             }
             else
             {
@@ -1399,6 +1424,15 @@ namespace View.Services.ViewModel
 
                     }
                 );
+
+                this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Scanner },
+                        Label = "Subir archivo escaneado",
+                        Command = UploadFileScanned,
+                        Tag = "Subir archivo escaneado"
+                    });
             }
 
             // Ver mis suscripciones
