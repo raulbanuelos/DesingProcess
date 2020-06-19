@@ -18,6 +18,8 @@ namespace DataAccess.ServiceObjects.Usuario
         private string SP_LA_GET_TOTAL_LECCIONES_MES_ACTUAL = "SP_LA_GET_TOTAL_LECCIONES_MES_ACTUAL";
         private string SP_LA_GET_CANTIDAD_LECCIONES_ULTIMOS_MESES = "SP_LA_GET_CANTIDAD_LECCIONES_ULTIMOS_MESES";
         private string SP_CIT_GET_NUMERO_LECCIONES_APRENDIDAS_BY_USUARIO = "SP_CIT_GET_NUMERO_LECCIONES_APRENDIDAS_BY_USUARIO";
+        private string SP_LA_GET_HISTORIAL_COMPONENTE = "SP_LA_GET_HISTORIAL_COMPONENTE";
+
         #endregion
 
         #region Métodos
@@ -49,6 +51,33 @@ namespace DataAccess.ServiceObjects.Usuario
             catch (Exception)
             {
                 //si existe error retornamos nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene el historico de un componente.
+        /// </summary>
+        /// <param name="componente"></param>
+        /// <returns></returns>
+        public DataSet GetHistorialComponente(string componente)
+        {
+            try
+            {
+                DataSet datos = new DataSet();
+
+                Desing_SQL conexion = new Desing_SQL();
+
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+                //se agregan el nombre y el objeto de los parámetros.
+                parametros.Add("componente", componente);
+
+                datos = conexion.EjecutarStoredProcedure(SP_LA_GET_HISTORIAL_COMPONENTE, parametros);
+
+                return datos;
+            }
+            catch (Exception)
+            {
                 return null;
             }
         }
@@ -349,7 +378,7 @@ namespace DataAccess.ServiceObjects.Usuario
 
                 Desing_SQL conexion = new Desing_SQL();
                 Dictionary<string, object> parametros = new Dictionary<string, object>();
-
+                
                 Lista = conexion.EjecutarStoredProcedure(SP_LA_GET_TOTAL_LECCIONES_MES_ACTUAL, parametros);
 
                 return Lista;

@@ -34,8 +34,8 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>9</ApplicationRevision>
-    <ApplicationVersion>4.0.2.%2a</ApplicationVersion>
+    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationVersion>4.4.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -547,6 +547,9 @@
     </Compile>
     <Compile Include="Forms\Tooling\ControlCoilCG.xaml.cs">
       <DependentUpon>ControlCoilCG.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tooling\ControlCoilEntrancGuide.xaml.cs">
+      <DependentUpon>ControlCoilEntrancGuide.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tooling\ControlCoilFR.xaml.cs">
       <DependentUpon>ControlCoilFR.xaml</DependentUpon>
@@ -1663,6 +1666,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Tooling\ControlCoilCG.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tooling\ControlCoilEntrancGuide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

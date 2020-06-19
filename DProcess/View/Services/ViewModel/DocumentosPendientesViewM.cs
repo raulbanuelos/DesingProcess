@@ -206,6 +206,7 @@ namespace View.Services.ViewModel
                 ListaDocumentosValidar = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario, "");
 
                 _titulo = StringResources.msgDocumentosCorregir;
+
             }
             //Si es estatus aprobado pendiente por liberar
             else if (status.Contains("aprobados"))

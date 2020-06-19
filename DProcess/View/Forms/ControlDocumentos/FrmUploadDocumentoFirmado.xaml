@@ -9,8 +9,8 @@
                       xmlns:recursos="clr-namespace:View.Resources"
                       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Title="FrmUploadDocumentoFirmado" Height="500" Width="700">
-    <Grid ShowGridLines="True" Margin="5">
+        Title="FrmUploadDocumentoFirmado" Height="500" Width="900">
+    <Grid ShowGridLines="False" Margin="5">
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
             <!--Lista de Archivos-->
@@ -45,14 +45,19 @@
         </Grid.Resources>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="70"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Puede subir el archivo firmado escaneado  para que la administración del CIT pueda liberar su documento." Grid.Row="0"></TextBlock>
+        <TextBlock Text="Puede subir el archivo escaneado firmado  para que la administración del CIT pueda liberar su documento." 
+                   Grid.Row="0"
+                   FontSize="16"
+                   FontWeight="Bold">
+            
+        </TextBlock>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <ComboBox Grid.Column="0" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroDocumento}"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}"

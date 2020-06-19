@@ -2802,6 +2802,11 @@ namespace Model.ControlDocumentos
                     Lista.Add(obj);
                 }
             }
+
+            //Iteramos la lista para obtener la informacion de si tiene archivo firmado de cada documento 
+            foreach (var item in Lista)
+                item.IsSignedFile = GetDocumentoFirmado(item.version.id_version).IsSignedFile;
+
             //Retornamos la lista
             return Lista;
         }
@@ -3876,6 +3881,44 @@ namespace Model.ControlDocumentos
                 }
             }
             return ListaLecciones;
+        }
+
+        /// <summary>
+        /// Método que obtiene el historial de un componente de lecciones aprendidas.
+        /// </summary>
+        /// <param name="componente"></param>
+        /// <returns></returns>
+        public static List<LeccionesAprendidas> GetHistorialComponenteLeccionesAprendidas(string componente)
+        {
+            SO_Lecciones serviceLeccion = new SO_Lecciones();
+
+            DataSet informacionBD = serviceLeccion.GetHistorialComponente(componente);
+
+            List<LeccionesAprendidas> listaResultante = new List<LeccionesAprendidas>();
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Tables.Count > 0  && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        
+                        LeccionesAprendidas ObjLec = new LeccionesAprendidas();
+
+                        ObjLec.NombreCompleto = Convert.ToString(item["NOMBRE"]);
+                        ObjLec.COMPONENTE = Convert.ToString(item["COMPONENTE"]);
+                        ObjLec.DESCRIPCION_PROBLEMA = Convert.ToString(item["DESCRIPCION_PROBLEMA"]);
+                        ObjLec.FECHA_ULTIMO_CAMBIO = Convert.ToDateTime(item["FECHA_ULTIMO_CAMBIO"]);
+                        ObjLec.FECHA_ACTUALIZACION = Convert.ToDateTime(item["FECHA_ACTUALIZACION"]);
+                        ObjLec.REPORTADO_POR = Convert.ToString(item["REPORTADO_POR"]);
+                        ObjLec.SOLICITUD_DE_TRABAJO = Convert.ToString(item["SOLICITUD_DE_TRABAJO_INGENIERIA"]);
+
+                        listaResultante.Add(ObjLec);
+                    }
+                }
+            }
+
+            return listaResultante;
         }
 
         /// <summary>
@@ -5139,7 +5182,7 @@ namespace Model.ControlDocumentos
                 foreach (var item in informacionBD)
                 {
                     Type type = item.GetType();
-
+                    archivo.IsSignedFile = true;
                     archivo.archivo = (byte[])type.GetProperty("ARCHIVO").GetValue(item, null);
                     archivo.nombre = (string)type.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
                     archivo.ext = (string)type.GetProperty("EXT").GetValue(item, null);

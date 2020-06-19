@@ -643,6 +643,9 @@
     <Compile Include="ServiceObjects\Tooling\TBL_COIL_CENTER_GUIDE.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_COIL_ENTRANCE_GUIDE.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_COIL_FEED_ROLLER.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>

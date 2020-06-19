@@ -25,6 +25,7 @@ namespace DataAccess.ServiceObjects.Tooling
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<MaestroHerramentales> MaestroHerramentales { get; set; }
         public virtual DbSet<BarrelLapAnillos_> BarrelLapAnillos_ { get; set; }
         public virtual DbSet<BushingBatesBore_> BushingBatesBore_ { get; set; }
         public virtual DbSet<BushingCromo_> BushingCromo_ { get; set; }
@@ -44,26 +45,25 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<CollarsCromo_> CollarsCromo_ { get; set; }
         public virtual DbSet<CollarSpacer> CollarSpacer { get; set; }
         public virtual DbSet<CriDiaGuillBK> CriDiaGuillBK { get; set; }
-        public virtual DbSet<CriGillBK> CriGillBK { get; set; }
         public virtual DbSet<CriteriosAnillos> CriteriosAnillos { get; set; }
         public virtual DbSet<CutterCamTurn> CutterCamTurn { get; set; }
         public virtual DbSet<CutterSpacerSplitter> CutterSpacerSplitter { get; set; }
         public virtual DbSet<CutterSplitter> CutterSplitter { get; set; }
-        public virtual DbSet<DrillEngrave_> DrillEngrave_ { get; set; }
-        public virtual DbSet<FrontRearCollarAnillos_> FrontRearCollarAnillos_ { get; set; }
-        public virtual DbSet<DiscoDiskus_> DiscoDiskus_ { get; set; }
-        public virtual DbSet<CriGPBK> CriGPBK { get; set; }
+        public virtual DbSet<CriGillBK> CriGillBK { get; set; }
         public virtual DbSet<cutter_angle> cutter_angle { get; set; }
+        public virtual DbSet<DrillEngrave_> DrillEngrave_ { get; set; }
         public virtual DbSet<GuideBarFinGrind> GuideBarFinGrind { get; set; }
         public virtual DbSet<GuideBarFirstRoughGrind> GuideBarFirstRoughGrind { get; set; }
         public virtual DbSet<GuideBarSecondRoughGrind> GuideBarSecondRoughGrind { get; set; }
         public virtual DbSet<GuidePlateBK_> GuidePlateBK_ { get; set; }
         public virtual DbSet<GuillotinaBK_> GuillotinaBK_ { get; set; }
         public virtual DbSet<GuillotinaEngrave_> GuillotinaEngrave_ { get; set; }
+        public virtual DbSet<DiscoDiskus_> DiscoDiskus_ { get; set; }
+        public virtual DbSet<FrontRearCollarAnillos_> FrontRearCollarAnillos_ { get; set; }
         public virtual DbSet<GuillotinaSIM_> GuillotinaSIM_ { get; set; }
         public virtual DbSet<LoadingGuideAnillos_> LoadingGuideAnillos_ { get; set; }
-        public virtual DbSet<MaestroHerramentales> MaestroHerramentales { get; set; }
         public virtual DbSet<PLANO_HERRAMENTAL> PLANO_HERRAMENTAL { get; set; }
+        public virtual DbSet<CriGPBK> CriGPBK { get; set; }
         public virtual DbSet<ProtectorInfMoly_> ProtectorInfMoly_ { get; set; }
         public virtual DbSet<ProtectorSupMoly_> ProtectorSupMoly_ { get; set; }
         public virtual DbSet<PusherSIM_> PusherSIM_ { get; set; }
@@ -82,9 +82,9 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<TBL_COIL_CENTER_GUIDE> TBL_COIL_CENTER_GUIDE { get; set; }
         public virtual DbSet<TBL_COIL_FEED_ROLLER> TBL_COIL_FEED_ROLLER { get; set; }
         public virtual DbSet<TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS> TBL_CONF_DIMA_COLLAR_LAPEADO_SEGMENTOS { get; set; }
+        public virtual DbSet<TBL_DISCOS_THOMPSON_SEGMENTOS> TBL_DISCOS_THOMPSON_SEGMENTOS { get; set; }
         public virtual DbSet<TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS> TBL_CONF_PLUS_COLLAR_LAPEADO_SEGMENTOS { get; set; }
         public virtual DbSet<TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS> TBL_CONF_STD_COLLAR_LAPEADO_SEGMENTOS { get; set; }
-        public virtual DbSet<TBL_DISCOS_THOMPSON_SEGMENTOS> TBL_DISCOS_THOMPSON_SEGMENTOS { get; set; }
         public virtual DbSet<TBL_EXIT_GUIDE> TBL_EXIT_GUIDE { get; set; }
         public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_1PIECE> TBL_EXTERNAL_GUIDE_ROLLER_1PIECE { get; set; }
         public virtual DbSet<TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1> TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 { get; set; }
@@ -101,5 +101,6 @@ namespace DataAccess.ServiceObjects.Tooling
         public virtual DbSet<TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS> TBL_TUBO_ENROLLADOR_THOMPSON_SEGMENTOS { get; set; }
         public virtual DbSet<UretanoSplitter> UretanoSplitter { get; set; }
         public virtual DbSet<WorkCam> WorkCam { get; set; }
+        public virtual DbSet<TBL_COIL_ENTRANCE_GUIDE> TBL_COIL_ENTRANCE_GUIDE { get; set; }
     }
 }

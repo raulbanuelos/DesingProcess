@@ -256,9 +256,43 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irClasificacionH());
             }
         }
+
+        public ICommand IrAddDrawing
+        {
+            get
+            {
+                return new RelayCommand(o => irAddDrawing());
+            }
+        }
         #endregion
 
         #region Methods
+
+        private async void irAddDrawing()
+        {
+            //Obtenemos la ventana actual
+            var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+            //Formulario para ingresar el número de copias, 
+            string noPlano = await window.ShowInputAsync("Ingresa el dato requerido", "Por favor ingresa el número de plano:", null);
+
+            if (noPlano != null)
+            {
+                int r = DataManager.InsertPlano(noPlano, string.Empty, usuario.NombreUsuario);
+
+                if (r>0)
+                {
+                    ListaPlano = DataManager.GetPlano_Herramental();
+                    await dialog.SendMessage(StringResources.ttlAtencion, "El plano fué guardado con éxito!");
+                }
+                    
+                else
+                    await dialog.SendMessage(StringResources.ttlAtencion, "Oooppss!! ocurió un error, por favor intenta de nuevo.");
+            }
+            else
+                await dialog.SendMessage(StringResources.ttlAlerta, "Introduce un número de plano válido.");
+
+        }
 
         /// <summary>
         /// Método para guardar un maestro herramental
@@ -497,7 +531,7 @@ namespace View.Services.ViewModel
             obj.fecha_cambio = DateTime.Now.ToShortDateString();
             obj.usuario_cambio = encriptar.desencript(usuario.NombreUsuario);
             obj.id_clasificacion = SelectedClasificacion.IdClasificacion;
-            obj.id_plano = 0;
+            obj.id_plano = IdPlano;
 
             //Ejecutamos el método para actualizar el registro
             return DataManager.UpdateMaestroHerramental(obj);

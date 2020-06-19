@@ -141,6 +141,8 @@ namespace View.Services.ViewModel
 
                     //Ejecutamos el método para cerrar el mensaje de espera.
                     await AsyncProgress.CloseAsync();
+
+                    await dialog.SendMessage("Genial!!!", "Tu documento ya fué enviado al administrador de CIT para su liberación.\nSi todo esta correcto recibiras un correo confirmando su liberación,\n de lo contrario recibiras un correo informandote el estátus de tu documento.");
                 }
                 else
                 {

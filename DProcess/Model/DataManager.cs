@@ -7725,8 +7725,8 @@ namespace Model
                     obj.id_plano = 0; //(int)tipo.GetProperty("idPlano").GetValue(item, null);
                     obj.activo = (bool)tipo.GetProperty("Activo").GetValue(item, null);
                     obj.objetoXML = (string)tipo.GetProperty("ObjetoXML").GetValue(item, null);
-                    //obj.id_plano = Convert.ToInt32(tipo.GetProperty("idPlano").GetValue(item, null));
-                    obj.id_plano = 1;
+                    obj.id_plano = Convert.ToInt32(tipo.GetProperty("idPlano").GetValue(item, null));
+                    //obj.id_plano = 1;
                 }
             }
             //Retornamos el objeto
@@ -7855,6 +7855,7 @@ namespace Model
 
         #region Coil
 
+        #region FEED ROLLER
         /// <summary>
         /// Método que inserta un registro en la tabla de tbl_coil_feed_roller
         /// </summary>
@@ -8140,8 +8141,10 @@ namespace Model
                 }
             }
             return herramental;
-        }
+        } 
+        #endregion
 
+        #region CENTER GUIDE
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_COIL_CENTER_GUIDE
         /// </summary>
@@ -8187,7 +8190,7 @@ namespace Model
         /// <param name="widthAlambre">Width de la materia prima seleccionada. (Milímetros)</param>
         /// <param name="radial">Thickness de la materia prima seleccionada. (Milímetros)</param>
         /// <returns></returns>
-        public static DataTable GetCOIL_CENTER_GUIDE(double widthAlambre, double radial, out Herramental idealCenterGuide, bool banCenter, bool banEntrance)
+        public static DataTable GetCOIL_CENTER_GUIDE(double widthAlambre, double radial, out Herramental idealCenterGuide)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -8197,7 +8200,7 @@ namespace Model
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
-            IList informacionBD = ServicioCoil.GetCOIL_CENTER_GUIDE(widthAlambre, radial, banCenter,banEntrance);
+            IList informacionBD = ServicioCoil.GetCOIL_CENTER_GUIDE(widthAlambre, radial);
             //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
@@ -8253,14 +8256,10 @@ namespace Model
             if (!idealCenterGuide.Encontrado)
                 idealCenterGuide.DescripcionRuta = "CENTER GUIDE " + "DETALLE DESCONOCIDO";
 
-            idealCenterGuide.clasificacionHerramental.CantidadUtilizar = banEntrance ? 1 : idealCenterGuide.clasificacionHerramental.CantidadUtilizar;
+            idealCenterGuide.clasificacionHerramental.CantidadUtilizar = idealCenterGuide.clasificacionHerramental.CantidadUtilizar;
 
-            if (idealCenterGuide.DescripcionGeneral == "GUIA CENTRAL Y ENTRADA SIN CODIFICAR")
-                idealCenterGuide.Plano = banCenter && !banEntrance ? "2487- 011- 00- 3" : "2487- 013- 00- 3";
-
-            if (idealCenterGuide.DescripcionGeneral == "GUIA CENTRAL Y ENTRADA SIN CODIFICAR")
-                idealCenterGuide.DescripcionGeneral = banCenter && !banEntrance ? "GUIA CENTRAL SIN CODIFICAR" : "GUIA DE ENTRADA SIN CODIFICAR";
-
+            if (idealCenterGuide.DescripcionGeneral == "GUIA CENTRAL SIN CODIFICAR")
+                idealCenterGuide.Plano =  "2487- 011- 00- 3";
             
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Center_Guide");
@@ -8271,7 +8270,7 @@ namespace Model
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
-        public static DataTable GetALLCOIL_CENTER_GUIDE(string texto, bool banCenter, bool banEntrance)
+        public static DataTable GetALLCOIL_CENTER_GUIDE(string texto)
         {
             SO_COIL ServicioCoil = new SO_COIL();
 
@@ -8279,7 +8278,7 @@ namespace Model
             ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
 
             //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
-            IList informacionBD = ServicioCoil.GetAllCOIL_CENTER_GUIDE(texto, banCenter,banEntrance);
+            IList informacionBD = ServicioCoil.GetAllCOIL_CENTER_GUIDE(texto);
             //Si la lista es diferente de nulo
             if (informacionBD != null)
             {
@@ -8433,6 +8432,297 @@ namespace Model
             }
             return herramental;
         }
+        #endregion
+
+        #region ENTRANCE GUIDE
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_COIL_ENTRANCE_GUIDE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int SetCOIL_ENTRANCE_GUIDE(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.SetCOIL_ENTRANCE_GUIDE(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_COIL_ENTRANCE_GUIDE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int UpdateCOIL_ENTRANCE_GUIDE(Coil obj)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.UpdateCOIL_ENTRANCE_GUIDE(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_COIL_ENTRANCE_GUIDE
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int DeleteCOIL_ENTRANCE_GUIDE(int id)
+        {
+            //Inicializamos los servicios de coil 
+            SO_COIL ServiceCoil = new SO_COIL();
+            //Eejcutamos el método y retornamos el resultado
+            return ServiceCoil.DeleteCOIL_ENTRANCE_GUIDE(id);
+        }
+
+        /// <summary>
+        /// Obtiene las propiedades de un registro de la tabla COIL_ENTRANCE_GUIDE, de acuerdo al width y radial. banCenter = true si se requiere los herramentales Center Guide, banEntrance = true Si se requiere el Herramental Entrance Guide
+        /// </summary>
+        /// <param name="widthAlambre">Width de la materia prima seleccionada. (Milímetros)</param>
+        /// <param name="radial">Thickness de la materia prima seleccionada. (Milímetros)</param>
+        /// <returns></returns>
+        public static DataTable GetCOIL_ENTRANCE_GUIDE(double widthAlambre, double radial, out Herramental idealCenterGuide)
+        {
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            idealCenterGuide = new Herramental { Encontrado = false };
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCoil.GetCOIL_ENTRANCE_GUIDE(widthAlambre, radial);
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //Iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    idealCenterGuide = new Herramental();
+                    //Convertimos la información a tipo Herramental.
+                    idealCenterGuide = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+
+                    //Code
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    propCode.Nombre = "Detalle";
+                    idealCenterGuide.PropiedadesCadena.Add(propCode);
+
+                    //Dimesiones
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = "Milimeters (mm)";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    propiedadDimA.Nombre = "DIMA";
+                    idealCenterGuide.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    propiedadDimB.Nombre = "DIMB";
+                    idealCenterGuide.Propiedades.Add(propiedadDimB);
+
+                    Propiedad propiedadDimC = new Propiedad();
+                    propiedadDimC.Unidad = "Milimeters (mm)";
+                    propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.DescripcionCorta = "Dim C";
+                    propiedadDimC.Nombre = "DIMC";
+                    idealCenterGuide.Propiedades.Add(propiedadDimC);
+
+                    idealCenterGuide.Encontrado = true;
+
+                    //Mapeamos el valor a DescipcionRuta.
+                    idealCenterGuide.DescripcionRuta = "COIL ENTRNACE GUIDE " + propCode.Valor;
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(idealCenterGuide);
+                }
+            }
+
+            if (!idealCenterGuide.Encontrado)
+                idealCenterGuide.DescripcionRuta = "ENTRANCE GUIDE " + "DETALLE DESCONOCIDO";
+
+            idealCenterGuide.clasificacionHerramental.CantidadUtilizar = idealCenterGuide.clasificacionHerramental.CantidadUtilizar;
+
+            if (idealCenterGuide.DescripcionGeneral == "GUIA DE ENTRADA SIN CODIFICAR")
+                idealCenterGuide.Plano = "2487- 013- 00- 3";
+            
+            //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Center_Guide");
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros de la tabla  COIL_ENTRANCE_GUIDE de acuerdo al texto de búsqueda. banCenter = true si se requiere los herramentales Center Guide, banEntrance = true Si se requiere el Herramental Entrance Guide
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public static DataTable GetALLCOIL_ENTRANCE_GUIDE(string texto)
+        {
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            //Declaramos una ObservableCollection la cual almacenará la información de los herramentales.
+            ObservableCollection<Herramental> ListaResultante = new ObservableCollection<Herramental>();
+
+            //Ejecutamos el método que busca los herramentales a partir de un maxA y minB. El resultado lo guardamos en una lista anónima.
+            IList informacionBD = ServicioCoil.GetAllCOIL_ENTRANCE_GUIDE(texto);
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //Iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //obtenemos el tipo
+                    Type tipo = item.GetType();
+
+                    Herramental herramental = new Herramental();
+
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                    //Code
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propCode);
+
+                    //Dimesiones
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = "Milimeters (mm)";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    Propiedad propiedadDimC = new Propiedad();
+                    propiedadDimC.Unidad = "Milimeters (mm)";
+                    propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.DescripcionCorta = "Dim C";
+                    herramental.Propiedades.Add(propiedadDimC);
+
+                    //Tamaño
+                    Propiedad propWMin = new Propiedad();
+                    propWMin.Unidad = "Milimeters (mm)";
+                    propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.DescripcionCorta = "Wire width min";
+                    herramental.Propiedades.Add(propWMin);
+
+                    Propiedad propWMax = new Propiedad();
+                    propWMax.Unidad = "Milimeters (mm)";
+                    propWMax.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MAX").GetValue(item, null);
+                    propWMax.DescripcionCorta = "Wire width max";
+                    herramental.Propiedades.Add(propWMax);
+
+                    Propiedad propR_Min = new Propiedad();
+                    propR_Min.Unidad = "Milimeters (mm)";
+                    propR_Min.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MIN").GetValue(item, null);
+                    propR_Min.DescripcionCorta = "Radial wire min";
+                    herramental.Propiedades.Add(propR_Min);
+
+                    Propiedad propR_MAX = new Propiedad();
+                    propR_MAX.Unidad = "Milimeters (mm)";
+                    propR_MAX.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MAX").GetValue(item, null);
+                    propR_MAX.DescripcionCorta = "Radial wire max";
+                    herramental.Propiedades.Add(propR_MAX);
+
+                    //Agregamos el objeto a la lista resultante.
+                    ListaResultante.Add(herramental);
+                }
+            }
+            ///Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
+            return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Center_Guide");
+        }
+
+        /// <summary>
+        /// Método que obtiene la información de Coil Center Guide.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public static Herramental GetInfoCOIL_Entrance_Guide(string codigo)
+        {
+
+            Herramental herramental = new Herramental();
+
+            SO_COIL ServicioCoil = new SO_COIL();
+
+            //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
+            IList informacionBD = ServicioCoil.GetInfoCoil_Entrance_G(codigo);
+
+            //Si la lista es diferente de nulo
+            if (informacionBD != null)
+            {
+                //iteramos la lista
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo
+                    Type tipo = item.GetType();
+                    //Mapeamos los elementos necesarios en cada una de las propiedades del objeto.
+                    herramental.Codigo = (string)tipo.GetProperty("CODIGO").GetValue(item, null);
+                    herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
+                    herramental.idHerramental = (int)tipo.GetProperty("ID_COIL_ENTRANCE_GUIDE").GetValue(item, null);
+
+                    //Code
+                    PropiedadCadena propCode = new PropiedadCadena();
+                    propCode.DescripcionCorta = "Detalle";
+                    propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
+                    herramental.PropiedadesCadena.Add(propCode);
+
+                    //Dimesiones
+                    Propiedad propiedadDimA = new Propiedad();
+                    propiedadDimA.Unidad = "Milimeters (mm)";
+                    propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
+                    propiedadDimA.DescripcionCorta = "Dim A";
+                    herramental.Propiedades.Add(propiedadDimA);
+
+                    Propiedad propiedadDimB = new Propiedad();
+                    propiedadDimB.Unidad = "Milimeters (mm)";
+                    propiedadDimB.Valor = (double)tipo.GetProperty("DIMB").GetValue(item, null);
+                    propiedadDimB.DescripcionCorta = "Dim B";
+                    herramental.Propiedades.Add(propiedadDimB);
+
+                    Propiedad propiedadDimC = new Propiedad();
+                    propiedadDimC.Unidad = "Milimeters (mm)";
+                    propiedadDimC.Valor = (double)tipo.GetProperty("DIMC").GetValue(item, null);
+                    propiedadDimC.DescripcionCorta = "Dim C";
+                    herramental.Propiedades.Add(propiedadDimC);
+
+                    //Tamaño
+                    Propiedad propWMin = new Propiedad();
+                    propWMin.Unidad = "Milimeters (mm)";
+                    propWMin.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MIN").GetValue(item, null);
+                    propWMin.DescripcionCorta = "Wire width min";
+                    herramental.Propiedades.Add(propWMin);
+
+                    Propiedad propWMax = new Propiedad();
+                    propWMax.Unidad = "Milimeters (mm)";
+                    propWMax.Valor = (double)tipo.GetProperty("WIRE_WIDTH_MAX").GetValue(item, null);
+                    propWMax.DescripcionCorta = "Wire width max";
+                    herramental.Propiedades.Add(propWMax);
+
+                    Propiedad propR_Min = new Propiedad();
+                    propR_Min.Unidad = "Milimeters (mm)";
+                    propR_Min.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MIN").GetValue(item, null);
+                    propR_Min.DescripcionCorta = "Radial wire min";
+                    herramental.Propiedades.Add(propR_Min);
+
+                    Propiedad propR_MAX = new Propiedad();
+                    propR_MAX.Unidad = "Milimeters (mm)";
+                    propR_MAX.Valor = (double)tipo.GetProperty("RADIAL_WIRE_MAX").GetValue(item, null);
+                    propR_MAX.DescripcionCorta = "Radial wire max";
+                    herramental.Propiedades.Add(propR_MAX);
+                }
+            }
+            return herramental;
+        }
+        #endregion
 
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXIT_GUIDE
@@ -10004,6 +10294,19 @@ namespace Model
             return ListaResultante;
         }
 
+        /// <summary>
+        /// Método que inserta un registro en el plano.
+        /// </summary>
+        /// <param name="noPlano"></param>
+        /// <param name="pathFile"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static int InsertPlano(string noPlano, string pathFile, string user)
+        {
+            SO_Plano servicePlano = new SO_Plano();
+
+            return servicePlano.insert(noPlano, pathFile, user);
+        }
         #endregion
 
         #region Nissei Rectificados Finos

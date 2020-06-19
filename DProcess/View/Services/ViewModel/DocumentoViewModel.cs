@@ -62,6 +62,7 @@ namespace View.Services.ViewModel
 
         public bool IsSelectedGrupos;
         public bool IsSelectedUsuarios;
+        public Archivo SignedFile;
 
         private static int id_recurso;
 
@@ -1187,6 +1188,9 @@ namespace View.Services.ViewModel
             id_documento = selectedDocumento.id_documento;
             idVersion = selectedDocumento.version.id_version;
             id_dep = selectedDocumento.id_dep;
+
+            //Obtenemos si el usuario adjunto el documento firmado.
+            SignedFile = DataManagerControlDocumentos.GetDocumentoFirmado(idVersion);
 
             //Obtenemos el tipo de documento
             id_tipo = DataManagerControlDocumentos.GetTipoDocumento(id_documento);
@@ -4062,7 +4066,8 @@ namespace View.Services.ViewModel
             else
             {
                 //Formulario para ingresar el número de copias, 
-                string num_copias = await window.ShowInputAsync(StringResources.msgIngNumeroCopias, StringResources.msgNumeroCopias, null);
+                //string num_copias = await window.ShowInputAsync(StringResources.msgIngNumeroCopias, StringResources.msgNumeroCopias, null);
+                string num_copias = "0";
                 //Comprueba que el número de copias sea diferente de nulo y sólo contenga números.
                 if (num_copias != null)
                 {
@@ -4118,9 +4123,14 @@ namespace View.Services.ViewModel
                                         {
                                             //int r = InsertDocumentoSealed();
                                             //Se modifica esta línea debido a que cambiaron la contraseña del servidor del frames.
-                                            int r = 1;
-                                            string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
+                                            //int r = 1;
+                                            //string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
+                                            string confirmacionFrames = StringResources.msgFramesIncorrecto;
                                             string confirmacionCorreo = string.Empty;
+
+                                            //Se verifica si el dueño de documento adjunto al archivo firmado, si lo adjunto lo guardamos en la ruta específica.
+                                            if (SignedFile.IsSignedFile)
+                                                SaveSignedFile();
 
                                             //Verificamos si son documentos Procedimientos y Formatos
                                             if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
@@ -4243,12 +4253,18 @@ namespace View.Services.ViewModel
                                         {
                                             //int r = UpdateDocumentoSealed();
                                             //Se modifica esta línea debido a que cambiaron la contraseña del servidor del frames.
-                                            int r = 1;
+                                            //int r = 1;
+
+                                            //Se verifica si el dueño de documento adjunto al archivo firmado, si lo adjunto lo guardamos en la ruta específica.
+                                            if (SignedFile.IsSignedFile)
+                                                SaveSignedFile();
 
                                             //Si los registros fueron guardados exitosamente el archivo que queda como obsoleto se pasa a la carpeta de respaldo y se elimina de la base de datos
                                             _LiberarEspacioBD(last_id);
 
-                                            string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
+                                            //string confirmacionFrames = r > 0 ? StringResources.msgFramesExito : StringResources.msgFramesIncorrecto;
+                                            string confirmacionFrames = StringResources.msgFramesIncorrecto;
+
                                             string confirmacionCorreo = string.Empty;
 
                                             if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
@@ -5327,6 +5343,65 @@ namespace View.Services.ViewModel
                     break;
             }
             return r;
+        }
+
+
+        private void SaveSignedFile()
+        {
+            string path = @"\\agufileserv2\ingenieria\resprutas\NUEVO SOFTWARE RUTAS\DocumentosFirmados";
+            string folder = string.Empty;
+            switch (id_tipo) {
+                case 2:
+                    folder = @"\HOE\";
+                    break;
+                case 1002:
+                    folder = @"\HII\";
+                    break;
+                case 1003:
+                    folder = @"\PROCEDIMIENTO_OHSAS\";
+                    break;
+                case 1004:
+                    folder = @"\AYUDA_VISUAL\";
+                    break;
+                case 1005:
+                    folder = @"\PROCEDIMIENTO_TS_46949\";
+                    break;
+                case 1006:
+                    folder = @"\PROCEDIMIENTO_ISO_14001\";
+                    break;
+                case 1007:
+                    folder = @"\HMTE\";
+                    break;
+                case 1010:
+                    folder = @"\HVA\";
+                    break;
+                case 1011:
+                    folder = @"\MIE\";
+                    break;
+                case 1012:
+                    folder = @"\FORMATO_TS46949\";
+                    break;
+                case 1013:
+                    folder = @"\FORMATO_OHSAS\";
+                    break;
+                case 1014:
+                    folder = @"\FORMATO_ISO_140001\";
+                    break;
+                case 1015:
+                    folder = @"\JES\";
+                    break;
+            }
+
+            path = path + folder + nombre + @"\";
+
+            if (!Directory.Exists(path))
+                System.IO.Directory.CreateDirectory(path);
+
+
+            path = path + nombre + "_" + version + SignedFile.ext;
+
+            File.WriteAllBytes(path, SignedFile.archivo);
+
         }
 
         /// <summary>

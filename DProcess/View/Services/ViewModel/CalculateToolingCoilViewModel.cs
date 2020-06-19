@@ -85,11 +85,11 @@ namespace View.Services.ViewModel
                 ListaHerramental.Add(herrFeed);
 
                 Herramental herrCenterGuide = new Herramental();
-                DataManager.GetCOIL_CENTER_GUIDE(WidthAlambre, ThicknessAlambre, out herrCenterGuide,true,false);
+                DataManager.GetCOIL_CENTER_GUIDE(WidthAlambre, ThicknessAlambre, out herrCenterGuide);
                 ListaHerramental.Add(herrCenterGuide);
 
                 Herramental herrEntranceGuide = new Herramental();
-                DataManager.GetCOIL_CENTER_GUIDE(WidthAlambre, ThicknessAlambre, out herrEntranceGuide, false, true);
+                DataManager.GetCOIL_ENTRANCE_GUIDE(WidthAlambre, ThicknessAlambre, out herrEntranceGuide);
                 ListaHerramental.Add(herrEntranceGuide);
 
                 Herramental idealExitGuide = new Herramental();

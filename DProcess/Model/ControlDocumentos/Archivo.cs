@@ -19,10 +19,14 @@ namespace Model.ControlDocumentos
         public string rutaIcono { get; set; }
         public int numero { get; set; }
         public DateTime fecha_elimino { get; set; }
+        public bool IsSignedFile { get; set; }
         #endregion
 
         #region Constructor
-
+        public Archivo()
+        {
+            IsSignedFile = false;
+        }
         #endregion
     }
 }

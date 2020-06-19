@@ -12,9 +12,9 @@ namespace DataAccess.ServiceObjects.Tooling
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_COIL_CENTER_GUIDE
+    public partial class TBL_COIL_ENTRANCE_GUIDE
     {
-        public int ID_COIL_CENTER_GUIDE { get; set; }
+        public int ID_COIL_ENTRANCE_GUIDE { get; set; }
         public string CODIGO { get; set; }
         public string DETALLE { get; set; }
         public Nullable<double> DIMA { get; set; }

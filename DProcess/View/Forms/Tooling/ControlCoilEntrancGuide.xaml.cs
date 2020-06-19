@@ -9,13 +9,14 @@ using System.Windows.Input;
 namespace View.Forms.Tooling
 {
     /// <summary>
-    /// Lógica de interacción para ControlCoilCG.xaml
+    /// Lógica de interacción para ControlCoilEntrancGuide.xaml
     /// </summary>
-    public partial class ControlCoilCG : UserControl, IControlTooling
+    public partial class ControlCoilEntrancGuide : UserControl, IControlTooling
     {
+
         Herramental herramental;
 
-        public ControlCoilCG()
+        public ControlCoilEntrancGuide()
         {
             InitializeComponent();
         }
@@ -42,7 +43,7 @@ namespace View.Forms.Tooling
             obj.radial_wire_max = double.Parse(Rmax.Text, CultureInfo.InvariantCulture.NumberFormat);
 
             //Mandamos a llamar al método para insertar el objeto y retornamos el resultado.
-            return DataManager.SetCOIL_CENTER_GUIDE(obj); 
+            return DataManager.SetCOIL_ENTRANCE_GUIDE(obj);
 
         }
 
@@ -51,7 +52,7 @@ namespace View.Forms.Tooling
         /// </summary>
         public void Inicializa()
         {
-           InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace View.Forms.Tooling
         /// <returns></returns>
         public bool ValidaError()
         {
-            if (!string.IsNullOrEmpty(code.Text) &!string.IsNullOrEmpty(dimA.Text) & !string.IsNullOrEmpty(dimA.Text) & !string.IsNullOrEmpty(dimB.Text) & !string.IsNullOrWhiteSpace(dimC.Text) &
+            if (!string.IsNullOrEmpty(code.Text) & !string.IsNullOrEmpty(dimA.Text) & !string.IsNullOrEmpty(dimA.Text) & !string.IsNullOrEmpty(dimB.Text) & !string.IsNullOrWhiteSpace(dimC.Text) &
                 !string.IsNullOrEmpty(WMin.Text) & !string.IsNullOrEmpty(WMax.Text) & !string.IsNullOrEmpty(code.Text) & !string.IsNullOrEmpty(Rmax.Text) & !string.IsNullOrEmpty(RMin.Text))
                 return true;
             else
@@ -69,7 +70,7 @@ namespace View.Forms.Tooling
 
         public int Delete()
         {
-            return DataManager.DeleteCOIL_CENTER_GUIDE(herramental.idHerramental);
+            return DataManager.DeleteCOIL_ENTRANCE_GUIDE(herramental.idHerramental);
         }
 
         /// <summary>
@@ -101,7 +102,7 @@ namespace View.Forms.Tooling
             else
             {
                 e.Handled = true;
-            }          
+            }
         }
 
         /// <summary>
@@ -110,7 +111,7 @@ namespace View.Forms.Tooling
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void KeyValidation(object sender, KeyEventArgs e)
-         {
+        {
             //si la tecla presionada es un espacio no la escribe
             if (e.Key == Key.Space)
                 e.Handled = true;
@@ -128,7 +129,7 @@ namespace View.Forms.Tooling
             rmin = double.Parse(RMin.Text, CultureInfo.InvariantCulture.NumberFormat);
             rmax = double.Parse(Rmax.Text, CultureInfo.InvariantCulture.NumberFormat);
 
-            if (wmin < wmax && rmin<rmax)
+            if (wmin < wmax && rmin < rmax)
                 return true;
             else
                 return false;
@@ -151,12 +152,12 @@ namespace View.Forms.Tooling
             obj.radial_wire_min = double.Parse(RMin.Text, CultureInfo.InvariantCulture.NumberFormat);
             obj.radial_wire_max = double.Parse(Rmax.Text, CultureInfo.InvariantCulture.NumberFormat);
 
-            return DataManager.UpdateCOIL_CENTER_GUIDE(obj);
+            return DataManager.UpdateCOIL_ENTRANCE_GUIDE(obj);
         }
 
         public void InicializaCampos(string codigoHerramental)
         {
-            herramental = DataManager.GetInfoCOIL_Center_Guide(codigoHerramental);
+            herramental = DataManager.GetInfoCOIL_Entrance_Guide(codigoHerramental);
 
             code.Text = herramental.PropiedadesCadena[0].Valor;
             dimA.Text = Convert.ToString(herramental.Propiedades[0].Valor);
@@ -167,5 +168,7 @@ namespace View.Forms.Tooling
             RMin.Text = Convert.ToString(herramental.Propiedades[5].Valor);
             Rmax.Text = Convert.ToString(herramental.Propiedades[6].Valor);
         }
+
+
     }
 }

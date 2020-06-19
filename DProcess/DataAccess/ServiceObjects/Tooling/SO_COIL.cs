@@ -10,6 +10,7 @@ namespace DataAccess.ServiceObjects.Tooling
 {
     public class SO_COIL
     {
+        #region FEED ROLLER
         /// <summary>
         /// Método que inserta un registro en la tabla TBL_COIL_FEED_ROLLER
         /// </summary>
@@ -21,7 +22,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int SetCOIL_FEED_ROLLER(string codigo, string code,double dimA,double dimB, double dimC, double DimD,double W_Min,double W_Max)
+        public int SetCOIL_FEED_ROLLER(string codigo, string code, double dimA, double dimB, double dimC, double DimD, double W_Min, double W_Max)
         {
             try
             {
@@ -54,7 +55,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
-        
+
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_COIL_FEED_ROLLER
         /// </summary>
@@ -67,7 +68,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int UpdateCOIL_FEED_ROLLER(int id_coil,string codigo, string code, double dimA, double dimB, double dimC,double dimD ,double W_Min, double W_Max)
+        public int UpdateCOIL_FEED_ROLLER(int id_coil, string codigo, string code, double dimA, double dimB, double dimC, double dimD, double W_Min, double W_Max)
         {
             try
             {   //Se establece la conexión a la base de datos.
@@ -76,7 +77,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     TBL_COIL_FEED_ROLLER obj = Conexion.TBL_COIL_FEED_ROLLER.Where(x => x.ID_COIL_FEED_ROLLER == id_coil).FirstOrDefault();
                     //Asiganmos los valores
-                   
+
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
@@ -97,7 +98,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
-        
+
         /// <summary>
         /// Método que elimina un registro de la tabla TBL_COIL_FEED_ROLLER
         /// </summary>
@@ -108,7 +109,7 @@ namespace DataAccess.ServiceObjects.Tooling
             try
             {
                 // Se inicializa la conexión a la base de datos.
-                using (var Conexion= new EntitiesTooling())
+                using (var Conexion = new EntitiesTooling())
                 {
                     //Se obtiene el objeto que se va a eliminar.
                     TBL_COIL_FEED_ROLLER obj = Conexion.TBL_COIL_FEED_ROLLER.Where(x => x.ID_COIL_FEED_ROLLER == id_coil).FirstOrDefault();
@@ -124,7 +125,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
-        
+
         /// <summary>
         /// Método que obtiene un registro que cumpla con el rango del width
         /// </summary>
@@ -185,7 +186,7 @@ namespace DataAccess.ServiceObjects.Tooling
             try
             {
                 //Establecemos la conexion
-                using (var Conexion= new EntitiesTooling())
+                using (var Conexion = new EntitiesTooling())
                 {
                     //Ejecutamos la consulta y guardamos el resultado en una variable
                     var Lista = (from c in Conexion.TBL_COIL_FEED_ROLLER
@@ -254,7 +255,9 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+        #endregion
 
+        #region CENTER GUIDE
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_COIL_CENTER_GUIDE
         /// </summary>
@@ -268,12 +271,12 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="R_Mn"></param>
         /// <param name="R_Max"></param>
         /// <returns></returns>
-        public int SetCOIL_CENTER_GUIDE(string codigo, string code,double dimA,double dimB, double dimC, double W_Min,double W_Max,double R_Mn,double R_Max)
+        public int SetCOIL_CENTER_GUIDE(string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max, double R_Mn, double R_Max)
         {
             try
             { //Establecemos la conexión a través de EntityFramework.
                 using (var conexion = new EntitiesTooling())
-                {   
+                {
                     //Se  crea un objeto, el cual se va agregar a la tabla 
                     TBL_COIL_CENTER_GUIDE obj = new TBL_COIL_CENTER_GUIDE();
                     //Se asiganan los valores.
@@ -315,7 +318,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="R_Mn"></param>
         /// <param name="R_Max"></param>
         /// <returns></returns>
-        public int UpdateCOIL_CENTER_GUIDE(int id_coil,string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max, double R_Mn, double R_Max)
+        public int UpdateCOIL_CENTER_GUIDE(int id_coil, string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max, double R_Mn, double R_Max)
         {
             try
             {
@@ -325,7 +328,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     TBL_COIL_CENTER_GUIDE obj = conexion.TBL_COIL_CENTER_GUIDE.Where(x => x.ID_COIL_CENTER_GUIDE == id_coil).FirstOrDefault();
                     //Asiganmos los valores
-                   
+
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
@@ -347,7 +350,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
-        
+
         /// <summary>
         /// Método que elimina un registro de la tabla TBL_COIL_CENTER_GUIDE
         /// </summary>
@@ -381,7 +384,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="width"></param>
         /// <param name="radial"></param>
         /// <returns></returns>
-        public IList GetCOIL_CENTER_GUIDE(double width, double radial, bool banCenter, bool banEntrance)
+        public IList GetCOIL_CENTER_GUIDE(double width, double radial)
         {
             try
             {
@@ -393,8 +396,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && radial > a.RADIAL_WIRE_MIN && radial <= a.RADIAL_WIRE_MAX && b.Activo == true &&
-                                 a.CENTER_GUIDE == banCenter && a.ENTRANCE_GUIDE == banEntrance
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && radial > a.RADIAL_WIRE_MIN && radial <= a.RADIAL_WIRE_MAX && b.Activo == true
                                  orderby a.CODIGO descending
                                  select new
                                  {
@@ -431,7 +433,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// </summary>
         /// <param name="textoBusq"></param>
         /// <returns></returns>
-        public IList GetAllCOIL_CENTER_GUIDE(string textoBusq, bool banCenter, bool banEntrance)
+        public IList GetAllCOIL_CENTER_GUIDE(string textoBusq)
         {
             try
             {
@@ -441,7 +443,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Ejecutamos la consulta y guardamos el resultado en una variable
                     var Lista = (from c in Conexion.TBL_COIL_CENTER_GUIDE
                                  join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
-                                 where c.ENTRANCE_GUIDE == banEntrance && c.CENTER_GUIDE == banCenter && ( c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq) )
+                                 where (c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq))
                                  select new
                                  {
                                      CODIGO = m.Codigo,
@@ -507,7 +509,264 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+        #endregion
 
+        #region ENTRANCE GUIDE
+
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_COIL_ENTRANCE_GUIDE
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="code"></param>
+        /// <param name="dimA"></param>
+        /// <param name="dimB"></param>
+        /// <param name="dimC"></param>
+        /// <param name="W_Min"></param>
+        /// <param name="W_Max"></param>
+        /// <param name="R_Mn"></param>
+        /// <param name="R_Max"></param>
+        /// <returns></returns>
+        public int SetCOIL_ENTRANCE_GUIDE(string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max, double R_Mn, double R_Max)
+        {
+            try
+            { //Establecemos la conexión a través de EntityFramework.
+                using (var conexion = new EntitiesTooling())
+                {
+                    //Se  crea un objeto, el cual se va agregar a la tabla 
+                    TBL_COIL_ENTRANCE_GUIDE obj = new TBL_COIL_ENTRANCE_GUIDE();
+                    //Se asiganan los valores.
+                    obj.CODIGO = codigo;
+                    obj.DETALLE = code;
+                    obj.DIMA = dimA;
+                    obj.DIMB = dimB;
+                    obj.DIMC = dimC;
+                    obj.WIRE_WIDTH_MAX = W_Max;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+                    obj.RADIAL_WIRE_MIN = R_Mn;
+                    obj.RADIAL_WIRE_MAX = R_Max;
+
+                    //Agrega el objeto a la tabla.
+                    conexion.TBL_COIL_ENTRANCE_GUIDE.Add(obj);
+                    conexion.SaveChanges();
+                    //Retorna el id del registro insertado
+                    return obj.ID_COIL_ENTRANCE_GUIDE;
+                }
+            }
+            catch (Exception er)
+            {
+                //Si hay error regresa cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_COIL_ENTRANCE_GUIDE
+        /// </summary>
+        /// <param name="id_coil"></param>
+        /// <param name="codigo"></param>
+        /// <param name="code"></param>
+        /// <param name="dimA"></param>
+        /// <param name="dimB"></param>
+        /// <param name="dimC"></param>
+        /// <param name="W_Min"></param>
+        /// <param name="W_Max"></param>
+        /// <param name="R_Mn"></param>
+        /// <param name="R_Max"></param>
+        /// <returns></returns>
+        public int UpdateCOIL_ENTRANCE_GUIDE(int id_coil, string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max, double R_Mn, double R_Max)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var conexion = new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a modificar.
+                    TBL_COIL_ENTRANCE_GUIDE obj = conexion.TBL_COIL_ENTRANCE_GUIDE.Where(x => x.ID_COIL_ENTRANCE_GUIDE == id_coil).FirstOrDefault();
+                    //Asiganmos los valores
+
+                    obj.DETALLE = code;
+                    obj.DIMA = dimA;
+                    obj.DIMB = dimB;
+                    obj.DIMC = dimC;
+                    obj.WIRE_WIDTH_MAX = W_Max;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+                    obj.RADIAL_WIRE_MIN = R_Mn;
+                    obj.RADIAL_WIRE_MAX = R_Max;
+                    //Se cambia el estado de registro a modificado.
+                    conexion.Entry(obj).State = EntityState.Modified;
+
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_COIL_ENTRANCE_GUIDE
+        /// </summary>
+        /// <param name="id_coil"></param>
+        /// <returns></returns>
+        public int DeleteCOIL_ENTRANCE_GUIDE(int id_coil)
+        {
+            try
+            {
+                // Se inicializa la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a eliminar.
+                    TBL_COIL_ENTRANCE_GUIDE obj = Conexion.TBL_COIL_ENTRANCE_GUIDE.Where(x => x.ID_COIL_ENTRANCE_GUIDE == id_coil).FirstOrDefault();
+                    //Se estable el estado del registro a eliminado.
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    //Se guardan los cambios y retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene un registro que cumpla con el rango del width y el rango de radial
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="radial"></param>
+        /// <returns></returns>
+        public IList GetCOIL_ENTRANCE_GUIDE(double width, double radial)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y lo guardamos en una variable
+                    var Lista = (from a in Conexion.TBL_COIL_ENTRANCE_GUIDE
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
+                                 join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIRE_WIDTH_MAX && radial > a.RADIAL_WIRE_MIN && radial <= a.RADIAL_WIRE_MAX && b.Activo == true
+                                 orderby a.CODIGO descending
+                                 select new
+                                 {
+                                     Codigo = b.Codigo,
+                                     Descripcion = b.Descripcion,
+                                     a.DIMA,
+                                     a.DIMB,
+                                     a.DIMC,
+                                     a.DETALLE,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual,
+                                     b.Activo,
+                                     p.NO_PLANO
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros, se filtran por el código o descripción. banCenter = true si se requiere los herramentales Entrance Guide
+        /// </summary>
+        /// <param name="textoBusq"></param>
+        /// <returns></returns>
+        public IList GetAllCOIL_ENTRANCE_GUIDE(string textoBusq)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y guardamos el resultado en una variable
+                    var Lista = (from c in Conexion.TBL_COIL_ENTRANCE_GUIDE
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where (c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq))
+                                 select new
+                                 {
+                                     CODIGO = m.Codigo,
+                                     DESCRIPCION = m.Descripcion,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.DETALLE,
+                                     c.WIRE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.RADIAL_WIRE_MAX,
+                                     c.RADIAL_WIRE_MIN
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental de Coil Entrance Guide.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoCoil_Entrance_G(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.TBL_COIL_ENTRANCE_GUIDE
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     c.CODIGO,
+                                     c.DETALLE,
+                                     c.DIMA,
+                                     c.DIMB,
+                                     c.DIMC,
+                                     c.WIRE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     c.RADIAL_WIRE_MAX,
+                                     c.RADIAL_WIRE_MIN,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_COIL_ENTRANCE_GUIDE
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+        #endregion
+
+        #region EXIT GUIDE
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXIT_GUIDE
         /// </summary>
@@ -523,7 +782,8 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <returns></returns>
         public int SetExit_GUIDE(string codigo, string code, double dimA, double dimB, double dimC, double W_Min, double W_Max, double R_Mn, double R_Max)
         {
-            try { 
+            try
+            {
                 //Establecemos la conexión a través de EntityFramework.
                 using (var conexion = new EntitiesTooling())
                 {
@@ -616,7 +876,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     TBL_EXIT_GUIDE obj = Conexion.TBL_EXIT_GUIDE.Where(x => x.ID_EXIT_GUIDE == id_exit).FirstOrDefault();
 
                     //Se estable el estado del registro a eliminado.
-                     Conexion.Entry(obj).State = EntityState.Deleted;
+                    Conexion.Entry(obj).State = EntityState.Deleted;
                     //Se guardan los cambios y retorna el número de registros afectados.
                     return Conexion.SaveChanges();
                 }
@@ -716,7 +976,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
-                
+
         /// <summary>
         /// Método que obtiene la información de un herramental de exit Guide.
         /// </summary>
@@ -758,7 +1018,9 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+        #endregion
 
+        #region EXTERNAL 1P
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
         /// </summary>
@@ -807,7 +1069,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int UpdateExternal_GR_1P(int id_external,string codigo, string code, double dimB, double W_Min, double W_Max)
+        public int UpdateExternal_GR_1P(int id_external, string codigo, string code, double dimB, double W_Min, double W_Max)
         {
             try
             {
@@ -981,7 +1243,9 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+        #endregion
 
+        #region EXTERNAL 3P - 1
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
         /// </summary>
@@ -1041,12 +1305,12 @@ namespace DataAccess.ServiceObjects.Tooling
             {
                 //Se establece la conexión a la base de datos.
                 using (var Conexion = new EntitiesTooling())
-                {   
+                {
                     //Se obtiene el objeto que se va a modificar.
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1.Where(x => x.ID_EGR_3P_1 == id_ext).FirstOrDefault();
 
                     //Asiganmos los valores
-                  
+
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.DIMB = dimB;
@@ -1066,7 +1330,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
-        
+
         /// <summary>
         ///  Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1
         /// </summary>
@@ -1077,7 +1341,7 @@ namespace DataAccess.ServiceObjects.Tooling
             try
             {
                 // Se inicializa la conexión a la base de datos.
-                using (var Conexion= new EntitiesTooling())
+                using (var Conexion = new EntitiesTooling())
                 {
                     // Se obtiene el objeto que se va a eliminar.
                     TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1 obj = Conexion.TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_1.Where(x => x.ID_EGR_3P_1 == id_external).FirstOrDefault();
@@ -1219,7 +1483,9 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+        #endregion
 
+        #region EXTERNAL 3P - 2
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
         /// </summary>
@@ -1260,7 +1526,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
-        
+
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_2
         /// </summary>
@@ -1347,7 +1613,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
                                  join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
-                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX  && b.Activo == true
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && b.Activo == true
                                  select new
                                  {
                                      Codigo = b.Codigo,
@@ -1455,7 +1721,9 @@ namespace DataAccess.ServiceObjects.Tooling
                 return null;
             }
         }
+        #endregion
 
+        #region EXTERNAL 3P - 3
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
         /// </summary>
@@ -1496,7 +1764,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
-        
+
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_3PIECES_3
         /// </summary>
@@ -1585,7 +1853,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                  where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && b.Activo == true
                                  select new
                                  {
-                                     Codigo= b.Codigo,
+                                     Codigo = b.Codigo,
                                      Descripcion = b.Descripcion,
                                      a.DIMA,
                                      a.DIMB,
@@ -1689,8 +1957,10 @@ namespace DataAccess.ServiceObjects.Tooling
                 //si hay error retornamos nulo.
                 return null;
             }
-        }
+        } 
+        #endregion
 
+        #region SHIM OF THE SYSTEM
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
         /// </summary>
@@ -1729,7 +1999,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 return 0;
             }
         }
-        
+
         /// <summary>
         /// Método que modifica un registro de la tabla TBL_SHIM_OF_THE_CUT_SYSTEM
         /// </summary>
@@ -1740,7 +2010,7 @@ namespace DataAccess.ServiceObjects.Tooling
         /// <param name="W_Min"></param>
         /// <param name="W_Max"></param>
         /// <returns></returns>
-        public int UpdateSHIM_OF_THE_CUT_SYSTEM(int id,string codigo, string code, double dimA, double W_Min, double W_Max)
+        public int UpdateSHIM_OF_THE_CUT_SYSTEM(int id, string codigo, string code, double dimA, double W_Min, double W_Max)
         {
             try
             {
@@ -1750,7 +2020,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     //Se obtiene el objeto que se va a modificar.
                     TBL_SHIM_OF_THE_CUT_SYSTEM obj = conexion.TBL_SHIM_OF_THE_CUT_SYSTEM.Where(x => x.ID_SHIM_OTCS == id).FirstOrDefault();
                     //Asiganmos los valores
-                   
+
                     obj.DETALLE = code;
                     obj.DIMA = dimA;
                     obj.WIDE_WIDTH_MAX = W_Max;
@@ -1911,7 +2181,8 @@ namespace DataAccess.ServiceObjects.Tooling
                 //si hay error retornamos nulo.
                 return null;
             }
-        }
+        } 
+        #endregion
 
     }
 }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -159,6 +160,14 @@ namespace View.Services.ViewModel
 
         #region Comandos
 
+        public ICommand ExportExcel
+        {
+            get
+            {
+                return new RelayCommand(o => exportHistorialExcel());
+            }
+        }
+
         /// <summary>
         /// Comando para Modificar una Leccion Seleccionada
         /// </summary>
@@ -199,6 +208,73 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Métodos
+
+        /// <summary>
+        /// Método que exporta el historial de lecciones aprendidas del componente seleccionado.
+        /// </summary>
+        private async void exportHistorialExcel()
+        {
+            DataSet ds = new DataSet();
+            DataTable table = new DataTable();
+
+            //Incializamos los servicios de dialog.
+            DialogService dialog = new DialogService();
+
+            //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+            ProgressDialogController Progress;
+
+            //Ejecutamos el método para enviar un mensaje de espera mientras el documento se guarda.
+            Progress = await dialog.SendProgressAsync(StringResources.msgDoingOperation, StringResources.msgGenerandoExcell);
+
+            //Si la lista de documentos es diferente de cero
+            if (Lista.Count != 0)
+            {
+                //Se añade las columnas, se especifíca el tipo fecha para dar formato a la columna
+                //Se tien que especificar el tipo, si no la fecha se escribe mal en Excel
+                table.Columns.Add("Cambio Realizado Por");
+                table.Columns.Add("Componente");
+                table.Columns.Add("Descripción Problema");
+                table.Columns.Add("Fecha Actualización", typeof(DateTime));
+                table.Columns.Add("Reportado Por");
+                table.Columns.Add("Solicitud de Trabajo");
+
+                //Iteramos la lista de documentos
+                foreach (var item in Lista)
+                {
+                    //Se crea una nueva fila
+                    DataRow newRow = table.NewRow();
+
+                    //Se añaden los valores a las columnas
+                    newRow["Cambio Realizado Por"] = item.NombreCompleto;
+                    newRow["Componente"] = item.COMPONENTE;
+                    newRow["Descripción Problema"] = item.DESCRIPCION_PROBLEMA;
+                    newRow["Fecha Actualización"] = item.FECHA_ACTUALIZACION;
+                    newRow["Reportado Por"] = item.REPORTADO_POR;
+                    newRow["Solicitud de Trabajo"] = item.SOLICITUD_DE_TRABAJO;
+
+                    //Agregamos la fila a la tabla
+                    table.Rows.Add(newRow);
+                }
+                //Se agrega la tabla al dataset
+                ds.Tables.Add(table);
+
+                //Ejecutamos el método para exportar el archivo
+                string e = await ExportToExcel.Export(ds);
+
+                if (e != null)
+                {
+                    //Cerramos el mensaje de espera
+                    await Progress.CloseAsync();
+
+                    //Mostramos mensaje de error
+                    await dialog.SendMessage(StringResources.msgError, StringResources.msgGenerandoExcell);
+                }
+
+                //Ejecutamos el método para cerrar el mensaje de espera.
+                await Progress.CloseAsync();
+            }
+        }
+
         /// <summary>
         /// Método que obtiene la lista de las lecciones aprendidas
         /// </summary>
@@ -278,6 +354,18 @@ namespace View.Services.ViewModel
                      Tag = StringResources.lblNuevaLeccion,
                  }
             );
+
+            this.MenuItems.Add(
+                    new HamburgerMenuIconItem()
+                    {
+                        //Icono del Menú para guardar los cambios hechos a la lección aprendida
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileExcel },
+                        Label = "Exportar Historial",
+                        Command = ExportExcel,
+                        Tag = "Exportar Historial",
+                    }
+                );
+
         }
 
         /// <summary>

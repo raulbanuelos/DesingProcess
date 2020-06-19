@@ -10,6 +10,33 @@ namespace DataAccess.ServiceObjects.Tooling
     public class SO_Plano
     {
 
+        public int insert(string noPlano, string pathFile, string user)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesTooling())
+                {
+                    PLANO_HERRAMENTAL plano = new PLANO_HERRAMENTAL();
+
+                    plano.FECHA_ACTUALIZACION = DateTime.Now;
+                    plano.FECHA_CREACION = DateTime.Now;
+                    plano.NO_PLANO = noPlano;
+                    plano.PATH_FILE = pathFile;
+                    plano.USUARIO_CREACION = user;
+                    plano.USUARIO_ACTUALIZACION = user;
+
+                    Conexion.PLANO_HERRAMENTAL.Add(plano);
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception er)
+            {
+
+                throw;
+            }
+        }
+
         /// <summary>
         /// Método que obtiene todos los registros de la tabla plano herramental
         /// </summary>

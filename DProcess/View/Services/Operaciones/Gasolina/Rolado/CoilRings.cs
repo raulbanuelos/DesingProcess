@@ -254,11 +254,11 @@ namespace View.Services.Operaciones.Gasolina.Rolado
             ListaHerramentales.Add(idealExitGuide);
 
             Herramental idealCenterGuide = new Herramental();
-            DataManager.GetCOIL_CENTER_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealCenterGuide,true,false);
+            DataManager.GetCOIL_CENTER_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealCenterGuide);
             ListaHerramentales.Add(idealCenterGuide);
 
             Herramental idealEntranceGuide = new Herramental();
-            DataManager.GetCOIL_CENTER_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealCenterGuide, false, true);
+            DataManager.GetCOIL_CENTER_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealCenterGuide);
             ListaHerramentales.Add(idealEntranceGuide);
             
             if (elPlano.TipoAnillo.StartsWith("THM"))

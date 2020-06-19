@@ -116,7 +116,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     obj.UsuarioCambio = usuario_cambio;
                     obj.Activo = activo;
                     obj.idClasificacionHerramental = id_clasificacion;
-                    obj.idPlano = null;
+                    obj.idPlano = plano;
 
                     //Se cambia el estado de registro a modificado.
                     Conexion.Entry(obj).State = EntityState.Modified;
@@ -210,7 +210,7 @@ namespace DataAccess.ServiceObjects.Tooling
                                      m.Descripcion,
                                      m.Activo,
                                      m.idClasificacionHerramental,
-                                     m.idPlano,
+                                     idPlano = m.idPlano > 0 ? m.idPlano : 2,
                                      c.ObjetoXML
                                  }).ToList();
                     //Retornamos la lista
