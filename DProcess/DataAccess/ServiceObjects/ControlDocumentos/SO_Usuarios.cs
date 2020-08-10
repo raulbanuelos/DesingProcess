@@ -1,5 +1,4 @@
 ﻿using System;
-using Encriptar;
 using System.Collections;
 using System.Data.Entity;
 using System.Linq;

@@ -1,16 +1,9 @@
-﻿using Encriptar;
-using MahApps.Metro.Controls.Dialogs;
+﻿using MahApps.Metro.Controls.Dialogs;
 using Model;
 using Model.ControlDocumentos;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows;
 using View.Forms.ControlDocumentos;
 using MahApps.Metro.Controls;
 using View.Forms.User;
@@ -403,7 +396,7 @@ namespace View.Services.ViewModel
                 this.MenuItems.Add(
                     new HamburgerMenuIconItem()
                     {
-                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AccountCardDetails},
+                        Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Account},
                         Label = StringResources.ttlAdministrarUsuarios,
                         Command = ConsultarUsuarios,
                         Tag = StringResources.ttlAdministrarUsuarios,

@@ -1,13 +1,10 @@
-﻿using Encriptar;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Model.ControlDocumentos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +16,7 @@ using View.Forms.Tooling;
 
 namespace View.Services.ViewModel
 {
-   public class NuevoUsuarioVM : INotifyPropertyChanged
+    public class NuevoUsuarioVM : INotifyPropertyChanged
     {
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

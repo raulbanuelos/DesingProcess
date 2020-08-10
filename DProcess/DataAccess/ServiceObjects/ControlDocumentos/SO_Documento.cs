@@ -654,6 +654,47 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
+        /// Método para obtener el registro de documento a partir de un idVersion.
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <returns></returns>
+        public IList GetDocumentoByVersion(int idVersion)
+        {
+            try
+            {
+                //Se inician los servicios de Entity Control Documento
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Se realiza la consulta
+                    var lista = (from v in Conexion.TBL_VERSION
+                                 join d in Conexion.TBL_DOCUMENTO on v.ID_DOCUMENTO equals d.ID_DOCUMENTO
+                                 where v.ID_VERSION == idVersion
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     d.ID_TIPO_DOCUMENTO,
+                                     d.ID_USUARIO,
+                                     d.ID_DEPARTAMENTO,
+                                     d.ID_ESTATUS_DOCUMENTO,
+                                     d.NOMBRE,
+                                     d.FECHA_EMISION,
+                                     d.FECHA_CREACION,
+                                     d.FECHA_ACTUALIZACION,
+                                     
+                                 }).ToList();
+
+                    //Retornamos el resutado.
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error, se regresa nulo
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Método que obtiene toda la información de un documento y su versión actual
         /// </summary>
         /// <param name="idDocumento"></param>

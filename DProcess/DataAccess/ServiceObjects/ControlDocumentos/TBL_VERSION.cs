@@ -21,6 +21,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             this.TBL_VALIDACION_VERSION = new HashSet<TBL_VALIDACION_VERSION>();
             this.TR_USUARIO_NOTIFICACION_VERSION = new HashSet<TR_USUARIO_NOTIFICACION_VERSION>();
             this.TBL_DOCUMENTO_FIRMADO = new HashSet<TBL_DOCUMENTO_FIRMADO>();
+            this.TBL_SOLICITUD_CONTROL_DOCUMENTO = new HashSet<TBL_SOLICITUD_CONTROL_DOCUMENTO>();
         }
     
         public int ID_VERSION { get; set; }
@@ -46,5 +47,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual ICollection<TR_USUARIO_NOTIFICACION_VERSION> TR_USUARIO_NOTIFICACION_VERSION { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_DOCUMENTO_FIRMADO> TBL_DOCUMENTO_FIRMADO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_SOLICITUD_CONTROL_DOCUMENTO> TBL_SOLICITUD_CONTROL_DOCUMENTO { get; set; }
     }
 }

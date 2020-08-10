@@ -5,7 +5,6 @@
  * 
  */
 using System.Windows;
-using Encriptar;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Model;
@@ -17,9 +16,6 @@ using System;
 using View.Services;
 using View.Resources;
 using System.Threading;
-using View.Forms.Routing;
-using System.IO;
-using System.Collections;
 using View.Forms.User;
 using View.Forms.DashBoard;
 using System.Windows.Media.Imaging;
@@ -92,7 +88,7 @@ namespace View.Forms.LogIn
                 AsyncProgress = await dialog.SendProgressAsync(StringResources.lblLogIn, "");
 
                 //Declaramos un objeto con el cual se realiza la encriptación
-                Encriptacion encriptar = new Encriptacion();
+                Services.Encriptacion encriptar = new Services.Encriptacion();
 
                 //Ejecutamos el método para encriptar tanto el usuario como la contraseña y los guardamos en variables locales respectivamente.
 				string usuario = encriptar.encript(result.Username);

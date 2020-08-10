@@ -7,13 +7,9 @@ using View.Forms.ControlDocumentos;
 using System.Data;
 using Model;
 using MahApps.Metro.Controls.Dialogs;
-using Encriptar;
-using System.Globalization;
-using View.Forms.LeccionesAprendidas;
 using View.Resources;
 using MahApps.Metro.Controls;
 using MahApps.Metro.IconPacks;
-using System.Collections.Generic;
 
 namespace View.Services.ViewModel
 {

@@ -3485,7 +3485,7 @@ namespace View.Services.ViewModel
             this.MenuItems.Add(
                 new HamburgerMenuIconItem()
                 {
-                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileXml },
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FileExcelBox },
                     Label = StringResources.lblImportarXML,
                     Command = ImportXML,
                     Tag = StringResources.lblImportarXML,

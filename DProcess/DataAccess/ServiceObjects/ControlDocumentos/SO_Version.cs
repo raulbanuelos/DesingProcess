@@ -47,6 +47,30 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
+        /// <summary>
+        /// Método que obtiene los datos de una versión en específico.
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <returns></returns>
+        public IList GetVersion(int idVersion)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    var lista = (from v in Conexion.TBL_VERSION
+                               where v.ID_VERSION == idVersion
+                               select v).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         
         ///// <summary>
         ///// Método que obtiene todos los regsitros de una version

@@ -152,6 +152,18 @@
           <Property Name="FECHA_CREACION" Type="datetime" />
           <Property Name="FECHA_ACTUALIZACION" Type="datetime" />
         </EntityType>
+        <EntityType Name="TBL_SOLICITUD_CONTROL_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_SOLICITUD_CONTROL_DOCUMENTO" />
+          </Key>
+          <Property Name="ID_SOLICITUD_CONTROL_DOCUMENTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_VERSION" Type="int" Nullable="false" />
+          <Property Name="ACCION" Type="varchar" MaxLength="50" />
+          <Property Name="FECHA_SOLICITUD" Type="datetime" />
+          <Property Name="BAN_EJECUTADA" Type="bit" />
+          <Property Name="FECHA_EJECUCION" Type="datetime" />
+          <Property Name="COMENTARIO" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="TBL_SUSCRIPCION_DOCUMENTO">
           <Key>
             <PropertyRef Name="ID_SUSCRIPCION_DOC" />
@@ -175,7 +187,7 @@
           <Key>
             <PropertyRef Name="ID_VALIDACION_DOCUMENTO" />
           </Key>
-          <Property Name="ID_VALIDACION_DOCUMENTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_VALIDACION_DOCUMENTO" Type="int" Nullable="false" />
           <Property Name="VALIDACION_DOCUMENTO" Type="varchar" MaxLength="50" />
           <Property Name="VALIDACION_DESCRIPCION" Type="varchar" MaxLength="200" />
           <Property Name="FECHA_CREACION" Type="datetime" />
@@ -253,9 +265,9 @@
           <Property Name="Psql" Type="varchar" MaxLength="50" />
           <Property Name="Bloqueado" Type="bit" />
           <Property Name="Correo" Type="varchar" MaxLength="100" />
-          <Property Name="Pathnsf" Type="varchar" MaxLength="500" />
+          <Property Name="Pathnsf" Type="varchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__TBL_DOCUM__ID_VE__4D804459">
+        <Association Name="FK__TBL_DOCUM__ID_VE__4232E985">
           <End Role="TBL_VERSION" Type="Self.TBL_VERSION" Multiplicity="0..1" />
           <End Role="TBL_DOCUMENTO_FIRMADO" Type="Self.TBL_DOCUMENTO_FIRMADO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -267,7 +279,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TBL_GRUPO__ID_US__04B07DB2">
+        <Association Name="FK__TBL_GRUPO__ID_US__3DB1F273">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="TBL_GRUPOS" Type="Self.TBL_GRUPOS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -279,7 +291,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TR_INTEGR__ID_US__078CEA5D">
+        <Association Name="FK__TR_INTEGR__ID_GR__408E5F1E">
           <End Role="TBL_GRUPOS" Type="Self.TBL_GRUPOS" Multiplicity="1" />
           <End Role="TR_INTEGRANTES_GRUPO" Type="Self.TR_INTEGRANTES_GRUPO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -291,7 +303,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TR_INTEGR__ID_US__08810E96">
+        <Association Name="FK__TR_INTEGR__ID_US__41828357">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="TR_INTEGRANTES_GRUPO" Type="Self.TR_INTEGRANTES_GRUPO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -303,7 +315,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TR_USUARI__ID_US__16CF2DED">
+        <Association Name="FK__TR_USUARI__ID_US__445EF002">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="TR_USUARIO_NOTIFICACION_VERSION" Type="Self.TR_USUARIO_NOTIFICACION_VERSION" Multiplicity="*" />
           <ReferentialConstraint>
@@ -315,7 +327,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TR_USUARI__ID_VE__17C35226">
+        <Association Name="FK__TR_USUARI__ID_VE__4553143B">
           <End Role="TBL_VERSION" Type="Self.TBL_VERSION" Multiplicity="1" />
           <End Role="TR_USUARIO_NOTIFICACION_VERSION" Type="Self.TR_USUARIO_NOTIFICACION_VERSION" Multiplicity="*" />
           <ReferentialConstraint>
@@ -420,6 +432,18 @@
             </Principal>
             <Dependent Role="TBL_RECURSO_TIPO_DOCUMENTO">
               <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_SOLICITUD_CONTROL_DOCUMENTO_TBL_VERSION">
+          <End Role="TBL_VERSION" Type="Self.TBL_VERSION" Multiplicity="1" />
+          <End Role="TBL_SOLICITUD_CONTROL_DOCUMENTO" Type="Self.TBL_SOLICITUD_CONTROL_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_VERSION">
+              <PropertyRef Name="ID_VERSION" />
+            </Principal>
+            <Dependent Role="TBL_SOLICITUD_CONTROL_DOCUMENTO">
+              <PropertyRef Name="ID_VERSION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -571,6 +595,7 @@
           <EntitySet Name="TBL_NOTIFICACION_ERROR" EntityType="Self.TBL_NOTIFICACION_ERROR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RECURSO_TIPO_DOCUMENTO" EntityType="Self.TBL_RECURSO_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ROL" EntityType="Self.TBL_ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_SOLICITUD_CONTROL_DOCUMENTO" EntityType="Self.TBL_SOLICITUD_CONTROL_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SUSCRIPCION_DOCUMENTO" EntityType="Self.TBL_SUSCRIPCION_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TIPO_DOCUMENTO" EntityType="Self.TBL_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_VALIDACION_DOCUMENTO" EntityType="Self.TBL_VALIDACION_DOCUMENTO" Schema="dbo" store:Type="Tables" />
@@ -581,27 +606,27 @@
           <EntitySet Name="TR_USUARIO_NOTIFICACION_VERSION" EntityType="Self.TR_USUARIO_NOTIFICACION_VERSION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_VALIDACION_TIPO_DOCUMENTO" EntityType="Self.TR_VALIDACION_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__TBL_DOCUM__ID_VE__4D804459" Association="Self.FK__TBL_DOCUM__ID_VE__4D804459">
+          <AssociationSet Name="FK__TBL_DOCUM__ID_VE__4232E985" Association="Self.FK__TBL_DOCUM__ID_VE__4232E985">
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
             <End Role="TBL_DOCUMENTO_FIRMADO" EntitySet="TBL_DOCUMENTO_FIRMADO" />
           </AssociationSet>
-          <AssociationSet Name="FK__TBL_GRUPO__ID_US__04B07DB2" Association="Self.FK__TBL_GRUPO__ID_US__04B07DB2">
+          <AssociationSet Name="FK__TBL_GRUPO__ID_US__3DB1F273" Association="Self.FK__TBL_GRUPO__ID_US__3DB1F273">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TBL_GRUPOS" EntitySet="TBL_GRUPOS" />
           </AssociationSet>
-          <AssociationSet Name="FK__TR_INTEGR__ID_US__078CEA5D" Association="Self.FK__TR_INTEGR__ID_US__078CEA5D">
+          <AssociationSet Name="FK__TR_INTEGR__ID_GR__408E5F1E" Association="Self.FK__TR_INTEGR__ID_GR__408E5F1E">
             <End Role="TBL_GRUPOS" EntitySet="TBL_GRUPOS" />
             <End Role="TR_INTEGRANTES_GRUPO" EntitySet="TR_INTEGRANTES_GRUPO" />
           </AssociationSet>
-          <AssociationSet Name="FK__TR_INTEGR__ID_US__08810E96" Association="Self.FK__TR_INTEGR__ID_US__08810E96">
+          <AssociationSet Name="FK__TR_INTEGR__ID_US__41828357" Association="Self.FK__TR_INTEGR__ID_US__41828357">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TR_INTEGRANTES_GRUPO" EntitySet="TR_INTEGRANTES_GRUPO" />
           </AssociationSet>
-          <AssociationSet Name="FK__TR_USUARI__ID_US__16CF2DED" Association="Self.FK__TR_USUARI__ID_US__16CF2DED">
+          <AssociationSet Name="FK__TR_USUARI__ID_US__445EF002" Association="Self.FK__TR_USUARI__ID_US__445EF002">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="TR_USUARIO_NOTIFICACION_VERSION" EntitySet="TR_USUARIO_NOTIFICACION_VERSION" />
           </AssociationSet>
-          <AssociationSet Name="FK__TR_USUARI__ID_VE__17C35226" Association="Self.FK__TR_USUARI__ID_VE__17C35226">
+          <AssociationSet Name="FK__TR_USUARI__ID_VE__4553143B" Association="Self.FK__TR_USUARI__ID_VE__4553143B">
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
             <End Role="TR_USUARIO_NOTIFICACION_VERSION" EntitySet="TR_USUARIO_NOTIFICACION_VERSION" />
           </AssociationSet>
@@ -636,6 +661,10 @@
           <AssociationSet Name="FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO" Association="Self.FK_TBL_RECURSO_TIPO_DOCUMENTO_TBL_TIPO_DOCUMENTO">
             <End Role="TBL_TIPO_DOCUMENTO" EntitySet="TBL_TIPO_DOCUMENTO" />
             <End Role="TBL_RECURSO_TIPO_DOCUMENTO" EntitySet="TBL_RECURSO_TIPO_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_SOLICITUD_CONTROL_DOCUMENTO_TBL_VERSION" Association="Self.FK_TBL_SOLICITUD_CONTROL_DOCUMENTO_TBL_VERSION">
+            <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
+            <End Role="TBL_SOLICITUD_CONTROL_DOCUMENTO" EntitySet="TBL_SOLICITUD_CONTROL_DOCUMENTO" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_VALIDACION_VERSION_TBL_VALIDACION_DOCUMENTO" Association="Self.FK_TBL_VALIDACION_VERSION_TBL_VALIDACION_DOCUMENTO">
             <End Role="TBL_VALIDACION_DOCUMENTO" EntitySet="TBL_VALIDACION_DOCUMENTO" />
@@ -811,6 +840,11 @@
           <AssociationSet Name="FK__TBL_DOCUM__ID_VE__4D804459" Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_DOCUM__ID_VE__4D804459">
             <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
             <End Role="TBL_DOCUMENTO_FIRMADO" EntitySet="TBL_DOCUMENTO_FIRMADO" />
+          </AssociationSet>
+          <EntitySet Name="TBL_SOLICITUD_CONTROL_DOCUMENTO" EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_SOLICITUD_CONTROL_DOCUMENTO" />
+          <AssociationSet Name="FK_TBL_SOLICITUD_CONTROL_DOCUMENTO_TBL_VERSION" Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_SOLICITUD_CONTROL_DOCUMENTO_TBL_VERSION">
+            <End Role="TBL_VERSION" EntitySet="TBL_VERSION" />
+            <End Role="TBL_SOLICITUD_CONTROL_DOCUMENTO" EntitySet="TBL_SOLICITUD_CONTROL_DOCUMENTO" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="TBL_ARCHIVO">
@@ -1120,7 +1154,7 @@
           <Property Name="Psql" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Bloqueado" Type="Boolean" />
           <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Pathnsf" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Pathnsf" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TBL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_DOCUMENTO_Usuarios" FromRole="Usuarios" ToRole="TBL_DOCUMENTO" />
           <NavigationProperty Name="TR_ROL_USUARIOS" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TR_ROL_USUARIOS_Usuarios" FromRole="Usuarios" ToRole="TR_ROL_USUARIOS" />
           <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios" FromRole="Usuarios" ToRole="TBL_VERSION" />
@@ -1176,6 +1210,7 @@
           <NavigationProperty Name="Usuarios1" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_VERSION_Usuarios1" FromRole="TBL_VERSION" ToRole="Usuarios" />
           <NavigationProperty Name="TR_USUARIO_NOTIFICACION_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TR_USUARI__ID_VE__17C35226" FromRole="TBL_VERSION" ToRole="TR_USUARIO_NOTIFICACION_VERSION" />
           <NavigationProperty Name="TBL_DOCUMENTO_FIRMADO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_DOCUM__ID_VE__4D804459" FromRole="TBL_VERSION" ToRole="TBL_DOCUMENTO_FIRMADO" />
+          <NavigationProperty Name="TBL_SOLICITUD_CONTROL_DOCUMENTO" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_SOLICITUD_CONTROL_DOCUMENTO_TBL_VERSION" FromRole="TBL_VERSION" ToRole="TBL_SOLICITUD_CONTROL_DOCUMENTO" />
         </EntityType>
         <Association Name="FK_TBL_ARCHIVO_TBL_VERSION">
           <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="1" />
@@ -1409,6 +1444,31 @@
               <PropertyRef Name="ID_VERSION" />
             </Principal>
             <Dependent Role="TBL_DOCUMENTO_FIRMADO">
+              <PropertyRef Name="ID_VERSION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_SOLICITUD_CONTROL_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="ID_SOLICITUD_CONTROL_DOCUMENTO" />
+          </Key>
+          <Property Name="ID_SOLICITUD_CONTROL_DOCUMENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_VERSION" Type="Int32" Nullable="false" />
+          <Property Name="ACCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_SOLICITUD" Type="DateTime" Precision="3" />
+          <Property Name="BAN_EJECUTADA" Type="Boolean" />
+          <Property Name="FECHA_EJECUCION" Type="DateTime" Precision="3" />
+          <Property Name="COMENTARIO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_VERSION" Relationship="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_SOLICITUD_CONTROL_DOCUMENTO_TBL_VERSION" FromRole="TBL_SOLICITUD_CONTROL_DOCUMENTO" ToRole="TBL_VERSION" />
+        </EntityType>
+        <Association Name="FK_TBL_SOLICITUD_CONTROL_DOCUMENTO_TBL_VERSION">
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_VERSION" Role="TBL_VERSION" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.ControlDocumentos.TBL_SOLICITUD_CONTROL_DOCUMENTO" Role="TBL_SOLICITUD_CONTROL_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_VERSION">
+              <PropertyRef Name="ID_VERSION" />
+            </Principal>
+            <Dependent Role="TBL_SOLICITUD_CONTROL_DOCUMENTO">
               <PropertyRef Name="ID_VERSION" />
             </Dependent>
           </ReferentialConstraint>
@@ -1691,6 +1751,19 @@
                 <ScalarProperty Name="PATH_DOCUMENTO" ColumnName="PATH_DOCUMENTO" />
                 <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
                 <ScalarProperty Name="ID_DOCUMENTO_FIRMADO" ColumnName="ID_DOCUMENTO_FIRMADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SOLICITUD_CONTROL_DOCUMENTO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.ControlDocumentos.TBL_SOLICITUD_CONTROL_DOCUMENTO">
+              <MappingFragment StoreEntitySet="TBL_SOLICITUD_CONTROL_DOCUMENTO">
+                <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+                <ScalarProperty Name="FECHA_EJECUCION" ColumnName="FECHA_EJECUCION" />
+                <ScalarProperty Name="BAN_EJECUTADA" ColumnName="BAN_EJECUTADA" />
+                <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+                <ScalarProperty Name="ACCION" ColumnName="ACCION" />
+                <ScalarProperty Name="ID_VERSION" ColumnName="ID_VERSION" />
+                <ScalarProperty Name="ID_SOLICITUD_CONTROL_DOCUMENTO" ColumnName="ID_SOLICITUD_CONTROL_DOCUMENTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

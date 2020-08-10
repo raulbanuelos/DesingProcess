@@ -50,5 +50,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         public virtual DbSet<TBL_INFORMACION_FRAMES> TBL_INFORMACION_FRAMES { get; set; }
         public virtual DbSet<TBL_SUSCRIPCION_DOCUMENTO> TBL_SUSCRIPCION_DOCUMENTO { get; set; }
         public virtual DbSet<TBL_DOCUMENTO_FIRMADO> TBL_DOCUMENTO_FIRMADO { get; set; }
+        public virtual DbSet<TBL_SOLICITUD_CONTROL_DOCUMENTO> TBL_SOLICITUD_CONTROL_DOCUMENTO { get; set; }
     }
 }

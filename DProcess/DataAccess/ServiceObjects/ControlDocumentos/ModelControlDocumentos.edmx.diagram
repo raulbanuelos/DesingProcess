@@ -56,6 +56,8 @@
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_USUARIO_SUSCRITO" />
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_DOCUMENTO_FIRMADO" Width="2.625" PointX="27.625" PointY="5.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK__TBL_DOCUM__ID_VE__4D804459" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.ControlDocumentos.TBL_SOLICITUD_CONTROL_DOCUMENTO" Width="1.5" PointX="27.625" PointY="9.25" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.ControlDocumentos.FK_TBL_SOLICITUD_CONTROL_DOCUMENTO_TBL_VERSION" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

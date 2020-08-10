@@ -187,6 +187,31 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que obtiene el Id de tipo de documento a partir de un idVersion
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <returns></returns>
+        public int GetTipoDocumentoByIdVersion(int idVersion)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    int idTipoDocumento = (from v in Conexion.TBL_VERSION
+                                           join d in Conexion.TBL_DOCUMENTO on v.ID_DOCUMENTO equals d.ID_DOCUMENTO
+                                           where v.ID_VERSION == idVersion
+                                           select d.ID_TIPO_DOCUMENTO).ToList().FirstOrDefault();
+
+                    return idTipoDocumento;
+                }
+            }
+            catch (Exception er)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
         /// Retorna el nombre del tipo de acuerdo al id
         /// </summary>
         /// <param name="id_tipoDoc"></param>

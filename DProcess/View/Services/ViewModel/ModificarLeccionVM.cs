@@ -1,12 +1,10 @@
 ﻿using Model;
 using Model.ControlDocumentos;
 using System;
-using Encriptar;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;

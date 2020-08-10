@@ -20,7 +20,7 @@ using View.Forms.DashBoard;
 using System.Windows;
 using MahApps.Metro.Controls;
 using System.Linq;
-using System.Collections.ObjectModel;
+using TableDependency.SqlClient.Base.EventArgs;
 
 namespace View.Services.ViewModel
 {
@@ -697,9 +697,9 @@ namespace View.Services.ViewModel
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TableDependencyAdmin_OnChanged(object sender, TableDependency.EventArgs.RecordChangedEventArgs<DO_Historial_Documento> e)
+        private void TableDependencyAdmin_OnChanged(object sender, RecordChangedEventArgs<DO_Historial_Documento> e)
         {
-            if (e.ChangeType == TableDependency.Enums.ChangeType.Insert)
+            if (e.ChangeType == TableDependency.SqlClient.Base.Enums.ChangeType.Insert)
             {
                 var chagedEntity = e.Entity;
                 NotificationType notification = NotificationType.Information;
@@ -729,15 +729,15 @@ namespace View.Services.ViewModel
             }
         }
 
-        private void TableDependencyAdmin_OnError(object sender, TableDependency.EventArgs.ErrorEventArgs e)
+        private void TableDependencyAdmin_OnError(object sender, TableDependency.SqlClient.Base.EventArgs.ErrorEventArgs e)
         {
             Exception ex = e.Error;
             throw ex;
         }
 
-        private void TableDependency_OnChanged(object sender, TableDependency.EventArgs.RecordChangedEventArgs<DO_Notification> e)
+        private void TableDependency_OnChanged(object sender, RecordChangedEventArgs<DO_Notification> e)
         {
-            if (e.ChangeType == TableDependency.Enums.ChangeType.Insert)
+            if (e.ChangeType == TableDependency.SqlClient.Base.Enums.ChangeType.Insert)
             {
                 var chagedEntity = e.Entity;
 
@@ -765,7 +765,7 @@ namespace View.Services.ViewModel
             }
         }
 
-        private void TableDependency_OnError(object sender, TableDependency.EventArgs.ErrorEventArgs e)
+        private void TableDependency_OnError(object sender, TableDependency.SqlClient.Base.EventArgs.ErrorEventArgs e)
         {
             Exception ex = e.Error;
             throw ex;

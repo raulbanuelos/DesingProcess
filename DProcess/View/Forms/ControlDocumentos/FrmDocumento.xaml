@@ -135,7 +135,6 @@
                               DisplayMemberPath="nombre"  
                               SelectedItem="{Binding SelectedDocumento}" 
                               IsEnabled="{Binding NombreEnabled}">
-
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <i:InvokeCommandAction
@@ -147,13 +146,13 @@
                                 <TextBox  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblVersion}" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" Height="50" Width="420" BorderBrush="#89535353" FontSize="18" Text="{Binding Version}" IsEnabled="{Binding VersionEnabled}"/>
                                 <!--Date-->
                                 <StackPanel Orientation="Horizontal" Height="50" Margin="5,5,0,0">
-                                    <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFecha}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
+                                    <DatePicker materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblFecha}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="50"  Width="420" DisplayDateEnd="{Binding Path=FechaFin, Mode=OneWay, NotifyOnSourceUpdated=True}"  BorderBrush="#89535353" FontSize="18" SelectedDate="{Binding Fecha}"
                         IsEnabled="{Binding EnabledFecha}" />
                                 </StackPanel>
                                 <!--Descripción-->
-                                <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="49"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
+                                <TextBox Text="{Binding Descripcion}"  materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblDescripcion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="50"  Width="420" BorderBrush="#89535353" FontSize="18" CharacterCasing="Upper" 
                         IsEnabled="{Binding IsEnabled}" SpellCheck.IsEnabled="True" Language="es-ES" HorizontalAlignment="Left"></TextBox>
-                                <TextBox Text="{Binding NoCopias}" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroCopias}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="49" Width="420" BorderBrush="#89535353"  FontSize="18" CharacterCasing="Upper" IsReadOnly="True" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
+                                <TextBox Text="{Binding NoCopias}" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblNumeroCopias}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Width="420" BorderBrush="#89535353"  FontSize="18" CharacterCasing="Upper" IsReadOnly="True" Visibility="{Binding BttnEliminar, Converter={StaticResource BoolToVis}, FallbackValue=hidden}"/>
 
                                 <!--CheckBox para recibir notificaciones al suscribirse a un documento-->
                                 <CheckBox Content="{x:Static recursos:StringResources.msgQuieroSuscribirme}"  Margin="5" IsChecked="{Binding ActivarSuscripcion}" Cursor="Hand" Visibility="{Binding visibilitycheck_suscripcion, Converter={StaticResource BoolToVis}, FallbackValue=Visible}" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"></CheckBox>

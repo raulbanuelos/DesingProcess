@@ -23,9 +23,6 @@ using System.Drawing;
 using Gma.QrCodeNet.Encoding;
 using Gma.QrCodeNet.Encoding.Windows.Render;
 using System.Threading;
-using System.Resources;
-using System.Collections.Generic;
-using Encriptar;
 
 namespace View.Services.ViewModel
 {
@@ -1353,12 +1350,13 @@ namespace View.Services.ViewModel
                     //Si es archivo de word asigna la imagen correspondiente.
                     objArchivo.ruta = @"/Images/w.png";
                 }
+
                 ListaDocumentos.Add(objArchivo);
             }
 
             archivoFirmado = DataManagerControlDocumentos.GetDocumentoFirmado(selectedDocumento.version.id_version);
 
-            //establecemos el tipo de ventana para saber que opciones del menu se van a mostrar        
+            //establecemos el tipo de ventana para saber que opciones del menú se van a mostrar        
             VentanaProcedencia = "PendienteLiberar";
             //mandamos llamar el método que construye el menú
             CreateMenuItems(VentanaProcedencia);
@@ -4926,6 +4924,24 @@ namespace View.Services.ViewModel
 
                                                             //await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
                                                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
+                                                        }else
+                                                        {
+                                                            //Si es formato del sistema, enviamos un correo al que autorizará/Rechazará el documento.
+                                                            if (TipoDocumento == "FORMATO DEL SISTEMA")
+                                                            {
+                                                                ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(id_version);
+                                                                string[] files = new string[archivosTem.Count];
+                                                                int c = 0;
+                                                                foreach (var item2 in archivosTem)
+                                                                {
+                                                                    string pathTemp = GetPathTempFile(item2);
+                                                                    File.WriteAllBytes(pathTemp, item2.archivo);
+                                                                    files[c] = pathTemp;
+                                                                    c++;
+                                                                }
+
+                                                                bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(_selectedDocumento.nombre, objVersion.no_version, objVersion.id_version,objVersion.id_usuario_autorizo,files);
+                                                            }
                                                         }
                                                     }
 
@@ -5054,7 +5070,26 @@ namespace View.Services.ViewModel
 
                                                             //await dialog.SendMessage(StringResources.ttlAlerta, "Hubo un error al adjuntar el documento, por favor intente mas tarde.");
                                                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHuboError);
+                                                        }else
+                                                        {
+                                                            //Si es formato del sistema, enviamos un correo al que autorizará/Rechazará el documento.
+                                                            if (TipoDocumento == "FORMATO DEL SISTEMA")
+                                                            {
+                                                                ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(id_version);
+                                                                string[] files = new string[archivosTem.Count];
+                                                                int c = 0;
+                                                                foreach (var item2 in archivosTem)
+                                                                {
+                                                                    string pathTemp = GetPathTempFile(item2);
+                                                                    File.WriteAllBytes(pathTemp, item2.archivo);
+                                                                    files[c] = pathTemp;
+                                                                    c++;
+                                                                }
+
+                                                                bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(_selectedDocumento.nombre, objVersion.no_version, objVersion.id_version, objVersion.id_usuario_autorizo, files);
+                                                            }
                                                         }
+                                                        
                                                     }
 
                                                     //Asignamos el valor de Guardar a la etiqueta del botón.
@@ -5344,8 +5379,7 @@ namespace View.Services.ViewModel
             }
             return r;
         }
-
-
+        
         private void SaveSignedFile()
         {
             string path = @"\\agufileserv2\ingenieria\resprutas\NUEVO SOFTWARE RUTAS\DocumentosFirmados";
@@ -5396,8 +5430,7 @@ namespace View.Services.ViewModel
 
             if (!Directory.Exists(path))
                 System.IO.Directory.CreateDirectory(path);
-
-
+            
             path = path + nombre + "_" + version + SignedFile.ext;
 
             File.WriteAllBytes(path, SignedFile.archivo);
@@ -6699,7 +6732,25 @@ namespace View.Services.ViewModel
                                             }
                                         }
                                         if (banOk)
+                                        {
+                                            string idUsuarioAutorizo = DataManagerControlDocumentos.GetVersion(idVersion).id_usuario_autorizo;
+
+                                            ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(idVersion);
+                                            string[] files = new string[archivosTem.Count];
+                                            int c = 0;
+                                            foreach (var item in archivosTem)
+                                            {
+                                                string pathTemp = GetPathTempFile(item);
+                                                File.WriteAllBytes(pathTemp, item.archivo);
+                                                files[c] = pathTemp;
+                                                c++;
+                                            }
+
+                                            bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(nombre, version,idVersion,idUsuarioAutorizo,files);
+
                                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
+                                        }
+                                            
 
                                         CerrarVentanaActual();
                                     }
@@ -6754,7 +6805,26 @@ namespace View.Services.ViewModel
                                     }
 
                                     if (banOk)
+                                    {
+
+                                        string idUsuarioAutorizo = DataManagerControlDocumentos.GetVersion(idVersion).id_usuario_autorizo;
+
+                                        ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(idVersion);
+                                        string[] files = new string[archivosTem.Count];
+                                        int c = 0;
+                                        foreach (var item in archivosTem)
+                                        {
+                                            string pathTemp = GetPathTempFile(item);
+                                            File.WriteAllBytes(pathTemp, item.archivo);
+                                            files[c] = pathTemp;
+                                            c++;
+                                        }
+
+                                        bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(nombre, version, idVersion, idUsuarioAutorizo,files);
+
                                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
+                                    }
+                                        
 
                                     //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -6791,6 +6861,61 @@ namespace View.Services.ViewModel
                 //El sistema se encuentra bloqueado
                 await dialog.SendMessage(StringResources.msgSistemaBloqueado, objBloqueo.observaciones);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigoDocumento"></param>
+        /// <param name="noVersion"></param>
+        /// <param name="idVersion"></param>
+        /// <param name="emailUsuario"></param>
+        /// <returns></returns>
+        private bool enviarCorreoAprobarRechazar(string codigoDocumento, string noVersion, int idVersion, string idUsuarioAutorizo, string[] files)
+        {
+            string email = DataManagerControlDocumentos.GetCorreoUsuario(idUsuarioAutorizo);
+            
+            ServiceEmail serviceEmail = new ServiceEmail();
+            string body;
+            body = "<HTML>";
+            body += "<head>";
+            body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+            body += "</head>";
+            body += "<body text=\"white\">";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"> ---Ejemplo--- </font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">He dado de alta una nueva versión del documento <b>" + codigoDocumento + "</b> versión <b> " + noVersion + ".0" + " </b> para lo cual requiero su autorización para poderlo liberar en el sistema </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">El documento esta adjunto a este correo. </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> APROBAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://10.16.44.242:3000/api/aprobardocumento/id:" + idVersion + " \">Aprobar</a></li>";
+            body += "<br/><br/>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> RECHAZAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://10.16.44.242:3000/api/viewnoaprobar/id:" + idVersion + " \">No Aprobar</a> </li>";
+            body += "<br/>";
+            body += "</ul>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Nombre + " " + User.ApellidoPaterno + "</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+            body += "<li></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+            body += "</ul>";
+            body += "</body>";
+            body += "</HTML>";
+
+            string[] recepents = new string[2];
+            recepents[0] = "raul.banuelos@mx.mahle.com";
+            recepents[1] = email;
+
+            recepents = Module.EliminarCorreosDuplicados(recepents);
+
+            return serviceEmail.SendEmailLotusCustom(User.Pathnsf, recepents, "Control de documentos -  Solicitud de aprobación de documento: " + codigoDocumento, body, files);
         }
 
         /// <summary>

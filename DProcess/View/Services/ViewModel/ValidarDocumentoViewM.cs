@@ -352,7 +352,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Funcíón que modifica la versión
+        /// Función que modifica la versión
         /// </summary>
         /// <param name="objVersion"></param>
         public async void UpdateVersion(Model.ControlDocumentos.Version objVersion, bool Confirmar, bool Aprobado)
@@ -478,6 +478,20 @@ namespace View.Services.ViewModel
                     {
                         //Se llama a la función para actualizar el estatus de la versión
                         UpdateVersion(objVersion, Confirmacion, Aprobado);
+
+                        ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(selectedDocumento.version.id_version);
+                        string[] files = new string[archivosTem.Count];
+                        int c = 0;
+                        foreach (var item2 in archivosTem)
+                        {
+                            string pathTemp = GetPathTempFile(item2);
+                            File.WriteAllBytes(pathTemp, item2.archivo);
+                            files[c] = pathTemp;
+                            c++;
+                        }
+
+                        bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(SelectedDocumento.nombre, objVersion.no_version, objVersion.id_version, objVersion.id_usuario_autorizo,objVersion.id_usuario, files);
+
                     }
                     else
                     {
@@ -492,6 +506,20 @@ namespace View.Services.ViewModel
 
                     //Se llama a la función para actualizar el estatus de la versión
                     UpdateVersion(objVersion, Confirmacion, Aprobado);
+
+                    ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(selectedDocumento.version.id_version);
+                    string[] files = new string[archivosTem.Count];
+                    int c = 0;
+                    foreach (var item2 in archivosTem)
+                    {
+                        string pathTemp = GetPathTempFile(item2);
+                        File.WriteAllBytes(pathTemp, item2.archivo);
+                        files[c] = pathTemp;
+                        c++;
+                    }
+
+                    bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(SelectedDocumento.nombre, objVersion.no_version, objVersion.id_version, objVersion.id_usuario_autorizo, objVersion.id_usuario, files);
+
                 }
             }
             else // Aquí se va cuando el documento es incorrecto
@@ -545,6 +573,63 @@ namespace View.Services.ViewModel
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSelecciona1error);
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codigoDocumento"></param>
+        /// <param name="noVersion"></param>
+        /// <param name="idVersion"></param>
+        /// <param name="emailUsuario"></param>
+        /// <returns></returns>
+        private bool enviarCorreoAprobarRechazar(string codigoDocumento, string noVersion, int idVersion, string idUsuarioAutorizo, string idUsuarioDueno, string[] files)
+        {
+            string email = DataManagerControlDocumentos.GetCorreoUsuario(idUsuarioAutorizo);
+
+            Usuario usuarioDueno = DataManager.GetUsuario(idUsuarioDueno);
+
+            ServiceEmail serviceEmail = new ServiceEmail();
+            string body;
+            body = "<HTML>";
+            body += "<head>";
+            body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+            body += "</head>";
+            body += "<body text=\"white\">";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"> ---Ejemplo--- </font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">El usuario <b>" + usuarioDueno.Nombre + " " + usuarioDueno.ApellidoPaterno + "</b> a dado de alta una nueva versión del documento <b>" + codigoDocumento + "</b> versión <b> " + noVersion + ".0" + " </b> para lo cual requiero su autorización para poderlo liberar en el sistema </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">El documento esta adjunto a este correo. </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> APROBAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://10.16.44.242:3000/api/aprobardocumento/id:" + idVersion + " \">Aprobar</a></li>";
+            body += "<br/><br/>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> RECHAZAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://10.16.44.242:3000/api/viewnoaprobar/id:" + idVersion + " \">No Aprobar</a> </li>";
+            body += "<br/>";
+            body += "</ul>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
+            body += "<br/>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+            body += "<ul>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Nombre + " " + _usuarioLogueado.ApellidoPaterno + "</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+            body += "<li></li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + _usuarioLogueado.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+            body += "</ul>";
+            body += "</body>";
+            body += "</HTML>";
+
+            string[] recepents = new string[2];
+            recepents[0] = "raul.banuelos@mx.mahle.com";
+            recepents[1] = email;
+
+            recepents = Module.EliminarCorreosDuplicados(recepents);
+
+            return serviceEmail.SendEmailLotusCustom(_usuarioLogueado.Pathnsf, recepents, "Control de documentos -  Solicitud de aprobación de documento: " + codigoDocumento, body, files);
         }
 
         /// <summary>

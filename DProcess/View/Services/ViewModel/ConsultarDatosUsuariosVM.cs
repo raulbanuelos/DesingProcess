@@ -1,17 +1,9 @@
 ﻿using Model.ControlDocumentos;
-using Encriptar;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using View.Forms.User;
-using MaterialDesignThemes.Wpf;
 using MahApps.Metro.Controls.Dialogs;
-using System.Collections;
 using View.Resources;
 
 namespace View.Services.ViewModel

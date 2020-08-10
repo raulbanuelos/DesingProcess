@@ -1,21 +1,17 @@
 ﻿using DataAccess.ServiceObjects.ControlDocumentos;
 using DataAccess.ServiceObjects.Notificaciones;
 using System;
-using Encriptar;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DataAccess.ServiceObjects.Usuario;
-using DataAccess.ServiceObjects;
 
 namespace Model.ControlDocumentos
 {
@@ -96,7 +92,6 @@ namespace Model.ControlDocumentos
             }
             return documento;
         }
-
 
         public static List<Archivo> GetArchivoFiltrado(string CodigoValidacion)
         {
@@ -511,6 +506,7 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
+        
         /// <summary>
         /// Método que obtiene todos los documentos liberados
         /// Llena el DataGrid del Frm_Busqueda_documentos
@@ -725,6 +721,47 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
+        /// Método que obtiene un registro de documentos
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <returns></returns>
+        public static Documento GetDocumento(int idVersion)
+        {
+            //Se inicializan los servicios de Documento.
+            SO_Documento ServicioDocumento = new SO_Documento();
+
+            //Se crea un objeto de tipo documento
+            Documento documento = new Documento();
+
+            //Obtenemos la información de la BD.
+            IList informacionBD = ServicioDocumento.GetDocumentoByVersion(idVersion);
+
+            //Si la información es diferente de nulo
+            if (informacionBD != null)
+            {
+                //Iteramos la lista que se obtuvo
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Asignamos los valores correspondientes.
+                    documento.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    documento.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
+                    documento.id_estatus = (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
+                    documento.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    documento.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
+                    documento.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+                    documento.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    documento.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                }
+            }
+
+            //Retornamos el objeto
+            return documento;
+        }
+
+        /// <summary>
         /// Método que obtiene la información de la versión y de un documento en específico
         /// </summary>
         /// <param name="id_documento"></param>
@@ -804,7 +841,6 @@ namespace Model.ControlDocumentos
             //Ejecutamos el método y retornamos el valor.
             return servicioDocumento.ExistDocumento(numeroDocumento);
         }
-        //excel
 
         /// <summary>
         /// Método que regresa el id del departamento
@@ -1567,6 +1603,13 @@ namespace Model.ControlDocumentos
             return ServicioTipoDocumento.GetTipoDocumento(idDocumento);
         }
 
+        public static int GetTipoDocumentoByIdVersion(int idVersion)
+        {
+            SO_TipoDocumento ServiceTipo = new SO_TipoDocumento();
+
+            return ServiceTipo.GetTipoDocumentoByIdVersion(idVersion);
+        }
+
         /// <summary>
         /// Retorna el nombre del tipo de documento
         /// </summary>
@@ -1637,8 +1680,6 @@ namespace Model.ControlDocumentos
             return ct1.GetNombre(TextoBusca);
 
         }
-       
-
 
         //public static string GetNombreOpe(string TextoBusca)
         //{
@@ -1646,8 +1687,6 @@ namespace Model.ControlDocumentos
         //    SO_CentrosDeTrabajo ct1 = new SO_CentrosDeTrabajo();
         //    return ct1.GetNombre(TextoBusca.CentroTrabajo);
         //}
-
-
 
         /// <summary>
         /// Método para obtener los registros de la tabla.
@@ -2082,6 +2121,11 @@ namespace Model.ControlDocumentos
             return ServicioUsuario.GetCorreoUsuario(idUsuario);
         }
 
+        /// <summary>
+        /// Método que obtiene el path de correo de un usuario.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
         public static string GetPath(string idUsuario)
         {
             //Inicializamos los servicios del usuario.
@@ -2117,7 +2161,7 @@ namespace Model.ControlDocumentos
         }
         #endregion
 
-        #region Version
+        #region Versión
 
         /// <summary>
         /// Método para obtener los registros de la BD.
@@ -2162,6 +2206,50 @@ namespace Model.ControlDocumentos
             }
             //Retornamos la lista.
             return Lista;
+        }
+
+        /// <summary>
+        /// Métod que obtiene los datos de una versión en específico.
+        /// </summary>
+        /// <param name="idVersion"></param>
+        /// <returns></returns>
+        public static Version GetVersion(int idVersion)
+        {
+            //Inicializamos los servicios de version.
+            SO_Version ServiceVersion = new SO_Version();
+
+            //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
+            Version version = new Version();
+
+            //Ejecutamos el método para obtener la información de la base de datos.
+            IList ObjVersion = ServiceVersion.GetVersion(idVersion);
+
+            //Comparamos que la información de la base de datos no sea nulo.
+            if (ObjVersion != null)
+            {
+
+                //Iteramos la información recibida.
+                foreach (var item in ObjVersion)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos on objeto de tipo version que contendrá la información de un registro.
+                    version = new Version();
+
+                    //Asignamos los valores correspondientes.
+                    version.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    version.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    version.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
+                    version.id_usuario_autorizo = (string)tipo.GetProperty("ID_USUARIO_AUTORIZO").GetValue(item, null);
+                    version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
+                    version.no_copias = (int)tipo.GetProperty("NO_COPIAS").GetValue(item, null);
+                    version.descripcion_v = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
+                }
+            }
+            //Retornamos la lista.
+            return version;
         }
 
         /// <summary>
@@ -4476,7 +4564,6 @@ namespace Model.ControlDocumentos
             return ServiceDocumento.UpdateDocumentoEliminado(Id_registro, Archivo);
         }
 
-
         /// <summary>
         /// Método que obtiene todos los registros de la tabla 
         /// </summary>
@@ -5204,6 +5291,27 @@ namespace Model.ControlDocumentos
             SO_DocumentoFirmado serviceDocumentoFirmado = new SO_DocumentoFirmado();
 
             return serviceDocumentoFirmado.Insert(idVersion, archivo.archivo, archivo.nombre, archivo.ext);
+        }
+        #endregion
+
+        #region Solicitud (Daemon Control Documentos)
+        /// <summary>
+        /// Método que establece una solicitud como ya ejecutada.
+        /// </summary>
+        /// <param name="idSolicitd"></param>
+        /// <returns></returns>
+        public static int setDoneSolicitudControlDocumentos(int idSolicitd)
+        {
+            SO_SolicitudControlDocumento serviceSolicitud = new SO_SolicitudControlDocumento();
+
+            return serviceSolicitud.setDoneSolicitud(idSolicitd);
+        }
+
+        public static int deleteSolicitudControlDocumentos(int idSolicitud)
+        {
+            SO_SolicitudControlDocumento serviceSolicitud = new SO_SolicitudControlDocumento();
+
+            return serviceSolicitud.delete(idSolicitud);
         }
         #endregion
     }

@@ -1,5 +1,4 @@
-﻿using Encriptar;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using Model;
 using Model.ControlDocumentos;
 using System;
