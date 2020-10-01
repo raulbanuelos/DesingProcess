@@ -1,4 +1,7 @@
-﻿using MahApps.Metro.Controls;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.IconPacks;
 using Model;
@@ -145,7 +148,7 @@ namespace View.Services.ViewModel
             set { _MotivoSelected = value; NotifyChange("MotivoSelected"); }
         }
 
-
+        public SeriesCollection Series { get; set; }
         #endregion
 
         #region Constructor
@@ -159,7 +162,7 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Comandos
-
+        
         public ICommand ExportExcel
         {
             get
@@ -208,7 +211,6 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Métodos
-
         /// <summary>
         /// Método que exporta el historial de lecciones aprendidas del componente seleccionado.
         /// </summary>
@@ -285,6 +287,20 @@ namespace View.Services.ViewModel
             FechaFinal = DateTime.Now;
             FechaInicial = DateTime.Now;
             ListaMotivos = DataManagerControlDocumentos.GetMotivoCambio();
+
+            List<FO_Item> listaPctMotivo = DataManagerControlDocumentos.GetPctMotivoCambio(user.NombreUsuario);
+            Series = new SeriesCollection();
+
+            foreach (var item in listaPctMotivo)
+            {
+                PieSeries pieSeries = new PieSeries();
+
+                pieSeries.Title = item.Nombre;
+                pieSeries.Values = new ChartValues<ObservableValue> { new ObservableValue(item.Valor) };
+                pieSeries.DataLabels = true;
+
+                Series.Add(pieSeries);
+            }
             
             if (ListaMotivos.Count>0)
             {

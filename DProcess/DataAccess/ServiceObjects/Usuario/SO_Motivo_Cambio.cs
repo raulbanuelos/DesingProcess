@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DataAccess.SQLServer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +11,8 @@ namespace DataAccess.ServiceObjects.Usuario
 {
     public class SO_Motivo_Cambio
     {
+        public string SP_LA_GET_PCT_MOTIVO_CAMBIO = "SP_LA_GET_PCT_MOTIVO_CAMBIO";
+
         public IList Get()
         {
             try
@@ -91,6 +95,29 @@ namespace DataAccess.ServiceObjects.Usuario
                                  }).ToList();
                     return lista;
                 }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public DataSet GetPctMotivoCambio(string idUsuario)
+        {
+            try
+            {
+                DataSet datos;
+
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+                parametros.Add("idUsuario", idUsuario);
+
+                Desing_SQL conexion = new Desing_SQL();
+
+                datos = conexion.EjecutarStoredProcedure(SP_LA_GET_PCT_MOTIVO_CAMBIO, parametros);
+
+                return datos;
+
             }
             catch (Exception)
             {

@@ -315,7 +315,7 @@ namespace View.Services
                 {
                     //Obtenemos los datos de cada herramental
                     string CodigoHerramental = herramental.Codigo + " ";
-                    string DescripcionHerramental = herramental.DescripcionGeneral + " ";
+                    string DescripcionHerramental = herramental.Encontrado ? herramental.DescripcionGeneral + " " : herramental.DescripcionMedidasBusqueda + " ";
                     string CantidadHerramental = herramental.clasificacionHerramental.CantidadUtilizar.ToString();
 
                     //Imprimimos los datos de cada herramental

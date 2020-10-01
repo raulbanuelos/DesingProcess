@@ -39,6 +39,23 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             }
         }
 
+        public int getIdSolicitud(int idVersion, string acccion, DateTime fechaSolicitud)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    TBL_SOLICITUD_CONTROL_DOCUMENTO tblSolicitud = Conexion.TBL_SOLICITUD_CONTROL_DOCUMENTO.Where(x => x.ID_VERSION == idVersion && x.ACCION == acccion && x.FECHA_SOLICITUD == fechaSolicitud).FirstOrDefault();
+
+                    return tblSolicitud.ID_SOLICITUD_CONTROL_DOCUMENTO;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
         public int delete(int idSolicitud)
         {
             try

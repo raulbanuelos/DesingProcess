@@ -1155,6 +1155,14 @@ namespace View.Services.ViewModel
             User = ModelUsuario;
             Encriptacion des = new Encriptacion();
 
+            //si es personal del CIT, la campo de fecha es editable
+            if (Module.UsuarioIsRol(User.Roles, 2))
+            {
+                EnabledFecha = true;
+                VersionEnabled = true;
+            }
+
+
             //Inicializa los combobox 
             Inicializar();
             IsEnabled = false;
@@ -1932,9 +1940,9 @@ namespace View.Services.ViewModel
                     {
                         string pdfFinal = GetPathTempFile(new Archivo { nombre = "tempOuputPdf", numero = 1 });
                         string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1 });
-                        generateQRCode(qrFinal);
+                        //generateQRCode(qrFinal);
 
-                        insertQR(pathPDF, pdfFinal, qrFinal);
+                        //insertQR(pathPDF, pdfFinal, qrFinal);
 
                         QuitarExcelPonerPDF(archivo, pdfFinal);
                     }
@@ -2172,19 +2180,19 @@ namespace View.Services.ViewModel
                     //
                     if (ban != 2)
                     {
-                        string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1, ext = ".PNG" });
-                        generateQRCode(qrFinal);
+                        //string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1, ext = ".PNG" });
+                        //generateQRCode(qrFinal);
 
-                        for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
-                        {
-                            Microsoft.Office.Interop.Excel.Worksheet sheet;
-                            sheet = ExcelWork.Sheets[i];
-                            Microsoft.Office.Interop.Excel.Range oRange = (Microsoft.Office.Interop.Excel.Range)sheet.Cells[2, 25];
-                            float Left = (float)((double)oRange.Left);
-                            float Top = (float)((double)oRange.Top);
-                            const float ImageSize = 128;
-                            sheet.Shapes.AddPicture(qrFinal, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, Left, Top, ImageSize, ImageSize);
-                        }
+                        //for (int i = 1; i <= ExcelWork.Sheets.Count; i++)
+                        //{
+                        //    Microsoft.Office.Interop.Excel.Worksheet sheet;
+                        //    sheet = ExcelWork.Sheets[i];
+                        //    Microsoft.Office.Interop.Excel.Range oRange = (Microsoft.Office.Interop.Excel.Range)sheet.Cells[2, 25];
+                        //    float Left = (float)((double)oRange.Left);
+                        //    float Top = (float)((double)oRange.Top);
+                        //    const float ImageSize = 128;
+                        //    sheet.Shapes.AddPicture(qrFinal, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, Left, Top, ImageSize, ImageSize);
+                        //}
 
                         ExcelWork.Save();
 
@@ -2450,11 +2458,11 @@ namespace View.Services.ViewModel
                     {
                         string pdfFinal = GetPathTempFile(new Archivo { nombre = "tempOuputPdf", numero = 1 });
                         string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1 });
-                        generateQRCode(qrFinal);
+                        //generateQRCode(qrFinal);
 
-                        insertQR(pathPDF, pdfFinal, qrFinal);
+                        //insertQR(pathPDF, pdfFinal, qrFinal);
 
-                        QuitarExcelPonerPDF(archivo, pdfFinal);
+                        QuitarExcelPonerPDF(archivo, pathPDF);
                     }
                     else
                     {
@@ -2662,11 +2670,11 @@ namespace View.Services.ViewModel
                     {
                         string pdfFinal = GetPathTempFile(new Archivo { nombre = "tempOuputPdf", numero = 1 });
                         string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1 });
-                        generateQRCode(qrFinal);
+                        //generateQRCode(qrFinal);
 
-                        insertQR(pathPDF, pdfFinal, qrFinal);
+                        //insertQR(pathPDF, pdfFinal, qrFinal);
 
-                        QuitarExcelPonerPDF(archivo, pdfFinal);
+                        QuitarExcelPonerPDF(archivo, pathPDF);
                     }
                     else
                     {
@@ -2690,87 +2698,87 @@ namespace View.Services.ViewModel
             }
         }
 
-        private void generateQRCode(string path)
-        {
-            string codigo = string.Empty;
+        //private void generateQRCode(string path)
+        //{
+        //    string codigo = string.Empty;
 
-            bool ban = true;
+        //    bool ban = true;
 
-            while (ban)
-            {
-                codeValidation = Module.GetRandomString(8);
-                ban = DataManagerControlDocumentos.ExistsCodeValidation(codeValidation);
-            }
+        //    while (ban)
+        //    {
+        //        codeValidation = Module.GetRandomString(8);
+        //        ban = DataManagerControlDocumentos.ExistsCodeValidation(codeValidation);
+        //    }
 
-            // codigo = SelectedDocumento.nombre + " " + Version + " " + codeValidation + " ";
-            codigo = codeValidation + "*";
+        //    // codigo = SelectedDocumento.nombre + " " + Version + " " + codeValidation + " ";
+        //    codigo = codeValidation + "*";
 
-            //Encriptamos el codigo.
-            string codigoEncriptado = Seguridad.Encriptar(codigo);
+        //    //Encriptamos el codigo.
+        //    string codigoEncriptado = Seguridad.Encriptar(codigo);
 
-            var qrEncoder = new QrEncoder(ErrorCorrectionLevel.H);
-            var qrCode = qrEncoder.Encode(codigoEncriptado);
+        //    var qrEncoder = new QrEncoder(ErrorCorrectionLevel.H);
+        //    var qrCode = qrEncoder.Encode(codigoEncriptado);
 
-            var renderer = new GraphicsRenderer(new FixedModuleSize(5, QuietZoneModules.Two), Brushes.Black, Brushes.White);
-            using (var stream = new FileStream(path, FileMode.Create))
-                renderer.WriteToStream(qrCode.Matrix, ImageFormat.Png, stream);
-        }
+        //    var renderer = new GraphicsRenderer(new FixedModuleSize(5, QuietZoneModules.Two), Brushes.Black, Brushes.White);
+        //    using (var stream = new FileStream(path, FileMode.Create))
+        //        renderer.WriteToStream(qrCode.Matrix, ImageFormat.Png, stream);
+        //}
 
-        private bool insertQR(string pathPDF, string pathPDFOuput, string imgCode)
-        {
-            using (Stream inputPdfStream = new FileStream(pathPDF, FileMode.Open, FileAccess.Read, FileShare.Read))
-            using (Stream outputPdfStream = new FileStream(pathPDFOuput, FileMode.Create, FileAccess.Write, FileShare.None))
-            {
-                var reader = new PdfReader(inputPdfStream);
-                using (var stamper = new PdfStamper(reader, outputPdfStream))
-                {
-                    var pages = reader.NumberOfPages;
+        //private bool insertQR(string pathPDF, string pathPDFOuput, string imgCode)
+        //{
+        //    using (Stream inputPdfStream = new FileStream(pathPDF, FileMode.Open, FileAccess.Read, FileShare.Read))
+        //    using (Stream outputPdfStream = new FileStream(pathPDFOuput, FileMode.Create, FileAccess.Write, FileShare.None))
+        //    {
+        //        var reader = new PdfReader(inputPdfStream);
+        //        using (var stamper = new PdfStamper(reader, outputPdfStream))
+        //        {
+        //            var pages = reader.NumberOfPages;
 
-                    for (int i = 1; i <= pages; i++)
-                    {
-                        var pdfContentByte = stamper.GetOverContent(i);
-                        iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(new FileStream(imgCode, FileMode.Open, FileAccess.Read, FileShare.Read));
-                        image.ScaleAbsoluteHeight(40);
-                        image.ScaleAbsoluteWidth(40);
+        //            for (int i = 1; i <= pages; i++)
+        //            {
+        //                var pdfContentByte = stamper.GetOverContent(i);
+        //                iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(new FileStream(imgCode, FileMode.Open, FileAccess.Read, FileShare.Read));
+        //                image.ScaleAbsoluteHeight(40);
+        //                image.ScaleAbsoluteWidth(40);
 
-                        switch (id_tipo)
-                        {
-                            //Posición Código QR en documento
-                            //JES
-                            case 1015:
-                                image.SetAbsolutePosition(940, 723);
-                                break;
-                            //HOE
-                            case 2:
-                                image.SetAbsolutePosition(940, 728);
-                                break;
-                            //HII
-                            case 1002:
-                                image.SetAbsolutePosition(860, 732);
-                                break;
-                            //AVY
-                            case 1004:
-                                // Vertical
-                                if (id_recurso == 1054)
-                                {
-                                    image.SetAbsolutePosition(40, 730);
-                                }
-                                // Horizontal
-                                else
-                                {
-                                    image.SetAbsolutePosition(50, 532);
-                                }
-                                break;
-                        }
-                        if (id_tipo != 1004)
-                            pdfContentByte.AddImage(image);
-                    }
-                    stamper.Close();
-                }
-            }
+        //                switch (id_tipo)
+        //                {
+        //                    //Posición Código QR en documento
+        //                    //JES
+        //                    case 1015:
+        //                        image.SetAbsolutePosition(940, 723);
+        //                        break;
+        //                    //HOE
+        //                    case 2:
+        //                        image.SetAbsolutePosition(940, 728);
+        //                        break;
+        //                    //HII
+        //                    case 1002:
+        //                        image.SetAbsolutePosition(860, 732);
+        //                        break;
+        //                    //AVY
+        //                    case 1004:
+        //                        // Vertical
+        //                        if (id_recurso == 1054)
+        //                        {
+        //                            image.SetAbsolutePosition(40, 730);
+        //                        }
+        //                        // Horizontal
+        //                        else
+        //                        {
+        //                            image.SetAbsolutePosition(50, 532);
+        //                        }
+        //                        break;
+        //                }
+        //                if (id_tipo != 1004)
+        //                    pdfContentByte.AddImage(image);
+        //            }
+        //            stamper.Close();
+        //        }
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
         public short excel2Pdf(string originalXlsPath, string pdfPath)
         {
@@ -4044,7 +4052,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método para liberar un documento, modifica el número de copias del documento y el estatus de la versión
+        /// Método para liberar un documento, modifica el número de copias del documento y el estatus de la versión.
         /// </summary>
         private async void liberarDocumento()
         {
@@ -4067,7 +4075,7 @@ namespace View.Services.ViewModel
                 //string num_copias = await window.ShowInputAsync(StringResources.msgIngNumeroCopias, StringResources.msgNumeroCopias, null);
                 string num_copias = "0";
                 //Comprueba que el número de copias sea diferente de nulo y sólo contenga números.
-                if (num_copias != null)
+                if (num_copias != null) 
                 {
                     if (Regex.IsMatch(num_copias, @"^\d+$"))
                     {
@@ -4286,7 +4294,7 @@ namespace View.Services.ViewModel
                                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgMatrizActualizada + "\n" + confirmacionCorreo);
                                             }
 
-                                            // Llamamos el método para eliminar los registros de la tabla TR_USUARIO_NOTIFICACION_VERSION por ID_VERSION, una vez que el documento sea liberado
+                                            // Llamamos el método para eliminar los registros de la tabla TR_USUARIO_NOTIFICACION_VERSION por ID_VERSION, una vez que el documento sea liberado.
                                             DataManagerControlDocumentos.EliminarRegistroVersion(idVersion);
 
                                             //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
@@ -4898,6 +4906,8 @@ namespace View.Services.ViewModel
                                                 //si se guardó correctamente el registro en la tabla versión.
                                                 if (id_version != 0)
                                                 {
+                                                    objVersion.id_version = id_version;
+
                                                     bool banOk = true;
                                                     //Iteramos la lista de documentos.
                                                     foreach (var item in ListaDocumentos)
@@ -6746,8 +6756,41 @@ namespace View.Services.ViewModel
                                                 c++;
                                             }
 
-                                            bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(nombre, version,idVersion,idUsuarioAutorizo,files);
+                                            if (!User.Details.IsAvailableEmail || !File.Exists(User.Pathnsf))
+                                            {
+                                                //Configurar Correo.
+                                                await dialog.SendMessage(StringResources.ttlAtencion, "Su cuenta de correo electrónico aún no esta configurada con la plataforma Diseño del proceso. \n\n A continuación iniciará el proceso de configuración.");
 
+                                                await dialog.SendProgressAsync(User.Nombre + StringResources.msgParaTuInf, StringResources.msgProcesoConfiguracion);
+
+                                                ProgressDialogController AsyncProgressConfigEmail;
+
+                                                AsyncProgressConfigEmail = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento + User.Nombre + "...", StringResources.msgEstamosConfigurando);
+
+                                                ConfigEmailViewModel configEmail = new ConfigEmailViewModel(User);
+
+                                                // Se reciben valores de las 2 propiedades del objeto
+                                                DO_PathMail respuestaConfigEmail = await configEmail.setEmail();
+
+                                                await AsyncProgressConfigEmail.CloseAsync();
+
+                                                if (respuestaConfigEmail.respuesta)
+                                                {
+                                                    // Actualizamos el path de usuario en la misma sesión
+                                                    User.Pathnsf = respuestaConfigEmail.rutamail;
+                                                    
+                                                    await dialog.SendProgressAsync(StringResources.msgPerfecto + User.Nombre, StringResources.msgCuentaConfigurada);
+                                                }
+                                                else
+                                                {
+                                                    await dialog.SendMessage(StringResources.ttlOcurrioError, "Ocurrio un error al vincular su cuenta de correo electrónico. \nSu documento lo tendrá que entregar firmado al administrador de Control de documentos");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(nombre, version, idVersion, idUsuarioAutorizo, files);
+                                            }
+                                            
                                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
                                         }
                                             
@@ -6820,7 +6863,41 @@ namespace View.Services.ViewModel
                                             c++;
                                         }
 
-                                        bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(nombre, version, idVersion, idUsuarioAutorizo,files);
+                                        if (!User.Details.IsAvailableEmail || !File.Exists(User.Pathnsf))
+                                        {
+                                            //Configurar Correo.
+                                            await dialog.SendMessage(StringResources.ttlAtencion, "Su cuenta de correo electrónico aún no esta configurada con la plataforma Diseño del proceso. \n\n A continuación iniciará el proceso de configuración.");
+
+                                            await dialog.SendProgressAsync(User.Nombre + StringResources.msgParaTuInf, StringResources.msgProcesoConfiguracion);
+
+                                            ProgressDialogController AsyncProgressConfigEmail;
+
+                                            AsyncProgressConfigEmail = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento + User.Nombre + "...", StringResources.msgEstamosConfigurando);
+
+                                            ConfigEmailViewModel configEmail = new ConfigEmailViewModel(User);
+
+                                            // Se reciben valores de las 2 propiedades del objeto
+                                            DO_PathMail respuestaConfigEmail = await configEmail.setEmail();
+
+                                            await AsyncProgressConfigEmail.CloseAsync();
+
+                                            if (respuestaConfigEmail.respuesta)
+                                            {
+                                                // Actualizamos el path de usuario en la misma sesión
+                                                User.Pathnsf = respuestaConfigEmail.rutamail;
+
+                                                await dialog.SendProgressAsync(StringResources.msgPerfecto + User.Nombre, StringResources.msgCuentaConfigurada);
+                                            }
+                                            else
+                                            {
+                                                await dialog.SendMessage(StringResources.ttlOcurrioError, "Ocurrio un error al vincular su cuenta de correo electrónico. \nSu documento lo tendrá que entregar firmado al administrador de Control de documentos");
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(nombre, version, idVersion, idUsuarioAutorizo, files);
+                                        }
 
                                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
                                     }
@@ -6883,7 +6960,7 @@ namespace View.Services.ViewModel
             body += "</head>";
             body += "<body text=\"white\">";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
-            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"> ---Ejemplo--- </font> </p>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">He dado de alta una nueva versión del documento <b>" + codigoDocumento + "</b> versión <b> " + noVersion + ".0" + " </b> para lo cual requiero su autorización para poderlo liberar en el sistema </font> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">El documento esta adjunto a este correo. </font> </li>";

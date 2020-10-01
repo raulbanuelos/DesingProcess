@@ -27,7 +27,7 @@ namespace ElBecario
         private void initObserver()
         {
             Console.WriteLine("Inicializando Observador....\n");
-            System.Threading.Thread.Sleep(3000);
+
             SqlTableDependency<DO_Solicitud_Control_Documentos> tableDependency;
             var connectionString = System.Configuration.ConfigurationManager.AppSettings["CadenaConexion"];
             tableDependency = new SqlTableDependency<DO_Solicitud_Control_Documentos>(connectionString, "TBL_SOLICITUD_CONTROL_DOCUMENTO");
@@ -54,22 +54,24 @@ namespace ElBecario
                 Console.Beep(5000, 1000);
 
                 Console.WriteLine("Chinga! ya me pusieron a trabajar, ni pex!");
-                System.Threading.Thread.Sleep(3000);
+                //System.Threading.Thread.Sleep(3000);
                 Console.WriteLine("Un wey esta solicitando lo siguiente:");
                 Console.WriteLine("VERSIÓN: " + changedEntity.ID_VERSION + "\nACCIÓN SOLICITADA: " + changedEntity.ACCION + "\n");
 
-                System.Threading.Thread.Sleep(3000);
+                //System.Threading.Thread.Sleep(3000);
                 Console.WriteLine("Deja empiezo a atender la solicitud, tu no te preocupes.");
+
+                int idSolicitud = DataManagerControlDocumentos.getIdSolicitudControlDocumentos(changedEntity.ID_VERSION, changedEntity.ACCION, changedEntity.FECHA_SOLICITUD);
 
                 if (changedEntity.ACCION == "LIBERAR")
                 {
-                    await iniciarLiberacion(changedEntity.ID_VERSION, changedEntity.ID_SOLICITUD_CONTROL_DOCUMENTOS);
+                    await iniciarLiberacion(changedEntity.ID_VERSION, idSolicitud);
                 }
                 else
                 {
                     if (changedEntity.ACCION == "RECHAZAR")
                     {
-                        iniciarRechazo(changedEntity.ID_SOLICITUD_CONTROL_DOCUMENTOS, changedEntity.ID_VERSION, changedEntity.COMENTARIO);
+                        iniciarRechazo(idSolicitud, changedEntity.ID_VERSION, changedEntity.COMENTARIO);
                     }
                 }
 
@@ -88,11 +90,20 @@ namespace ElBecario
                     //Establecemos que esta solicitud ya fué realizada.
                     DataManagerControlDocumentos.setDoneSolicitudControlDocumentos(idSolicitud);
 
+                    Console.WriteLine("Eliminare la solicitud: " + idSolicitud + " para que no exista registro de este pedo que estamos haciendo");
                     //Eliminamos el registro de la tabla solictudes.
-                    DataManagerControlDocumentos.deleteSolicitudControlDocumentos(idSolicitud);
+                    int cc = DataManagerControlDocumentos.deleteSolicitudControlDocumentos(idSolicitud);
+
+                    if (cc > 0)
+                    {
+                        Console.WriteLine("Se eliminó el registro de las solicitudes");
+                    }else
+                    {
+                        Console.WriteLine("OOOppsss! tube un pedo para eliminar el registro de las solicitudes.");
+                    }
 
                     Console.WriteLine("Listo Campeón!!, este documento ya está en estatus de pendientes por corregir");
-                    System.Threading.Thread.Sleep(2000);
+                    //System.Threading.Thread.Sleep(2000);
                     Console.WriteLine("Deja voy por unas papas y una coca, cualquier cosa estoy al pendiente.");
                 }
             }
@@ -102,7 +113,7 @@ namespace ElBecario
         private bool notificarRechazo(Documento objDocumento, string comentario)
         {
             Console.WriteLine("Vamos a empezar a notificar por correo, ya para terminar, que ya me quiero echar otro sueño!");
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
 
             //Declaramos una lista la cual almacenará todos los id's de los usuarios que se van a notificar.
             List<string> lUsuariosNotificar = new List<string>();
@@ -161,14 +172,14 @@ namespace ElBecario
             return respuesta;
 
             Console.WriteLine("El correo se envió perron!!");
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
             return true;
         }
 
         private bool rechazar(Documento objDocumento)
         {
             Console.WriteLine("Deja empiezo a rechazar el documento...");
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
 
             int last_id = DataManagerControlDocumentos.GetID_LastVersion(objDocumento.id_documento, objDocumento.version.id_version);
 
@@ -183,7 +194,7 @@ namespace ElBecario
                     //Se llama al método para actualizar el estatus de la version
                     int update_version = DataManagerControlDocumentos.Update_EstatusVersion(objDocumento.version, User, objDocumento.nombre);
                     Console.WriteLine("Listo documento rechazado");
-                    System.Threading.Thread.Sleep(3000);
+                    //System.Threading.Thread.Sleep(3000);
 
                     return true;
                 }
@@ -199,7 +210,7 @@ namespace ElBecario
                 //Se llama al método para actualizar el estatus de la version
                 int update_version = DataManagerControlDocumentos.Update_EstatusVersion(objDocumento.version, User, objDocumento.nombre);
                 Console.WriteLine("Listo documento rechazado");
-                System.Threading.Thread.Sleep(3000);
+                //System.Threading.Thread.Sleep(3000);
                 return true;
             }
         }
@@ -212,8 +223,48 @@ namespace ElBecario
             objVersion = DataManagerControlDocumentos.GetVersion(idVersion);
             objDocumento.version = objVersion;
 
-            if (await sellar(idVersion))
+            if(objDocumento.id_tipo_documento == 2 || objDocumento.id_tipo_documento == 1002 || objDocumento.id_tipo_documento == 1004 || objDocumento.id_tipo_documento == 1015)
             {
+                Console.WriteLine("Este documento SI va sellado. id tipo documento= " + objDocumento.id_tipo_documento);
+                if (await sellar(idVersion))
+                {
+                    if (liberar(objDocumento, objVersion))
+                    {
+                        if (notificarLiberacion(objDocumento))
+                        {
+                            //Establecemos que esta solicitud ya fué realizada.
+                            DataManagerControlDocumentos.setDoneSolicitudControlDocumentos(idSolicitud);
+
+                            //Eliminamos el registro de la tabla solictudes.
+                            DataManagerControlDocumentos.deleteSolicitudControlDocumentos(idSolicitud);
+
+                            Console.WriteLine("Listo Campeón!!, este documento fué liberado exitosamente, Juntos somos Invensibles.");
+                            //System.Threading.Thread.Sleep(2000);
+                            Console.WriteLine("Arriba el Ame!.");
+                            Console.WriteLine("Cualquier cosa estoy al pendiente y te aviso ok. Tu sigue durmiendo.");
+                            
+                        }
+                        else
+                        {
+                            Console.WriteLine("Uuhhh!! valió mauser la notificación por correo.");
+                            Console.WriteLine("Pero el documento ya esta liberado, haz paro y notifica de manera manual, y después arreglame para no tener estos pedos.");
+
+                            //Eliminamos el registro de la tabla solictudes.
+                            DataManagerControlDocumentos.deleteSolicitudControlDocumentos(idSolicitud);
+                            //System.Threading.Thread.Sleep(4000);
+                            Console.WriteLine("Voy a seguir al pendiente por cualquier cosa que se ofrezca.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Uta! no pude liberar el documento we, porfa liberalo manualmente ya que!!!");
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Este documento NO va sellado. id tipo documento= " + objDocumento.id_tipo_documento);
                 if (liberar(objDocumento, objVersion))
                 {
                     if (notificarLiberacion(objDocumento))
@@ -225,7 +276,7 @@ namespace ElBecario
                         DataManagerControlDocumentos.deleteSolicitudControlDocumentos(idSolicitud);
 
                         Console.WriteLine("Listo Campeón!!, este documento fué liberado exitosamente, Juntos somos Invensibles.");
-                        System.Threading.Thread.Sleep(2000);
+                        //System.Threading.Thread.Sleep(2000);
                         Console.WriteLine("Arriba el Ame!.");
                         Console.WriteLine("Cualquier cosa estoy al pendiente y te aviso ok. Tu sigue durmiendo.");
                     }
@@ -236,7 +287,7 @@ namespace ElBecario
 
                         //Eliminamos el registro de la tabla solictudes.
                         DataManagerControlDocumentos.deleteSolicitudControlDocumentos(idSolicitud);
-                        System.Threading.Thread.Sleep(4000);
+                        //System.Threading.Thread.Sleep(4000);
                         Console.WriteLine("Voy a seguir al pendiente por cualquier cosa que se ofrezca.");
                     }
                 }
@@ -246,11 +297,6 @@ namespace ElBecario
                     return false;
                 }
             }
-            else
-            {
-                Console.WriteLine("Uta!! no pude sellar el documento, porfa arreglame para poder estar al 100!");
-                return false;
-            }
 
             return true;
         }
@@ -258,9 +304,9 @@ namespace ElBecario
         private bool notificarLiberacion(Documento objDocumento)
         {
             Console.WriteLine("Vamos a empezar a notificar por correo, ya para terminar, que ya me quiero echar otro sueño!");
-            System.Threading.Thread.Sleep(5000);
+            //System.Threading.Thread.Sleep(5000);
             Console.WriteLine("Vamos verificando la gente que el dueño de documento quiere que le notifiquemos.");
-            System.Threading.Thread.Sleep(4000);
+            //System.Threading.Thread.Sleep(4000);
 
             //Declaramos una lista la cual almacenará todos los id's de los usuarios que se van a notificar.
             List<string> lUsuariosNotificar = new List<string>();
@@ -299,7 +345,7 @@ namespace ElBecario
             correos = Module.EliminarCorreosDuplicados(correos);
 
             Console.WriteLine("Ok, Ok, listo ya tengo la lista, deja empiezo a armar el correo...");
-            System.Threading.Thread.Sleep(3500);
+            //System.Threading.Thread.Sleep(3500);
 
 
             //Verificamos si son documentos Procedimientos y Formatos
@@ -326,9 +372,9 @@ namespace ElBecario
             }
 
             Console.WriteLine("Todo Ok, a enviar ahora si el correo....");
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
             Console.WriteLine("El correo se envió perrón!!");
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
             return true;
         }
 
@@ -483,11 +529,11 @@ namespace ElBecario
         private bool liberar(Documento objDocumento, Model.ControlDocumentos.Version objVersion)
         {
             Console.WriteLine("Deja empiezo a liberar el documento...");
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
             Console.WriteLine("Que tiempos aquellos cuando tenias que registrar uno por uno las liberaciones!!!");
-            System.Threading.Thread.Sleep(5000);
+            //System.Threading.Thread.Sleep(5000);
             Console.WriteLine("Como ha cambiado el tiempo verdad?, tan fácil que es ahora.");
-            System.Threading.Thread.Sleep(4000);
+            //System.Threading.Thread.Sleep(4000);
 
             //Ejecutamos el método para obtener el id de la versión anterior
             int last_version = DataManagerControlDocumentos.GetID_LastVersion(objDocumento.id_documento, objVersion.id_version);
@@ -598,9 +644,9 @@ namespace ElBecario
             }
 
             Console.WriteLine("Listo, el documento ya esta liberado");
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
             Console.WriteLine("Vamos al último paso");
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
             return true;
         }
 
@@ -663,22 +709,23 @@ namespace ElBecario
 
         private async Task<bool> sellar(int idVersion)
         {
+
             bool respuesta = false;
             Console.WriteLine("Estoy sellando el documento....");
 
             Model.ControlDocumentos.Version version = DataManagerControlDocumentos.GetVersion(idVersion);
             int idTipoDocumento = DataManagerControlDocumentos.GetTipoDocumentoByIdVersion(idVersion);
             respuesta = await SetElectronicStamp(version, idTipoDocumento);
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
 
             Console.WriteLine("Mientras lo voy sellando, recuerdo cuando sellabas el documento a mano... que fácil te estoy haciendo la vida.....");
-            System.Threading.Thread.Sleep(6000);
+            //System.Threading.Thread.Sleep(6000);
 
             Console.WriteLine("Listo, documento sellado...");
-            System.Threading.Thread.Sleep(4000);
+            //System.Threading.Thread.Sleep(4000);
 
             Console.WriteLine("Ahora vamos a lo que sigue.");
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
 
             return respuesta;
         }
@@ -705,13 +752,16 @@ namespace ElBecario
 
                 string fecha = dia + "/" + mes + "/" + anio;
 
+                Usuario personaAutorizo = DataManager.GetUsuario(version.id_usuario_autorizo);
+
                 foreach (Archivo item in archivos)
                 {
                     string waterMarkText = "MAHLE CONTROL DE DOCUMENTOS / DOCUMENTO LIBERADO ELECTRÓNICAMENTE Y TIENE VALIDEZ SIN FIRMA." + " DISPOSICIÓN: " + fecha;
                     string waterMarkText2 = "ÚNICAMENTE TIENE VALIDEZ EL DOCUMENTO DISPONIBLE EN INTRANET.";
                     string waterMarkText3 = "LAS COPIAS NO ESTÁN SUJETAS A NINGÚN SERVICIO DE ACTUALIZACIÓN.";
+                    string waterMarkText4 = "DOCUMENTO APROBADO ELECTRÓNICAMNETE POR " + personaAutorizo.Nombre.ToUpper() + " " + personaAutorizo.ApellidoPaterno.ToUpper();
 
-                    byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText, waterMarkText2, waterMarkText3, false);
+                    byte[] newarchivo = AddWatermark(item.archivo, bfTimes, waterMarkText, waterMarkText2, waterMarkText3,waterMarkText4, false);
 
                     item.archivo = newarchivo;
 
@@ -734,7 +784,7 @@ namespace ElBecario
         /// <param name="waterMarkText2"></param>
         /// <param name="waterMarkText3"></param>
         /// <returns></returns>
-        public static byte[] AddWatermark(byte[] bytes, BaseFont baseFont, string watermarkText, string waterMarkText2, string waterMarkText3, bool banAyudaVisual)
+        public static byte[] AddWatermark(byte[] bytes, BaseFont baseFont, string watermarkText, string waterMarkText2, string waterMarkText3, string waterMarkText4, bool banAyudaVisual)
         {
             using (var ms = new MemoryStream(10 * 1024))
             {
@@ -777,7 +827,8 @@ namespace ElBecario
 
                         AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 6), Convert.ToInt32(realPageSize.Bottom + 245));
                         AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 12), Convert.ToInt32(realPageSize.Bottom + 160));
-                        AddWaterMarkText2(dc, waterMarkText3, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 18), Convert.ToInt32(realPageSize.Bottom + 160));
+                        AddWaterMarkText2(dc, waterMarkText4, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 18), Convert.ToInt32(realPageSize.Bottom + 160));
+                        
                     }
                     stamper.Close();
                 }

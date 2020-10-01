@@ -12755,6 +12755,7 @@ namespace Model
             else
             {
                 //Si no se encontro
+                clampPlate.Codigo = "CODIFICAR";
                 clampPlate.DescripcionRuta = "COLL. IZQ.                " + medida;
                 clampPlate.Encontrado = false;
                 clampPlate.DescripcionMedidasBusqueda = "DIM B = " + medida;
@@ -12891,6 +12892,7 @@ namespace Model
                 backUpRing.Encontrado = false;
                 backUpRing.DescripcionMedidasBusqueda = "DIM A = " + medida;
                 backUpRing.Propiedades.Add(new Propiedad { Nombre = "DIM_A", Valor = medida });
+                backUpRing.Codigo = "CODIFICAR";
             }
 
             return backUpRing;
@@ -13021,6 +13023,7 @@ namespace Model
                 platoEmpujador.DescripcionRuta = "PLATO EMPJ.           " + medida;
                 platoEmpujador.Encontrado = false;
                 platoEmpujador.DescripcionMedidasBusqueda = "DIM A = " + medida;
+                platoEmpujador.Codigo = "CODIFICAR";
             }
 
             return platoEmpujador;
@@ -13149,6 +13152,8 @@ namespace Model
                 tuboEnrollador.DescripcionRuta = "TUBO ENROLL        " + medida;
                 tuboEnrollador.Encontrado = false;
                 tuboEnrollador.DescripcionMedidasBusqueda = "DIM A = " + medida;
+                tuboEnrollador.Propiedades.Add(new Propiedad { Nombre = "DIM_A", Valor = medida });
+                tuboEnrollador.Codigo = "CODIFICAR";
             }
 
             return tuboEnrollador;

@@ -22,10 +22,28 @@ namespace ElBecario
 
             Console.WriteLine("Si quieres darme un descanzo, solo oprime cualquier tecla y me ire a dormir.\n");
 
+            Console.SetCursorPosition(5, 10);
+            
             Console.ReadKey();
 
+            Console.Clear();
+            Console.WriteLine("Saliendo en...");
+            Console.Write("3");
+            System.Threading.Thread.Sleep(1000);
+            Console.Clear();
+            
+            Console.WriteLine("Saliendo en...");
+            Console.Write("2");
+            System.Threading.Thread.Sleep(1000);
+            Console.Clear();
+
+            Console.WriteLine("Saliendo en...");
+            Console.Write("1");
+            System.Threading.Thread.Sleep(1000);
+            Console.Clear();
+            
             Console.WriteLine("Adios puñetas!\n");
-            System.Threading.Thread.Sleep(3500);
+            System.Threading.Thread.Sleep(1000);
         }
     }
 }

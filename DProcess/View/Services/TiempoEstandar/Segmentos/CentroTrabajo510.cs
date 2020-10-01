@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Segmentos
@@ -100,6 +101,12 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            Propiedad diametroAnillo = new Propiedad { Nombre = "diaNominalAnillo", TipoDato = "Distance", DescripcionLarga = "Diámetro nominal del segmento (Plano)", Imagen = null, DescripcionCorta = "Diámetro nominal del segmento:" };
+            PropiedadesRequeridadas.Add(diametroAnillo);
+
+            Propiedad widthAnillo = new Propiedad { Nombre = "widthNominalAnillo", TipoDato = "Distance", DescripcionLarga = "Width nominal del segmento(Plano)", Imagen = null, DescripcionCorta = "Width nomial de segmento:" };
+            PropiedadesRequeridadas.Add(widthAnillo);
+
             _anillo = new Anillo();
         }
         #endregion
@@ -147,8 +154,12 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+
+            double diametro = Module.GetValorPropiedad("diaNominalAnillo", PropiedadesRequeridadas);
+            double width = Module.GetValorPropiedad("widthNominalAnillo", PropiedadesRequeridadas);
+
+            TiempoMachine = Math.Round((((3.5538 + ((diametro * 69.65) / 3.3858)) * width) / 224.856) * 100, 3);
 
             //Obtenermos el valor específico de las propiedades requeridas.
             TiempoLabor = TiempoMachine * FactorLabor;

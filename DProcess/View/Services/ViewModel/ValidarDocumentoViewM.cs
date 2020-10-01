@@ -450,8 +450,8 @@ namespace View.Services.ViewModel
             string version = SelectedDocumento.version.no_version;
             Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
             objVersion.id_version = SelectedDocumento.version.id_version;
-            objVersion.no_version = SelectedDocumento.version.no_version;
-
+            //objVersion.no_version = SelectedDocumento.version.no_version;
+            objVersion = DataManagerControlDocumentos.GetVersion(selectedDocumento.version.id_version);
             int last_id = DataManagerControlDocumentos.GetID_LastVersion(SelectedDocumento.id_documento, SelectedDocumento.version.id_version);
 
             if (selectedDocumento.id_tipo_documento == 1003 || selectedDocumento.id_tipo_documento == 1005 || selectedDocumento.id_tipo_documento == 1006 || selectedDocumento.id_tipo_documento == 1011 || selectedDocumento.id_tipo_documento == 1012 || selectedDocumento.id_tipo_documento == 1013 || selectedDocumento.id_tipo_documento == 1014)
@@ -479,18 +479,18 @@ namespace View.Services.ViewModel
                         //Se llama a la función para actualizar el estatus de la versión
                         UpdateVersion(objVersion, Confirmacion, Aprobado);
 
-                        ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(selectedDocumento.version.id_version);
-                        string[] files = new string[archivosTem.Count];
-                        int c = 0;
-                        foreach (var item2 in archivosTem)
-                        {
-                            string pathTemp = GetPathTempFile(item2);
-                            File.WriteAllBytes(pathTemp, item2.archivo);
-                            files[c] = pathTemp;
-                            c++;
-                        }
+                        //ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(selectedDocumento.version.id_version);
+                        //string[] files = new string[archivosTem.Count];
+                        //int c = 0;
+                        //foreach (var item2 in archivosTem)
+                        //{
+                        //    string pathTemp = GetPathTempFile(item2);
+                        //    File.WriteAllBytes(pathTemp, item2.archivo);
+                        //    files[c] = pathTemp;
+                        //    c++;
+                        //}
 
-                        bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(SelectedDocumento.nombre, objVersion.no_version, objVersion.id_version, objVersion.id_usuario_autorizo,objVersion.id_usuario, files);
+                        //bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(SelectedDocumento.nombre, objVersion.no_version, objVersion.id_version, objVersion.id_usuario_autorizo,objVersion.id_usuario, files);
 
                     }
                     else
@@ -507,18 +507,18 @@ namespace View.Services.ViewModel
                     //Se llama a la función para actualizar el estatus de la versión
                     UpdateVersion(objVersion, Confirmacion, Aprobado);
 
-                    ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(selectedDocumento.version.id_version);
-                    string[] files = new string[archivosTem.Count];
-                    int c = 0;
-                    foreach (var item2 in archivosTem)
-                    {
-                        string pathTemp = GetPathTempFile(item2);
-                        File.WriteAllBytes(pathTemp, item2.archivo);
-                        files[c] = pathTemp;
-                        c++;
-                    }
+                    //ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(selectedDocumento.version.id_version);
+                    //string[] files = new string[archivosTem.Count];
+                    //int c = 0;
+                    //foreach (var item2 in archivosTem)
+                    //{
+                    //    string pathTemp = GetPathTempFile(item2);
+                    //    File.WriteAllBytes(pathTemp, item2.archivo);
+                    //    files[c] = pathTemp;
+                    //    c++;
+                    //}
 
-                    bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(SelectedDocumento.nombre, objVersion.no_version, objVersion.id_version, objVersion.id_usuario_autorizo, objVersion.id_usuario, files);
+                    //bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(SelectedDocumento.nombre, objVersion.no_version, objVersion.id_version, objVersion.id_usuario_autorizo, objVersion.id_usuario, files);
 
                 }
             }
@@ -597,7 +597,7 @@ namespace View.Services.ViewModel
             body += "</head>";
             body += "<body text=\"white\">";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
-            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"> ---Ejemplo--- </font> </p>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">El usuario <b>" + usuarioDueno.Nombre + " " + usuarioDueno.ApellidoPaterno + "</b> a dado de alta una nueva versión del documento <b>" + codigoDocumento + "</b> versión <b> " + noVersion + ".0" + " </b> para lo cual requiero su autorización para poderlo liberar en el sistema </font> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">El documento esta adjunto a este correo. </font> </li>";

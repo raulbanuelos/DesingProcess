@@ -19,6 +19,7 @@ using System.Threading;
 using View.Forms.User;
 using View.Forms.DashBoard;
 using System.Windows.Media.Imaging;
+using System.Speech.Synthesis;
 
 namespace View.Forms.LogIn
 {
@@ -110,8 +111,14 @@ namespace View.Forms.LogIn
                         MessageDialogResult message = await this.ShowMessageAsync(StringResources.lblInformation,StringResources.lblUserNotActive);
 					}else{
 
+                        SpeechSynthesizer _SS = new SpeechSynthesizer();
+                        _SS.Volume = 100;
+                        _SS.Rate = 1;
+
+                        _SS.SpeakAsync("Welcome, " + usuarioConectado.Nombre + ", To Process Design Engineering Program");
+
                         //Enviamos un mensaje de bienvenida al usuario.
-						MessageDialogResult message = await this.ShowMessageAsync(StringResources.lblWelcome,usuarioConectado.Nombre);
+                        MessageDialogResult message = await this.ShowMessageAsync(StringResources.lblWelcome,usuarioConectado.Nombre);
 
                         //Obtenemos la fecha del servidor
                         DateTime date_now = DataManagerControlDocumentos.Get_DateTime();
@@ -128,7 +135,7 @@ namespace View.Forms.LogIn
                         //Insertamos el ingreso a la bitácora.
                         DataManager.InserIngresoBitacora(Environment.MachineName, usuarioConectado.Nombre + " " + usuarioConectado.ApellidoPaterno + " " + usuarioConectado.ApellidoMaterno);
 
-                        // Validamos si el usuario nuevo tiene la contraseña random
+                        //Validamos si el usuario nuevo tiene la contraseña random
                         if(usuarioConectado.Details.Temporal_Password == true)
                         {
                             //Cargamnos las vista de ModificarContrasena
@@ -147,13 +154,12 @@ namespace View.Forms.LogIn
                             {
                                 return;
                             }
-
                         }
 
                         #region Configuración del correo electrónico
 
                         //Verificamos si esta configurado el correo electrónico en la plataforma.
-                        if (!usuarioConectado.Details.IsAvailableEmail)
+                        if (!usuarioConectado.Details.IsAvailableEmail || !System.IO.File.Exists(usuarioConectado.Pathnsf))
                         {
                             //Configuramos las opciones del mesaje de pregunta.
                             MetroDialogSettings settings = new MetroDialogSettings();

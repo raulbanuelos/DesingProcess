@@ -472,8 +472,8 @@
                         </Grid>
 
                         <!--Comienza panel inferior-->
-                        <Border HorizontalAlignment="Right"  VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Grid.Column="0" Grid.Row="1" Background="{DynamicResource MaterialDesignBackground}">
-                            <GroupBox HorizontalAlignment="Center" VerticalAlignment="Top" Height="80" Style="{DynamicResource MaterialDesignGroupBox}" UseLayoutRounding="True" SnapsToDevicePixels="True">
+                        <Border HorizontalAlignment="Right" Height="95" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Grid.Column="0" Grid.Row="1" Background="{DynamicResource MaterialDesignBackground}">
+                            <GroupBox HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1" Style="{DynamicResource MaterialDesignGroupBox}" UseLayoutRounding="True" SnapsToDevicePixels="True">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Button Content="Normas" Command="{Binding ChangeFlyoutNormas}" Margin="5"></Button>
 

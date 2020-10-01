@@ -3653,6 +3653,42 @@ namespace Model.ControlDocumentos
 
         #region Lecciones Aprendidas
 
+        public static List<FO_Item> GetPctMotivoCambio(string idUsuario )
+        {
+            SO_Motivo_Cambio serviceMotivoCambio = new SO_Motivo_Cambio();
+
+            DataSet informacionBD = serviceMotivoCambio.GetPctMotivoCambio(idUsuario);
+
+            List<FO_Item> listaResultante = new List<FO_Item>();
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        FO_Item foitem = new FO_Item();
+                        foitem.Nombre = "MEJORAS";
+                        foitem.Valor = Convert.ToDouble(item["PCT_MEJORAS"].ToString());
+                        listaResultante.Add(foitem);
+
+                        FO_Item foitem2 = new FO_Item();
+                        foitem2.Nombre = "CORRECCIONES";
+                        foitem2.Valor = Convert.ToDouble(item["PCT_CORRECCIONES"].ToString());
+                        listaResultante.Add(foitem2);
+
+                        FO_Item foitem3 = new FO_Item();
+                        foitem3.Nombre = "OTROS";
+                        foitem3.Valor = Convert.ToDouble(item["PCT_OTROS"].ToString());
+                        listaResultante.Add(foitem3);
+                        
+                    }
+                }
+            }
+
+            return listaResultante;
+        }
+
         /// <summary>
         /// Método que retorna el total de lecciones aprendidas.
         /// </summary>
@@ -5312,6 +5348,13 @@ namespace Model.ControlDocumentos
             SO_SolicitudControlDocumento serviceSolicitud = new SO_SolicitudControlDocumento();
 
             return serviceSolicitud.delete(idSolicitud);
+        }
+
+        public static int getIdSolicitudControlDocumentos(int idVersion, string acccion, DateTime fechaSolicitud)
+        {
+            SO_SolicitudControlDocumento serviceSolicitud = new SO_SolicitudControlDocumento();
+
+            return serviceSolicitud.getIdSolicitud(idVersion, acccion, fechaSolicitud);
         }
         #endregion
     }

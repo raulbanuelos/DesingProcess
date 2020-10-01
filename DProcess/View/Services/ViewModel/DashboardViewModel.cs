@@ -271,7 +271,9 @@ namespace View.Services.ViewModel
             }
             #endregion
 
-            #region Gráfica de cantidad de lecciones aprendidas últimos 5 menses.
+            #endregion
+
+            #region Gráfica de cantidad de lecciones aprendidas últimos 5 meses.
             List<FO_Item> listaLeccionesMensual = DataManagerControlDocumentos.GetTotalLeccionesPorMes();
 
             ColumnSeries columnaSerie = new ColumnSeries();
@@ -383,7 +385,7 @@ namespace View.Services.ViewModel
             #endregion
 
         }
-        #endregion
+        
 
         #region INotifyPropertyChanged Métodos
         void NotifyChange(params string[] ids)

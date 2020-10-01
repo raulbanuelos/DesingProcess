@@ -25,7 +25,6 @@ namespace View.Services.ViewModel
 {
     public class AnilloViewModel : INotifyPropertyChanged
     {
-
         public enum UnidadDistance
         {
             [Description("Inch (in)")]
@@ -1494,7 +1493,6 @@ namespace View.Services.ViewModel
         {
             IsNormasOpen = IsNormasOpen ? false : true;
         }
-
 
         private void buscarCasting()
         {

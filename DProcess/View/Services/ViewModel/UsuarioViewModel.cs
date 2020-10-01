@@ -710,7 +710,7 @@ namespace View.Services.ViewModel
                     notificationManager.Show(new NotificationContent
                     {
                         Title = StringResources.ttlNuevoDocumentoValidar,
-                        Message = StringResources.ttlUsuario +" "+ chagedEntity.NOMBRE_USUARIO + "\n"+StringResources.ttlCreadoDocumento+"\n" + chagedEntity.NOMBRE_DOCUMENTO,
+                        Message = StringResources.ttlUsuario + " " + chagedEntity.NOMBRE_USUARIO + "\n" + StringResources.ttlCreadoDocumento + "\n" + chagedEntity.NOMBRE_DOCUMENTO,
                         Type = notification
                     });
                 }
@@ -725,7 +725,6 @@ namespace View.Services.ViewModel
                         Type = notification
                     });
                 }
-                
             }
         }
 
