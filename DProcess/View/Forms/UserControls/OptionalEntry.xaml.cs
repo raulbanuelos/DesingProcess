@@ -23,6 +23,7 @@ namespace View.Forms.UserControls
         public OptionalEntry()
         {
             InitializeComponent();
+            
         }
     }
 }

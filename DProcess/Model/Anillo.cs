@@ -158,7 +158,7 @@ namespace Model
         /// Colección de tipo PropiedadCadena la cual contiene las propiedades que son adquiridas por el anillo durante su proceso.
         /// </summary>
         public ObservableCollection<PropiedadCadena> PropiedadesCadenaAdquiridasProceso { get; set; }
-
+        
         /// <summary>
         /// Colección de tipo IOPeracion la cual contiene todas las operaciones que se necesitan para procesar el anillo.
         /// </summary>

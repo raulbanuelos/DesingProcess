@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Segmentos
@@ -100,6 +101,16 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            Propiedad diametroAnillo = new Propiedad { Nombre = "D1", TipoDato = "Distance", Unidad = "Inch (in)", DescripcionLarga = "Diámetro nominal del segmento (Plano)", Imagen = null, DescripcionCorta = "Diámetro nominal del segmento:" };
+            PropiedadesRequeridadas.Add(diametroAnillo);
+
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
+
+            PropiedadBool pChafalnInterno = new PropiedadBool { Nombre = "ope_hurricane", DescripcionCorta = "¿Desengrase Hurricane?", DescripcionLarga = "Activar si el desengrase Lapeado es Hurricane", Valor = false };
+            PropiedadesRequeridasBool.Add(pChafalnInterno);
+
             _anillo = new Anillo();
         }
         #endregion
@@ -136,6 +147,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -147,14 +159,83 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+            bool banHurricane = Module.GetValorPropiedadBool("ope_hurricane", PropiedadesRequeridasBool);
+
+            Propiedad pDiametro = Module.GetPropiedad("D1", PropiedadesRequeridadas);
+            double diametro = Module.ConvertTo("Distance", pDiametro.Unidad, "Inch (in)", pDiametro.Valor);
+
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+
+            int rieles = 0;
+
+            if (banHurricane)
+            {
+                rieles = GetRielesHurricane(diametro);
+                TiempoMachine = Math.Round(((1440.8321 * width) / (575.964 * rieles)) * 100, 3);
+            }
+            else
+            {
+                rieles = GetRieles(diametro);
+                TiempoMachine = Math.Round((((1266.27 + (rieles * 7.8698)) * width) / ((rieles * 15) * 36)) * 100, 3);
+            }
+
 
             //Obtenermos el valor específico de las propiedades requeridas.
             TiempoLabor = TiempoMachine * FactorLabor;
 
         }
         #endregion
+
+        private int GetRielesHurricane(double _diametro)
+        {
+            int riel = 0;
+
+            if (_diametro <= 1.8749)
+                riel = 0;
+            else
+            {
+                if (_diametro >= 1.875 && _diametro <= 4.74)
+                    riel = 12;
+                else
+                {
+                    if (_diametro >= 4.75 && _diametro <= 5.5)
+                        riel = 5;
+                    else
+                    {
+                        if (_diametro >= 5.51 && _diametro <= 6.125)
+                            riel = 3;
+                        else
+                            riel = 0;
+                    }
+                }
+            }
+
+            return riel;
+        }
+
+        private int GetRieles(double _diametro)
+        {
+            int riel = 0;
+
+            if (_diametro < 2.5)
+                riel = 4;
+            else
+            {
+                if (_diametro >= 2.5 && _diametro < 4.9)
+                    riel = 3;
+                else
+                {
+                    if (_diametro >= 4.9 && _diametro < 7)
+                        riel = 2;
+                    else
+                        riel = 0;
+                }
+            }
+
+            return riel;
+        }
 
         #endregion
 

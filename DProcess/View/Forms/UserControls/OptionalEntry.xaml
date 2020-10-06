@@ -8,13 +8,10 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:recursos="clr-namespace:View.Resources"
              d:DesignHeight="40" d:DesignWidth="170">
-    <StackPanel>
-        <ComboBox materialDesign:HintAssist.Hint="{Binding lblTitle}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListaOptional}"  DisplayMemberPath="Nombre" SelectedItem="{Binding ElementSelected}" Width="150">
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding ConsultarDocumentos}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>-->
+    <StackPanel ToolTipService.ShowDuration="50000">
+        <ComboBox materialDesign:HintAssist.Hint="{Binding lblTitle}" ToolTipService.ShowDuration="50000" 
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListaOptional}"  
+                  DisplayMemberPath="Nombre" SelectedItem="{Binding ElementSelected}" Width="150">
         </ComboBox>
     </StackPanel>
 </UserControl>

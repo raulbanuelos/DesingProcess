@@ -784,9 +784,9 @@ namespace Model
 
         public static double GetTimeSetup(string centroDeTrabajo)
         {
-            SO_CentroTrabajo ServicesCentroTrabajo = new SO_CentroTrabajo();
+            SO_CentrosDeTrabajo ServicesCentroTrabajo = new SO_CentrosDeTrabajo();
 
-            return ServicesCentroTrabajo.GetTimeLabor(centroDeTrabajo);
+            return Convert.ToDouble(ServicesCentroTrabajo.buscar_setupin(centroDeTrabajo));
         }
 
          public static string GetTiempo(string TextoBusca)
@@ -16945,7 +16945,7 @@ namespace Model
         {
             SO_Propiedad ServicePropiedad = new SO_Propiedad();
 
-            Propiedad propiedad = new Propiedad(); ;
+            Propiedad propiedad = new Propiedad();
 
             IList informacionBD = ServicePropiedad.GetPropiedadById(idPropiedad);
 
@@ -16964,6 +16964,34 @@ namespace Model
                     propiedad.TipoDato = (string)tipo.GetProperty("TIPO_DATO").GetValue(item, null);
                     propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
 
+                }
+            }
+
+            return propiedad;
+        }
+
+        public static Propiedad GetPropiedadByNombre(string nombre)
+        {
+            SO_Propiedad ServicePropiedad = new SO_Propiedad();
+
+            Propiedad propiedad = new Propiedad();
+
+            IList informacionBD = ServicePropiedad.GetPropiedadByNombre(nombre);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    propiedad = new Propiedad();
+
+                    propiedad.idPropiedad = (int)tipo.GetProperty("ID_PROPIEDAD").GetValue(item, null);
+                    propiedad.Nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    propiedad.DescripcionLarga = (string)tipo.GetProperty("DESCRIPCION_LARGA").GetValue(item, null);
+                    propiedad.DescripcionCorta = (string)tipo.GetProperty("DESCRIPCION_CORTA").GetValue(item, null);
+                    propiedad.TipoDato = (string)tipo.GetProperty("TIPO_DATO").GetValue(item, null);
+                    propiedad.Imagen = (byte[])tipo.GetProperty("IMAGEN").GetValue(item, null);
                 }
             }
 

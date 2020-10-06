@@ -1,6 +1,8 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace View.Services.TiempoEstandar.Segmentos
 {
@@ -100,6 +102,22 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            ObservableCollection<FO_Item> listaOpcionesReceta = new ObservableCollection<FO_Item>();
+            listaOpcionesReceta.Add(new FO_Item { Nombre = "PRG-36", ValorCadena = "PRG-36" });
+            listaOpcionesReceta.Add(new FO_Item { Nombre = "PRG-45", ValorCadena = "PRG-45" });
+            listaOpcionesReceta.Add(new FO_Item { Nombre = "PRG-5", ValorCadena = "PRG-5" });
+            listaOpcionesReceta.Add(new FO_Item { Nombre = "PRG-10", ValorCadena = "PRG-10" });
+            listaOpcionesReceta.Add(new FO_Item { Nombre = "OTRO", ValorCadena = "OTRO" });
+            PropiedadOptional pReceta = new PropiedadOptional { lblTitle = "Receta Nitrurado", ListaOpcional = listaOpcionesReceta, Nombre = "receta497" };
+            PropiedadesRequeridasOpcionles.Add(pReceta);
+
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
+
+            Propiedad pCiclo497 = new Propiedad { Nombre = "tCiclo497", TipoDato = "Tiempo", Unidad = "second ('')", DescripcionLarga = "SI conoce la receta ingrese el digito \"0\"" + System.Environment.NewLine + "Si NO conoce la receta ingrese el tiempo ciclo.", Imagen = null, DescripcionCorta = "Tiempo ciclo Nitrurado:" };
+            PropiedadesRequeridadas.Add(pCiclo497);
+
             _anillo = new Anillo();
         }
         #endregion
@@ -136,6 +154,8 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
+
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -147,8 +167,40 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+
+            double _tiempoCiclo = 0;
+            PropiedadOptional pReceta= Module.GetPropiedadOpcional("receta497", PropiedadesRequeridasOpcionles);
+
+            if (string.IsNullOrEmpty(pReceta.ElementSelected.ValorCadena) || pReceta.ElementSelected.ValorCadena == "OTRO")
+            {
+                Propiedad pTiempoCiclo = Module.GetPropiedad("tCiclo497", PropiedadesRequeridadas);
+                _tiempoCiclo = Module.ConvertTo("Distance", pTiempoCiclo.Unidad, "second ('')", pTiempoCiclo.Valor);
+            }else
+            {
+                string receta = pReceta.ElementSelected.ValorCadena;
+                if (receta == "PRG-36")
+                    _tiempoCiclo = 47160;
+                else{
+                    if (receta == "PRG-45")
+                        _tiempoCiclo = 37800;
+                    else
+                    {
+                        if (receta == "PRG-5")
+                            _tiempoCiclo = 40980;
+                        else
+                        {
+                            if (receta == "PRG-10")
+                                _tiempoCiclo = 43440;
+                        }
+                    }
+                }
+            }
+
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+            
+            TiempoMachine = Math.Round((((_tiempoCiclo + 1520) * width) / 56844) * 100, 3);
 
             //Obtenermos el valor específico de las propiedades requeridas.
             TiempoLabor = TiempoMachine * FactorLabor;

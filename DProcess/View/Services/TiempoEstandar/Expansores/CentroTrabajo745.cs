@@ -124,7 +124,7 @@ namespace View.Services.TiempoEstandar.Expansores
             lista.Add(new FO_Item { Nombre = "0.1968", Valor = 0.1968 });
 
 
-            PropiedadOptional widthNominal = new PropiedadOptional { ListaOpcional = lista, lblTitle = "Width Nominal" };
+            PropiedadOptional widthNominal = new PropiedadOptional { ListaOpcional = lista, lblTitle = "Width Nominal", Nombre = "H1745", Descripcion = "Para el C.T. 745 (Chemical Polish) solo existen estas opciones de Width de anillo. "};
             PropiedadesRequeridasOpcionles.Add(widthNominal);
            
         }
@@ -162,7 +162,7 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
-          
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -200,6 +200,7 @@ namespace View.Services.TiempoEstandar.Expansores
                 carga = 20.625;
             else if (Espesor.Valor == 0.1968)
                 carga = 21.648;
+            
             TiempoMachine = Math.Round((((399.04) * (Espesor.Valor)) / (carga * 36)) * 100,3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
         }

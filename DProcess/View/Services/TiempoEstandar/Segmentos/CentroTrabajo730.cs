@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Segmentos
@@ -93,7 +94,7 @@ namespace View.Services.TiempoEstandar.Segmentos
         public CentroTrabajo730()
         {
             CentroTrabajo = "730";
-            FactorLabor = 1;
+            FactorLabor = 0.33;
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
@@ -147,11 +148,12 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
 
+            TiempoMachine = Math.Round(0.014 * 100, 3);
+
             //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
+            TiempoLabor = Math.Round(TiempoMachine * FactorLabor,3);
 
         }
         #endregion

@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Segmentos
@@ -93,12 +94,16 @@ namespace View.Services.TiempoEstandar.Segmentos
         public CentroTrabajo734()
         {
             CentroTrabajo = "734";
-            FactorLabor = 1;
+            FactorLabor = 0.333;
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
+
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
 
             _anillo = new Anillo();
         }
@@ -136,6 +141,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -147,11 +153,15 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
 
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+
+            TiempoMachine = Math.Round((43200 / (36 * ((24.6019 / width) * 18))) * 100, 3);
+
             //Obtenermos el valor específico de las propiedades requeridas.
-            TiempoLabor = TiempoMachine * FactorLabor;
+            TiempoLabor = Math.Round(TiempoMachine * FactorLabor,3);
 
         }
         #endregion

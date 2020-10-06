@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Services.TiempoEstandar.Segmentos;
 
 namespace View.Services.Operaciones.Segmentos
 {
@@ -168,6 +169,8 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "PROGRAMA PRG-10" + Environment.NewLine;
             TextoProceso += "APLICAR ACEITE CRC 3-36 INMEDIATAMENTE PARA EVITAR OXIDACION" + Environment.NewLine;
 
+            anilloProcesado.PropiedadesCadenaAdquiridasProceso.Add(new PropiedadCadena { Nombre = "receta497", Valor = "PRG-10" });
+            
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
@@ -187,7 +190,23 @@ namespace View.Services.Operaciones.Segmentos
         {
             try
             {
+                CentroTrabajo497 centroTrabajo510 = new CentroTrabajo497();
 
+                centroTrabajo510.Calcular(anilloProcesado);
+
+                this.TiempoLabor = centroTrabajo510.TiempoLabor;
+                this.TiempoMachine = centroTrabajo510.TiempoMachine;
+                this.TiempoSetup = centroTrabajo510.TiempoSetup;
+
+                if (centroTrabajo510.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en calculo de tiempos estándar");
+                    AlertasOperacion.CopyTo(centroTrabajo510.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar celculados correctamente");
+                }
             }
             catch (Exception er)
             {

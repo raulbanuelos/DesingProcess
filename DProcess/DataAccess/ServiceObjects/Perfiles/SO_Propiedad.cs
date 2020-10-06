@@ -379,6 +379,25 @@ namespace DataAccess.ServiceObjects.Perfiles
             }
         }
 
+        public IList GetPropiedadByNombre(string nombre)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesPerfiles())
+                {
+                    var lista = (from a in Conexion.CAT_PROPIEDAD
+                                 where a.NOMBRE == nombre
+                                 select a).ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método que obtiene una propiedad que está guardada.
         /// </summary>

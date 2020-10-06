@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Services.TiempoEstandar.Segmentos;
 
 namespace View.Services.Operaciones.Segmentos
 {
@@ -168,6 +169,7 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "CAPA DE DIFUSIÓN_______________________" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
 
+            anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad { Nombre = "programa456", Valor = 2 });
 
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
@@ -194,12 +196,28 @@ namespace View.Services.Operaciones.Segmentos
         {
             try
             {
+                CentroTrabajo456 centroTrabajo510 = new CentroTrabajo456();
 
+                centroTrabajo510.Calcular(anilloProcesado);
+
+                this.TiempoLabor = centroTrabajo510.TiempoLabor;
+                this.TiempoMachine = centroTrabajo510.TiempoMachine;
+                this.TiempoSetup = centroTrabajo510.TiempoSetup;
+
+                if (centroTrabajo510.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en calculo de tiempos estándar");
+                    AlertasOperacion.CopyTo(centroTrabajo510.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar celculados correctamente");
+                }
             }
             catch (Exception er)
             {
                 //Si ocurrio algún error, lo agregamos a la lista de alertas de la operación.
-                AlertasOperacion.Add("Error en cálculo de tiempos  . \n" + er.StackTrace);
+                AlertasOperacion.Add("Error en cálculo de tiempos estándar. \n" + er.StackTrace);
             }
         }
 

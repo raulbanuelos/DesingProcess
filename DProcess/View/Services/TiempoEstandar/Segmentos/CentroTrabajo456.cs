@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Segmentos
@@ -99,6 +100,14 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
+            
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
+
+            Propiedad parograma456 = DataManager.GetPropiedadByNombre("programa456");
+            parograma456.Unidad = "Unidades";
+            PropiedadesRequeridadas.Add(parograma456);
 
             _anillo = new Anillo();
         }
@@ -136,6 +145,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -147,8 +157,63 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+
+            double noPrograma = Module.GetValorPropiedad("programa456", PropiedadesRequeridadas);
+
+            double tct = 0;
+
+            if (noPrograma == 1)
+                tct = 5;
+            else
+            {
+                if (noPrograma == 2 || noPrograma == 4)
+                    tct = 20;
+                else
+                {
+                    if (noPrograma == 3)
+                        tct = 15;
+                    else
+                    {
+                        if (noPrograma == 5)
+                            tct = 25;
+                        else
+                        {
+                            if (noPrograma == 6)
+                                tct = 30;
+                            else
+                            {
+                                if (noPrograma == 7)
+                                    tct = 35;
+                                else
+                                {
+                                    if (noPrograma == 8)
+                                        tct = 40;
+                                    else
+                                    {
+                                        if (noPrograma == 9)
+                                            tct = 45;
+                                        else
+                                        {
+                                            if (noPrograma == 10)
+                                                tct = 50;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            double carga_por_ciclo, ciclo_por_carga;
+            carga_por_ciclo = (3.5 / width);
+            ciclo_por_carga = (tct + 43.0728262579484 + 23.2685100589874);
+            TiempoMachine = Math.Round((100 * (ciclo_por_carga / 3600) / (carga_por_ciclo)) * 100, 3);
 
             //Obtenermos el valor específico de las propiedades requeridas.
             TiempoLabor = TiempoMachine * FactorLabor;

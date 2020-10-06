@@ -10,10 +10,10 @@ namespace View.Services.TiempoEstandar.Expansores
     {
         #region Atributos 
         private double pzsXrollo;
-        private double _noFranjas;
         private double AcP;
         private bool _tipo;
         #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -148,7 +148,7 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadOptional widthNominal = new PropiedadOptional { ListaOpcional = lista, lblTitle = "Width Nominal" };
             PropiedadesRequeridasOpcionles.Add(widthNominal);
 
-            Propiedad numeroDeFranjasPintura = new Propiedad { DescripcionCorta = "No. de franjas a pintar", DescripcionLarga = "Numero de franjas de pintura", Imagen = null, Nombre = "numeroDeFranjasPintura", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
+            Propiedad numeroDeFranjasPintura = new Propiedad { DescripcionCorta = "No. de franjas a pintar", DescripcionLarga = "Numero de franjas de pintura", Imagen = null, Nombre = "CantidadFranjas", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades) };
             PropiedadesRequeridadas.Add(numeroDeFranjasPintura);
 
             PropiedadBool tipoExpansorSS50 = new PropiedadBool { Nombre = "SS50", DescripcionCorta = "SS50", DescripcionLarga = "SS50" };
@@ -192,6 +192,7 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -203,14 +204,15 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-            _noFranjas = Module.GetValorPropiedad("numeroDeFranjasPintura", PropiedadesRequeridadas);
-
-            FO_Item espesor = PropiedadesRequeridasOpcionles[0].ElementSelected;
-
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            
+            Propiedad pCantidadFranjas = Module.GetPropiedad("CantidadFranjas", PropiedadesRequeridadas);
+            double _noFranjas = Module.ConvertTo("Cantidad", pCantidadFranjas.Unidad, "Unidades", pCantidadFranjas.Valor);
+            
+            FO_Item espesor = PropiedadesRequeridasOpcionles[0].ElementSelected;
+            
             if (_noFranjas > 0)
                 AcP = 2.4410206;
-
             
             //-----------------------------EXPANSOR ES80------------------------------
             if (PropiedadesRequeridasBool[1].Valor == true && espesor.Valor == 0.0590)

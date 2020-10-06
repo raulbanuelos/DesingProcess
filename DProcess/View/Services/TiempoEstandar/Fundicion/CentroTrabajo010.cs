@@ -92,6 +92,7 @@ namespace View.Services.TiempoEstandar.Fundicion
         #endregion
 
         #endregion
+
         #region Constructors
 
         /// <summary>
@@ -112,8 +113,8 @@ namespace View.Services.TiempoEstandar.Fundicion
             lista.Add(new FO_Item { Nombre = "Opcion 1", ValorCadena = "Opcion 1" });
             lista.Add(new FO_Item { Nombre = "Opcion 2", ValorCadena = "Opcion 2" });
 
-            //PropiedadOptional b = new PropiedadOptional { lblTitle = "pruebaa1", ListaOpcional = lista };
-            //PropiedadesRequeridasOpcionles.Add(b);
+            PropiedadOptional b = new PropiedadOptional { lblTitle = "pruebaa1", ListaOpcional = lista };
+            PropiedadesRequeridasOpcionles.Add(b);
 
 
 
@@ -125,6 +126,7 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridadas.Add(pesoCasting);
         }
         #endregion
+
         #region Métodos
 
         #region Métodos de ICentroTrabajo
@@ -219,9 +221,7 @@ namespace View.Services.TiempoEstandar.Fundicion
         #endregion
 
         #endregion
-
         
-
         #region Functions
 
         #region ICentroTrabajo Function´s

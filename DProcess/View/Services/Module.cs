@@ -171,6 +171,21 @@ namespace View.Services
             return valor;
         }
 
+        public static PropiedadOptional GetPropiedadOpcional(string v, List<PropiedadOptional> propiedadesRequeridasOpcionles)
+        {
+            PropiedadOptional pOpcional = new PropiedadOptional();
+
+            foreach (var item in propiedadesRequeridasOpcionles)
+            {
+                if (v == item.Nombre)
+                {
+                    pOpcional = item;
+                }
+            }
+
+            return pOpcional;
+        }
+
 
 
         /// <summary>
@@ -522,6 +537,11 @@ namespace View.Services
             return Lista.Where(x => x.Nombre == Nombre).First();
         }
 
+        public static Propiedad GetPropiedad(string Nombre, List<Propiedad> Lista)
+        {
+            return Lista.Where(x => x.Nombre == Nombre).FirstOrDefault();
+        }
+
         /// <summary>
         /// Método que retorna la propiedad buscada en una lista.
         /// </summary>
@@ -619,6 +639,7 @@ namespace View.Services
 
                         //Asignamos el valor a la propiedad requerida.
                         element.Valor = propiedad.Valor;
+                        element.Unidad = propiedad.Unidad;
                     }
                 }
             }
@@ -794,10 +815,38 @@ namespace View.Services
             //Retornamos la lista de propiedades cadena con los valores.
             return ListaPropiedades;
         }
-
+        
         public static List<PropiedadOptional> AsignarValoresPropiedadesOpcionales(List<PropiedadOptional> propiedadesRequeridasOpcionles, List<PropiedadOptional> listaPropiedadesOpcionales)
         {
             return listaPropiedadesOpcionales;
+        }
+
+        public static List<PropiedadOptional> AsignarValoresPropiedadesOpcionales(List<PropiedadOptional> propiedadesRequeridasOpcionles, Anillo anillo)
+        {
+            foreach (var propiedadOpcional in propiedadesRequeridasOpcionles)
+            {
+                foreach (PropiedadCadena propiedadCadena in anillo.PropiedadesCadenaAdquiridasProceso)
+                {
+                    if (propiedadOpcional.Nombre == propiedadCadena.Nombre)
+                    {
+                        propiedadOpcional.ValorCadena = propiedadCadena.Valor;
+                        propiedadOpcional.ElementSelected = new FO_Item { Nombre = propiedadCadena.Nombre, ValorCadena = propiedadCadena.Valor };
+                    }
+                }
+            }
+
+            foreach (var propiedadOpcional in propiedadesRequeridasOpcionles)
+            {
+                foreach (var propiedad in anillo.PropiedadesAdquiridasProceso)
+                {
+                    if (propiedadOpcional.Nombre == propiedad.Nombre)
+                    {
+                        propiedadOpcional.Valor = propiedad.Valor;
+                    }
+                }
+            }
+
+            return propiedadesRequeridasOpcionles;
         }
 
         /// <summary>

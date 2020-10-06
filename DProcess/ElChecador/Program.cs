@@ -12,22 +12,22 @@ namespace ElChecador
             //aTimer.Interval = 1000;
             //aTimer.Enabled = true;
 
-            //Encriptar encriptar = new Encriptar();
+            Encriptar encriptar = new Encriptar();
 
-            //Console.WriteLine(encriptar.desencript("«°³¨¦o³°¥³ª¨¶¦»"));
+            Console.WriteLine(encriptar.desencript("Ž¢©­¦nqs"));
 
-            SpeechSynthesizer _SS = new SpeechSynthesizer();
-            foreach (var item in _SS.GetInstalledVoices())
-            {
-                var voice = (InstalledVoice)item;
-                Console.WriteLine(voice.VoiceInfo.Name);
+            //SpeechSynthesizer _SS = new SpeechSynthesizer();
+            //foreach (var item in _SS.GetInstalledVoices())
+            //{
+            //    var voice = (InstalledVoice)item;
+            //    Console.WriteLine(voice.VoiceInfo.Name);
 
-            }
+            //}
 
-            _SS.Volume = 100;
-            _SS.Rate = 1;
+            //_SS.Volume = 100;
+            //_SS.Rate = 1;
 
-            _SS.SpeakAsync("Welcome, Jorge Humberto, To Process Design Engineering Program");
+            //_SS.SpeakAsync("Welcome, Jorge Humberto, To Process Design Engineering Program");
 
 
             Console.WriteLine("Press \'q\' to quit the sample");

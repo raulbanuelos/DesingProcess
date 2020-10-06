@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Services.TiempoEstandar.Segmentos;
 
 namespace View.Services.Operaciones.Segmentos
 {
@@ -192,6 +193,22 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "NOTA: LIBRE DE REBABAS EN PUNTAS" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
 
+            int r = anilloProcesado.Operaciones.Where(x => x.NombreOperacion == "NITRURADO A GAS SEGMENTOS").ToList().Count;
+            if (r > 0)
+            {
+                anilloProcesado.PropiedadesCadenaAdquiridasProceso.Add(new PropiedadCadena { Nombre = "recubrimiento", Valor = "Nitrurado" });
+            }
+
+            r = anilloProcesado.Operaciones.Where(x => x.NombreOperacion == "CROMO").ToList().Count;
+            if (r > 0)
+            {
+                anilloProcesado.PropiedadesCadenaAdquiridasProceso.Add(new PropiedadCadena { Nombre = "recubrimiento", Valor = "Cromado" });
+            }
+
+            anilloProcesado.PropiedadesBoolAdquiridasProceso.Add(new PropiedadBool { Nombre = "chaflan_interno555", Valor = true });
+            anilloProcesado.PropiedadesBoolAdquiridasProceso.Add(new PropiedadBool { Nombre = "rebabeoCT555", Valor = true });
+
+
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
@@ -243,7 +260,23 @@ namespace View.Services.Operaciones.Segmentos
         {
             try
             {
+                CentroTrabajo555 centroTrabajo510 = new CentroTrabajo555();
 
+                centroTrabajo510.Calcular(anilloProcesado);
+
+                this.TiempoLabor = centroTrabajo510.TiempoLabor;
+                this.TiempoMachine = centroTrabajo510.TiempoMachine;
+                this.TiempoSetup = centroTrabajo510.TiempoSetup;
+
+                if (centroTrabajo510.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en calculo de tiempos estándar");
+                    AlertasOperacion.CopyTo(centroTrabajo510.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar celculados correctamente");
+                }
             }
             catch (Exception er)
             {

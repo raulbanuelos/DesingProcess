@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Services.TiempoEstandar.Segmentos;
 
 namespace View.Services.Operaciones.Segmentos
 {
@@ -206,9 +207,11 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "ALINEAR E INSPECCIONAR" + Environment.NewLine;
 
             #region Pintura
+            bool banPintura = false;
             TextoProceso += "*PINTURA" + Environment.NewLine;
             if (elPlano.FranjasPintura.Count > 0)
             {
+                banPintura = true;
                 TextoProceso += "PINTAR FRANJAS COLOR:" + Environment.NewLine;
                 int c = 1;
                 foreach (var franja in elPlano.FranjasPintura)
@@ -256,7 +259,15 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "PTE. CLTE. " + "" + " REV. " + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "MEDIDA " + d1 + " X " + h1 +  Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine; 
+            TextoProceso += " " + Environment.NewLine;
+
+            bool banAceite = string.IsNullOrEmpty(elPlano.CondicionesDeEmpaque.AceiteTipo) ? false : true;
+            anilloProcesado.PropiedadesBoolAdquiridasProceso.Add(new PropiedadBool { Nombre = "llevaAceite", Valor = banAceite });
+
+            anilloProcesado.PropiedadesAdquiridasProceso.Add(new Propiedad { Nombre = "CantidadFranjas", Valor = elPlano.FranjasPintura.Count, TipoDato = "Cantidad", Unidad = "Unidades" });
+
+            anilloProcesado.PropiedadesBoolAdquiridasProceso.Add(new PropiedadBool { Nombre = "llevapintura", Valor = banPintura });
+
             #endregion
 
             //Ejecutamos el método para calculo de Herramentales.
@@ -278,7 +289,23 @@ namespace View.Services.Operaciones.Segmentos
         {
             try
             {
+                CentroTrabajo831 centroTrabajo831 = new CentroTrabajo831();
 
+                centroTrabajo831.Calcular(anilloProcesado);
+
+                this.TiempoLabor = centroTrabajo831.TiempoLabor;
+                this.TiempoMachine = centroTrabajo831.TiempoMachine;
+                this.TiempoSetup = centroTrabajo831.TiempoSetup;
+
+                if (centroTrabajo831.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en calculo de tiempos estándar");
+                    AlertasOperacion.CopyTo(centroTrabajo831.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar celculados correctamente");
+                }
             }
             catch (Exception er)
             {

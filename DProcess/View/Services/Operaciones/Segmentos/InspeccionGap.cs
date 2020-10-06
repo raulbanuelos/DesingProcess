@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Services.TiempoEstandar.Segmentos;
 
 namespace View.Services.Operaciones.Segmentos
 {
@@ -174,7 +175,23 @@ namespace View.Services.Operaciones.Segmentos
         {
             try
             {
+                CentroTrabajo498 centroTrabajo498 = new CentroTrabajo498();
 
+                centroTrabajo498.Calcular(anilloProcesado);
+
+                this.TiempoLabor = centroTrabajo498.TiempoLabor;
+                this.TiempoMachine = centroTrabajo498.TiempoMachine;
+                this.TiempoSetup = centroTrabajo498.TiempoSetup;
+
+                if (centroTrabajo498.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en calculo de tiempos estándar");
+                    AlertasOperacion.CopyTo(centroTrabajo498.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar celculados correctamente");
+                }
             }
             catch (Exception er)
             {

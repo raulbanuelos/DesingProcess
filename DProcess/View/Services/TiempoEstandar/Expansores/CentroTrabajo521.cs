@@ -8,8 +8,9 @@ namespace View.Services.TiempoEstandar.Expansores
     public class CentroTrabajo521 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Atributos
-        private double espesor;
+       
         #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -103,9 +104,11 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
+
             _anillo = new Anillo();
-            Propiedad espesor = new Propiedad { DescripcionCorta = "Width", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
-            PropiedadesRequeridadas.Add(espesor);
         }
         #endregion
 
@@ -141,6 +144,7 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -152,9 +156,12 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-            espesor = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoLabor = Math.Round(((2.5336288060 * espesor) * 100), 3, MidpointRounding.AwayFromZero); 
+
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+
+            TiempoLabor = Math.Round(((2.5336288060 * width) * 100), 3, MidpointRounding.AwayFromZero); 
             TiempoMachine = TiempoLabor;
 
         }

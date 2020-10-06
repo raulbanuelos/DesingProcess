@@ -8,8 +8,8 @@ namespace View.Services.TiempoEstandar.Expansores
     public class CentroTrabajo581 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Atributos
-        private double jorobas;
         #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -103,10 +103,11 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
-            _anillo = new Anillo();
+            Propiedad NumJornadas = new Propiedad { DescripcionCorta = "Numero Jorobas", DescripcionLarga = "Numero de jorobas del Componente", Imagen = null, Nombre = "NumJorobas", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades) };
+            PropiedadesRequeridadas.Add(NumJornadas);
 
-            Propiedad jorobas = new Propiedad { DescripcionCorta = "Jorobas", DescripcionLarga = "Numero de jorobas del Componente", Imagen = null, Nombre = "jorobas", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
-            PropiedadesRequeridadas.Add(jorobas);
+            _anillo = new Anillo();
+            
         }
         #endregion
 
@@ -142,6 +143,7 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -153,9 +155,13 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-            jorobas = Module.GetValorPropiedad("jorobas", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+
+            Propiedad pJorobas = Module.GetPropiedad("NumJorobas", PropiedadesRequeridadas);
+            double jorobas = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), pJorobas.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades), pJorobas.Valor);
+            
             TiempoMachine = Math.Round( (((0.4289 + ((2.8 * jorobas) / 93)) / 36) * 100), 3, MidpointRounding.AwayFromZero); 
+
             TiempoLabor = TiempoMachine;
         }
         #endregion

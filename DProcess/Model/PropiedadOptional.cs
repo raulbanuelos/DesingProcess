@@ -23,6 +23,10 @@ namespace Model
 
         public double Valor { get; set; }
 
+        public string ValorCadena { get; set; }
+
+        public string Descripcion { get; set; }
+
         public PropiedadOptional()
         {
             ListaOpcional = new ObservableCollection<FO_Item>();

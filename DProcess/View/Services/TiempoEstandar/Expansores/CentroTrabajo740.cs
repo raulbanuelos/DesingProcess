@@ -8,8 +8,9 @@ namespace View.Services.TiempoEstandar.Expansores
     public class CentroTrabajo740 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Atributos
-        private double h1;
+        
         #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -103,10 +104,12 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
-            _anillo = new Anillo();
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
 
-            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
-            PropiedadesRequeridadas.Add(widthNominal);
+            _anillo = new Anillo();
+            
         }
         #endregion
 
@@ -142,6 +145,7 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -153,9 +157,12 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-            h1 = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoMachine = Math.Round( (((516.7207 * h1) / 3024) * 100), 3, MidpointRounding.AwayFromZero);
+
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+            
+            TiempoMachine = Math.Round( (((516.7207 * width) / 3024) * 100), 3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
         }
         #endregion

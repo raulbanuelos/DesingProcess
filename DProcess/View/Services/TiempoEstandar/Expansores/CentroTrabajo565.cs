@@ -8,8 +8,9 @@ namespace View.Services.TiempoEstandar.Expansores
     public class CentroTrabajo565 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Atributos
-        private double Num_pasos;
+        
         #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -103,10 +104,12 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            Propiedad NumPasos = new Propiedad { DescripcionCorta = "Num Pasos", DescripcionLarga = "Numero de pasos en el engrane. " + Environment.NewLine + "Operación Formado de Expansor.", Imagen = null, Nombre = "NumPasos", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades) };
+            PropiedadesRequeridadas.Add(NumPasos);
+
             _anillo = new Anillo();
 
-            Propiedad NumPasos = new Propiedad { DescripcionCorta = "Num Pasos", DescripcionLarga = "Numero de pasos en el engrane", Imagen = null, Nombre = "NumPasos", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
-            PropiedadesRequeridadas.Add(NumPasos);
+            
         }
         #endregion
 
@@ -142,6 +145,7 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -153,9 +157,12 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-            Num_pasos = Module.GetValorPropiedad("NumPasos", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoMachine = Math.Round(((((1.95 * ((Num_pasos * 2) - 1) / 195) + 0.0676) / 36) * 100), 3, MidpointRounding.AwayFromZero);
+
+            Propiedad pPasos = Module.GetPropiedad("NumPasos", PropiedadesRequeridadas);
+            double jorobas = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), pPasos.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades), pPasos.Valor);
+            
+            TiempoMachine = Math.Round(((((1.95 * ((jorobas * 2) - 1) / 195) + 0.0676) / 36) * 100), 3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
         }
         #endregion

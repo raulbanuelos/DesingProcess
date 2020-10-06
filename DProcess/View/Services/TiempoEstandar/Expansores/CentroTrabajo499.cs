@@ -8,11 +8,9 @@ namespace View.Services.TiempoEstandar.Expansores
     public class CentroTrabajo499 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Atributos
-        private double width_a;
-        private double widthNominal;
-
-
+        
         #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -108,8 +106,9 @@ namespace View.Services.TiempoEstandar.Expansores
             Alertas = new List<string>();
 
             _anillo = new Anillo();
-            Propiedad widthNominal = new Propiedad { DescripcionCorta = "Width", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
-            PropiedadesRequeridadas.Add(widthNominal);
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
         }
         #endregion
 
@@ -145,7 +144,7 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
-           
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -157,14 +156,14 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-
-            width_a = widthNominal;
-            width_a = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoMachine = Math.Round(Math.Round(36031.13 / (36 * (160 * ((6.5825 / width_a) * 2))) * 100, 3),3, MidpointRounding.AwayFromZero);
+
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+
+            TiempoMachine = Math.Round(Math.Round(36031.13 / (36 * (160 * ((6.5825 / width) * 2))) * 100, 3),3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
-
-
+            
         }
         #endregion
 

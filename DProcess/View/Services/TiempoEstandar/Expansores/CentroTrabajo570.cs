@@ -8,9 +8,8 @@ namespace View.Services.TiempoEstandar.Expansores
     public class CentroTrabajo570 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Atributos
-        private double _width;
-        private double _jorobas;
         #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -105,13 +104,14 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
+            
+            Propiedad NumJornadas = new Propiedad { DescripcionCorta = "Numero Jorobas", DescripcionLarga = "Numero de jorobas del Componente", Imagen = null, Nombre = "NumJorobas", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades) };
+            PropiedadesRequeridadas.Add(NumJornadas);
+
             _anillo = new Anillo();
-
-            Propiedad WidthNominal = new Propiedad { DescripcionCorta = "Width Nominal", DescripcionLarga = "Width nominal del anillo (Plano)", Imagen = null, Nombre = "WidthNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
-            PropiedadesRequeridadas.Add(WidthNominal);
-
-            Propiedad jorobas = new Propiedad { DescripcionCorta = "Jorobas", DescripcionLarga = "Numero de jorobas del Componente", Imagen = null, Nombre = "jorobas", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
-            PropiedadesRequeridadas.Add(jorobas);
         }
         #endregion
 
@@ -147,6 +147,7 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -158,10 +159,17 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-            _width = Module.GetValorPropiedad("WidthNominal", PropiedadesRequeridadas);
-            _jorobas = Module.GetValorPropiedad("jorobas", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            TiempoMachine = Math.Round( (Math.Round(((((((_jorobas * 0.48) * (7.4 / _width)) + 81.585) * _width)) / 266.4) * 100, 3)), 3, MidpointRounding.AwayFromZero); 
+
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+
+            Propiedad pJorobas = Module.GetPropiedad("NumJorobas", PropiedadesRequeridadas);
+            double jorobas = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), pJorobas.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades), pJorobas.Valor);
+            
+            TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+            TiempoMachine = Math.Round( (Math.Round(((((((jorobas * 0.48) * (7.4 / width)) + 81.585) * width)) / 266.4) * 100, 3)), 3, MidpointRounding.AwayFromZero); 
+
             //TiempoMachine = System.Math.Round( Math.Round(((((((_jorobas * 0.48) * (7.4 / _width)) + 81.585) * _width)) / 266.4) * 100, 3),3, MidpointRounding.AwayFromZero);
             TiempoLabor = TiempoMachine;
         }

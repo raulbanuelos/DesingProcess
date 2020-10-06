@@ -7,11 +7,12 @@ namespace View.Services.TiempoEstandar.Expansores
     public class CentroTrabajo566 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Atributos
-        private double d1;
+        
         private double tciclo;
         private double aCiclicas;
         private double aNCiclicas;
         #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -105,9 +106,11 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            Propiedad diametroAnillo = new Propiedad { Nombre = "D1", TipoDato = "Distance", Unidad = "Inch (in)", DescripcionLarga = "Diámetro nominal del segmento (Plano)", Imagen = null, DescripcionCorta = "Diámetro nominal del segmento:" };
+            PropiedadesRequeridadas.Add(diametroAnillo);
+
             _anillo = new Anillo();
-            Propiedad DiametroNominal = new Propiedad { DescripcionCorta = "Diametro Nominal", DescripcionLarga = "Diámetro nominal del anillo (Plano)", Imagen = null, Nombre = "DiametroNominal", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance) };
-            PropiedadesRequeridadas.Add(DiametroNominal);
+           
         }
         #endregion
 
@@ -143,6 +146,7 @@ namespace View.Services.TiempoEstandar.Expansores
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -154,9 +158,12 @@ namespace View.Services.TiempoEstandar.Expansores
         /// </summary>
         public void Calcular()
         {
-            d1 = Module.GetValorPropiedad("DiametroNominal", PropiedadesRequeridadas);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
-            if (d1 >= 3)
+
+            Propiedad pDiametro = Module.GetPropiedad("D1", PropiedadesRequeridadas);
+            double diametro = Module.ConvertTo("Distance", pDiametro.Unidad, "Inch (in)", pDiametro.Valor);
+
+            if (diametro >= 3)
             {
                 tciclo = 2.75923077;
                 aCiclicas = 2.57060734;

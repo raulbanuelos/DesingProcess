@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Segmentos
@@ -100,6 +101,19 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
+
+            PropiedadBool pPintur = new PropiedadBool { Nombre = "llevapintura", DescripcionCorta = "¿Pintar?", DescripcionLarga = "Activar si el anillo va pintado", Valor = false };
+            PropiedadesRequeridasBool.Add(pPintur);
+
+            PropiedadBool pAceite = new PropiedadBool { Nombre = "llevaAceite", DescripcionCorta = "¿Aceitar?", DescripcionLarga = "Activar si el anillo se va aceitar en Inspección Final", Valor = false };
+            PropiedadesRequeridasBool.Add(pAceite);
+
+            Propiedad cantidadFranjas = new Propiedad { Nombre = "CantidadFranjas", TipoDato = "Cantidad", Unidad = "Unidades", DescripcionLarga = "Cantidad de franjas de pintura." + Environment.NewLine + "Si no lleva pintura, simplemente deje el campo en \"0\"", Imagen = null, DescripcionCorta = "Cantidad de franjas:" };
+            PropiedadesRequeridadas.Add(cantidadFranjas);
+
             _anillo = new Anillo();
         }
         #endregion
@@ -136,6 +150,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -147,11 +162,28 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+
+            bool banPintura = Module.GetValorPropiedadBool("llevapintura", PropiedadesRequeridasBool);
+            bool banAceite = Module.GetValorPropiedadBool("llevaAceite", PropiedadesRequeridasBool);
+
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+
+            Propiedad pCantidadFranjas = Module.GetPropiedad("CantidadFranjas", PropiedadesRequeridadas);
+            double cantidadFranjas = Module.ConvertTo("Cantidad", pCantidadFranjas.Unidad, "Unidades", pCantidadFranjas.Valor);
+
+            double tCicloAceite, tCicloPintura = 0;
+
+            tCicloAceite = banAceite ? 0.509586538461538 : 0;
+            tCicloPintura = banPintura ? 4.84369791666667 : 0;
+
+            TiempoMachine = Math.Round(((63.12 + (tCicloPintura * cantidadFranjas) + (tCicloAceite)) * (width) / (144)) * 100, 3);
 
             //Obtenermos el valor específico de las propiedades requeridas.
             TiempoLabor = TiempoMachine * FactorLabor;
+
+            TiempoMachine = 0;
 
         }
         #endregion

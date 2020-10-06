@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace View.Services.TiempoEstandar.Segmentos
@@ -100,6 +101,13 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            Propiedad diametroAnillo = new Propiedad { Nombre = "D1", TipoDato = "Distance", Unidad = "Inch (in)", DescripcionLarga = "Diámetro nominal del segmento (Plano)", Imagen = null, DescripcionCorta = "Diámetro nominal del segmento:" };
+            PropiedadesRequeridadas.Add(diametroAnillo);
+
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
+
             _anillo = new Anillo();
         }
         #endregion
@@ -136,6 +144,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -147,14 +156,47 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
 
+            Propiedad pDiametro = Module.GetPropiedad("D1", PropiedadesRequeridadas);
+            double diametro = Module.ConvertTo("Distance", pDiametro.Unidad, "Inch (in)", pDiametro.Valor);
+
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+
+            int rieles = GetRieles(diametro);
+
+            TiempoMachine = Math.Round(((1108.47702083333 * width) / (36 * (18.75 * rieles))) * 100, 3);
+            
             //Obtenermos el valor específico de las propiedades requeridas.
             TiempoLabor = TiempoMachine * FactorLabor;
 
         }
         #endregion
+
+        private int GetRieles(double _dia)
+        {
+            int r = 0;
+            if (_dia <= 1.874)
+                r = 0;
+            else {
+                if (_dia >= 1.875 && _dia <=4.250)
+                    r = 12;
+                else {
+                    if (_dia >= 4.260 && _dia <= 5.25)
+                        r = 6;
+                    else{
+                        if (_dia >= 5.260 && _dia <= 6.125)
+                            r = 4;
+                        else{
+                            r = 0;
+                        }
+                    }
+                }
+            }
+
+            return r;
+        }
 
         #endregion
 

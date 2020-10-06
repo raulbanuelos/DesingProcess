@@ -101,10 +101,11 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
-            Propiedad diametroAnillo = new Propiedad { Nombre = "diaNominalAnillo", TipoDato = "Distance", DescripcionLarga = "Diámetro nominal del segmento (Plano)", Imagen = null, DescripcionCorta = "Diámetro nominal del segmento:" };
+            Propiedad diametroAnillo = new Propiedad { Nombre = "D1", TipoDato = "Distance", Unidad = "Inch (in)", DescripcionLarga = "Diámetro nominal del segmento (Plano)", Imagen = null, DescripcionCorta = "Diámetro nominal del segmento:" };
             PropiedadesRequeridadas.Add(diametroAnillo);
 
-            Propiedad widthAnillo = new Propiedad { Nombre = "widthNominalAnillo", TipoDato = "Distance", DescripcionLarga = "Width nominal del segmento(Plano)", Imagen = null, DescripcionCorta = "Width nomial de segmento:" };
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
             PropiedadesRequeridadas.Add(widthAnillo);
 
             _anillo = new Anillo();
@@ -143,6 +144,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -155,9 +157,12 @@ namespace View.Services.TiempoEstandar.Segmentos
         public void Calcular()
         {
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+            
+            Propiedad pDiametro = Module.GetPropiedad("D1",PropiedadesRequeridadas);
+            double diametro = Module.ConvertTo("Distance", pDiametro.Unidad, "Inch (in)", pDiametro.Valor);
 
-            double diametro = Module.GetValorPropiedad("diaNominalAnillo", PropiedadesRequeridadas);
-            double width = Module.GetValorPropiedad("widthNominalAnillo", PropiedadesRequeridadas);
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
 
             TiempoMachine = Math.Round((((3.5538 + ((diametro * 69.65) / 3.3858)) * width) / 224.856) * 100, 3);
 

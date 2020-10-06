@@ -25,9 +25,19 @@ namespace DataAccess.ServiceObjects
             //Declaramos una variable tipo double la cual será la que retornaremos en el método.
             double tiempoSetup = 0;
 
-            //
-            //Realizar la consulta con EntityFramework para obtener el tiempo de setup y el resultado asignarlo a la variable local tiempoSetup.
-            //
+            //try
+            //{
+            //    using (var conexion = new())
+            //    {
+            //        var a  = (from d in conexion.CentroTrabajo
+            //                  where d.CentroTrabajo1
+            //                  select d.)
+            //    }
+            //}
+            //catch (System.Exception)
+            //{
+            //    return 0;
+            //}
            
 
             //Retornamos el valor obtenido de la base de datos.
