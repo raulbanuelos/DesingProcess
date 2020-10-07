@@ -198,8 +198,8 @@ namespace View.Services.TiempoEstandar.Segmentos
             }
 
             Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
-            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
-            
+            double width = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), pWidth.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), pWidth.Valor);
+
             TiempoMachine = Math.Round((((_tiempoCiclo + 1520) * width) / 56844) * 100, 3);
 
             //Obtenermos el valor específico de las propiedades requeridas.

@@ -1,6 +1,8 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace View.Services.TiempoEstandar.Segmentos
 {
@@ -100,6 +102,23 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
+
+            ObservableCollection<FO_Item> listaOpcionesPrograma = new ObservableCollection<FO_Item>();
+            listaOpcionesPrograma.Add(new FO_Item { Nombre = "Programa 1", Valor = 1 });
+            listaOpcionesPrograma.Add(new FO_Item { Nombre = "Programa 2", Valor = 2 });
+            listaOpcionesPrograma.Add(new FO_Item { Nombre = "Programa 3", Valor = 3 });
+            listaOpcionesPrograma.Add(new FO_Item { Nombre = "Programa 4", Valor = 4 });
+            listaOpcionesPrograma.Add(new FO_Item { Nombre = "Programa 5", Valor = 5 });
+            listaOpcionesPrograma.Add(new FO_Item { Nombre = "Programa 6", Valor = 6 });
+            listaOpcionesPrograma.Add(new FO_Item { Nombre = "Programa 7", Valor = 7 });
+            listaOpcionesPrograma.Add(new FO_Item { Nombre = "Programa 8", Valor = 8 });
+
+            PropiedadOptional pRecubrimiento = new PropiedadOptional { lblTitle = "Num. Programa Normalizado:", ListaOpcional = listaOpcionesPrograma, Nombre = "NumProgramaNormalizado" };
+            PropiedadesRequeridasOpcionles.Add(pRecubrimiento);
+
             _anillo = new Anillo();
         }
         #endregion
@@ -136,6 +155,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -147,14 +167,67 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+
+            PropiedadOptional pPrograma = Module.GetPropiedadOpcional("NumProgramaNormalizado", PropiedadesRequeridasOpcionles);
+
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), pWidth.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), pWidth.Valor);
+
+            int tc = GetTiempo(Convert.ToInt32(pPrograma.ElementSelected.Valor));
+
+            TiempoMachine = Math.Round((((5165.6 + tc) * width) / (15798.24)) * 100, 3);
 
             //Obtenermos el valor específico de las propiedades requeridas.
             TiempoLabor = TiempoMachine * FactorLabor;
 
         }
         #endregion
+
+        private int GetTiempo(int numPrograma)
+        {
+            int tc = 0;
+
+            if (numPrograma == 1)
+                tc = 1920;
+            else
+            {
+                if (numPrograma == 2)
+                    tc = 2520;
+                else
+                {
+                    if (numPrograma == 3)
+                        tc = 2520;
+                    else
+                    {
+                        if (numPrograma == 4)
+                            tc = 3900;
+                        else
+                        {
+                            if (numPrograma == 5)
+                                tc = 4200;
+                            else
+                            {
+                                if (numPrograma == 6)
+                                    tc = 4800;
+                                else
+                                {
+                                    if (numPrograma == 7)
+                                        tc = 3900;
+                                    else
+                                    {
+                                        if (numPrograma == 8)
+                                            tc = 4800;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return tc;
+        }
 
         #endregion
 

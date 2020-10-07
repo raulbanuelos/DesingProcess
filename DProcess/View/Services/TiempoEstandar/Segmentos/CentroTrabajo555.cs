@@ -176,7 +176,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             double tcChaflan, tcRebabeo = 0;
 
             Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
-            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+            double width = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), pWidth.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), pWidth.Valor);
 
             if (pRecubrimiento.ElementSelected.ValorCadena == "Nitrurado")
             {

@@ -1,6 +1,8 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace View.Services.TiempoEstandar.Segmentos
 {
@@ -99,6 +101,23 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
+            
+            Propiedad widthAnillo = DataManager.GetPropiedadByNombre("H1");
+            widthAnillo.Unidad = "Inch (in)";
+            PropiedadesRequeridadas.Add(widthAnillo);
+
+            Propiedad capaCromo = new Propiedad { Nombre = "CapaCromo716", TipoDato = "Distance", Unidad = "Inch (in)", DescripcionLarga = "Capa de cromo", Imagen = null, DescripcionCorta = "Capa de cromo" };
+            PropiedadesRequeridadas.Add(capaCromo);
+
+            Propiedad tiempoCiclo = new Propiedad { Nombre = "tc716", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Tiempo), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadTiempo.Second), DescripcionLarga = "Tiempo ciclo en Cromo C.T. 716", DescripcionCorta = "Tiempo Ciclo Cromo", Imagen = null};
+            PropiedadesRequeridadas.Add(tiempoCiclo);
+
+            ObservableCollection<FO_Item> listaOpcionesReceta = new ObservableCollection<FO_Item>();
+            listaOpcionesReceta.Add(new FO_Item { Nombre = "Línea Automática", ValorCadena = "Línea Automática" });
+            listaOpcionesReceta.Add(new FO_Item { Nombre = "Línea Manual", ValorCadena = "Línea Manual" });
+
+            PropiedadOptional pRecubrimiento = new PropiedadOptional { lblTitle = "Línea Cromo:", ListaOpcional = listaOpcionesReceta, Nombre = "linea716" };
+            PropiedadesRequeridasOpcionles.Add(pRecubrimiento);
 
             _anillo = new Anillo();
         }
@@ -136,6 +155,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -147,8 +167,20 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+            
+            Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
+            double width = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), pWidth.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), pWidth.Valor);
+
+            Propiedad pTiempoCiclo = Module.GetPropiedad("tc716", PropiedadesRequeridadas);
+            double tiempoCiclo = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Tiempo), pTiempoCiclo.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadTiempo.Second), pTiempoCiclo.Valor);
+
+            PropiedadOptional pLinea = Module.GetPropiedadOpcional("linea716", PropiedadesRequeridasOpcionles);
+
+            if (pLinea.ElementSelected.ValorCadena == "Línea Automática")
+                TiempoMachine = Math.Round((((948.8039 + tiempoCiclo) * width) / 38320.118) * 100, 3);
+            else
+                TiempoMachine = Math.Round((((742.9466 + tiempoCiclo) * width) / 5474.304) * 100, 3);
 
             //Obtenermos el valor específico de las propiedades requeridas.
             TiempoLabor = TiempoMachine * FactorLabor;

@@ -10,6 +10,7 @@ namespace View.Services.TiempoEstandar.FCI
         #region Atributos
         private double _rpm;
         #endregion
+
         #region Propiedades
 
         #region Propiedades ICentroTrabajo
@@ -104,7 +105,7 @@ namespace View.Services.TiempoEstandar.FCI
 
             _anillo = new Anillo();
 
-            Propiedad rmp = new Propiedad { DescripcionCorta = "RMP", DescripcionLarga = "RPM en la operación FIRST ROUGH GRIND FRANKLIN", Imagen = null, Nombre = "RMP", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad) };
+            Propiedad rmp = new Propiedad { DescripcionCorta = "RMP", DescripcionLarga = "RPM en la operación FIRST ROUGH GRIND FRANKLIN", Imagen = null, Nombre = "RMP", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades) };
             PropiedadesRequeridadas.Add(rmp);
         }
         #endregion
@@ -141,6 +142,7 @@ namespace View.Services.TiempoEstandar.FCI
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.

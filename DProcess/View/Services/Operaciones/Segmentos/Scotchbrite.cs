@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Services.TiempoEstandar.Segmentos;
 
 namespace View.Services.Operaciones.Segmentos
 {
@@ -183,7 +184,7 @@ namespace View.Services.Operaciones.Segmentos
                     TextoProceso += "CARTA COMPARADOR " + Componente[0] + Environment.NewLine;
                     TextoProceso += "MEDIR EL PERFIL A 10 PZAS CADA 4 RIELES DE MAT." + Environment.NewLine;
                     TextoProceso += "VERIFICAR EL PERFIL DE LA CARA DE" + Environment.NewLine;
-                    TextoProceso += "CONTACTO DE ACUERDO A  PROCEDIMIENTO" + Environment.NewLine;
+                    TextoProceso += "CONTACTO DE ACUERDO A PROCEDIMIENTO" + Environment.NewLine;
                     TextoProceso += "4.10-1.5.15" + Environment.NewLine;
                     TextoProceso += "NO DOBLAR LAS PIEZAS" + Environment.NewLine;
                     TextoProceso += "ACABADO: CARA DE CONTACTO DE LOS" + Environment.NewLine;
@@ -212,7 +213,23 @@ namespace View.Services.Operaciones.Segmentos
         {
             try
             {
+                CentroTrabajo468 centroTrabajo468 = new CentroTrabajo468();
 
+                centroTrabajo468.Calcular(anilloProcesado);
+
+                this.TiempoLabor = centroTrabajo468.TiempoLabor;
+                this.TiempoMachine = centroTrabajo468.TiempoMachine;
+                this.TiempoSetup = centroTrabajo468.TiempoSetup;
+
+                if (centroTrabajo468.Alertas.Count > 0)
+                {
+                    AlertasOperacion.Add("Error en calculo de tiempos estándar");
+                    AlertasOperacion.CopyTo(centroTrabajo468.Alertas.ToArray(), 0);
+                }
+                else
+                {
+                    NotasOperacion.Add("Tiempos estándar celculados correctamente");
+                }
             }
             catch (Exception er)
             {

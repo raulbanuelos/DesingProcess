@@ -1,6 +1,8 @@
 ﻿using Model;
 using Model.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace View.Services.TiempoEstandar.Segmentos
 {
@@ -100,6 +102,13 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
+            ObservableCollection<FO_Item> listaOpcionesTipo = new ObservableCollection<FO_Item>();
+            listaOpcionesTipo.Add(new FO_Item { Nombre = "BBM", ValorCadena = "BBM" });
+            listaOpcionesTipo.Add(new FO_Item { Nombre = "MBJ", ValorCadena = "MBJ" });
+
+            PropiedadOptional pTipo = new PropiedadOptional { lblTitle = "Tipo Cromo Interior:", ListaOpcional = listaOpcionesTipo, Nombre = "tipo717" };
+            PropiedadesRequeridasOpcionles.Add(pTipo);
+
             _anillo = new Anillo();
         }
         #endregion
@@ -136,6 +145,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
             _anillo = anillo;
 
             //Ejecutamos el método para calcular los tiempos estándar.
@@ -147,8 +157,14 @@ namespace View.Services.TiempoEstandar.Segmentos
         /// </summary>
         public void Calcular()
         {
-
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
+
+            PropiedadOptional pTipo = Module.GetPropiedadOpcional("tipo717", PropiedadesRequeridasOpcionles);
+            double tCiclo = 0;
+
+            tCiclo = pTipo.ElementSelected.ValorCadena == "BBM" ? 1505.88 : 4011.0;
+
+            TiempoMachine = Math.Round(((tCiclo + 1681.54800727789) / (36 * 1536)) * 100, 3);
 
             //Obtenermos el valor específico de las propiedades requeridas.
             TiempoLabor = TiempoMachine * FactorLabor;

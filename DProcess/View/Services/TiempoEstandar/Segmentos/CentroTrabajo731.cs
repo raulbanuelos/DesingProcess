@@ -158,7 +158,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             TiempoSetup = DataManager.GetTimeSetup(CentroTrabajo);
 
             Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
-            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+            double width = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), pWidth.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), pWidth.Valor);
 
             TiempoMachine = Math.Round((10440 / (36 * (((24.6019 / width) * 18))))*100,3);
             

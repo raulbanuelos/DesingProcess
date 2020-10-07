@@ -168,10 +168,10 @@ namespace View.Services.TiempoEstandar.Segmentos
             bool banAceite = Module.GetValorPropiedadBool("llevaAceite", PropiedadesRequeridasBool);
 
             Propiedad pWidth = Module.GetPropiedad("H1", PropiedadesRequeridadas);
-            double width = Module.ConvertTo("Distance", pWidth.Unidad, "Inch (in)", pWidth.Valor);
+            double width = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), pWidth.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), pWidth.Valor);
 
             Propiedad pCantidadFranjas = Module.GetPropiedad("CantidadFranjas", PropiedadesRequeridadas);
-            double cantidadFranjas = Module.ConvertTo("Cantidad", pCantidadFranjas.Unidad, "Unidades", pCantidadFranjas.Valor);
+            double cantidadFranjas = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), pCantidadFranjas.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades), pCantidadFranjas.Valor);
 
             double tCicloAceite, tCicloPintura = 0;
 
