@@ -111,7 +111,7 @@ namespace View.Services.TiempoEstandar.Segmentos
             PropiedadBool pAceite = new PropiedadBool { Nombre = "llevaAceite", DescripcionCorta = "¿Aceitar?", DescripcionLarga = "Activar si el anillo se va aceitar en Inspección Final", Valor = false };
             PropiedadesRequeridasBool.Add(pAceite);
 
-            Propiedad cantidadFranjas = new Propiedad { Nombre = "CantidadFranjas", TipoDato = "Cantidad", Unidad = "Unidades", DescripcionLarga = "Cantidad de franjas de pintura." + Environment.NewLine + "Si no lleva pintura, simplemente deje el campo en \"0\"", Imagen = null, DescripcionCorta = "Cantidad de franjas:" };
+            Propiedad cantidadFranjas = new Propiedad { Nombre = "CantidadFranjas", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades), DescripcionLarga = "Cantidad de franjas de pintura." + Environment.NewLine + "Si no lleva pintura, simplemente deje el campo en \"0\"", Imagen = null, DescripcionCorta = "Cantidad de franjas:" };
             PropiedadesRequeridadas.Add(cantidadFranjas);
 
             _anillo = new Anillo();

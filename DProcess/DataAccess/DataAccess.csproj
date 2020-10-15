@@ -700,6 +700,9 @@
     <Compile Include="ServiceObjects\Tooling\TBL_FEED_WHEEL_RECTIFICADOS_FINOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\Tooling\TBL_INTERNAL_GUIDE_ROLLER_1PIECE.cs">
+      <DependentUpon>ModelTooling.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\Tooling\TBL_MANGA_LAPEADO_SEGMENTOS.cs">
       <DependentUpon>ModelTooling.tt</DependentUpon>
     </Compile>

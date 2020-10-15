@@ -98,10 +98,15 @@ namespace View.Services.ViewModel
 
                 if (banCuadrado)
                 {
-                    Herramental herr1Piece = new Herramental();
-                    DataManager.GetEXTERNAL_GR_1P(WidthAlambre, out herr1Piece);
-                    ListaHerramental.Add(herr1Piece);
-                    ExportToExcel.ExportToolCoilCuadrado(Componente, herrFeed, herrCenterGuide, herrEntranceGuide, idealExitGuide, herr1Piece);
+                    Herramental herr1PieceExternal = new Herramental();
+                    DataManager.GetEXTERNAL_GR_1P(WidthAlambre, out herr1PieceExternal);
+                    ListaHerramental.Add(herr1PieceExternal);
+
+                    Herramental herr1PieceInternal = new Herramental();
+                    DataManager.GetINTERNAL_GR_1P(WidthAlambre, out herr1PieceInternal);
+                    ListaHerramental.Add(herr1PieceInternal);
+
+                    ExportToExcel.ExportToolCoilCuadrado(Componente, herrFeed, herrCenterGuide, herrEntranceGuide, idealExitGuide, herr1PieceExternal, herr1PieceInternal);
                 }
                 else
                 {

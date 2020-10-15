@@ -180,7 +180,9 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
 
         public void BuscarHerramentales()
         {
-            double widthAnillo = elPlano.H1.Valor;
+            //Convertimos el valor de H1 A Inch
+            double widthAnillo = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.H1.Valor);
+
             Herramental guillotina = DataManager.GetGuillotinaEngrave(widthAnillo);
             ListaHerramentales.Add(guillotina);
 

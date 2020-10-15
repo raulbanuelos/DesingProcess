@@ -198,24 +198,30 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
             Herramental pusher = new Herramental();
             Herramental guillotina = new Herramental();
 
-            DataManager.GetBushingSim(elPlano.D1.Valor,out ListaBushing);
+            //Convertimos el valor de D1 a Inch.
+            double diametro = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
+
+            DataManager.GetBushingSim(diametro,out ListaBushing);
 
             if (ListaBushing.Count > 0)
                 bushing = ListaBushing[0];
 
-            if (bushing.Encontrado)
-            {
-                double dimBBushing;
-                dimBBushing = Module.GetValorPropiedad("DimB", bushing.Propiedades);
-                ObservableCollection<Herramental> ListaPusher = new ObservableCollection<Herramental>();
-                DataManager.GetPusherSim(dimBBushing,out ListaPusher);
+            
+            double dimBBushing;
+            dimBBushing = Module.GetValorPropiedad("DimB", bushing.Propiedades);
+            ObservableCollection<Herramental> ListaPusher = new ObservableCollection<Herramental>();
+            DataManager.GetPusherSim(dimBBushing,out ListaPusher);
                 
-                if (ListaPusher.Count > 0)
-                    pusher = ListaPusher[0];
-            }
+            if (ListaPusher.Count > 0)
+                pusher = ListaPusher[0];
+            
 
             ObservableCollection<Herramental> ListaGuillotinas = new ObservableCollection<Herramental>();
-            DataManager.GetGuillotinaSim(elPlano.H1.Valor,out ListaGuillotinas);
+
+            //Convertimos el valor de H1 A Inch
+            double _width = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.H1.Valor);
+
+            DataManager.GetGuillotinaSim(_width,out ListaGuillotinas);
 
             if (ListaGuillotinas.Count > 0)
                 guillotina = ListaGuillotinas[0];

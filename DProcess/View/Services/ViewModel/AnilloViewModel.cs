@@ -1971,6 +1971,51 @@ namespace View.Services.ViewModel
                 
                  
                 #endregion
+
+            }else if(clasificacionProducto == "Gasolina" && MaterialBase.TipoDeMaterial == "ACERO AL CARBON")
+            {
+                Propiedad h1Min = Module.GetPropiedad("h1 Min", PerfilLateral.Propiedades);
+                h1Min.Valor = Module.ConvertTo(h1Min.TipoDato, h1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Min.Valor);
+                h1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+                
+                Propiedad h1Max = Module.GetPropiedad("h1 Max", PerfilLateral.Propiedades);
+                h1Max.Valor = Module.ConvertTo(h1Max.TipoDato, h1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Max.Valor);
+                h1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+                
+                Propiedad a1Min = Module.GetPropiedad("a1 Min", PerfilID.Propiedades);
+                a1Min.Valor = Module.ConvertTo(a1Min.TipoDato, a1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Min.Valor);
+                a1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                Propiedad a1Max = Module.GetPropiedad("a1 Max", PerfilID.Propiedades);
+                a1Max.Valor = Module.ConvertTo(a1Max.TipoDato, a1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Max.Valor);
+                a1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+                
+                Propiedad s1Min = Module.GetPropiedad("s1 Min", PerfilPuntas.Propiedades);
+                s1Min.Valor = Module.ConvertTo(s1Min.TipoDato, s1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), s1Min.Valor);
+                s1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                Propiedad s1Max = Module.GetPropiedad("s1 Max", PerfilPuntas.Propiedades);
+                s1Max.Valor = Module.ConvertTo(s1Max.TipoDato, s1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), s1Max.Valor);
+                s1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
+
+                ModelAnillo.Caratula += "WIDTH      " + h1Min.Valor + " - " + h1Max.Valor + "" + Environment.NewLine;
+                ModelAnillo.Caratula += "THICKNESS  " + a1Min.Valor + "  - " + a1Max.Valor + "" + Environment.NewLine;
+                ModelAnillo.Caratula += "TENSION    " + ModelAnillo.Tension.Valor + "   +- " + ModelAnillo.TensionTol.Valor + " " + ModelAnillo.Tension.Unidad + " FT" + Environment.NewLine;
+                ModelAnillo.Caratula += "WKG. GAP   " + s1Min.Valor + "   - " + s1Max.Valor + "" + Environment.NewLine;
+                ModelAnillo.Caratula += "MATERIAL   " + MaterialBase.Especificacion + "" + Environment.NewLine;
+                ModelAnillo.Caratula += "HARDNESS   " + ModelAnillo.HardnessMax.Unidad + " " + ModelAnillo.HardnessMin.Valor + " - " + ModelAnillo.HardnessMax.Valor + "" + Environment.NewLine;
+                ModelAnillo.Caratula += "COATING    " + ModelAnillo.Treatment + " " + ModelAnillo.EspecTreatment + Environment.NewLine;
+                ModelAnillo.Caratula += "PC.        0.421" + Environment.NewLine;
+                ModelAnillo.Caratula += "FOUNDRY" + Environment.NewLine;
+                ModelAnillo.Caratula += "" + Environment.NewLine;
+                ModelAnillo.Caratula += "PATTERN    " + ((MateriaPrimaRolado)MaterialBase)._Width + " X " + ((MateriaPrimaRolado)MaterialBase).Thickness + " S= " + ((MateriaPrimaRolado)MaterialBase).Groove + "" + Environment.NewLine;
+                ModelAnillo.Caratula += "CSTG. SIZE" + Environment.NewLine;
+                ModelAnillo.Caratula += "WTH" + Environment.NewLine;
+                ModelAnillo.Caratula += "NICK" + Environment.NewLine;
+                ModelAnillo.Caratula += "T.S." + Environment.NewLine;
+                ModelAnillo.Caratula += "B.S." + Environment.NewLine;
+                ModelAnillo.Caratula += "INV." + Environment.NewLine;
+                ModelAnillo.Caratula += "" + Environment.NewLine;
             }
 
             ModelAnillo.Caratula += "*IDENTIFICACION" + Environment.NewLine;

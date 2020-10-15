@@ -236,9 +236,9 @@ namespace View.Services
         /// <param name="herrCenterGuide"></param>
         /// <param name="herrEntranceGuide"></param>
         /// <param name="idealExitGuide"></param>
-        /// <param name="herr1Piece"></param>
+        /// <param name="herr1PieceExternal"></param>
         /// <returns></returns>
-        public static string  ExportToolCoilCuadrado(string componente, Herramental herrFeed, Herramental herrCenterGuide, Herramental herrEntranceGuide, Herramental idealExitGuide, Herramental herr1Piece)
+        public static string  ExportToolCoilCuadrado(string componente, Herramental herrFeed, Herramental herrCenterGuide, Herramental herrEntranceGuide, Herramental idealExitGuide, Herramental herr1PieceExternal, Herramental herr1PieceInternal)
         {
             try
             {
@@ -368,16 +368,28 @@ namespace View.Services
                 ExcelWoorkSheet.Cells[9, 10] = idealExitGuide.Codigo;
                 #endregion
 
-                #region Internal Roller
+                #region External Roller
                 ExcelWoorkSheet.Cells[10, 2] = "5";
-                ExcelWoorkSheet.Cells[10, 3] = herr1Piece.DescripcionGeneral;
-                ExcelWoorkSheet.Cells[10, 4] = herr1Piece.Plano;
-                ExcelWoorkSheet.Cells[10, 5] = Module.GetValorPropiedadString("Detalle", herr1Piece.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[10, 3] = herr1PieceExternal.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[10, 4] = herr1PieceExternal.Plano;
+                ExcelWoorkSheet.Cells[10, 5] = Module.GetValorPropiedadString("Detalle", herr1PieceExternal.PropiedadesCadena.ToList());
                 ExcelWoorkSheet.Cells[10, 6] = "";
-                ExcelWoorkSheet.Cells[10, 7] = Module.GetValorPropiedad("DIMB", herr1Piece.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[10, 7] = Module.GetValorPropiedad("DIMB", herr1PieceExternal.Propiedades.ToList());
                 ExcelWoorkSheet.Cells[10, 8] = "";
-                ExcelWoorkSheet.Cells[10, 9] = herr1Piece.clasificacionHerramental.CantidadUtilizar;
-                ExcelWoorkSheet.Cells[10, 10] = herr1Piece.Codigo;
+                ExcelWoorkSheet.Cells[10, 9] = herr1PieceExternal.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[10, 10] = herr1PieceExternal.Codigo;
+                #endregion
+
+                #region internal Roller
+                ExcelWoorkSheet.Cells[11, 2] = "6";
+                ExcelWoorkSheet.Cells[11, 3] = herr1PieceInternal.DescripcionGeneral;
+                ExcelWoorkSheet.Cells[11, 4] = herr1PieceInternal.Plano;
+                ExcelWoorkSheet.Cells[11, 5] = Module.GetValorPropiedadString("Detalle", herr1PieceInternal.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[11, 6] = "";
+                ExcelWoorkSheet.Cells[11, 7] = Module.GetValorPropiedad("DIMB", herr1PieceInternal.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[11, 8] = "";
+                ExcelWoorkSheet.Cells[11, 9] = herr1PieceInternal.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[11, 10] = herr1PieceInternal.Codigo;
                 #endregion
 
                 //Ajustamos el tamaño de las columnas.
@@ -386,8 +398,8 @@ namespace View.Services
                 #region Formato Borders
                 int rowBegin = 5;
                 int columnBegin = 2;
-                int rowEnds = 10;
-                int columnEnds = 10;
+                int rowEnds = 11;
+                int columnEnds = 11;
 
                 for (int i = rowBegin; i <= rowEnds; i++)
                 {

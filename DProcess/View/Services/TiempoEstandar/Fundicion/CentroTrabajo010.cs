@@ -9,8 +9,7 @@ namespace View.Services.TiempoEstandar.Fundicion
     public class CentroTrabajo010 : BaseCentroTrabajo,ICentroTrabajo
     {
         #region Atributtes
-        private double mouting;
-        private double pesoCasting;
+        double mouting;
         #endregion
 
         #region Propiedades
@@ -108,22 +107,12 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridasOpcionles = new List<PropiedadOptional>();
             Alertas = new List<string>();
 
-            ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
-
-            lista.Add(new FO_Item { Nombre = "Opcion 1", ValorCadena = "Opcion 1" });
-            lista.Add(new FO_Item { Nombre = "Opcion 2", ValorCadena = "Opcion 2" });
-
-            PropiedadOptional b = new PropiedadOptional { lblTitle = "pruebaa1", ListaOpcional = lista };
-            PropiedadesRequeridasOpcionles.Add(b);
-
-
-
             //Inicializamos los datos requeridos para el cálculo.
-            Propiedad mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram) };
-            PropiedadesRequeridadas.Add(mounting);
-
             Propiedad pesoCasting = new Propiedad { DescripcionCorta = "Peso casting", DescripcionLarga = "Peso del casting", Imagen = null, Nombre = "PesoCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram), Valor = 0 };
             PropiedadesRequeridadas.Add(pesoCasting);
+
+            Propiedad mounting = new Propiedad { DescripcionCorta = "Mouting", DescripcionLarga = "Mouting", Imagen = null, Nombre = "MoutingCasting", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades) };
+            PropiedadesRequeridadas.Add(mounting);
         }
         #endregion
 
@@ -159,8 +148,7 @@ namespace View.Services.TiempoEstandar.Fundicion
             PropiedadesRequeridadas = Module.AsignarValoresPropiedades(PropiedadesRequeridadas, anillo);
             PropiedadesRequeridasBool = Module.AsignarValoresPropiedadesBool(PropiedadesRequeridasBool, anillo);
             PropiedadesRequeridasCadena = Module.AsignarValoresPropiedadesCadena(PropiedadesRequeridasCadena, anillo);
-
-            
+            PropiedadesRequeridasOpcionles = Module.AsignarValoresPropiedadesOpcionales(PropiedadesRequeridasOpcionles, anillo);
 
             //Ejecutamos el método para calcular los tiempos estándar.
             Calcular();
@@ -171,10 +159,13 @@ namespace View.Services.TiempoEstandar.Fundicion
         /// </summary>
         public void Calcular()
         {
-            pesoCasting = Module.GetValorPropiedad("PesoCasting", PropiedadesRequeridadas);
-            mouting = Module.GetValorPropiedad("MoutingCasting", PropiedadesRequeridadas);
-            //TiempoSetup = DataManager.GetTiempo(CentroTrabajo);
             TiempoSetup = double.Parse(DataManager.GetTiempo(CentroTrabajo));
+
+            Propiedad pPesoCasting = Module.GetPropiedad("PesoCasting", PropiedadesRequeridadas);
+            double pesoCasting = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Mass), pPesoCasting.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadMass.Gram), pPesoCasting.Valor);
+
+            Propiedad pMouting = Module.GetPropiedad("MoutingCasting", PropiedadesRequeridadas);
+            mouting = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Cantidad), pMouting.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadCantidad.Unidades), pMouting.Valor);
 
             double pesoEsqueleto = 0;
 

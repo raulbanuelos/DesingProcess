@@ -21,7 +21,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception)
+            catch (Exception er)
             {
                 return null;
             }

@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d" xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" ResizeMode="NoResize"
-        Title="WCalculateToolingCoil" Height="520" Width="700">
+        Title="WCalculateToolingCoil" Height="540" Width="700">
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
@@ -23,14 +23,14 @@
 
         <Grid Grid.Column="1" Grid.Row="1" ShowGridLines="False">
             <Grid.RowDefinitions>
-                <RowDefinition Height="125"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
                 <RowDefinition Height="300"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical" Grid.Row="0">
-                <TextBox materialDesign:HintAssist.Hint="Componente" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding Componente}" Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                <TextBox materialDesign:HintAssist.Hint="Width del alambre (mm)" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding WidthAlambre}" Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                <TextBox materialDesign:HintAssist.Hint="Thickness de alambre (mm)" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding ThicknessAlambre}" Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                <TextBox materialDesign:HintAssist.Hint="Componente" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding Componente}" Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                <TextBox materialDesign:HintAssist.Hint="Width del alambre (mm)" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding WidthAlambre}" Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                <TextBox materialDesign:HintAssist.Hint="Thickness de alambre (mm)" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Text="{Binding ThicknessAlambre}" Height="50"  TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             </StackPanel>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

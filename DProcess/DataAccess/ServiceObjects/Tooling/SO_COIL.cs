@@ -1020,6 +1020,231 @@ namespace DataAccess.ServiceObjects.Tooling
         }
         #endregion
 
+        #region INTERNAL 1P
+        /// <summary>
+        /// Método que inserta un registro a la tabla TBL_INTERNAL_GUIDE_ROLLER_1PIECE
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="code"></param>
+        /// <param name="dimB"></param>
+        /// <param name="W_Min"></param>
+        /// <param name="W_Max"></param>
+        /// <returns></returns>
+        public int SetInternal_GR_1P(string codigo, string code, double dimB, double W_Min, double W_Max)
+        {
+            try
+            {   //Establecemos la conexión a través de EntityFramework.
+                using (var conexion = new EntitiesTooling())
+                {
+                    //Se  crea un objeto, el cual se va agregar a la tabla 
+                    TBL_INTERNAL_GUIDE_ROLLER_1PIECE obj = new TBL_INTERNAL_GUIDE_ROLLER_1PIECE();
+                    //Se asiganan los valores.
+                    obj.CODIGO = codigo;
+                    obj.DETALLE = code;
+                    obj.DIMB = dimB;
+                    obj.WIDE_WIDTH_MAX = W_Max;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+
+                    //Agrega el objeto a la tabla.
+                    conexion.TBL_INTERNAL_GUIDE_ROLLER_1PIECE.Add(obj);
+                    conexion.SaveChanges();
+                    //Retorna el id del registro insertado
+                    return obj.ID_EGR_1P;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error regresa cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que modifica un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
+        /// </summary>
+        /// <param name="id_internal"></param>
+        /// <param name="codigo"></param>
+        /// <param name="code"></param>
+        /// <param name="dimB"></param>
+        /// <param name="W_Min"></param>
+        /// <param name="W_Max"></param>
+        /// <returns></returns>
+        public int UpdateInternal_GR_1P(int id_internal, string codigo, string code, double dimB, double W_Min, double W_Max)
+        {
+            try
+            {
+                //Se establece la conexión a la base de datos.
+                using (var conexion = new EntitiesTooling())
+                {
+                    //Se obtiene el objeto que se va a modificar.
+                    TBL_INTERNAL_GUIDE_ROLLER_1PIECE obj = conexion.TBL_INTERNAL_GUIDE_ROLLER_1PIECE.Where(x => x.ID_EGR_1P == id_internal).FirstOrDefault();
+                    //Asiganmos los valores
+                    obj.DETALLE = code;
+                    obj.DIMB = dimB;
+                    obj.WIDE_WIDTH_MAX = W_Max;
+                    obj.WIRE_WIDTH_MIN = W_Min;
+                    //Se cambia el estado de registro a modificado.
+                    conexion.Entry(obj).State = EntityState.Modified;
+                    //Se guardan los cambios y se retorna el número de registros afectados.
+                    return conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si encuentra error devuelve cero.
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que elimina un registro de la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
+        /// </summary>
+        /// <param name="id_internal"></param>
+        /// <returns></returns>
+        public int DeleteInternal_GR_1P(int id_internal)
+        {
+            try
+            {
+                // Se inicializa la conexión a la base de datos.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    // Se obtiene el objeto que se va a eliminar.
+                    TBL_INTERNAL_GUIDE_ROLLER_1PIECE obj = Conexion.TBL_INTERNAL_GUIDE_ROLLER_1PIECE.Where(x => x.ID_EGR_1P == id_internal).FirstOrDefault();
+
+                    //Se estable el estado del registro a eliminado.
+                    Conexion.Entry(obj).State = EntityState.Deleted;
+                    //Se guardan los cambios y retorna el número de registros afectados.
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna cero
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene un registro que cumpla con el rango del width
+        /// </summary>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public IList GetINTERNAL_GR_1P(double width)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y lo guardamos en una variable
+                    var Lista = (from a in Conexion.TBL_INTERNAL_GUIDE_ROLLER_1PIECE
+                                 join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
+                                 join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
+                                 join c in Conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
+                                 where width > a.WIRE_WIDTH_MIN && width <= a.WIDE_WIDTH_MAX && b.Activo == true
+                                 select new
+                                 {
+                                     Codigo = b.Codigo,
+                                     Descripcion = b.Descripcion,
+                                     a.DIMB,
+                                     a.DETALLE,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual,
+                                     b.Activo,
+                                     p.NO_PLANO
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los registros, se filtran por el código o descripción
+        /// </summary>
+        /// <param name="textoBusq"></param>
+        /// <returns></returns>
+        public IList GetAllINTERNAL_GR_1P(string textoBusq)
+        {
+            try
+            {
+                //Establecemos la conexion
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Ejecutamos la consulta y guardamos el resultado en una variable
+                    var Lista = (from c in Conexion.TBL_INTERNAL_GUIDE_ROLLER_1PIECE
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Contains(textoBusq) || m.Descripcion.Contains(textoBusq)
+                                 select new
+                                 {
+                                     CODIGO = m.Codigo,
+                                     DESCRIPCION = m.Descripcion,
+                                     c.DIMB,
+                                     c.DETALLE,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN
+                                 }).ToList();
+                    //Retornamos la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay error retorna nulo
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene la información de un herramental de External Guide Roller 1P
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
+        public IList GetInfoInternal_GR1P(string codigo)
+        {
+            try
+            {
+                //Realizamos la conexíon a través de EntityFramework.
+                using (var Conexion = new EntitiesTooling())
+                {
+                    //Realizamos la consulta y el resultado lo asignamos a una variable anónima.
+                    var Lista = (from c in Conexion.TBL_INTERNAL_GUIDE_ROLLER_1PIECE
+                                 join m in Conexion.MaestroHerramentales on c.CODIGO equals m.Codigo
+                                 where c.CODIGO.Equals(codigo)
+                                 select new
+                                 {
+                                     c.CODIGO,
+                                     c.DETALLE,
+                                     c.DIMB,
+                                     c.WIDE_WIDTH_MAX,
+                                     c.WIRE_WIDTH_MIN,
+                                     m.Descripcion,
+                                     m.Activo,
+                                     c.ID_EGR_1P
+                                 }).ToList();
+                    //Retornamos el resultado de la consulta.
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //si hay error retornamos nulo.
+                return null;
+            }
+        }
+        #endregion
+
         #region EXTERNAL 1P
         /// <summary>
         /// Método que inserta un registro a la tabla TBL_EXTERNAL_GUIDE_ROLLER_1PIECE
