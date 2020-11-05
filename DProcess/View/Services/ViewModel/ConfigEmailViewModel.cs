@@ -38,13 +38,14 @@ namespace View.Services.ViewModel
                 string bodyTest = "<P><BR><FONT size=5><EM>Esta es una prueba</EM> de envío</FONT> de <U>correo electrónico</U> a <EM>través de la plataforma</EM> de <STRONG><U><FONT style=\"BACKGROUND - COLOR: #00ffff\">Diseño del Proceso.</FONT></U></STRONG></P>";
                 bodyTest += "<P>&nbsp;<FONT size=6><FONT style=\"BACKGROUND - COLOR: #339966\">Si usted puede visualizar</FONT> este</FONT> <FONT color=#0000ff>correo en Lotus Notes</FONT>, <FONT color=#800080 size=2>significa que podrá</FONT><FONT size=7> </FONT><FONT color=#808000><FONT size=6>enviar correos a</FONT> través de la plataforma</FONT> de <STRONG><FONT style=\"BACKGROUND-COLOR: #00ffff\">Diseño del Proceso.</FONT></STRONG></P>";
 
-                string[] directories = new string[4];
+                string[] directories = new string[5];
 
                 // Se agregan rutas problables establecidas
                 directories[0] = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Lotus\";
                 directories[1] = @"C:\Program Files (x86)\IBM\Lotus\";
                 directories[2] = @"C:\Program Files\IBM\Lotus\";
                 directories[3] = @"c:\Program Files\IBM.old\Lotus\Notes\Data\";
+                directories[4] = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Lotus\Notes\Data\mail";
 
                 foreach (var path in directories)
                 {

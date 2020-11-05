@@ -18,6 +18,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 {
                     var lista = (from a in Conexion.FrontRearCollarAnillos_
                                  join m in Conexion.MaestroHerramentales on a.Codigo equals m.Codigo
+                                 join p in Conexion.PLANO_HERRAMENTAL on m.idPlano equals p.ID_PLANO
                                  join c in Conexion.ClasificacionHerramental on m.idClasificacionHerramental equals c.idClasificacion
                                  where a.Descripcion_Herramental == tipoCollar
                                  select new {

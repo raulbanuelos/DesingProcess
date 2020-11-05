@@ -2005,10 +2005,10 @@ namespace View.Services.ViewModel
                 ModelAnillo.Caratula += "MATERIAL   " + MaterialBase.Especificacion + "" + Environment.NewLine;
                 ModelAnillo.Caratula += "HARDNESS   " + ModelAnillo.HardnessMax.Unidad + " " + ModelAnillo.HardnessMin.Valor + " - " + ModelAnillo.HardnessMax.Valor + "" + Environment.NewLine;
                 ModelAnillo.Caratula += "COATING    " + ModelAnillo.Treatment + " " + ModelAnillo.EspecTreatment + Environment.NewLine;
-                ModelAnillo.Caratula += "PC.        0.421" + Environment.NewLine;
+                ModelAnillo.Caratula += "PC.        " + Environment.NewLine;
                 ModelAnillo.Caratula += "FOUNDRY" + Environment.NewLine;
                 ModelAnillo.Caratula += "" + Environment.NewLine;
-                ModelAnillo.Caratula += "PATTERN    " + ((MateriaPrimaRolado)MaterialBase)._Width + " X " + ((MateriaPrimaRolado)MaterialBase).Thickness + " S= " + ((MateriaPrimaRolado)MaterialBase).Groove + "" + Environment.NewLine;
+                ModelAnillo.Caratula += "WIRE    " + ((MateriaPrimaRolado)MaterialBase)._Width + " X " + ((MateriaPrimaRolado)MaterialBase).Thickness + " S= " + ((MateriaPrimaRolado)MaterialBase).Groove + "" + Environment.NewLine;
                 ModelAnillo.Caratula += "CSTG. SIZE" + Environment.NewLine;
                 ModelAnillo.Caratula += "WTH" + Environment.NewLine;
                 ModelAnillo.Caratula += "NICK" + Environment.NewLine;

@@ -7792,6 +7792,7 @@ namespace Model
             //Asignamos las primeras dos colomnas.
             dataTableResultante.Columns.Add("Code");
             dataTableResultante.Columns.Add("Description");
+            dataTableResultante.Columns.Add("Cantidad");
 
             //Verificamos si la lista contiene al menos un registro.
             if (lista.Count > 0)
@@ -7816,15 +7817,16 @@ namespace Model
                     DataRow dr = dataTableResultante.NewRow();
                     dr[0] = herramental.Codigo;
                     dr[1] = herramental.DescripcionGeneral;
+                    dr[2] = herramental.Cantidad;
 
-                    int c = 2;
+                    int c = 3;
                     foreach (Propiedad propiedad in herramental.Propiedades)
                     {
                         dr[c] = propiedad.Valor;
                         c += 1;
                     }
 
-                    c = 2 + herramental.Propiedades.Count;
+                    c = 3 + herramental.Propiedades.Count;
                     foreach (PropiedadCadena propiedadCadena in herramental.PropiedadesCadena)
                     {
                         dr[c] = propiedadCadena.Valor;
@@ -10774,6 +10776,8 @@ namespace Model
                 {
                     Type tipo = item.GetType();
 
+                    broca = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+
                     broca.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     broca.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     broca.idHerramental = (int)tipo.GetProperty("ID_DRILL_ENGRAVE").GetValue(item, null);
@@ -10848,6 +10852,9 @@ namespace Model
                 herramental.Codigo = lastRow["Code"].ToString();
                 herramental.DescripcionRuta = "GILL. " + lastRow["Dimensión"].ToString();
                 herramental.Encontrado = true;
+                herramental.DescripcionGeneral = lastRow[3].ToString();
+                herramental.Cantidad = Convert.ToInt32(lastRow[4].ToString());
+                herramental.clasificacionHerramental.CantidadUtilizar = herramental.Cantidad;
             }
 
             return herramental;
@@ -10876,8 +10883,12 @@ namespace Model
                     System.Type tipo = item.GetType();
 
                     Herramental herramental = new Herramental();
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+                    
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.idHerramental = (int)tipo.GetProperty("IdGuillotinaEngrave").GetValue(item, null);
+                    herramental.Cantidad = (int)tipo.GetProperty("CantidadUtilizar").GetValue(item, null);
 
                     PropiedadCadena Detalle = new PropiedadCadena();
                     Detalle.DescripcionCorta = "Detalle";
@@ -10910,6 +10921,8 @@ namespace Model
             DataR.Columns.Add("Code");
             DataR.Columns.Add("Dimensión");
             DataR.Columns.Add("Detalle");
+            DataR.Columns.Add("Descripcion");
+            DataR.Columns.Add("Cantidad");
 
             DataRow dr = DataR.NewRow();
 
@@ -10922,6 +10935,8 @@ namespace Model
                 dr["Code"] = lastRow["Code"].ToString();
                 dr["Dimensión"] = lastRow["Dimensión"].ToString();
                 dr["Detalle"] = lastRow["Detalle"].ToString();
+                dr["Descripcion"] = lastRow[1].ToString();
+                dr["Cantidad"] = lastRow["Cantidad"].ToString();
 
                 //Agregamnos el datarow al datatable resultante.
                 DataR.Rows.Add(dr);
@@ -10934,6 +10949,8 @@ namespace Model
                     dr["Code"] = row["Code"].ToString();
                     dr["Dimensión"] = row["Dimensión"].ToString();
                     dr["Detalle"] = row["Detalle"].ToString();
+                    dr["Descripcion"] = row[1].ToString();
+                    dr["Cantidad"] = row["Cantidad"].ToString();
 
                     //Agregamnos el datarow al datatable resultante.
                     DataR.Rows.Add(dr);
@@ -11043,6 +11060,8 @@ namespace Model
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     herramental.idHerramental = (int)tipo.GetProperty("IdBarrelLapAnillos").GetValue(item, null);
 
+                    herramental = ReadInformacionHerramentalEncontrado(Informacion, (string)tipo.GetProperty("Codigo").GetValue(item, null));
+
                     PropiedadCadena Detalle = new PropiedadCadena();
                     Detalle.DescripcionCorta = "Medida Nominal";
                     Detalle.Valor = (string)tipo.GetProperty("MedidaNominal").GetValue(item, null);
@@ -11151,6 +11170,8 @@ namespace Model
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.DescripcionGeneral = (string)tipo.GetProperty("Descripcion").GetValue(item, null);
                     herramental.idHerramental = (int)tipo.GetProperty("IdFrontRearCollarAnillos").GetValue(item, null);
+
+                    herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
 
                     string medidaNominal = (string)tipo.GetProperty("MEDIDA_NOMINAL").GetValue(item, null);
                     PropiedadCadena medidaNominalFrac = new PropiedadCadena();

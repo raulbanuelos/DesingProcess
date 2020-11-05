@@ -1923,6 +1923,22 @@ namespace View.Services.ViewModel
                         }
                     }
 
+                    if (ban != 2)
+                    {
+                        ExcelWork.Save();
+
+                        short resPDF = excel2Pdf(pathExcel, pathPDF);
+
+                        QuitarExcelPonerPDF(archivo, pathPDF);
+
+                        if (resPDF != 0)
+                        {
+                            mensaje = StringResources.msgErrorConvertFile;
+                            return 2;
+                        }
+                    }
+
+                    ExcelWork.Save();
                     ExcelApp.Visible = false;
 
                     if (ExcelWork != null)
@@ -1934,28 +1950,6 @@ namespace View.Services.ViewModel
                     if (ban == 2)
                         return 2;
 
-                    short resPDF = excel2Pdf(pathExcel, pathPDF);
-
-                    if (resPDF == 0)
-                    {
-                        string pdfFinal = GetPathTempFile(new Archivo { nombre = "tempOuputPdf", numero = 1 });
-                        string qrFinal = GetPathTempFile(new Archivo { nombre = "tempOuputQR", numero = 1 });
-                        //generateQRCode(qrFinal);
-
-                        //insertQR(pathPDF, pdfFinal, qrFinal);
-
-                        QuitarExcelPonerPDF(archivo, pdfFinal);
-                    }
-                    else
-                    {
-                        mensaje = StringResources.msgErrorConvertFile;
-                        return 2;
-                    }
-                }
-                if (ListaDocumentos.Count == 0)
-                {
-                    mensaje = StringResources.msgNotFoundFile;
-                    return 2;
                 }
                 mensaje = StringResources.msgCorrectFile;
                 return 1;
@@ -5050,6 +5044,8 @@ namespace View.Services.ViewModel
                                                 int id_version = DataManagerControlDocumentos.SetVersion(objVersion, nombre);
                                                 // Llamamos el método para insertar en la tabla todos usuarios a notificar
                                                 UnirTodosIntegrantes(id_version);
+
+                                                objVersion.id_version = id_version;
 
                                                 DataManagerControlDocumentos.UpdateCodeValidation(id_version, codeValidation);
 

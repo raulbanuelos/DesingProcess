@@ -216,7 +216,7 @@ namespace View.Services.Operaciones.Gasolina.Maquinado
                 }
                 else
                 {
-                    NotasOperacion.Add("Tiempos estándar cancilados correctamente");
+                    NotasOperacion.Add("Tiempos estándar calculados correctamente");
                 }
             }
             catch (Exception er)

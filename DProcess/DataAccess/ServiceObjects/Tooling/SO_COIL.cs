@@ -138,7 +138,7 @@ namespace DataAccess.ServiceObjects.Tooling
                 //Establecemos la conexion
                 using (var Conexion = new EntitiesTooling())
                 {
-                    //Ejecutamos la consulta y lo guardamos en una variable
+                    //Ejecutamos la consulta y lo guardamos en una variable.
                     var Lista = (from a in Conexion.TBL_COIL_FEED_ROLLER
                                  join b in Conexion.MaestroHerramentales on a.CODIGO equals b.Codigo
                                  join p in Conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO

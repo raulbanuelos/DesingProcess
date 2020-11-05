@@ -75,9 +75,28 @@ namespace DataAccess.ServiceObjects.Tooling
                 using (var conexion = new EntitiesTooling())
                 {
                     var lista = (from a in conexion.GuillotinaEngrave_
-                                 where a.Dimension < WidthAnillo
+                                 join b in conexion.MaestroHerramentales on a.Codigo equals b.Codigo
+                                 join p in conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
+                                 join c in conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
+                                 where a.Dimension < WidthAnillo && b.Activo == true
                                  orderby a.Dimension ascending
-                                 select a).ToList();
+                                 select new {
+                                     Codigo = b.Codigo,
+                                     Descripcion = b.Descripcion,
+                                     a.Detalle,
+                                     a.Dimension,
+                                     a.IdGuillotinaEngrave,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual,
+                                     b.Activo,
+                                     p.NO_PLANO
+                                 }).ToList();
 
                     return lista;
                 }

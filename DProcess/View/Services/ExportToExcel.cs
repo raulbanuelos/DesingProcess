@@ -24,7 +24,7 @@ namespace View.Services
         /// <param name="aux2"></param>
         /// <param name="aux3"></param>
         /// <returns></returns>
-        public static string  ExportToolCoilTHM(string componente, Herramental herrFeed, Herramental herrCenterGuide, Herramental herrEntranceGuide, Herramental idealExitGuide, Herramental aux1, Herramental aux2, Herramental aux3)
+        public static string  ExportToolCoilTHM(string componente, Herramental herrFeed, Herramental herrCenterGuide, Herramental herrEntranceGuide, Herramental idealExitGuide, Herramental aux1, Herramental aux1_1, Herramental aux1_2, Herramental aux1_3, Herramental aux2, Herramental aux2_1, Herramental aux2_2, Herramental aux2_3, Herramental aux3)
         {
             try
             {
@@ -154,40 +154,85 @@ namespace View.Services
                 ExcelWoorkSheet.Cells[9, 10] = idealExitGuide.Codigo;
                 #endregion
 
-                #region PARTE 1
-                ExcelWoorkSheet.Cells[10, 2] = "5";
-                ExcelWoorkSheet.Cells[10, 3] = aux1.DescripcionGeneral;
-                ExcelWoorkSheet.Cells[10, 4] = aux1.Plano;
-                ExcelWoorkSheet.Cells[10, 5] = Module.GetValorPropiedadString("Detalle", aux1.PropiedadesCadena.ToList());
-                ExcelWoorkSheet.Cells[10, 6] = Module.GetValorPropiedad("DIMA", aux1.Propiedades.ToList());
-                ExcelWoorkSheet.Cells[10, 7] = Module.GetValorPropiedad("DIMB", aux1.Propiedades.ToList());
-                ExcelWoorkSheet.Cells[10, 8] = Module.GetValorPropiedad("DIMC", aux1.Propiedades.ToList());
-                ExcelWoorkSheet.Cells[10, 9] = aux1.clasificacionHerramental.CantidadUtilizar;
-                ExcelWoorkSheet.Cells[10, 10] = aux1.Codigo;
+                #region PARTE 1 INTERNAL ROLLER
+                
+
+                ExcelWoorkSheet.Cells[10, 2] = "6";
+                ExcelWoorkSheet.Cells[10, 3] = "INTERNAL ROLLER 3 PIECES 2487 - 110 - 01 - 4 BI-PARTIDO";
+                ExcelWoorkSheet.Cells[10, 4] = aux1_1.Plano;
+                ExcelWoorkSheet.Cells[10, 5] = Module.GetValorPropiedadString("Detalle", aux1_1.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[10, 6] = Module.GetValorPropiedad("DIMA", aux1_1.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[10, 7] = Module.GetValorPropiedad("DIMB", aux1_1.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[10, 8] = Module.GetValorPropiedad("DIMC", aux1_1.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[10, 9] = aux1_1.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[10, 10] = aux1_1.Codigo;
+
+                ExcelWoorkSheet.Cells[11, 2] = "7";
+                ExcelWoorkSheet.Cells[11, 3] = "INTERNAL ROLLER 3 PIECES 2487 - 110 - 02 - 4 BI-PARTIDO";
+                ExcelWoorkSheet.Cells[11, 4] = aux1_2.Plano;
+                ExcelWoorkSheet.Cells[11, 5] = Module.GetValorPropiedadString("Detalle", aux1_2.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[11, 6] = Module.GetValorPropiedad("DIMA", aux1_2.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[11, 7] = Module.GetValorPropiedad("DIMB", aux1_2.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[11, 8] = Module.GetValorPropiedad("DIMC", aux1_2.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[11, 9] = aux1_2.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[11, 10] = aux1_2.Codigo;
+
+                ExcelWoorkSheet.Cells[12, 2] = "8";
+                ExcelWoorkSheet.Cells[12, 3] = "INTERNAL ROLLER 3 PIECES 2487 - 110 - 03 - 4 BI-PARTIDO";
+                ExcelWoorkSheet.Cells[12, 4] = aux1_3.Plano;
+                ExcelWoorkSheet.Cells[12, 5] = Module.GetValorPropiedadString("Detalle", aux1_3.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[12, 6] = Module.GetValorPropiedad("DIMA", aux1_3.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[12, 7] = Module.GetValorPropiedad("DIMB", aux1_3.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[12, 8] = Module.GetValorPropiedad("DIMC", aux1_3.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[12, 9] = aux1_3.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[12, 10] = aux1_3.Codigo;
+
                 #endregion
 
-                #region PARTE 2
-                ExcelWoorkSheet.Cells[11, 2] = "6";
-                ExcelWoorkSheet.Cells[11, 3] = aux2.DescripcionGeneral;
-                ExcelWoorkSheet.Cells[11, 4] = aux2.Plano;
-                ExcelWoorkSheet.Cells[11, 5] = Module.GetValorPropiedadString("Detalle", aux2.PropiedadesCadena.ToList());
-                ExcelWoorkSheet.Cells[11, 6] = Module.GetValorPropiedad("DIMA", aux2.Propiedades.ToList());
-                ExcelWoorkSheet.Cells[11, 7] = Module.GetValorPropiedad("DIMB", aux2.Propiedades.ToList());
-                ExcelWoorkSheet.Cells[11, 8] = Module.GetValorPropiedad("DIMC", aux2.Propiedades.ToList());
-                ExcelWoorkSheet.Cells[11, 9] = aux2.clasificacionHerramental.CantidadUtilizar;
-                ExcelWoorkSheet.Cells[11, 10] = aux2.Codigo;
+                #region PARTE 2 EXTERNAL ROLLER
+                
+
+                ExcelWoorkSheet.Cells[13, 2] = "10";
+                ExcelWoorkSheet.Cells[13, 3] = "EXTERNAL ROLLER (2487 111 01 4) BI-PARTIDO";
+                ExcelWoorkSheet.Cells[13, 4] = aux2_1.Plano;
+                ExcelWoorkSheet.Cells[13, 5] = Module.GetValorPropiedadString("Detalle", aux2_1.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[13, 6] = Module.GetValorPropiedad("DIMA", aux2_1.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[13, 7] = Module.GetValorPropiedad("DIMB", aux2_1.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[13, 8] = Module.GetValorPropiedad("DIMC", aux2_1.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[13, 9] = aux2_1.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[13, 10] = aux2_1.Codigo;
+
+                ExcelWoorkSheet.Cells[14, 2] = "11";
+                ExcelWoorkSheet.Cells[14, 3] = "EXTERNAL ROLLER (2487 111 02 4) BI-PARTIDO";
+                ExcelWoorkSheet.Cells[14, 4] = aux2_2.Plano;
+                ExcelWoorkSheet.Cells[14, 5] = Module.GetValorPropiedadString("Detalle", aux2_2.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[14, 6] = Module.GetValorPropiedad("DIMA", aux2_2.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[14, 7] = Module.GetValorPropiedad("DIMB", aux2_2.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[14, 8] = Module.GetValorPropiedad("DIMC", aux2_2.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[14, 9] = aux2_2.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[14, 10] = aux2_2.Codigo;
+
+                ExcelWoorkSheet.Cells[15, 2] = "12";
+                ExcelWoorkSheet.Cells[15, 3] = "EXTERNAL ROLLER (2487 111 03 4) BI-PARTIDO";
+                ExcelWoorkSheet.Cells[15, 4] = aux2_3.Plano;
+                ExcelWoorkSheet.Cells[15, 5] = Module.GetValorPropiedadString("Detalle", aux2_3.PropiedadesCadena.ToList());
+                ExcelWoorkSheet.Cells[15, 6] = Module.GetValorPropiedad("DIMA", aux2_3.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[15, 7] = Module.GetValorPropiedad("DIMB", aux2_3.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[15, 8] = Module.GetValorPropiedad("DIMC", aux2_3.Propiedades.ToList());
+                ExcelWoorkSheet.Cells[15, 9] = aux2_3.clasificacionHerramental.CantidadUtilizar;
+                ExcelWoorkSheet.Cells[15, 10] = aux2_3.Codigo;
                 #endregion
 
                 #region PARTE 3
-                ExcelWoorkSheet.Cells[12, 2] = "7";
-                ExcelWoorkSheet.Cells[12, 3] = aux3.DescripcionGeneral;
-                ExcelWoorkSheet.Cells[12, 4] = aux3.Plano;
-                ExcelWoorkSheet.Cells[12, 5] = Module.GetValorPropiedadString("Detalle", aux3.PropiedadesCadena.ToList());
-                ExcelWoorkSheet.Cells[12, 6] = Module.GetValorPropiedad("DIMA", aux3.Propiedades.ToList());
-                ExcelWoorkSheet.Cells[12, 7] = Module.GetValorPropiedad("DIMB", aux3.Propiedades.ToList());
-                ExcelWoorkSheet.Cells[12, 8] = Module.GetValorPropiedad("DIMC", aux3.Propiedades.ToList());
-                ExcelWoorkSheet.Cells[12, 9] = aux3.clasificacionHerramental.CantidadUtilizar;
-                ExcelWoorkSheet.Cells[12, 10] = aux3.Codigo;
+                //ExcelWoorkSheet.Cells[18, 2] = "13";
+                //ExcelWoorkSheet.Cells[18, 3] = aux3.DescripcionGeneral;
+                //ExcelWoorkSheet.Cells[18, 4] = aux3.Plano;
+                //ExcelWoorkSheet.Cells[18, 5] = Module.GetValorPropiedadString("Detalle", aux3.PropiedadesCadena.ToList());
+                //ExcelWoorkSheet.Cells[18, 6] = Module.GetValorPropiedad("DIMA", aux3.Propiedades.ToList());
+                //ExcelWoorkSheet.Cells[18, 7] = Module.GetValorPropiedad("DIMB", aux3.Propiedades.ToList());
+                //ExcelWoorkSheet.Cells[18, 8] = Module.GetValorPropiedad("DIMC", aux3.Propiedades.ToList());
+                //ExcelWoorkSheet.Cells[18, 9] = aux3.clasificacionHerramental.CantidadUtilizar;
+                //ExcelWoorkSheet.Cells[18, 10] = aux3.Codigo;
                 #endregion
 
                 //Ajustamos el tamaño de las columnas.
@@ -196,7 +241,7 @@ namespace View.Services
                 #region Formato Borders
                 int rowBegin = 5;
                 int columnBegin = 2;
-                int rowEnds = 12;
+                int rowEnds = 15;
                 int columnEnds = 10;
 
                 for (int i = rowBegin; i <= rowEnds; i++)

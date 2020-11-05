@@ -50,6 +50,20 @@ namespace View.Services.ViewModel
             set { _banTHM = value; NotifyChange("banTHM"); }
         }
 
+        private bool _banExportarExcel;
+        public bool banExportarExcel
+        {
+            get { return _banExportarExcel; }
+            set { _banExportarExcel = value; NotifyChange("banExportarExcel"); }
+        }
+
+        private List<Herramental> _ListaHerramental;
+        public List<Herramental> ListaHerramental
+        {
+            get { return _ListaHerramental; }
+            set { _ListaHerramental = value; NotifyChange("ListaHerramental"); }
+        }
+
         #endregion
 
         #region Contructor
@@ -58,6 +72,8 @@ namespace View.Services.ViewModel
             WidthAlambre = 0;
             ThicknessAlambre = 0;
             Componente = string.Empty;
+            banExportarExcel = true;
+            ListaHerramental = new List<Herramental>();
         }
         #endregion
 
@@ -72,12 +88,10 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Methods
-        private async void calcular()
+        public async void calcular()
         {
             DialogService dialogService = new DialogService();
-
-            List<Herramental> ListaHerramental = new List<Herramental>();
-
+            
             if (validar())
             {
                 Herramental herrFeed = new Herramental();
@@ -106,7 +120,9 @@ namespace View.Services.ViewModel
                     DataManager.GetINTERNAL_GR_1P(WidthAlambre, out herr1PieceInternal);
                     ListaHerramental.Add(herr1PieceInternal);
 
-                    ExportToExcel.ExportToolCoilCuadrado(Componente, herrFeed, herrCenterGuide, herrEntranceGuide, idealExitGuide, herr1PieceExternal, herr1PieceInternal);
+                    if (banExportarExcel)
+                        ExportToExcel.ExportToolCoilCuadrado(Componente, herrFeed, herrCenterGuide, herrEntranceGuide, idealExitGuide, herr1PieceExternal, herr1PieceInternal);
+                    
                 }
                 else
                 {
@@ -114,17 +130,48 @@ namespace View.Services.ViewModel
                     DataManager.GetEXTERNAL_GR_3P_1(WidthAlambre, out aux1);
                     ListaHerramental.Add(aux1);
 
+                   
+                    Herramental aux1_1 = aux1;
+                    aux1_1.DescripcionGeneral = "INTERNAL GUIDE ROLLER 3 PIECES 2487-110-01-4";
+                    ListaHerramental.Add(aux1_1);
+
+                    
+                    Herramental aux1_2 = aux1;
+                    aux1_2.DescripcionGeneral = "INTERNAL GUIDE ROLLER 3 PIECES 2487 - 110 - 02 - 4";
+                    ListaHerramental.Add(aux1_2);
+
+                    
+                    Herramental aux1_3 = aux1;
+                    aux1_3.DescripcionGeneral = "INTERNAL GUIDE ROLLER 3 PIECES 2487-110-03-4";
+                    ListaHerramental.Add(aux1_3);
+
                     Herramental aux2 = new Herramental();
                     DataManager.GetEXTERNAL_GR_3P_2(WidthAlambre, out aux2);
                     ListaHerramental.Add(aux2);
+
+                   
+                    Herramental aux2_1 = aux2;
+                    aux2_1.DescripcionGeneral = "External roller (2487 111 01 4)";
+                    ListaHerramental.Add(aux2_1);
+
+                   
+                    Herramental aux2_2 = aux2;
+                    aux2_2.DescripcionGeneral = "External roller (2487 111 02 4)";
+                    ListaHerramental.Add(aux2_2);
+
+                    
+                    
+                    Herramental aux2_3 = aux2;
+                    aux2_3.DescripcionGeneral = "External roller (2487 111 03 4)";
+                    ListaHerramental.Add(aux2_3);
 
                     Herramental aux3 = new Herramental();
                     DataManager.GetEXTERNAL_GR_3P_3(WidthAlambre, out aux3);
                     ListaHerramental.Add(aux3);
 
-                    ExportToExcel.ExportToolCoilTHM(Componente, herrFeed, herrCenterGuide, herrEntranceGuide, idealExitGuide, aux1,aux2,aux3);
+                    if (banExportarExcel)
+                        ExportToExcel.ExportToolCoilTHM(Componente, herrFeed, herrCenterGuide, herrEntranceGuide, idealExitGuide, aux1,aux1_1,aux1_2,aux1_3, aux2, aux2_1,aux2_2,aux2_3, aux3);
                 }
-                
             }
             else
             {

@@ -23,13 +23,25 @@ namespace DataAccess.ServiceObjects.Tooling
                 {
                     var lista = (from a in conexion.BarrelLapAnillos_
                                  join b in conexion.MaestroHerramentales on a.Codigo equals b.Codigo
+                                 join p in conexion.PLANO_HERRAMENTAL on b.idPlano equals p.ID_PLANO
+                                 join c in conexion.ClasificacionHerramental on b.idClasificacionHerramental equals c.idClasificacion
                                  where a.Codigo.Contains(TextoBuscar) || b.Descripcion.Contains(TextoBuscar)
                                  select new
                                  {
                                      a.IdBarrelLapAnillos,
                                      a.Codigo,
                                      a.MedidaNominal,
-                                     b.Descripcion
+                                     b.Descripcion,
+                                     Clasificacion = c.Descripcion,
+                                     c.UnidadMedida,
+                                     c.Costo,
+                                     c.CantidadUtilizar,
+                                     c.VidaUtil,
+                                     c.idClasificacion,
+                                     c.ListaCotasRevisar,
+                                     c.VerificacionAnual,
+                                     b.Activo,
+                                     p.NO_PLANO
                                  }
                                  ).ToList();
                     return lista;

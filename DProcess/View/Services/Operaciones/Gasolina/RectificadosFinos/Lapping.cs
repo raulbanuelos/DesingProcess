@@ -240,9 +240,11 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
             ListaHerramentales.Add(barrelGrade);
 
-            Herramental front = DataManager.GetFrontRearCollarAnillos(elPlano.D1.Valor, "FRONT COLLAR ANI.", "FRONT COLLAR. ");
-            Herramental rear = DataManager.GetFrontRearCollarAnillos(elPlano.D1.Valor, "REAR COLLAR ANI.", "REAR COLLAR. ");
-            Herramental loading = DataManager.GetLoadingGuideAnillos(elPlano.D1.Valor);
+            double d1Inch = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
+
+            Herramental front = DataManager.GetFrontRearCollarAnillos(d1Inch, "FRONT COLLAR ANI.", "FRONT COLLAR. ");
+            Herramental rear = DataManager.GetFrontRearCollarAnillos(d1Inch, "REAR COLLAR ANI.", "REAR COLLAR. ");
+            Herramental loading = DataManager.GetLoadingGuideAnillos(d1Inch);
             
             ListaHerramentales.Add(front);
             ListaHerramentales.Add(rear);
@@ -258,11 +260,12 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
 
             double diametroAnillo = elPlano.D1.Valor;
             Herramental barrelIdeal = new Herramental();
+            string fracc= string.Empty;
 
             foreach (Herramental barrel in listaBarrelGrade)
             {
                 //Module.ConvertFracToDecimal()
-                string fracc = barrel.PropiedadesCadena[0].Valor;
+                fracc = barrel.PropiedadesCadena[0].Valor;
                 double deci = Convert.ToDouble(Module.ConvertFracToDecimal(fracc));
                 double tope = 0;
                 if (deci <= diametroAnillo)
@@ -275,6 +278,8 @@ namespace View.Services.Operaciones.Gasolina.RectificadosFinos
                     }
                 }
             }
+
+            diametroAnillo = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
 
             barrelIdeal.DescripcionRuta = "BARREL " + diametroAnillo;
             return barrelIdeal;

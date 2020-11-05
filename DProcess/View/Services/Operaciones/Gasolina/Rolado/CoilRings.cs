@@ -3,6 +3,7 @@ using Model.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using View.Services.TiempoEstandar.Gasolina.Rolado;
+using View.Services.ViewModel;
 
 namespace View.Services.Operaciones.Gasolina.Rolado
 {
@@ -245,48 +246,21 @@ namespace View.Services.Operaciones.Gasolina.Rolado
 
         public void BuscarHerramentales()
         {
-            Herramental idealFeedRoller = new Herramental();
-            DataManager.GetCOIL_Feed_Roller(widthMateriaPrima, out idealFeedRoller);
-            ListaHerramentales.Add(idealFeedRoller);
+            CalculateToolingCoilViewModel vmCalculo = new CalculateToolingCoilViewModel();
+            vmCalculo.ThicknessAlambre = thicknessMateriaPrima;
+            vmCalculo.WidthAlambre = widthMateriaPrima;
+            vmCalculo.Componente = elPlano.Codigo;
+            vmCalculo.banExportarExcel = false;
+            vmCalculo.banCuadrado = elPlano.TipoAnillo.StartsWith("RF") ? true : false;
+            vmCalculo.banTHM = elPlano.TipoAnillo.StartsWith("THM") ? true : false;
 
-            Herramental idealExitGuide = new Herramental();
-            DataManager.GetEXIT_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealExitGuide);
-            ListaHerramentales.Add(idealExitGuide);
+            vmCalculo.calcular();
 
-            Herramental idealCenterGuide = new Herramental();
-            DataManager.GetCOIL_CENTER_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealCenterGuide);
-            ListaHerramentales.Add(idealCenterGuide);
-
-            Herramental idealEntranceGuide = new Herramental();
-            DataManager.GetCOIL_CENTER_GUIDE(widthMateriaPrima, thicknessMateriaPrima, out idealCenterGuide);
-            ListaHerramentales.Add(idealEntranceGuide);
+            foreach (var herramental in vmCalculo.ListaHerramental)
+            {
+                ListaHerramentales.Add(herramental);
+            }
             
-            if (elPlano.TipoAnillo.StartsWith("THM"))
-            {
-                //3 PIECE
-                Herramental threePiece110 = new Herramental();
-                DataManager.GetEXTERNAL_GR_3P_1(widthMateriaPrima, out threePiece110);
-                ListaHerramentales.Add(threePiece110);
-
-                Herramental threePiece111 = new Herramental();
-                DataManager.GetEXTERNAL_GR_3P_2(widthMateriaPrima, out threePiece111);
-                ListaHerramentales.Add(threePiece111);
-
-                Herramental threePiece112 = new Herramental();
-                DataManager.GetEXTERNAL_GR_3P_3(widthMateriaPrima, out threePiece112);
-                ListaHerramentales.Add(threePiece112);
-            }
-            else
-            {
-                if (elPlano.TipoAnillo.StartsWith("RF"))
-                {
-                    //1 PIECE
-                    Herramental onePiece = new Herramental();
-                    DataManager.GetEXTERNAL_GR_1P(widthMateriaPrima, out onePiece);
-                    ListaHerramentales.Add(onePiece);
-                }
-            }
-
             TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
 

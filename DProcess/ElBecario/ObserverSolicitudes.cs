@@ -54,6 +54,7 @@ namespace ElBecario
                 Console.Beep(5000, 1000);
 
                 Console.WriteLine("Chinga! ya me pusieron a trabajar, ni pex!");
+                Console.WriteLine("Fecha de inicio: " + DateTime.Now.ToString());
                 //System.Threading.Thread.Sleep(3000);
                 Console.WriteLine("Un wey esta solicitando lo siguiente:");
                 Console.WriteLine("VERSIÓN: " + changedEntity.ID_VERSION + "\nACCIÓN SOLICITADA: " + changedEntity.ACCION + "\n");
@@ -328,6 +329,9 @@ namespace ElBecario
             //Llenamos la lista con los id de los usuarios
             foreach (var item in ListaUsuariosSuscritos)
                 lUsuariosNotificar.Add(item.id_usuariosuscrito);
+
+            //Se agrega el usuario Raúl Bañuelos. <--Por Default.
+            lUsuariosNotificar.Add("¢¥®ª¯");
 
             //Declaramos el vector el cual guardará los correos de los usuarios.
             string[] correos = new string[lUsuariosNotificar.Count];
