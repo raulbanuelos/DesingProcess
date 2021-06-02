@@ -30,7 +30,7 @@ namespace DataAccess.ServiceObjects.Operaciones
                     return lista.ToList();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
 
                 throw;

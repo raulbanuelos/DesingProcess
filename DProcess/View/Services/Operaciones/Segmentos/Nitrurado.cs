@@ -157,17 +157,17 @@ namespace View.Services.Operaciones.Segmentos
             double hardnessMin = data.DurezaMin;
             double hardnessMax = data.DurezaMax;
             string widthLayer = data.WhiteLayer;
+            double dhp = data.DHP;
 
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*NITRURADO" + Environment.NewLine;
             TextoProceso += "DIFUSION LAYER THICKNESS " + nitruradoMin + " - " + nitruradoMax + "" + Environment.NewLine;
             TextoProceso += "CONSIDERAR DIAMETRO EXT. E INT." + Environment.NewLine;
-            TextoProceso += "HARDNESS " + hardnessMin + " - " + hardnessMax + " DPH HV   " + Environment.NewLine;
+            TextoProceso += "HARDNESS " + hardnessMin + " - " + hardnessMax + " DPH HV   " + dhp + Environment.NewLine;
             TextoProceso += widthLayer + Environment.NewLine;
             TextoProceso += "EL SEGMENTO NO DEBERA ROMPERSE A" + Environment.NewLine;
             TextoProceso += "180 GRADOS EN LA PRUEBA DE TWIST" + Environment.NewLine;
             TextoProceso += "PROGRAMA PRG-10" + Environment.NewLine;
-            TextoProceso += "APLICAR ACEITE CRC 3-36 INMEDIATAMENTE PARA EVITAR OXIDACION" + Environment.NewLine;
 
             anilloProcesado.PropiedadesCadenaAdquiridasProceso.Add(new PropiedadCadena { Nombre = "receta497", Valor = "PRG-10" });
             

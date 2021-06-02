@@ -7,17 +7,16 @@
         <ResourceDictionary>
 
             <!-- primary -->
-            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#212B3D"/>
-            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#212B3D"/>
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#946941"/> <!-- Hind assist. Hind -->
-            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#946941"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#946941"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#946941"/>
-            <!-- accent -->
-            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#946941"/>
-            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#946941"/>
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#003f63"/>
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#003f63"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#003f63"/>  <!--Botones-->
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#f2b138"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
 
-            
+            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#f2b138"/>
+            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#f2b138"/>
+
             <ImageBrush x:Key="FondoInicio" ImageSource="pack://application:,,,/Frames;component/Images/fondoinicio.png"></ImageBrush>
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->

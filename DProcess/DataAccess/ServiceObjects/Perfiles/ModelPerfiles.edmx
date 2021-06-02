@@ -203,6 +203,7 @@
           <Property Name="DUREZA_MAX" Type="float" />
           <Property Name="RECETA" Type="varchar" MaxLength="50" />
           <Property Name="WHITE_LAYER" Type="varchar" MaxLength="50" />
+          <Property Name="DHP" Type="float" />
         </EntityType>
         <EntityType Name="TBL_ESPEC_PVD_RAILS">
           <Key>
@@ -594,7 +595,7 @@
               <PropertyRef Name="ID_PROPIEDAD" />
             </Principal>
             <Dependent Role="TR_PROPIEDAD_PERFIL">
-              <PropertyRef Name="ID_PROPIEDAD" />
+              <PropertyRef Name="ID_PERFIL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -832,7 +833,6 @@
             <End Role="TBL_NO_CAJA" EntitySet="TBL_NO_CAJA" />
             <End Role="TBL_ROLLOS_CAJA_SEGMENTOS" EntitySet="TBL_ROLLOS_CAJA_SEGMENTOS" />
           </AssociationSet>
-          <EntitySet Name="TBL_ESPEC_GAS_NITRIDING_RAILS" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS" />
           <EntitySet Name="TBL_ESPEC_PVD_RAILS" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_PVD_RAILS" />
           <EntitySet Name="CAT_OPCION_PROPIEDAD_OPCIONAL" EntityType="DataAccess.ServiceObjects.Perfiles.CAT_OPCION_PROPIEDAD_OPCIONAL" />
           <EntitySet Name="CAT_PROPIEDAD_OPCIONAL" EntityType="DataAccess.ServiceObjects.Perfiles.CAT_PROPIEDAD_OPCIONAL" />
@@ -863,6 +863,7 @@
             <End Role="CAT_PROPIEDAD_OPCIONAL" EntitySet="CAT_PROPIEDAD_OPCIONAL" />
             <End Role="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" EntitySet="TBL_ARQUETIPO_PROPIEDADES_OPCIONAL" />
           </AssociationSet>
+          <EntitySet Name="TBL_ESPEC_GAS_NITRIDING_RAILS" EntityType="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS" />
         </EntityContainer>
         <EntityType Name="Arquetipo">
           <Key>
@@ -1368,19 +1369,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="TBL_ESPEC_GAS_NITRIDING_RAILS">
-          <Key>
-            <PropertyRef Name="ID_ESPEC_GAS_NITRIDING_RAILS" />
-          </Key>
-          <Property Name="ID_ESPEC_GAS_NITRIDING_RAILS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ESPECIFICACION_NITRURADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="THICKNESS_MIN" Type="Double" />
-          <Property Name="THICKNESS_MAX" Type="Double" />
-          <Property Name="DUREZA_MIN" Type="Double" />
-          <Property Name="DUREZA_MAX" Type="Double" />
-          <Property Name="RECETA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WHITE_LAYER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="TBL_ESPEC_PVD_RAILS">
           <Key>
             <PropertyRef Name="ID_ESPEC_PVD_RAILS" />
@@ -1521,6 +1509,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_ESPEC_GAS_NITRIDING_RAILS">
+          <Key>
+            <PropertyRef Name="ID_ESPEC_GAS_NITRIDING_RAILS" />
+          </Key>
+          <Property Name="ID_ESPEC_GAS_NITRIDING_RAILS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ESPECIFICACION_NITRURADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="THICKNESS_MIN" Type="Double" />
+          <Property Name="THICKNESS_MAX" Type="Double" />
+          <Property Name="DUREZA_MIN" Type="Double" />
+          <Property Name="DUREZA_MAX" Type="Double" />
+          <Property Name="RECETA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WHITE_LAYER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DHP" Type="Double" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1769,20 +1771,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBL_ESPEC_GAS_NITRIDING_RAILS">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS">
-              <MappingFragment StoreEntitySet="TBL_ESPEC_GAS_NITRIDING_RAILS">
-                <ScalarProperty Name="WHITE_LAYER" ColumnName="WHITE_LAYER" />
-                <ScalarProperty Name="RECETA" ColumnName="RECETA" />
-                <ScalarProperty Name="DUREZA_MAX" ColumnName="DUREZA_MAX" />
-                <ScalarProperty Name="DUREZA_MIN" ColumnName="DUREZA_MIN" />
-                <ScalarProperty Name="THICKNESS_MAX" ColumnName="THICKNESS_MAX" />
-                <ScalarProperty Name="THICKNESS_MIN" ColumnName="THICKNESS_MIN" />
-                <ScalarProperty Name="ESPECIFICACION_NITRURADO" ColumnName="ESPECIFICACION_NITRURADO" />
-                <ScalarProperty Name="ID_ESPEC_GAS_NITRIDING_RAILS" ColumnName="ID_ESPEC_GAS_NITRIDING_RAILS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_ESPEC_PVD_RAILS">
             <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_PVD_RAILS">
               <MappingFragment StoreEntitySet="TBL_ESPEC_PVD_RAILS">
@@ -1844,6 +1832,21 @@
                 <ScalarProperty Name="ID_PROPIEDAD_OPCIONA" ColumnName="ID_PROPIEDAD_OPCIONA" />
                 <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
                 <ScalarProperty Name="ID_ARQUETIPO_PROPIEDAD_OPCIONAL" ColumnName="ID_ARQUETIPO_PROPIEDAD_OPCIONAL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ESPEC_GAS_NITRIDING_RAILS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Perfiles.TBL_ESPEC_GAS_NITRIDING_RAILS">
+              <MappingFragment StoreEntitySet="TBL_ESPEC_GAS_NITRIDING_RAILS">
+                <ScalarProperty Name="DHP" ColumnName="DHP" />
+                <ScalarProperty Name="WHITE_LAYER" ColumnName="WHITE_LAYER" />
+                <ScalarProperty Name="RECETA" ColumnName="RECETA" />
+                <ScalarProperty Name="DUREZA_MAX" ColumnName="DUREZA_MAX" />
+                <ScalarProperty Name="DUREZA_MIN" ColumnName="DUREZA_MIN" />
+                <ScalarProperty Name="THICKNESS_MAX" ColumnName="THICKNESS_MAX" />
+                <ScalarProperty Name="THICKNESS_MIN" ColumnName="THICKNESS_MIN" />
+                <ScalarProperty Name="ESPECIFICACION_NITRURADO" ColumnName="ESPECIFICACION_NITRURADO" />
+                <ScalarProperty Name="ID_ESPEC_GAS_NITRIDING_RAILS" ColumnName="ID_ESPEC_GAS_NITRIDING_RAILS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -5,7 +5,7 @@ namespace Model
 
     public class Pattern : Arquetipo
     {
-        #region Propiedades 
+        #region Propiedades
         public Propiedad medida { get; set; }
         public Propiedad diametro { get; set; }
         public Cliente customer { get; set; }
@@ -129,11 +129,9 @@ namespace Model
             ring_th_min = new Propiedad();
             ring_th_max = new Propiedad();
             TipoMateriaPrima = new FO_Item();
-            
+
         }
-         
+
         #endregion
-
     }
-
 }

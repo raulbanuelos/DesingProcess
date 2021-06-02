@@ -79,7 +79,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return datos.Tables.Count;
                                
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error, retorna cero
                 return 0;

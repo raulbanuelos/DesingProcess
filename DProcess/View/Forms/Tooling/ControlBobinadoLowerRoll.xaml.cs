@@ -34,7 +34,7 @@ namespace View.Forms.Tooling
         {
             InitializeComponent();
             obj = new Herramental();
-        }        
+        }
 
         /// <summary>
         /// Método para guardar registros
@@ -122,7 +122,7 @@ namespace View.Forms.Tooling
             tbx_Dia_Max.Text = Convert.ToString(obj.Propiedades[3].Valor);
             tbx_Side_Plate_Dia.Text = Convert.ToString(obj.Propiedades[4].Valor);
         }
-        
+
         /// <summary>
         /// Método para validar que los campos no sean nulos
         /// </summary>
@@ -151,7 +151,7 @@ namespace View.Forms.Tooling
             if (wirewidthmin < wirewidthmax && diamin < diamax)
                 return true;
             else
-                return false;                       
+                return false;
         }
 
         /// <summary>

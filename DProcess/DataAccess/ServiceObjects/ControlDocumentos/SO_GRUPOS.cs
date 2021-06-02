@@ -22,7 +22,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return null;
             }
@@ -52,7 +52,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return obj.ID_GRUPO;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay un error retoramos un 0
                 return 0;
@@ -101,7 +101,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;

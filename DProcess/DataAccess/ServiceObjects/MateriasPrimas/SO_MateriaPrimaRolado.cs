@@ -82,7 +82,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return informacionBD;
             }

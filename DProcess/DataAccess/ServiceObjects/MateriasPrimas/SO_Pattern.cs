@@ -55,7 +55,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Registrar el error.
 
@@ -132,7 +132,6 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     Pattern2 obj = new Pattern2();
 
                     //Asignamos los  parámetros recibidos a cada uno de los valores de los objetos.
-
                     
                     obj.codigo = codigo;
                     obj.MEDIDA = medida;
@@ -195,7 +194,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
 
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si se encuentra un error se retorna 0.
                 return string.Empty;
@@ -424,7 +423,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -452,7 +451,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return pattern;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error, retornamos un nulo.
                 return null;
@@ -485,7 +484,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;

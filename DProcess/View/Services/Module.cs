@@ -11,9 +11,6 @@ namespace View.Services
 {
     public static class Module
     {
-
-
-
         /// <summary>
 		/// Método que busca el valor de una propiedad cadena en una lista.
 		/// </summary>
@@ -71,7 +68,7 @@ namespace View.Services
         {
             return propiedadesBool.Where(x => x.Nombre == nombrePropiedad).ToList().Count > 0 ? true : false;
         }
-        
+
         public static bool HasPropiedadOptional(string nombrePropiedad, ObservableCollection<PropiedadOptional> propiedadesOpcionales)
         {
             return propiedadesOpcionales.Where(x => x.lblTitle == nombrePropiedad).ToList().Count > 0 ? true : false;
@@ -186,10 +183,8 @@ namespace View.Services
             return pOpcional;
         }
 
-
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="nombrePropiedad"></param>
         /// <param name="lista"></param>
@@ -253,7 +248,7 @@ namespace View.Services
 
         /// <summary>
         /// Método que obtiene el valor mínimo de tolerancia de una propiedad. Además si así lo requerimos lo podemos convertir en Pulgadas.
-        /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo. 
+        /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo.
         /// <para>
         /// Ejemplo.
         ///     Para la propiedad h1:
@@ -262,14 +257,14 @@ namespace View.Services
         /// 1ra Opción:
         ///             h1 Tol Min: En esta opción se obtiene directamente el valor de la lista de propiedades.
         /// </para>
-        ///             
+        ///
         /// <para>
         /// 2da Opción:
         ///             H1 Tol:     En esta opción se da por descontado que la tolerancia es la misma para mínima y maxima. Por lo tanto el método busca el valor de Tol y el valor
         ///                         de la propiedad y después lo calcula.
         /// </para>
         /// 3ra Opción:
-        ///             h1 Max:    
+        ///             h1 Max:
         ///             h1 Min:     En esta opción vienen los dos valores de máximos y mínimos.
         /// </para>
         /// </summary>
@@ -370,7 +365,7 @@ namespace View.Services
 
         /// <summary>
         /// Método que obtiene el valor mínimo de tolerancia de una propiedad. Además si así lo requerimos lo podemos convertir en Pulgadas.
-        /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo. 
+        /// Generalmente en el plano puede venir de dos opciones: como tolerancia o como valor mínimo y máximo.
         /// <para>
         /// Ejemplo.
         ///     Para la propiedad h1:
@@ -379,14 +374,14 @@ namespace View.Services
         /// 1ra Opción:
         ///             h1 Tol Min: En esta opción se obtiene directamente el valor de la lista de propiedades.
         /// </para>
-        ///             
+        ///
         /// <para>
         /// 2da Opción:
         ///             H1 Tol:     En esta opción se da por descontado que la tolerancia es la misma para mínima y maxima. Por lo tanto el método busca el valor de Tol y el valor
         ///                         de la propiedad y después lo calcula.
         /// </para>
         /// 3ra Opción:
-        ///             h1 Max:    
+        ///             h1 Max:
         ///             h1 Min:     En esta opción vienen los dos valores de máximos y mínimos.
         /// </para>
         /// </summary>
@@ -815,7 +810,7 @@ namespace View.Services
             //Retornamos la lista de propiedades cadena con los valores.
             return ListaPropiedades;
         }
-        
+
         public static List<PropiedadOptional> AsignarValoresPropiedadesOpcionales(List<PropiedadOptional> propiedadesRequeridasOpcionles, List<PropiedadOptional> listaPropiedadesOpcionales)
         {
             return listaPropiedadesOpcionales;
@@ -935,12 +930,12 @@ namespace View.Services
                 }
             }
 
-            //Convertimos primeramente a la unidad por defautl. 
+            //Convertimos primeramente a la unidad por default.
             //Ejemplo para el caso del tipo de unidad distancia, primeramente lo convertimos a Pulgadas.
             double valorUnidadDefault = Math.Round(valorUnidadInicial * valor, 4);
 
             //Convertimos el valor de pulgadas a la unidad requerida.
-            respuesta = Math.Round(valorUnidadDefault / valorUnidadDestino, 4);
+            respuesta = Math.Round(valorUnidadDefault / valorUnidadDestino, 3);
 
             //Retornamos el valor.
             return respuesta;
@@ -1084,7 +1079,7 @@ namespace View.Services
         }
 
         /// <summary>
-        /// Método que verifica si un archivo está siendo usado por otro programa 
+        /// Método que verifica si un archivo está siendo usado por otro programa
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -1382,7 +1377,7 @@ namespace View.Services
                         }
                         else
                         {
-                            Entero = Entero + Aux;   
+                            Entero = Entero + Aux;
                         }
                         Contador++;
                     }
@@ -1421,7 +1416,7 @@ namespace View.Services
                     NumeroDecimal = Convert.ToDecimal((Convert.ToDecimal(Entero) * 1) + (Convert.ToDecimal(Numerador) / Convert.ToDecimal(Denominador)));
 
                 }
-                catch (Exception er)
+                catch (Exception)
                 {
                     return 0;
                 }
@@ -1429,12 +1424,11 @@ namespace View.Services
             return NumeroDecimal;
         }
 
-        // Método que elimina correos duplicados
         public static string[] EliminarCorreosDuplicados(string[] correos)
         {
             string[] correosfiltrados = correos.Distinct().ToArray();
             return correosfiltrados;
-        }        
+        }
 
         /// <summary>
         /// Método que busca si una norma esta seleccionada.

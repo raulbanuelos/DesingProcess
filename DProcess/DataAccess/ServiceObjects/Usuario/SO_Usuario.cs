@@ -39,7 +39,7 @@ namespace DataAccess.ServiceObjects.Usuario
                 datos = conexion.EjecutarStoredProcedure("SP_RGP_GetLogin", parametros);
                 return datos;
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return null;
             }
@@ -154,7 +154,7 @@ namespace DataAccess.ServiceObjects.Usuario
                 //Se establece conexión a la BD.
                 using (var Conexion = new EntitiesUsuario())
                 {
-                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla 
+                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla
                     PrivilegioUsuario Puser = new PrivilegioUsuario();
 
                     //Se asiganan los valores.
@@ -178,7 +178,7 @@ namespace DataAccess.ServiceObjects.Usuario
                     return Puser.ID_PRIVILEGIO_USUARIO;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;
@@ -207,7 +207,7 @@ namespace DataAccess.ServiceObjects.Usuario
                 //Se establece conexión a la BD.
                 using (var Conexion = new EntitiesUsuario())
                 {
-                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla 
+                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla
                     PerfilUsuario Puser = new PerfilUsuario();
 
                     //Se asiganan los valores.
@@ -231,7 +231,7 @@ namespace DataAccess.ServiceObjects.Usuario
                     return Puser.ID_PERFIL_USUARIO;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;
@@ -297,7 +297,7 @@ namespace DataAccess.ServiceObjects.Usuario
                     return conexion.SaveChanges();
                 }
             }
-            catch (Exception r)
+            catch (Exception)
             {
 
                 return 0;
@@ -355,6 +355,27 @@ namespace DataAccess.ServiceObjects.Usuario
             }
         }
 
+        public int UpdatePassword(string usuario, string password)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    Usuarios user = Conexion.Usuarios.Where(x => x.Usuario == usuario).FirstOrDefault();
+
+                    user.Password = password;
+
+                    Conexion.Entry(user).State = EntityState.Modified;
+
+                    return Conexion.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
         /// <summary>
         /// Método que retorna el número de usuarios activos.
         /// </summary>
@@ -374,6 +395,25 @@ namespace DataAccess.ServiceObjects.Usuario
             catch (Exception)
             {
                 return "Error";
+            }
+        }
+
+        public IList GetUsuarioByCorreo(string correo)
+        {
+            try
+            {
+                using (var Conexion = new EntitiesUsuario())
+                {
+                    var Lista = (from a in Conexion.Usuarios
+                                 where a.Correo == correo
+                                 select a).ToList();
+
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
         #endregion

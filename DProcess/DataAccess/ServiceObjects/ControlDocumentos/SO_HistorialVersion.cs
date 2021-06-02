@@ -28,7 +28,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Creamos un objeto el cual será el que insertemos.
                     TBL_HISTORIAL_VERSION registro = new TBL_HISTORIAL_VERSION();
-                    
+
                     //Mapeamos los valores a las propiedades correspondientes.
                     registro.NOMBRE_DOCUMENTO = nombreDocumento;
                     registro.NO_VERSION = version;
@@ -43,7 +43,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre un error retornamos un cero.
                 return 0;

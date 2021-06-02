@@ -66,7 +66,7 @@ namespace DataAccess.SQLServer
                     }
                 }
             }
-            catch (Exception ER)
+            catch (Exception)
             {
                 //Registrar el error.
             }
@@ -96,7 +96,7 @@ namespace DataAccess.SQLServer
                 dt.Load(lector);
                 return dt;
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return null;
             }

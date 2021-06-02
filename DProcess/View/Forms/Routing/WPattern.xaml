@@ -7,8 +7,8 @@
         xmlns:recursos="clr-namespace:View.Resources"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Title="WPattern" Height="800" Width="992" 
-        WindowStartupLocation="CenterScreen" BorderThickness="2" BorderBrush="Blue" 
+        mc:Ignorable="d" Title="WPattern" Height="800" Width="992" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" BorderThickness="2" BorderBrush="Blue"
                       KeyDown="MetroWindow_KeyDown"
         ShowMaxRestoreButton="False">
     <Grid ShowGridLines="False">
@@ -58,6 +58,11 @@
                         <materialDesign:PackIcon Kind="PlayCircle"></materialDesign:PackIcon>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="Factores de contracción" Command="{Binding FactoresContraccion}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Piston"></materialDesign:PackIcon>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
 
             <MenuItem Header="{x:Static recursos:StringResources.lblVer}">
@@ -69,7 +74,7 @@
 
                 <MenuItem Header="{x:Static recursos:StringResources.lblEncaminamiento}" Command="{Binding ViewRouting}">
                     <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="FilePdf"></materialDesign:PackIcon>
+                        <materialDesign:PackIcon Kind="ClipboardList"></materialDesign:PackIcon>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -148,7 +153,7 @@
                     <StackPanel Orientation="Horizontal" Margin=".5">
                         <TextBox materialDesign:HintAssist.Hint="Peso Casting (grms/pza)" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding peso_cstg.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
-                    
+
                     <StackPanel Orientation="Horizontal" Margin=".5">
                         <TextBox materialDesign:HintAssist.Hint="Factor K" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding factor_k.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="{Binding ReadOnlyFactorK}"></TextBox>
                     </StackPanel>
@@ -207,7 +212,7 @@
             <Grid DockPanel.Dock="Bottom">
 
             </Grid>
-            
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80*"></RowDefinition>
@@ -227,7 +232,7 @@
                     <StackPanel Orientation="Horizontal" Canvas.Top="460" Canvas.Left="320">
                         <TextBox materialDesign:HintAssist.Hint="PATT. SM I.D" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_sm_id.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
-                    
+
                     <StackPanel Orientation="Horizontal" Canvas.Top="480" Canvas.Left="20">
                         <TextBox materialDesign:HintAssist.Hint="PATT. TICKNESS" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding patt_thickness.Valor}"  Height="40"  TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="12"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
@@ -268,7 +273,6 @@
                             </ModelUIElement3D>
                         </ContainerUIElement3D>
                     </Viewport3D>
-                    
                     <!--Flechas superiores-->
                     <Line X1="10" Y1="20" X2="50" Y2="20" Stroke="Blue" StrokeThickness="2" Width="50" Height="30" Canvas.Top="30" Canvas.Right="110"/>
                     <Polygon Points="0,0  8,5, 0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Right="100"  Canvas.Top="45"></Polygon>
@@ -276,7 +280,6 @@
                     <Polygon Points="8,0 0,5, 8,10" Stroke="Blue" StrokeThickness="2" Height="20" Width="15" Canvas.Right="35" Canvas.Top="45"></Polygon>
                     <!--Circulo-->
                     <Ellipse Width="30" Height="30" Fill="White" Canvas.Right="203" Canvas.Top="215"/>
-                    
                     <!--TextBox adentro del anillo-->
                     <StackPanel Width="Auto" Height="Auto" Canvas.Left="270" Canvas.Top="145" Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" Width="Auto" Height="Auto" Margin="5" >
@@ -299,7 +302,6 @@
                         <Line X1="10" Y1="20" X2="110" Y2="20" Stroke="Blue" StrokeThickness="2" Width="110" Height="30" Canvas.Top="255"/>
                         <Polygon Points="0,0 8,5, 0,10" Stroke="Blue" StrokeThickness="2" Height="14" Width="11" Canvas.Left="110"  Canvas.Top="270"></Polygon>
                     </Canvas>
-                    
                     <!--Líneas derecha-->
                     <Canvas Canvas.Top="255" Width="210" Height="300" Canvas.Right="0">
                         <Line Canvas.Left="56"  X2="0" Y2="285" Stroke="Blue" StrokeThickness="2" Height="Auto" Width="20"/>
@@ -320,20 +322,18 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40*"></ColumnDefinition>
                             <ColumnDefinition Width="45*"></ColumnDefinition>
-                            
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="140"></RowDefinition>
                         </Grid.RowDefinitions>
 
                         <GroupBox Grid.Column="0" Grid.Row="0" Header="{x:Static recursos:StringResources.lblInstruccionesEspeciales}" Style="{DynamicResource MaterialDesignGroupBox}" Margin="0,0,15,0">
-                            <!--<TextBox TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" 
-                                 FontWeight="Bold"  Height="120" 
-                                 materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblInstruccionesEspeciales}" 
+                            <!--<TextBox TextWrapping="Wrap" AcceptsReturn="True" FontSize="12"
+                                 FontWeight="Bold"  Height="120"
+                                 materialDesign:HintAssist.Hint="{x:Static recursos:StringResources.lblInstruccionesEspeciales}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding esp_inst.Valor}">
                             </TextBox>-->
                             <TextBox AcceptsReturn="True" TextWrapping="Wrap" FontWeight="Bold" Text="{Binding esp_inst.Valor}" Margin="0">
-                                
                             </TextBox>
                         </GroupBox>
 

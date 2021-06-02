@@ -25,7 +25,7 @@ namespace DataAccess.SQLServer
                 dt.Load(lector);
                 return dt;
             }
-            catch(Exception er)
+            catch(Exception)
             {
                 return null;
             }

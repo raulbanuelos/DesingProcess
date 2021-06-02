@@ -36,7 +36,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si hay error, retornamos nulo
                 return null;
@@ -76,7 +76,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return obj.ID_BLOQUEO;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error retorna cero
                 return 0;
@@ -103,7 +103,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return id;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si hay error, retornamos cero
                 return 0;

@@ -27,7 +27,7 @@ namespace View.Services.Operaciones.Segmentos
         public string TextoHerramienta { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string TextoSyteline
         {
@@ -128,7 +128,7 @@ namespace View.Services.Operaciones.Segmentos
         /// Anillo que representa el plano ingresado por el usuario.
         /// </summary>
         public Anillo elPlano { get; set; }
-        #endregion 
+        #endregion
 
         #endregion
 
@@ -145,26 +145,36 @@ namespace View.Services.Operaciones.Segmentos
             //Asignamos el valor del anillor procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
-            Propiedad caidaRadioMin = Module.GetPropiedad("CaidaRadioSegMin", elPlano.PerfilOD.Propiedades);
-            Propiedad caidaRadioMax = Module.GetPropiedad("CaidaRadioSegMax", elPlano.PerfilOD.Propiedades);
-            Propiedad pistaLapeado = Module.GetPropiedad("PistaLapeado", elPlano.PerfilOD.Propiedades);
-
-            caidaRadioMin.Valor = Module.ConvertTo(caidaRadioMin.TipoDato, caidaRadioMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), caidaRadioMin.Valor);
-            caidaRadioMax.Valor = Module.ConvertTo(caidaRadioMax.TipoDato, caidaRadioMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), caidaRadioMax.Valor);
-            pistaLapeado.Valor = Module.ConvertTo(pistaLapeado.TipoDato, pistaLapeado.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), pistaLapeado.Valor);
-
-
             //Agregamos el texto con las instrucciones de la operación.
-            TextoProceso = "*LAPEADO 2" + Environment.NewLine;
-            TextoProceso += "PROGRAMA " + Environment.NewLine;
-            TextoProceso += "USAR PASTA DE CROMO" + Environment.NewLine;
-            TextoProceso += "LAPEAR HASTA OBTENER UNA CAIDA" + Environment.NewLine;
-            TextoProceso += "DE RÁDIO DE " + caidaRadioMin.Valor + " - " + caidaRadioMax.Valor + " EN" + Environment.NewLine;
-            TextoProceso += pistaLapeado.Valor + " AL CENTRO DEL SEGMENTO" + Environment.NewLine;
-            TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "ACABADO: EL LAPEADO DEBE SER" + Environment.NewLine;
-            TextoProceso += "CONTINUO A 360° DEL SEGMENTO" + Environment.NewLine;
-            TextoProceso += "HACER PRUEBA DE LUZ" + Environment.NewLine;
+            TextoProceso = "*LAPEADO" + Environment.NewLine;
+            TextoProceso += "PROGRAMA 2" + Environment.NewLine;
+            if (elPlano.PerfilOD.Propiedades.Where(x=> x.Nombre == "CaidaRadioSegMin").ToList().Count > 0)
+            {
+                Propiedad caidaRadioMin = Module.GetPropiedad("CaidaRadioSegMin", elPlano.PerfilOD.Propiedades);
+                Propiedad caidaRadioMax = Module.GetPropiedad("CaidaRadioSegMax", elPlano.PerfilOD.Propiedades);
+                Propiedad pistaLapeado = Module.GetPropiedad("PistaLapeado", elPlano.PerfilOD.Propiedades);
+
+                caidaRadioMin.Valor = Module.ConvertTo(caidaRadioMin.TipoDato, caidaRadioMin.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), caidaRadioMin.Valor);
+                caidaRadioMax.Valor = Module.ConvertTo(caidaRadioMax.TipoDato, caidaRadioMax.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), caidaRadioMax.Valor);
+                pistaLapeado.Valor = Module.ConvertTo(pistaLapeado.TipoDato, pistaLapeado.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), pistaLapeado.Valor);
+
+                TextoProceso += "USAR PASTA DE CROMO" + Environment.NewLine;
+                TextoProceso += "LAPEAR HASTA OBTENER UNA CAIDA" + Environment.NewLine;
+                TextoProceso += "DE RÁDIO DE " + caidaRadioMin.Valor + " - " + caidaRadioMax.Valor + " EN" + Environment.NewLine;
+                TextoProceso += pistaLapeado.Valor + " AL CENTRO DEL SEGMENTO" + Environment.NewLine;
+                TextoProceso += "ACABADO: EL LAPEADO DEBE SER" + Environment.NewLine;
+                TextoProceso += "CONTINUO A 360° DEL SEGMENTO" + Environment.NewLine;
+                TextoProceso += "HACER PRUEBA DE LUZ" + Environment.NewLine;
+            }
+            else
+            {
+                TextoProceso += "USAR PASTA DE LAPEADO GRANO 1200" + Environment.NewLine;
+                TextoProceso += "CARA DE CONTACTO MAXIMA 0.010" + Environment.NewLine;
+                TextoProceso += "ACABADO: CARA DE CONTACTO DE LOS" + Environment.NewLine;
+                TextoProceso += "SEGMENTOS DEBE SER CONTINUO" + Environment.NewLine;
+                TextoProceso += "HACER PRUEBA DE LUZ" + Environment.NewLine;
+            }
+
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "CAPA DE DIFUSIÓN_______________________" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
@@ -184,7 +194,6 @@ namespace View.Services.Operaciones.Segmentos
             ListaHerramentales.Add(DataManager.GetMangaLapeadoSegmentos(d1Inch));
 
             bool hasNitrurado = elPlano.Operaciones.Where(o => o.NombreOperacion == "").ToList().Count > 0 ? true : false;
-
 
             TextoHerramienta = Module.GetTextoListaHerramentales(ListaHerramentales);
         }
@@ -211,7 +220,7 @@ namespace View.Services.Operaciones.Segmentos
                 }
                 else
                 {
-                    NotasOperacion.Add("Tiempos estándar celculados correctamente");
+                    NotasOperacion.Add("Tiempos estándar calculados correctamente");
                 }
             }
             catch (Exception er)
@@ -241,7 +250,7 @@ namespace View.Services.Operaciones.Segmentos
         {
             return NombreOperacion;
         }
-        #endregion 
+        #endregion
 
         #endregion
 

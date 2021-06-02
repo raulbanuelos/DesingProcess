@@ -21,7 +21,7 @@ namespace DataAccess.ServiceObjects.Operaciones
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return null;
             }

@@ -156,7 +156,6 @@ namespace View.Services
 
                 #region PARTE 1 INTERNAL ROLLER
                 
-
                 ExcelWoorkSheet.Cells[10, 2] = "6";
                 ExcelWoorkSheet.Cells[10, 3] = "INTERNAL ROLLER 3 PIECES 2487 - 110 - 01 - 4 BI-PARTIDO";
                 ExcelWoorkSheet.Cells[10, 4] = aux1_1.Plano;
@@ -191,7 +190,6 @@ namespace View.Services
 
                 #region PARTE 2 EXTERNAL ROLLER
                 
-
                 ExcelWoorkSheet.Cells[13, 2] = "10";
                 ExcelWoorkSheet.Cells[13, 3] = "EXTERNAL ROLLER (2487 111 01 4) BI-PARTIDO";
                 ExcelWoorkSheet.Cells[13, 4] = aux2_1.Plano;
@@ -588,6 +586,5 @@ namespace View.Services
                 }
             });
            }
-        
     }
 }

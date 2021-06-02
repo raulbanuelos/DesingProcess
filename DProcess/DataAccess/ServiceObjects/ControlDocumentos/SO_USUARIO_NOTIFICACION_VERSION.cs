@@ -22,7 +22,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return null;                
             }

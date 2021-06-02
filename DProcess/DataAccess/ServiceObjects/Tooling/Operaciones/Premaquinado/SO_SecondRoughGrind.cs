@@ -46,7 +46,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error, retornamos un nulo.
                 return null;
@@ -79,7 +79,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return obj.ID_GUIDE_BAR;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos 0
                 return 0;

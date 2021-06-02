@@ -2,7 +2,7 @@
  * Desarrollador: Edgar Raúl Bañuelos Díaz
  * Fecha: 02/03/2017
  * Hora: 07:34 a.m.
- * 
+ *
  */
 using System.Windows;
 using MahApps.Metro.Controls;
@@ -20,6 +20,11 @@ using View.Forms.User;
 using View.Forms.DashBoard;
 using System.Windows.Media.Imaging;
 using System.Speech.Synthesis;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace View.Forms.LogIn
 {
@@ -27,20 +32,19 @@ namespace View.Forms.LogIn
     /// Interaction logic for LogIn.xaml
     /// </summary>
     public partial class LogIn : MetroWindow
-	{
+    {
 		public LogIn()
 		{
 			InitializeComponent();
-            lblVersion.Content = StringResources.lblVersion +" "+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            
+            lblVersion.Content = StringResources.lblVersion + " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            checkConnection();
+            await checkConnection();
         }
 
-        async void checkConnection()
+        async Task checkConnection()
         {
             DialogService dialog = new DialogService();
 
@@ -57,7 +61,6 @@ namespace View.Forms.LogIn
                 Uri resource = new Uri("/Images/circle_red.png", UriKind.Relative);
                 imgEnLinea.Source = new BitmapImage(resource);
                 lblEstatus.Content = "Offline";
-
             }
             else
             {
@@ -70,15 +73,15 @@ namespace View.Forms.LogIn
             await AsyncProgress.CloseAsync();
 
         }
-		
-		async void Btn_ingresar_Click(object sender, RoutedEventArgs e)
-		{
+
+        async void Btn_ingresar_Click(object sender, RoutedEventArgs e)
+        {
             //Abrimos el mensaje modal para que el usuario ingrese sus credenciales, el resultado lo guardamos en una variable local.
             LoginDialogData result = await this.ShowLoginAsync(StringResources.ttlAuthentication, StringResources.lblEnterCredentials, new LoginDialogSettings { ColorScheme = MetroDialogOptions.ColorScheme, InitialUsername = "", AffirmativeButtonText = StringResources.lblBtnLogin, UsernameWatermark = StringResources.lblTxtUserName, PasswordWatermark = StringResources.lblTxtContrasena });
 
             //Comparamos si el resultado es distinto de nulo. Si es igual a nulo quiere decir que el usuario cancelo la captura o cerró inesperadamente la pantalla.
             if (result != null)
-			{
+            {
                 //Incializamos los servicios de dialog.
                 DialogService dialog = new DialogService();
 
@@ -92,24 +95,28 @@ namespace View.Forms.LogIn
                 Services.Encriptacion encriptar = new Services.Encriptacion();
 
                 //Ejecutamos el método para encriptar tanto el usuario como la contraseña y los guardamos en variables locales respectivamente.
-				string usuario = encriptar.encript(result.Username);
-				string contrasena = encriptar.encript(result.Password);
+                string usuario = encriptar.encript(result.Username);
+                string contrasena = encriptar.encript(result.Password);
 
                 //Ejecutamos el método para verificar las credenciales, el resultado lo asignamos a un objeto local de tipo Usuario.
-				Usuario usuarioConectado = await DataManager.GetLogin(usuario,contrasena);
-                
+                Usuario usuarioConectado = await DataManager.GetLogin(usuario, contrasena);
+
                 //Verificamos el resultado, si es direfente de nulo quiere decir que el logueo fué correcto, si es igual a nulo quiere decir que el usuario no existe con las credenciales proporcionadas.
-				if (usuarioConectado != null) {
+                if (usuarioConectado != null)
+                {
 
                     //Ejecutamos el método para cerrar el mensaje de espera.
                     await AsyncProgress.CloseAsync();
 
                     //Verificamos si el usuario no esta bloqueado.
-                    if (usuarioConectado.Block) {
+                    if (usuarioConectado.Block)
+                    {
 
                         //Enviamos un mensaje para indicar que el usuario está bloqueado.
-                        MessageDialogResult message = await this.ShowMessageAsync(StringResources.lblInformation,StringResources.lblUserNotActive);
-					}else{
+                        MessageDialogResult message = await this.ShowMessageAsync(StringResources.lblInformation, StringResources.lblUserNotActive);
+                    }
+                    else
+                    {
 
                         SpeechSynthesizer _SS = new SpeechSynthesizer();
                         _SS.Volume = 100;
@@ -118,7 +125,7 @@ namespace View.Forms.LogIn
                         _SS.SpeakAsync("Welcome, " + usuarioConectado.Nombre + ", To Process Design Engineering Program");
 
                         //Enviamos un mensaje de bienvenida al usuario.
-                        MessageDialogResult message = await this.ShowMessageAsync(StringResources.lblWelcome,usuarioConectado.Nombre);
+                        MessageDialogResult message = await this.ShowMessageAsync(StringResources.lblWelcome, usuarioConectado.Nombre);
 
                         //Obtenemos la fecha del servidor
                         DateTime date_now = DataManagerControlDocumentos.Get_DateTime();
@@ -136,7 +143,7 @@ namespace View.Forms.LogIn
                         DataManager.InserIngresoBitacora(Environment.MachineName, usuarioConectado.Nombre + " " + usuarioConectado.ApellidoPaterno + " " + usuarioConectado.ApellidoMaterno);
 
                         //Validamos si el usuario nuevo tiene la contraseña random
-                        if(usuarioConectado.Details.Temporal_Password == true)
+                        if (usuarioConectado.Details.Temporal_Password == true)
                         {
                             //Cargamnos las vista de ModificarContrasena
                             ModificarContrasena vistacontrasena = new ModificarContrasena();
@@ -144,9 +151,9 @@ namespace View.Forms.LogIn
                             CambiarContraseniaViewModel vmcambiarconatraseña = new CambiarContraseniaViewModel(usuarioConectado);
 
                             //Asingamos el DataContext.
-                            vistacontrasena.DataContext = vmcambiarconatraseña; 
-                   
-                            //Mostramos la ventana de modificacion de contraseña               
+                            vistacontrasena.DataContext = vmcambiarconatraseña;
+
+                            //Mostramos la ventana de modificacion de contraseña
                             vistacontrasena.ShowDialog();
 
                             //Verificamos el valor de la variable CierrePantalla, si en la View Model de CambiarContrasenia la variable es false, dejamos continual el proceso
@@ -187,7 +194,7 @@ namespace View.Forms.LogIn
                                 DO_PathMail respuestaConfigEmail = await configEmail.setEmail();
 
                                 await AsyncProgressConfigEmail.CloseAsync();
-                                                                                  
+
                                 if (respuestaConfigEmail.respuesta)
                                 {
                                     // Actualizamos el path de usuario en la misma sesión
@@ -204,7 +211,7 @@ namespace View.Forms.LogIn
                         }
 
                         #endregion
-                        
+
                         if (Module.UsuarioIsRol(usuarioConectado.Roles, 2))
                         {
                             DashboardViewModel context;
@@ -227,7 +234,8 @@ namespace View.Forms.LogIn
                             //Ejecutamos el método el cual despliega la pantalla.
                             masterPage.ShowDialog();
 
-                        }else
+                        }
+                        else
                         {
                             Home PantallaHome = new Home(usuarioConectado.NombreUsuario);
 
@@ -299,23 +307,23 @@ namespace View.Forms.LogIn
 
                         //}
                     }
-				}
-				else
+                }
+                else
                 {
                     //Ejecutamos el método para cerrar el mensaje de espera.
                     await AsyncProgress.CloseAsync();
 
                     //Enviamos un mensaje indicando que las credenciales escritas son incorrectas.
-                    MessageDialogResult message = await this.ShowMessageAsync(StringResources.ttlAlerta,StringResources.lblPasswordIncorrect);
-				}
-			}
-		}
-        
+                    MessageDialogResult message = await this.ShowMessageAsync(StringResources.ttlAlerta, StringResources.lblPasswordIncorrect);
+                }
+            }
+        }
+
         //Método para cambiar el idioma del sistema a español
         async void Btn_Espanol(object sender, RoutedEventArgs e)
         {
             DialogService dialog = new DialogService();
-            await dialog.SendMessage("Atención","El idioma del sistema se ha cambiado a Español");
+            await dialog.SendMessage("Atención", "El idioma del sistema se ha cambiado a Español");
             //Idioma en español
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-MX");
         }
@@ -329,6 +337,112 @@ namespace View.Forms.LogIn
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
         }
 
-        
+        private async void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+            MetroDialogSettings settings = new MetroDialogSettings();
+            settings.AffirmativeButtonText = "Ok";
+            settings.NegativeButtonText = "Cancelar";
+
+            string correo = await window.ShowInputAsync("Atención", "Por favor ingresa tu usuario ó tu correo", null);
+            Usuario user = new Usuario();
+
+            if (!string.IsNullOrEmpty(correo))
+            {
+                Model.Encriptacion encrip = new Model.Encriptacion();
+                string usuarioEncriptado = encrip.encript(correo);
+
+                user = DataManager.GetUsuario(usuarioEncriptado);
+
+                DialogService dialog = new DialogService();
+
+                if (!string.IsNullOrEmpty(user.IdUsuario))
+                {
+                    if (iniciarProcesoRecuperarContrasena(user))
+                        await dialog.SendMessage("Atención", "En los próximos minutos recibira un correo con las instrucciones necesarias para recuperar su contraseña.");
+                    else
+                        await dialog.SendMessage("Atención", "Hubo un error, por favor intente mas tarde.");
+                }
+                else
+                {
+                    user = DataManager.GetUserByCorreo(correo);
+                    if (!string.IsNullOrEmpty(user.IdUsuario))
+                    {
+                        if (iniciarProcesoRecuperarContrasena(user))
+                            await dialog.SendMessage("Atención", "En los próximos minutos recibira un correo con las instrucciones necesarias para recuperar su contraseña.");
+                        else
+                            await dialog.SendMessage("Atención", "Hubo un error, por favor intente mas tarde.");
+                    }
+                    else
+                        await dialog.SendMessage("Atención", "No hay registros del usuario ó correo ingresado, por favor revisa los datos.");
+                }
+            }
+        }
+
+        private bool iniciarProcesoRecuperarContrasena(Usuario usuario)
+        {
+            bool respuesta = false;
+            Model.Encriptacion encrip = new Model.Encriptacion();
+            string temporalPassword = Module.GetRandomString(8);
+            string escriptPassword = encrip.encript(temporalPassword);
+
+            if (DataManager.SetTemporalPassword(usuario.IdUsuario, escriptPassword) > 0)
+            {
+                respuesta = true;
+                ServiceEmail SO_Email = new ServiceEmail();
+                string body = string.Empty;
+                string[] correos = new string[2];
+                correos[0] = "raul.banuelos@mahle.com";
+                correos[1] = usuario.Correo;
+
+                body = "<HTML>";
+                body += "<head>";
+                body += "<meta http-equiv=\"Content - Type\" content=\"text / html; charset = utf - 8\"/>";
+                body += "</head>";
+                body += "<body text=\"white\">";
+                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
+                body += "<ul>";
+                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Se ha recibido una solicitud de restrablecimiento de su contraseña para el sistema Diseño del proceso.</font> </li>";
+                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Su contraseña temporal es la siguiente:</font></li>";
+                body += "<br/>";
+                body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Contraseña : <b>" + temporalPassword + "</b></font></li>";
+
+                //body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Área del Frames en donde se inserto : <b>" + AreaFrames + "</b></font></li>";
+                body += "</ul>";
+                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Favor de respetar mayúsculas y minúsculas</font> </p>";
+                body += "<br/>";
+                body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
+                body += "<br/>";
+                body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
+                body += "<ul>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Raúl Bañuelos</font> </li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
+                body += "<li></li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
+                body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">raul.banuelos@mahle.com</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
+                body += "</ul>";
+                body += "</body>";
+                body += "</HTML>";
+
+                respuesta = SO_Email.SendEmailLotusCustom("", correos, "Solicitud para restablecer tu contraseña", body, "SISTEMA", 0);
+            }
+
+            return respuesta;
+        }
+
+        /// <summary>
+        /// Método que define si es "Buenos días" o "Buenas tardes" dependiendo la hora.
+        /// </summary>
+        /// <returns></returns>
+        private string definirSaludo()
+        {
+            DateTime d = DateTime.Now;
+            string saludo = string.Empty;
+
+            return d.Hour <= 11 ? "Buenos días;" : "Buenas tardes;";
+        }
     }
 }

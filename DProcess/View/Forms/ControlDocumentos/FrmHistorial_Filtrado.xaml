@@ -193,13 +193,13 @@
                                     </Style>
                                 </chartingToolkit:Chart.LegendStyle>
                             </chartingToolkit:Chart>
-                            
+
                         </Grid>
                     </Grid>
                 </TabItem.Content>
             </TabItem>
         </TabControl>
-        
+
     </Grid>
     
 </Controls:MetroWindow>

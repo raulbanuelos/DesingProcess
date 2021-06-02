@@ -26,7 +26,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return ListaResultante;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si se genera algún error retornamos un nulo.
                 return null;
@@ -148,7 +148,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return idCliente;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error retornamos cero.
                 return 0;

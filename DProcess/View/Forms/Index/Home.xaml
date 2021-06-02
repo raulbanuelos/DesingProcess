@@ -3,11 +3,10 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:local="clr-namespace:View.Resources"
+    xmlns:local="clr-namespace:View.Resources" Background="{StaticResource FondoEnd100YearsClean}"
       Title="Home">
 
-    <Grid Background="{StaticResource FondoInicio}">
-
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -18,9 +17,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Column="0" Grid.Row="0">
-            
             <StackPanel DockPanel.Dock="Left" Width="15"></StackPanel>
-            
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Orientation="Vertical" Margin="0,15,15,0">
                 <StackPanel Orientation="Horizontal">
                     <Ellipse Height="80" Width="80">
@@ -29,11 +26,10 @@
                         </Ellipse.Fill>
                     </Ellipse>
                     <StackPanel Orientation="Vertical">
-                        <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="White" Margin="0,15,15,0"></Label>
-                        <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0,0,15,0"></Label>
+                        <Label Content="{Binding Nombre}" FontSize="24" HorizontalAlignment="Right" Foreground="#0f2453" Margin="0,15,15,0" FontWeight="Bold"></Label>
+                        <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="#0f2453" HorizontalAlignment="Right" Margin="0,0,15,0" FontWeight="Bold" ></Label>
                     </StackPanel>
                 </StackPanel>
-
 
                 <!--<Image Source="{Binding Details.PathPhoto}" Width="50" Height="50"></Image>-->
                 <!--<materialDesign:Chip Content="{Binding NombreCompleto}">
@@ -42,11 +38,9 @@
                     </materialDesign:Chip.Icon>
                 </materialDesign:Chip>-->
             </StackPanel>
-            
             <Grid DockPanel.Dock="Right" ShowGridLines="True">
 
             </Grid>
-            
             <Grid Height="600" Width="905">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300" />
@@ -61,13 +55,13 @@
                 </Grid.RowDefinitions>
 
                 <!--Routing Generation Program-->
-                <Controls:Tile Background="#00879D" TiltFactor="2" Title="{x:Static local:StringResources.ttlRouting}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="0" Cursor="Hand" Command="{Binding IrRouting}" IsEnabled="{Binding PerfilRGP}">
+                <Controls:Tile Background="#40bdd9" TiltFactor="2" Foreground="#FFFFFF" Title="{x:Static local:StringResources.ttlRouting}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="0" Cursor="Hand" Command="{Binding IrRouting}" IsEnabled="{Binding PerfilRGP}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
+                                        <Rectangle Width="90" Height="90" Fill="#FFFFFF">
                                             <Rectangle.OpacityMask>
                                                 <VisualBrush Visual="{StaticResource appbar_map_aerial_highway}" Stretch="Fill" />
                                             </Rectangle.OpacityMask>
@@ -79,7 +73,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlRoutingAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Foreground="#FFFFFF" Text="{x:Static local:StringResources.ttlRoutingAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -89,13 +83,13 @@
                 </Controls:Tile>
 
                 <!--Tooling-->
-                <Controls:Tile Command="{Binding IrTooling}" TiltFactor="2" Background="#01A300" Title="{x:Static local:StringResources.ttlTooling}" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Cursor="Hand" IsEnabled="{Binding PerfilTooling}">
+                <Controls:Tile Command="{Binding IrTooling}" TiltFactor="2" Foreground="#0c3975" Background="#dde0d2" Title="{x:Static local:StringResources.ttlTooling}" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Cursor="Hand" IsEnabled="{Binding PerfilTooling}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
+                                        <Rectangle Width="90" Height="90" Fill="#0c3975">
                                             <Rectangle.OpacityMask>
                                                 <VisualBrush Visual="{StaticResource appbar_tools}" Stretch="Fill" />
                                             </Rectangle.OpacityMask>
@@ -107,7 +101,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlHerramientasAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Foreground="#0c3975" Text="{x:Static local:StringResources.ttlHerramientasAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -117,13 +111,13 @@
                 </Controls:Tile>
 
                 <!--Raw material-->
-                <Controls:Tile TiltFactor="2" Background="#0B5AC3" Title="{x:Static local:StringResources.ttlRawMaterial}" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="0" Cursor="Hand" Command="{Binding IrRawMaterial}" IsEnabled="{Binding PerfilRawMaterial}">
+                <Controls:Tile TiltFactor="2" Foreground="#FFFFFF" Background="#de0c6d" Title="{x:Static local:StringResources.ttlRawMaterial}" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="0" Cursor="Hand" Command="{Binding IrRawMaterial}" IsEnabled="{Binding PerfilRawMaterial}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
+                                        <Rectangle Width="90" Height="90" Fill="#FFFFFF">
                                             <Rectangle.OpacityMask>
                                                 <VisualBrush Visual="{StaticResource appbar_shuffle}" Stretch="Fill" />
                                             </Rectangle.OpacityMask>
@@ -135,7 +129,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlRawMaterialsAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Foreground="#FFFFFF" Text="{x:Static local:StringResources.ttlRawMaterialsAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -145,13 +139,13 @@
                 </Controls:Tile>
 
                 <!--Standar Times-->
-                <Controls:Tile TiltFactor="2" Background="#DA522C" Title="{x:Static local:StringResources.ttlStandarTime}" Width="Auto" Height="Auto" Grid.Column="0" Command="{Binding IrStandarTime}" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilStandarTime}">
+                <Controls:Tile TiltFactor="2" Foreground="#FFFFFF" Background="#36935a" Title="{x:Static local:StringResources.ttlStandarTime}" Width="Auto" Height="Auto" Grid.Column="0" Command="{Binding IrStandarTime}" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilStandarTime}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
+                                        <Rectangle Width="90" Height="90" Fill="#FFFFFF">
                                             <Rectangle.OpacityMask>
                                                 <VisualBrush Visual="{StaticResource appbar_timer}" Stretch="Fill" />
                                             </Rectangle.OpacityMask>
@@ -163,7 +157,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlTiempoEstandarAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Foreground="#FFFFFF" Text="{x:Static local:StringResources.ttlTiempoEstandarAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -173,13 +167,13 @@
                 </Controls:Tile>
 
                 <!--Quotes-->
-                <Controls:Tile TiltFactor="2" Background="#00556A" Title="{x:Static local:StringResources.ttlQuotes}" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilQuotes}">
+                <Controls:Tile TiltFactor="2" Foreground="#0c3975" Background="#fbdc49" Title="{x:Static local:StringResources.ttlQuotes}" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="1" Cursor="Hand" IsEnabled="{Binding PerfilQuotes}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
+                                        <Rectangle Width="90" Height="90" Fill="#0c3975">
                                             <Rectangle.OpacityMask>
                                                 <VisualBrush Visual="{StaticResource appbar_billing}" Stretch="Fill" />
                                             </Rectangle.OpacityMask>
@@ -191,7 +185,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlCalcularCuotas}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Foreground="#0c3975" Text="{x:Static local:StringResources.ttlCalcularCuotas}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -201,13 +195,13 @@
                 </Controls:Tile>
 
                 <!--CIT-->
-                <Controls:Tile Command="{Binding IrControlDocumentos}" Background="#91009B" TiltFactor="2" Title="{x:Static local:StringResources.ttlControlDocumentos}"  Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="1" Cursor="Hand" RenderTransformOrigin="0.5,0.5" IsEnabled="{Binding PerfilCIT}">
+                <Controls:Tile Foreground="#FFFFFF" Command="{Binding IrControlDocumentos}" Background="#7a9dbf" TiltFactor="2" Title="{x:Static local:StringResources.ttlControlDocumentos}"  Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="1" Cursor="Hand" RenderTransformOrigin="0.5,0.5" IsEnabled="{Binding PerfilCIT}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
+                                        <Rectangle Width="90" Height="90" Fill="#FFFFFF">
                                             <Rectangle.OpacityMask>
                                                 <VisualBrush Visual="{StaticResource appbar_cabinet_files_variant}" Stretch="Fill" />
                                             </Rectangle.OpacityMask>
@@ -219,7 +213,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlControlDocumentosAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Foreground="#FFFFFF" Text="{x:Static local:StringResources.ttlControlDocumentosAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -229,13 +223,13 @@
                 </Controls:Tile>
 
                 <!--Data-->
-                <Controls:Tile Background="#6CB71D" TiltFactor="2" Title="{x:Static local:StringResources.ttlData}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilData}" Command="{Binding IrDataBase}">
+                <Controls:Tile Foreground="#FFFFFF" Background="#376698" TiltFactor="2" Title="{x:Static local:StringResources.ttlData}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilData}" Command="{Binding IrDataBase}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
+                                        <Rectangle Width="90" Height="90" Fill="#FFFFFF">
                                             <Rectangle.OpacityMask>
                                                 <VisualBrush Visual="{StaticResource appbar_database}" Stretch="Fill" />
                                             </Rectangle.OpacityMask>
@@ -247,7 +241,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlBaseDatosAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Foreground="#FFFFFF" Text="{x:Static local:StringResources.ttlBaseDatosAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -257,13 +251,13 @@
                 </Controls:Tile>
 
                 <!--User-->
-                <Controls:Tile Command="{Binding IrUser}"  Background="#A200AB" TiltFactor="2" Title="{x:Static local:StringResources.ttlUser}" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilUserProfile}">
+                <Controls:Tile Foreground="#FFFFFF" Command="{Binding IrUser}"  Background="#616d97" TiltFactor="2" Title="{x:Static local:StringResources.ttlUser}" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilUserProfile}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
+                                        <Rectangle Width="90" Height="90" Fill="#FFFFFF">
                                             <Rectangle.OpacityMask>
                                                 <VisualBrush Visual="{StaticResource appbar_user}" Stretch="Fill" />
                                             </Rectangle.OpacityMask>
@@ -275,7 +269,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlUsuariosAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Foreground="#FFFFFF" Text="{x:Static local:StringResources.ttlUsuariosAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -285,13 +279,13 @@
                 </Controls:Tile>
 
                 <!--Lecciones Aprendidas-->
-                <Controls:Tile Command="{Binding IrLeccion}" Background="#5F3BBC" TiltFactor="2" Title="{x:Static local:StringResources.ttlLessons}" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
+                <Controls:Tile Foreground="#FFFFFF" Command="{Binding IrLeccion}" Background="#04733b" TiltFactor="2" Title="{x:Static local:StringResources.ttlLessons}" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
+                                        <Rectangle Width="90" Height="90" Fill="#FFFFFF">
                                             <Rectangle.OpacityMask>
                                                 <VisualBrush Visual="{StaticResource appbar_journal}" Stretch="Fill" />
                                             </Rectangle.OpacityMask>
@@ -303,7 +297,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlLeccionesAprendidasAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Foreground="#FFFFFF" Text="{x:Static local:StringResources.ttlLeccionesAprendidasAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -311,15 +305,15 @@
                         </Style>
                     </Controls:Tile.Style>
                 </Controls:Tile>
-                
+
                 <!--DashBoard-->
-                <Controls:Tile Command="{Binding IrDashboard}" Background="Orange" TiltFactor="2" Title="{x:Static local:StringResources.ttlDashboard}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="3" Cursor="Hand" IsEnabled="{Binding PerfilAdministrador}">
+                <Controls:Tile Command="{Binding IrDashboard}" Background="#0c3975" TiltFactor="2" Title="{x:Static local:StringResources.ttlDashboard}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="3" Cursor="Hand" IsEnabled="{Binding PerfilAdministrador}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
+                                        <Rectangle Width="90" Height="90" Fill="#FFFFFF">
                                             <Rectangle.OpacityMask>
                                                 <VisualBrush Visual="{StaticResource appbar_graph_line}" Stretch="Fill" />
                                             </Rectangle.OpacityMask>
@@ -340,7 +334,6 @@
                     </Controls:Tile.Style>
                 </Controls:Tile>
             </Grid>
-
         </DockPanel>
 
         <materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" x:Name="SnackbarFour" Grid.Row="1" Grid.Column="0" />

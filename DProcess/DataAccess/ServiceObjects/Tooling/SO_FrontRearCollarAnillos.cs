@@ -144,7 +144,7 @@ namespace DataAccess.ServiceObjects.Tooling
 
                 }
             }
-            catch (Exception ER)
+            catch (Exception)
             {
                 return 0;
             }

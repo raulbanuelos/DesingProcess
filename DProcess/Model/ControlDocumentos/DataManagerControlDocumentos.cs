@@ -18,6 +18,47 @@ namespace Model.ControlDocumentos
     public static class DataManagerControlDocumentos
     {
         #region Archivo
+
+        /// <summary>
+        /// Método para obtener los registros de la BD.
+        /// </summary>
+        /// <returns></returns>
+        public static ObservableCollection<Archivo> GetArchivo(int idMin, int idMax)
+        {
+            //Se inicializan los servicios de Archivo.
+            SO_Archivo ServiceArchivo = new SO_Archivo();
+
+            //Se crea una lista de tipo archivo, la cual se va a retornar.
+            ObservableCollection<Archivo> Lista = new ObservableCollection<Archivo>();
+
+            //obtenemos todo de la BD.
+            IList ObjArchivo = ServiceArchivo.GetArchivo(idMin,idMax);
+
+            //Verificamos que la informacion no esté vacía.
+            if (ObjArchivo != null)
+            {
+                foreach (var item in ObjArchivo)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Declaramos un objeto  que contendrá la información de un registro.
+                    Archivo obj = new Archivo();
+
+                    obj.id_archivo = (int)tipo.GetProperty("ID_ARCHIVO").GetValue(item, null);
+                    obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
+                    obj.archivo = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    obj.ext = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    obj.nombre = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+
+                    //Agregamos el objeto a la lista resultante.
+                    Lista.Add(obj);
+                }
+            }
+            //regresamos la lista.
+            return Lista;
+        }
+
         /// <summary>
         /// Método para obtener los registros de la BD.
         /// </summary>
@@ -87,7 +128,7 @@ namespace Model.ControlDocumentos
                     obj.nombre = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
 
                     documento.Add(obj);
-        
+
                 }
             }
             return documento;
@@ -506,7 +547,7 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
-        
+
         /// <summary>
         /// Método que obtiene todos los documentos liberados
         /// Llena el DataGrid del Frm_Busqueda_documentos
@@ -547,9 +588,21 @@ namespace Model.ControlDocumentos
                     obj.Departamento = (string)tipo.GetProperty("NOMBRE_DEPARTAMENTO").GetValue(item, null);
                     obj.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
+                    obj.tipo.id_tipo = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.usuario = (string)tipo.GetProperty("USUARIO_ELABORO").GetValue(item, null);
                     obj.usuario_autorizo = (string)tipo.GetProperty("USUARIO_AUTORIZO").GetValue(item, null);
+                    string nombreDueno = (string)tipo.GetProperty("NOMBRE_ELABORO").GetValue(item, null);
+                    string apellidoDueno = (string)tipo.GetProperty("APELLIDO_ELABORO").GetValue(item, null);
+                    string nombreAutorizo = (string)tipo.GetProperty("NOMBRE_AUTORIZO").GetValue(item, null);
+                    string apellidoAutorizo = (string)tipo.GetProperty("APELLIDO_AUTORIZO").GetValue(item, null);
+                    obj.PathDownload = @"/Images/icon_download.png";
+                    if (obj.tipo.id_tipo == 2 || obj.tipo.id_tipo ==1002 || obj.tipo.id_tipo == 1004 || obj.tipo.id_tipo == 1015)
+                        obj.PathIcon = @"/Images/p.png";
+                    else
+                        obj.PathIcon = @"/Images/w.png";
 
+                    obj.UsuarioAbr = string.IsNullOrEmpty(apellidoDueno) ? nombreDueno : nombreDueno[0].ToString().ToUpper() + "." + apellidoDueno.ToUpper();
+                    obj.UsuarioAproboAbr = string.IsNullOrEmpty(apellidoAutorizo) ? nombreAutorizo : nombreAutorizo[0].ToString().ToUpper() + "." + apellidoAutorizo.ToUpper();
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }
@@ -897,7 +950,7 @@ namespace Model.ControlDocumentos
                     //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
 
-                    //Declaramos el objeto 
+                    //Declaramos el objeto
                     Documento obj = new Documento();
 
                     //Asigamos los valores
@@ -950,7 +1003,7 @@ namespace Model.ControlDocumentos
                     //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
 
-                    //Declaramos el objeto 
+                    //Declaramos el objeto
                     Documento obj = new Documento();
 
                     //Inicializamos el contador, de las palabar similares.
@@ -1080,7 +1133,7 @@ namespace Model.ControlDocumentos
                     aux++;
                 } while (aux < tam);
 
-                //Calculamos de nuevo el porcentaje de coincidencia de las palabras 
+                //Calculamos de nuevo el porcentaje de coincidencia de las palabras
                 int porciento2 = (contador2 * 100) / tam;
 
                 //si el porcentaje es mayor a 80
@@ -1166,7 +1219,7 @@ namespace Model.ControlDocumentos
                     //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
 
-                    //Declaramos el objeto 
+                    //Declaramos el objeto
                     Documento obj = new Documento();
 
                     //Asignamos los valores correspondientes.
@@ -1226,7 +1279,7 @@ namespace Model.ControlDocumentos
                     //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
 
-                    //Declaramos el objeto 
+                    //Declaramos el objeto
                     Documento obj = new Documento();
 
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
@@ -1304,7 +1357,7 @@ namespace Model.ControlDocumentos
                 {
                     //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
-                    //Declaramos el objeto 
+                    //Declaramos el objeto
                     Documento obj = new Documento();
 
                     obj.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
@@ -1336,7 +1389,7 @@ namespace Model.ControlDocumentos
                 {
                     //Obtenemos el tipo.
                     System.Type tipo = item.GetType();
-                    //Declaramos el objeto 
+                    //Declaramos el objeto
                     Documento obj = new Documento();
 
                     obj.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
@@ -1391,7 +1444,7 @@ namespace Model.ControlDocumentos
                 {
                     //Obtenemos el tipo
                     System.Type tipo = item.GetType();
-                    //Declaramos el objeto 
+                    //Declaramos el objeto
                     TipoError obj = new TipoError();
                     obj.IsSelected = false;
 
@@ -1421,7 +1474,7 @@ namespace Model.ControlDocumentos
                 {
                     foreach (DataRow item in informacionBD.Tables[0].Rows)
                     {
-                        
+
                         foItem.Valor = Convert.ToDouble(item["CONTADOR"].ToString());
                         int month = Convert.ToInt32(item["MES"].ToString());
                         foItem.Nombre = months[month - 1];
@@ -1432,7 +1485,7 @@ namespace Model.ControlDocumentos
 
             return foItem;
         }
-        
+
         #endregion
 
         #region Rol
@@ -1666,7 +1719,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para obtener el Nombre de Operacion 
+        /// Método para obtener el Nombre de Operacion
         /// </summary>
         /// <returns></returns>
         public static string GetNombreOperacion(string TextoBusca)
@@ -1774,7 +1827,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para validar si existe el tipo de documento 
+        /// Método para validar si existe el tipo de documento
         /// </summary>
         /// <param name="tipo"></param>
         /// <returns></returns>
@@ -1809,7 +1862,7 @@ namespace Model.ControlDocumentos
                     //compara las cadenas sin acentos
                     if (tipoSinAcento.Contains(DeleteAccents(tipoDoc.tipo_documento)) || obj.abreviatura.Equals(tipoDoc.abreviatura))
                     {
-                        //si el tipo de documento o la abreviatura son iguales, devuelve el id                      
+                        //si el tipo de documento o la abreviatura son iguales, devuelve el id
                         return obj.id_tipo;
                     }
                 }
@@ -1817,7 +1870,7 @@ namespace Model.ControlDocumentos
             //regresamos cero, no encontró ninguna coincidencia
             return 0;
         }
-        #endregion  
+        #endregion
 
         #region Usuarios
 
@@ -1914,7 +1967,7 @@ namespace Model.ControlDocumentos
 
             //Declaramos una lista de tipo ObservableCollection que será el que retornemos en el método.
             ObservableCollection<objUsuario> Lista = new ObservableCollection<objUsuario>();
-            
+
             //Ejecutamos el método para obtener la información de la base de datos.
             IList ObjUsuarios = ServiceUsuarios.GetUsuario();
 
@@ -1948,7 +2001,7 @@ namespace Model.ControlDocumentos
                     //Verificamos si esta cargada la foto, sino asignamos una por default.
                     if (string.IsNullOrEmpty(obj.Details.PathPhoto))
                         obj.Details.PathPhoto = @"\\MXAGSQLSRV01\documents__\ESPECIFICOS\img\defaultuser.jpg";
-                       
+
 
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
@@ -2109,7 +2162,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que obtiene el correo filtrado por nombre 
+        /// Método que obtiene el correo filtrado por nombre
         /// </summary>
         /// <param name="idUsuario"></param>
         /// <returns></returns>
@@ -2311,7 +2364,7 @@ namespace Model.ControlDocumentos
             //Se ejecuta el método y regresa el id de la versión
             int i = ServiceVersion.SetVersion(version.id_usuario, version.id_usuario_autorizo, version.id_documento, version.no_version,
                                              version.fecha_version, version.no_copias, version.id_estatus_version, version.descripcion_v);
-            
+
             //Se registra en el historial la acción.
             ServiceHistorial.Insert(i, Get_DateTime(), "Se crea la versión " + version.no_version, GetNombreUsuario(version.id_usuario),nombreDocumento,version.no_version);
 
@@ -2331,19 +2384,19 @@ namespace Model.ControlDocumentos
             SO_EstatusVersion ServiceEstatusVersion = new SO_EstatusVersion();
 
             // Se ejecuta el método y retorna los registros que se modificarion
-            int i = ServiceVersion.UpdateVersion(version.id_version, 
+            int i = ServiceVersion.UpdateVersion(version.id_version,
                                                     version.id_usuario,
                                                     version.id_usuario_autorizo,
-                                                    version.id_documento, 
-                                                    version.no_version, 
-                                                    version.fecha_version, 
-                                                    version.no_copias, 
-                                                    version.id_estatus_version, 
+                                                    version.id_documento,
+                                                    version.no_version,
+                                                    version.fecha_version,
+                                                    version.no_copias,
+                                                    version.id_estatus_version,
                                                     version.descripcion_v);
 
             string estatusVersion = ServiceEstatusVersion.GetEstatusVersion(version.id_estatus_version);
 
-            ServiceHistorial.Insert(version.id_version, 
+            ServiceHistorial.Insert(version.id_version,
                                     Get_DateTime(),
                                     "Se cambia el estatus a: " + estatusVersion,
                                     usuarioLogueado.Nombre + " " + usuarioLogueado.ApellidoPaterno + " " + usuarioLogueado.ApellidoMaterno
@@ -2440,7 +2493,7 @@ namespace Model.ControlDocumentos
             }
             return obj;
         }
-        
+
         #region Modificaciones
         #region Raúl Bañuelos
         #region 09 AGO 2017
@@ -2474,7 +2527,7 @@ namespace Model.ControlDocumentos
         {
             SO_Version ServiceVersion = new SO_Version();
             IList informacionBD = ServiceVersion.GetLastVersion(id_documento);
-            
+
             List<string> versionesDocumento = new List<string>();
 
             if (informacionBD != null)
@@ -2487,7 +2540,7 @@ namespace Model.ControlDocumentos
                     versionesDocumento.Add(version);
                 }
             }
-            
+
             return GetNextVersion(versionesDocumento);
         }
 
@@ -2661,7 +2714,7 @@ namespace Model.ControlDocumentos
             //Retornamos la lista.
             return Lista;
         }
-        
+
         /// <summary>
         /// Método para obtener los archivos de una versión
         /// </summary>
@@ -2875,8 +2928,8 @@ namespace Model.ControlDocumentos
                     obj.tipo.tipo_documento = (string)tipo.GetProperty("TIPO_DOCUMENTO").GetValue(item, null);
                     obj.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
                     obj.usuario = (string)tipo.GetProperty("NOMBRE_USUARIO").GetValue(item, null);
-                    
-                    
+
+
                     obj.version.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
                     obj.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_VERSION").GetValue(item, null);
                     obj.version.id_usuario = (string)tipo.GetProperty("ID_USUARIO_ELABORO").GetValue(item, null);
@@ -2891,7 +2944,7 @@ namespace Model.ControlDocumentos
                 }
             }
 
-            //Iteramos la lista para obtener la informacion de si tiene archivo firmado de cada documento 
+            //Iteramos la lista para obtener la informacion de si tiene archivo firmado de cada documento
             foreach (var item in Lista)
                 item.IsSignedFile = GetDocumentoFirmado(item.version.id_version).IsSignedFile;
 
@@ -2962,7 +3015,7 @@ namespace Model.ControlDocumentos
 
             //Declaramos una lista la cual contendrá los documentos pendientes por Liberar. Es decir, documentos que ya fueron aprobados y se está a la espera de recibirlos.
             ObservableCollection<Documento> DocumentosPendientes = new ObservableCollection<Documento>();
-            
+
             //Ejecutamos el método para obtener los documentos.
             DocumentosPendientes = GetDocumentos_PendientesLiberar(string.Empty);
 
@@ -3291,7 +3344,7 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
-        
+
         /// <summary>
         /// Método que obtiene todas las validaciones de documento
         /// </summary>
@@ -3377,7 +3430,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que obtiene el id la validación 
+        /// Método que obtiene el id la validación
         /// </summary>
         /// <param name="descripcion"></param>
         /// <returns></returns>
@@ -3427,7 +3480,7 @@ namespace Model.ControlDocumentos
         {
             //Se inicializan los servicios del Bloqueo
             SO_Bloqueo ServiceBloqueo = new SO_Bloqueo();
-            
+
             //Creamos un objeto de tipo bloqueo
             Bloqueo obj = new Bloqueo();
 
@@ -3473,7 +3526,7 @@ namespace Model.ControlDocumentos
                 //Actualiza el estado a desbloqueado
                 ServiceBloqueo.UpdateEstado(id);
             }
-         
+
         }
 
         /// <summary>
@@ -3512,7 +3565,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -3566,7 +3619,7 @@ namespace Model.ControlDocumentos
 
                     //Agregamos el objeto a la lista.
                     ListaResultante.Add(archivo);
-                    
+
                 }
             }
 
@@ -3575,7 +3628,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="idRecurso"></param>
         /// <returns></returns>
@@ -3681,7 +3734,7 @@ namespace Model.ControlDocumentos
                         foitem3.Nombre = "OTROS";
                         foitem3.Valor = Convert.ToDouble(item["PCT_OTROS"].ToString());
                         listaResultante.Add(foitem3);
-                        
+
                     }
                 }
             }
@@ -3746,7 +3799,7 @@ namespace Model.ControlDocumentos
 
                         foItem.Nombre = Convert.ToString(item["NOMBRE_MES"]);
                         foItem.Valor = Convert.ToDouble(item["NO_LECCIONES_APRENDIDAS"]);
-                        
+
                         lista.Add(foItem);
                     }
                 }
@@ -3778,7 +3831,7 @@ namespace Model.ControlDocumentos
                     motivo.id = Convert.ToInt32(tipo.GetProperty("ID_MOTIVO_CAMBIO").GetValue(item, null).ToString());
                     motivo.Nombre = Convert.ToString(tipo.GetProperty("MOTIVO_CAMBIO").GetValue(item, null).ToString());
                     motivo.Descripcion = (string)tipo.GetProperty("DESCRIPCION_CAMBIO").GetValue(item, null).ToString();
-                    
+
                     listaResultante.Add(motivo);
                 }
             }
@@ -3906,11 +3959,28 @@ namespace Model.ControlDocumentos
         /// <param name="nombre_archivo"></param>
         /// <param name="id_leccion"></param>
         /// <returns></returns>
-        public static Task<int> SetArchivo_Lecciones(byte[] archivo, string ext, string nombre_archivo, int id_leccion)
+        public static int SetArchivo_Lecciones(byte[] archivo, string ext, string nombre_archivo, int id_leccion)
         {
             SO_Archivo_Lecciones servicios = new SO_Archivo_Lecciones();
+            string pathDirectory = @"\\agufileserv2\ingenieria\resprutas\NUEVO SOFTWARE RUTAS\FilesLessonsLearned\" + id_leccion;
 
-            return servicios.InsertarArchivoLecciones(archivo, ext, nombre_archivo, id_leccion);
+            if (!Directory.Exists(pathDirectory))
+                Directory.CreateDirectory(pathDirectory);
+
+            string fileName = nombre_archivo + ext;
+            string fullFileName = pathDirectory + @"\" + fileName;
+            int i = 0;
+            while (File.Exists(fullFileName))
+            {
+                fileName = nombre_archivo + "_" + i + ext;
+                fullFileName = pathDirectory + @"\" + fileName;
+                i++;
+            }
+
+            File.WriteAllBytes(fullFileName, archivo);
+            archivo = new byte[0];
+
+            return servicios.InsertarArchivoLecciones(archivo, ext, fullFileName, id_leccion);
         }
 
         /// <summary>
@@ -3970,7 +4040,7 @@ namespace Model.ControlDocumentos
             ObservableCollection<LeccionesAprendidas> ListaLecciones = new ObservableCollection<LeccionesAprendidas>();
 
             IList ObjLeccion = ServiceLecciones.GetLeccionesAprendidas(TextoBuscar);
-            List<DO_UsuarioNombre> listausuarios = new List<DO_UsuarioNombre>(); 
+            List<DO_UsuarioNombre> listausuarios = new List<DO_UsuarioNombre>();
 
             if (ObjLeccion != null)
             {
@@ -3984,7 +4054,7 @@ namespace Model.ControlDocumentos
 
                     ObjLec.ID_LECCIONES_APRENDIDAS = (int)tipo.GetProperty("ID_LECCIONES_APRENDIDAS").GetValue(item, null);
                     ObjLec.ID_USUARIO = encript.desencript((string)tipo.GetProperty("ID_USUARIO").GetValue(item, null));
-                    ObjLec.COMPONENTE = (string)tipo.GetProperty("COMPONENTE").GetValue(item, null);                    
+                    ObjLec.COMPONENTE = (string)tipo.GetProperty("COMPONENTE").GetValue(item, null);
                     ObjLec.DESCRIPCION_PROBLEMA = (string)tipo.GetProperty("DESCRIPCION_PROBLEMA").GetValue(item, null);
                     ObjLec.FECHA_ULTIMO_CAMBIO = (DateTime)tipo.GetProperty("FECHA_ULTIMO_CAMBIO").GetValue(item, null);
                     ObjLec.FECHA_ACTUALIZACION = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
@@ -4000,7 +4070,7 @@ namespace Model.ControlDocumentos
                         ObjLec.NombreCompleto = GetNombreUsuario(encript.encript(ObjLec.ID_USUARIO));
                         listausuarios.Add(new DO_UsuarioNombre { ID_USUARIO = ObjLec.ID_USUARIO, NOMBRE_COMPLETO = ObjLec.NombreCompleto });
                     }
-                    
+
                     ListaLecciones.Add(ObjLec);
                 }
             }
@@ -4026,7 +4096,7 @@ namespace Model.ControlDocumentos
                 {
                     foreach (DataRow item in informacionBD.Tables[0].Rows)
                     {
-                        
+
                         LeccionesAprendidas ObjLec = new LeccionesAprendidas();
 
                         ObjLec.NombreCompleto = Convert.ToString(item["NOMBRE"]);
@@ -4209,6 +4279,41 @@ namespace Model.ControlDocumentos
 
                     Archivo_LeccionesAprendidas ObjArc = new Archivo_LeccionesAprendidas();
 
+                    //ObjArc.ARCHIVO = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
+                    ObjArc.NOMBRE_ARCHIVO = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
+                    ObjArc.ARCHIVO = System.IO.File.ReadAllBytes(ObjArc.NOMBRE_ARCHIVO);
+                    ObjArc.EXT = (string)tipo.GetProperty("EXT").GetValue(item, null);
+                    //ObjArc.ruta = (string)tipo.GetProperty("ruta").GetValue(item, null);
+                    ObjArc.ID_ARCHIVO_LECCIONES = (int)tipo.GetProperty("ID_ARCHIVO_LECCIONES").GetValue(item, null);
+                    ObjArc.ID_LECCIONES_APRENDIDAS = (int)tipo.GetProperty("ID_LECCIONES_APRENDIDAS").GetValue(item, null);
+
+                    ListaArchivosLecciones.Add(ObjArc);
+                }
+            }
+            return ListaArchivosLecciones;
+        }
+
+        /// <summary>
+        /// Método que obtiene todos los archivos de una leccion
+        /// </summary>
+        /// <param name="id_leccion"></param>
+        /// <returns></returns>
+        public static ObservableCollection<Archivo_LeccionesAprendidas> GetArchivosLecciones()
+        {
+            SO_Archivo_Lecciones ServicioArchivos = new SO_Archivo_Lecciones();
+
+            ObservableCollection<Archivo_LeccionesAprendidas> ListaArchivosLecciones = new ObservableCollection<Archivo_LeccionesAprendidas>();
+
+            IList ObjArchivo = ServicioArchivos.GetArchivoLecciones();
+
+            if (ObjArchivo != null)
+            {
+                foreach (var item in ObjArchivo)
+                {
+                    System.Type tipo = item.GetType();
+
+                    Archivo_LeccionesAprendidas ObjArc = new Archivo_LeccionesAprendidas();
+
                     ObjArc.ARCHIVO = (byte[])tipo.GetProperty("ARCHIVO").GetValue(item, null);
                     ObjArc.NOMBRE_ARCHIVO = (string)tipo.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
                     ObjArc.EXT = (string)tipo.GetProperty("EXT").GetValue(item, null);
@@ -4240,7 +4345,7 @@ namespace Model.ControlDocumentos
                     System.Type tipo = item.GetType();
 
                     TIPOCAMBIO ObjNIvelCambio = new TIPOCAMBIO();
-                    
+
                     ObjNIvelCambio.ID_TIPOCAMBIO = (int)tipo.GetProperty("ID_TIPOCAMBIO").GetValue(item, null);
                     ObjNIvelCambio.NOMBRETIPOCAMBIO = (string)tipo.GetProperty("NOMBRETIPOCAMBIO").GetValue(item, null);
 
@@ -4276,7 +4381,7 @@ namespace Model.ControlDocumentos
                     ObjCentro.ObjetoXMLVista = (string)tipo.GetProperty("ObjetoXMLVista").GetValue(item, null);
                     ObjCentro.NombreIngles = (string)tipo.GetProperty("NombreIngles").GetValue(item, null);
 
-                    ListaCentrosDeTrabajo.Add(ObjCentro);                 
+                    ListaCentrosDeTrabajo.Add(ObjCentro);
 
                 }
             }
@@ -4324,7 +4429,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="id_leccion"></param>
         /// <returns></returns>
@@ -4497,7 +4602,7 @@ namespace Model.ControlDocumentos
         #region Documento Eliminado
 
         /// <summary>
-        /// Método que obtiene todos los registros de la tabla 
+        /// Método que obtiene todos los registros de la tabla
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
@@ -4514,7 +4619,7 @@ namespace Model.ControlDocumentos
 
             if (ListaResul !=null)
             {
-                //Iteramos la lista 
+                //Iteramos la lista
                 foreach (var item in ListaResul)
                 {
                     //Obtenemos el tipo.
@@ -4538,7 +4643,7 @@ namespace Model.ControlDocumentos
             //regresamos la lista.
             return Lista;
         }
-        
+
         /// <summary>
         /// Métdo que inserta un registro a la tabla
         /// </summary>
@@ -4548,7 +4653,7 @@ namespace Model.ControlDocumentos
         {
             //Inicializamos los servicios
             SO_Documento_Eliminado ServiceDoc_Eliminado = new SO_Documento_Eliminado();
-            //Ejecutamos el método 
+            //Ejecutamos el método
             return ServiceDoc_Eliminado.SetDocumento_Eliminado(obj.nombre, obj.version.no_version, Get_DateTime(), obj.version.archivo.archivo,obj.version.archivo.ext);
         }
 
@@ -4570,7 +4675,7 @@ namespace Model.ControlDocumentos
 
             if (ListaResul !=null)
             {
-                //Iteramos la lista 
+                //Iteramos la lista
                 foreach (var item in ListaResul)
                 {
                     //Obtenemos el tipo.
@@ -4585,7 +4690,7 @@ namespace Model.ControlDocumentos
 
                     //Agregamos a la lista
                     Lista.Add(obj);
-                }           
+                }
              }
             //Retornamos la lista
             return Lista;
@@ -4601,7 +4706,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que obtiene todos los registros de la tabla 
+        /// Método que obtiene todos los registros de la tabla
         /// </summary>
         /// <param name="texto"></param>
         /// <returns></returns>
@@ -4618,7 +4723,7 @@ namespace Model.ControlDocumentos
 
             if (ListaResul != null)
             {
-                //Iteramos la lista 
+                //Iteramos la lista
                 foreach (var item in ListaResul)
                 {
                     //Obtenemos el tipo.
@@ -4691,7 +4796,7 @@ namespace Model.ControlDocumentos
                     }
                 }
             }
-            
+
             return lista;
         }
 
@@ -4884,7 +4989,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que obtiene el nombre del area frames 
+        /// Método que obtiene el nombre del area frames
         /// donde se inserto un archivo.
         /// </summary>
         /// <param name="id_areasealed"></param>
@@ -4910,7 +5015,7 @@ namespace Model.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que obtiene el nombre del area frames 
+        /// Método que obtiene el nombre del area frames
         /// donde se inserto un archivo
         /// </summary>
         /// <param name="id_areasealed"></param>
@@ -4955,7 +5060,7 @@ namespace Model.ControlDocumentos
                     documento.version = new Version();
                     documento.version.no_version = (string)tipo.GetProperty("VERSION").GetValue(item, null);
                     documento.version.fecha_version = (DateTime)tipo.GetProperty("FECHA_LIBERACION").GetValue(item, null);
-                    
+
                     documentos.Add(documento);
                 }
             }
@@ -5161,7 +5266,7 @@ namespace Model.ControlDocumentos
                 // Recorremos la lista
                 foreach (var item in informacionDB)
                 {
-                    // Declaramos el objeto 
+                    // Declaramos el objeto
                     DO_UsuarioSuscrito Suscrito = new DO_UsuarioSuscrito();
 
                     // Declaramos el tipo
@@ -5258,7 +5363,7 @@ namespace Model.ControlDocumentos
                     // Declaramos el tipo
                     Type tipo = item.GetType();
 
-                    // Asignamos los valores                    
+                    // Asignamos los valores
                     doc.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
                     //doc.descripcion = (string)tipo.GetProperty("DESCRIPCION").GetValue(item, null);
                     doc.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
@@ -5309,7 +5414,7 @@ namespace Model.ControlDocumentos
                     archivo.archivo = (byte[])type.GetProperty("ARCHIVO").GetValue(item, null);
                     archivo.nombre = (string)type.GetProperty("NOMBRE_ARCHIVO").GetValue(item, null);
                     archivo.ext = (string)type.GetProperty("EXT").GetValue(item, null);
-                    
+
                 }
             }
 

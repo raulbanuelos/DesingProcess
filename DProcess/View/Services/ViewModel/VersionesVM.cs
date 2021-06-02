@@ -148,7 +148,7 @@ namespace View.Services.ViewModel
                     Process.Start(filename);
                 }
             }
-            catch (IOException er)
+            catch (IOException)
             {
                 //Si hubo error al abrir el archivo muestra un mensaje 
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);

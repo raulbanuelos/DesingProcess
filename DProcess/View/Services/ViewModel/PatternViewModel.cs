@@ -19,6 +19,7 @@ using System.Linq;
 using View.Resources;
 using OfficeOpenXml;
 using MahApps.Metro.IconPacks;
+using View.Forms.RawMaterial;
 
 namespace View.Services.ViewModel
 {
@@ -179,7 +180,7 @@ namespace View.Services.ViewModel
             get { return model.patt_sm_id; }
             set { model.patt_sm_id = value; NotifyChange("patt_sm_id"); }
         }
-   
+
         public Propiedad patt_thickness {
             get { return model.patt_thickness; }
             set { model.patt_thickness = value; NotifyChange("patt_thickness"); }
@@ -205,7 +206,7 @@ namespace View.Services.ViewModel
             get { return model.nick_depth; }
             set { model.nick_depth = value; NotifyChange("nick_depth"); }
         }
-       
+
         public PropiedadCadena side_relief {
             get { return model.side_relief; }
             set { model.side_relief = value; NotifyChange("side_relief"); }
@@ -221,7 +222,7 @@ namespace View.Services.ViewModel
             get { return model.cam_roll; }
             set { model.cam_roll = value; NotifyChange("cam_roll"); }
         }
-        
+
         public Propiedad rise {
             get { return model.rise; }
             set { model.rise = value; NotifyChange("rise"); }
@@ -244,7 +245,7 @@ namespace View.Services.ViewModel
             get { return model.diff; }
             set { model.diff = value; NotifyChange("diff"); }
         }
-        
+
         public FO_Item TipoMateriaPrima
         {
             get
@@ -257,7 +258,7 @@ namespace View.Services.ViewModel
                 NotifyChange("TipoMateriaPrima");
             }
         }
-        
+
         public PropiedadCadena mounted
         {
             get { return model.mounted; }
@@ -287,7 +288,7 @@ namespace View.Services.ViewModel
             get { return model.esp_inst; }
             set { model.esp_inst = value; NotifyChange("esp_inst"); }
         }
-       
+
         public Propiedad factor_k {
             get { return model.factor_k; }
             set { model.factor_k = value; NotifyChange("factor_k"); }
@@ -310,7 +311,7 @@ namespace View.Services.ViewModel
             get { return model.ring_th_max; }
             set { model.ring_th_max = value; NotifyChange("ring_th_max"); }
         }
- 
+
         public PropiedadBool estado {
             get { return model.estado; }
             set { model.estado = value; NotifyChange("estado"); }
@@ -407,7 +408,7 @@ namespace View.Services.ViewModel
                 NotifyChange("EspecMaterialAnillo");
             }
         }
-        
+
         public PropiedadCadena TipoAnillo {
             get
             {
@@ -433,7 +434,6 @@ namespace View.Services.ViewModel
                 _IsRedondo = !model.diseno.Valor;
             }
         }
-
         #endregion
 
         #region Properties of anillo
@@ -967,8 +967,15 @@ namespace View.Services.ViewModel
                 ModelAnillo.FranjasPintura = value;
                 NotifyChange("FranjasPintura");
             }
-        } //Falta agregar la tabla para ir guardando los datos	
+        } //Falta agregar la tabla para ir guardando los datos
         #endregion
+
+        private DO_FactorContraccion _FactorContraccion;
+        public DO_FactorContraccion FactorContraccion
+        {
+            get { return _FactorContraccion; }
+            set { _FactorContraccion = value; NotifyChange("FactorContraccion"); }
+        }
 
         private IOperacion operationSelected;
         public IOperacion OperationSelected
@@ -990,6 +997,14 @@ namespace View.Services.ViewModel
                 NotifyChange("IsRedondo");
             }
         }
+
+        private bool _IsLB;
+        public bool IsLB
+        {
+            get { return _IsLB; }
+            set { _IsLB = value; NotifyChange("IsLB"); }
+        }
+
 
         private bool _ReadOnlyFactorK;
         public bool ReadOnlyFactorK
@@ -1026,14 +1041,12 @@ namespace View.Services.ViewModel
             set { _TipoMPList = value; NotifyChange("TipoMPList"); }
         }
 
-
         private FO_Item tipoMateriaPrimaList;
         public FO_Item TipoMateriaPrimaList
         {
             get { return tipoMateriaPrimaList; }
             set { tipoMateriaPrimaList = value; NotifyChange("TipoMateriaPrimaList"); }
         }
-
 
         private Pattern selectedPattern;
         public Pattern SelectedPattern
@@ -1119,8 +1132,6 @@ namespace View.Services.ViewModel
             set { status2 = value; NotifyChange("Status2"); }
         }
 
-
-
         private HamburgerMenuItemCollection _menuItems;
         public HamburgerMenuItemCollection MenuItems
         {
@@ -1152,6 +1163,17 @@ namespace View.Services.ViewModel
                 NotifyChange("MenuOptionItems");
             }
         }
+
+        public ObservableCollection<string> ListaEspecificacionesMateriaPrima { get; set; }
+
+        private string _MaterialSelected;
+
+        public string MaterialSelected
+        {
+            get { return _MaterialSelected; }
+            set { _MaterialSelected = value; NotifyChange("MaterialSelected"); }
+        }
+
         #endregion
 
         #region INotifyPropertyChanged Métodos
@@ -1208,6 +1230,21 @@ namespace View.Services.ViewModel
         #endregion
 
         #region Commands
+        public ICommand CalcularFactores
+        {
+            get
+            {
+                return new RelayCommand(o => calcularFactores());
+            }
+        }
+
+        public ICommand FactoresContraccion
+        {
+            get
+            {
+                return new RelayCommand(o => factoresContraccion());
+            }
+        }
 
         public ICommand AltaPattern
         {
@@ -1302,6 +1339,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => setMaterialRemover());
             }
         }
+
         public ICommand BuscarMateriaPrima
         {
             get
@@ -1310,15 +1348,68 @@ namespace View.Services.ViewModel
             }
         }
 
-
+        public ICommand CopiarPattern
+        {
+            get
+            {
+                return new RelayCommand(p => copiarPattern());
+            }
+        }
         #endregion
 
         #region Methods
+
+        public async void copiarPattern()
+        {
+            DialogService dialogService = new DialogService();
+            if (!string.IsNullOrEmpty(Codigo))
+            {
+                string newCode = DataManager.GetNextCodePattern(DataManager.GetLastCodePattern());
+
+                await dialogService.SendMessage("¿Quiere crear una copia del la placa modelo " + Codigo + "?", "El nuevo código será: " + newCode);
+            }
+            else
+                await dialogService.SendMessage("¡Atención!", "Selecciona una placa modelo.");
+        }
+
+        public void calcularFactores()
+        {
+            FactorContraccion = DataManager.GetFactoresContraccion(MaterialSelected, IsLB);
+            if (FactorContraccion.Exists)
+            {
+                FactorContraccion.C_OLD = Math.Round(B_Dia.Valor * FactorContraccion.DIA_EXT_MAYOR, 3);
+                FactorContraccion.C_OSD = Math.Round(patt_sm_od.Valor * FactorContraccion.DIA_EXT_MENOR, 3);
+                FactorContraccion.C_WIDTH = Math.Round(diametro.Valor + FactorContraccion.Width_M, 3);
+                FactorContraccion.C_THICKNESS = Math.Round(patt_thickness.Valor + FactorContraccion.Thickness_M, 3);
+                FactorContraccion.C_THROW = Math.Round(FactorContraccion.C_OLD - FactorContraccion.C_OSD, 3);
+                NotifyChange("FactorContraccion");
+            }
+            else
+            {
+                //TODO: Mensaje para dar de alta los factores de contracción.
+                frmNewFactorContraccion fmrNewFactor = new frmNewFactorContraccion();
+                string idMaterial = DataManager.GetIdMaterial(MaterialSelected);
+                FactorContraccionViewModel context = new FactorContraccionViewModel(idMaterial,IsLB);
+                fmrNewFactor.DataContext = context;
+                fmrNewFactor.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Método para abrir la ventana de Factores de contracción.
+        /// </summary>
+        public void factoresContraccion()
+        {
+            FactorContraccion frmFactorContraccion = new FactorContraccion();
+            Throw = SelectedPattern.B_Dia.Valor - SelectedPattern.patt_sm_od.Valor;
+            frmFactorContraccion.DataContext = this;
+            frmFactorContraccion.Show();
+        }
+
         public void _BuscarMateriaPrima(string TextoBusqueda)
         {
             ListaPattern = DataManager.GetAllPattern(TextoBusqueda);
         }
-
 
         private void exportarSAP()
         {
@@ -1391,9 +1482,9 @@ namespace View.Services.ViewModel
                     Throw = Convert.ToDouble(xlWorkSheetFabricacion.Range["K25"].Value);
 
                 /*
-                 * 
+                 *
                  * Falta llenar la tabla(Aqui va)
-                 * 
+                 *
                  */
 
                 Status1 = xlWorkSheetFabricacion.Range["N26"].Value;
@@ -1409,7 +1500,7 @@ namespace View.Services.ViewModel
                     double rowB = Convert.ToDouble(xlWorkSheetGraficar.Range["B" + i].Value);
                     double rowC = Convert.ToDouble(xlWorkSheetGraficar.Range["C" + i].Value);
                     double rowD = Convert.ToDouble(xlWorkSheetGraficar.Range["D" + i].Value);
-                    
+
                     cellData.Add(new object[] { rowA, rowB, rowC, rowD });
                 }
 
@@ -1432,10 +1523,10 @@ namespace View.Services.ViewModel
                     worksheet.Cells[2, 6].Value = Codigo;
 
                     string pathFile = IsRedondo ? @"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ") REDONDO" + ".xlsx" : @"\\agufileserv2\INGENIERIA\RESPRUTAS\Perfiles\" + Codigo + " " + "(" + MedidaHerramienta + ")" + ".xlsx";
-                    
+
                     //Configuramos el archivo de excel.
                     FileInfo excelFile = new FileInfo(pathFile);
-                    
+
                     //Guardamos el archivo de excel con los puntos.
                     elExcel.SaveAs(excelFile);
                 }
@@ -1455,7 +1546,7 @@ namespace View.Services.ViewModel
                 return 0;
             });
         }
-        
+
         private async void dibujarPlaca()
         {
             //Incializamos los servicios de dialog.
@@ -1485,7 +1576,7 @@ namespace View.Services.ViewModel
                 window.MetroDialogOptions.AffirmativeButtonText = "Confirmar";
                 window.MetroDialogOptions.NegativeButtonText = "Cancelar proceso";
 
-                //Formulario para ingresar el número de copias, 
+                //Formulario para ingresar el número de copias,
                 string inputDiaHerramienta = await window.ShowInputAsync("Confirma el diámetro de la herramienta.", "El diámetro sugerido de la herramienta es: " + MedidaHerramienta + ", si deseas otro diámetro por favor capturalo.", null);
 
                 #endregion
@@ -1509,10 +1600,15 @@ namespace View.Services.ViewModel
             }
         }
 
-        private void altaPattern()
+        private async void altaPattern()
         {
             Inicializar();
+
             Codigo = DataManager.GetNextCodePattern(DataManager.GetLastCodePattern());
+
+            DialogService dialogService = new DialogService();
+
+            await dialogService.SendMessage("El nuevo código de la placa modelo será: " + Codigo , "Por favor llene los campos para guardar la información.");
         }
 
         private void abrirPlaca()
@@ -1622,7 +1718,7 @@ namespace View.Services.ViewModel
         /// </summary>
         private void Inicializar()
         {
-            
+
             model = new Pattern();
             Codigo = string.Empty;
             medida = new Propiedad();
@@ -1727,6 +1823,11 @@ namespace View.Services.ViewModel
 
             date_ordered = date_ordered;
             date_checked = date_checked;
+
+            ListaEspecificacionesMateriaPrima = DataManager.GetAllEspecificacionesMateriaPrima();
+
+            FactorContraccion = new DO_FactorContraccion();
+            NotifyChange("FactorContraccion");
         }
 
         /// <summary>
@@ -1742,7 +1843,7 @@ namespace View.Services.ViewModel
             patt_sm_od = new Propiedad { DescripcionCorta = "Patt sm od", DescripcionLarga = "Patt sm od", Imagen = null, Nombre = "PattSMOD", TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch) };
 
             setNamePropertieWidthCasting();
-            
+
         }
 
         /// <summary>
@@ -1756,7 +1857,7 @@ namespace View.Services.ViewModel
             diametro.Nombre = "WidthCasting";
             diametro.TipoDato = EnumEx.GetEnumDescription(DataManager.TipoDato.Distance);
             diametro.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
-            
+
         }
 
         /// <summary>
@@ -1768,7 +1869,7 @@ namespace View.Services.ViewModel
             setNameProperties();
 
             //customer = new Cliente { IdCliente = 1, NombreCliente = "SERVICIO" };
-            
+
             //Constante
             joint.Valor = "BUTT";
             nick.Valor = "RAD.";
@@ -1813,7 +1914,7 @@ namespace View.Services.ViewModel
             {
                 patt_width = medida;
             }
-            
+
             medida = patt_width;
 
             setNamePropertieWidthCasting();
@@ -1844,7 +1945,7 @@ namespace View.Services.ViewModel
                     fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.005) * 0.478) - piece_in_patt.Valor) / -3.1416) + medida.Valor) - (cam_lever.Valor - 0.005), 3);
 
                 }
-                else if(TipoMateriaPrima.ValorCadena.Equals("SPR-212")) //Si el tipo de material es 
+                else if(TipoMateriaPrima.ValorCadena.Equals("SPR-212")) //Si el tipo de material es
                 {
                     cam_lever.Valor = Math.Round((piece_in_patt.Valor * factor_k.Valor * 64) + 0.015, 3);
                     fin_Dia.Valor = Math.Round((((((cam_lever.Valor - 0.015) * 0.478) - piece_in_patt.Valor) / -3.1416) + medida.Valor) - (cam_lever.Valor - 0.015), 3);
@@ -1888,7 +1989,7 @@ namespace View.Services.ViewModel
                 {
                     definirPlato();
                 }
-                
+
                 if (calculoOk)
                 {
                     detalle.Valor = DataManager.GetDetalleMoutingWidth(diametro.Valor);
@@ -1923,7 +2024,7 @@ namespace View.Services.ViewModel
             ModelAnillo.PropiedadesAdquiridasProceso.Add(patt_sm_od);
             ModelAnillo.PropiedadesBoolAdquiridasProceso = new ObservableCollection<PropiedadBool>();
             ModelAnillo.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
-            
+
             calcularOperaciones();
         }
 
@@ -1972,7 +2073,7 @@ namespace View.Services.ViewModel
 
 
             string[] vecHardness = DataManager.GetHardnessIdeal(EspecMaterialAnillo, diametro.Valor);
-            
+
             Hardness = new PropiedadCadena();
             HardnessMax = new Propiedad();
             HardnessMin = new Propiedad();
@@ -2038,13 +2139,13 @@ namespace View.Services.ViewModel
                 }
 
                 await Task.Delay(3000);
-                
+
                 i += 1;
             }
-            
+
             await Controller.CloseAsync();
             await dialogService.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgRoutingReady);
-            
+
         }
 
         /// <summary>
@@ -2109,32 +2210,51 @@ namespace View.Services.ViewModel
             TipoMateriaPrima = TipoMateriaPrima;
             rise = rise;
         }
-        
+
         /// <summary>
         /// Método que guarda una placa modelo.
         /// </summary>
         private async void guardarPattern()
         {
             DialogService dialog = new DialogService();
-            
             if (validar())
             {
                 //Si no se tiene el id del cliente, buscamos su id.
                 if (model.customer.IdCliente == 0)
                     model.customer.IdCliente = DataManager.GetIDCliente(model.customer.NombreCliente);
-                
-                int registroModificados = DataManager.UpdatePattern(model);
-                if (registroModificados > 0)
-                {
-                    await dialog.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgPatternInserted + registroModificados);
 
-                    //Inicializamos el objeto anillo que representa nuestro modelo.
-                    Inicializar();
-                    ListaPattern = DataManager.GetAllPattern("");
+                bool patternExist = ListaPattern.Where(x => x.Codigo == Codigo).ToList().Count > 1 ? true : false;
+                if (patternExist)
+                {
+                    //Update pattern
+                    int registroModificados = DataManager.UpdatePattern(model);
+                    if (registroModificados > 0)
+                    {
+                        await dialog.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgPatternInserted + registroModificados);
+
+                        //Inicializamos el objeto anillo que representa nuestro modelo.
+                        Inicializar();
+                        ListaPattern = DataManager.GetAllPattern("");
+                    }
+                    else
+                        await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgError);
                 }
                 else
-                    await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgError);
-            } 
+                {
+                    //Insert Pattern
+                    string newCode = DataManager.SetPattern(model);
+                    if (!string.IsNullOrEmpty(newCode))
+                    {
+                        await dialog.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgPatternInserted);
+
+                        //Inicializamos el objeto anillo que representa nuestro modelo.
+                        Inicializar();
+                        ListaPattern = DataManager.GetAllPattern("");
+                    }
+                    else
+                        await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgError);
+                }
+            }
             else
                 await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.msgFillFlields);
         }
@@ -2238,12 +2358,12 @@ namespace View.Services.ViewModel
         private async void eliminarPattern()
         {
             DialogService dialog = new DialogService();
-            
+
             //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
             MetroDialogSettings setting = new MetroDialogSettings();
             setting.AffirmativeButtonText = Resources.StringResources.lblYes;
             setting.NegativeButtonText = Resources.StringResources.lblNo;
-            
+
             MessageDialogResult result = await dialog.SendMessage(Resources.StringResources.ttlAlerta, Resources.StringResources.lblConfirmDeleteRecord, setting, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
@@ -2304,17 +2424,15 @@ namespace View.Services.ViewModel
                     Label = StringResources.lblEliminar,
                     Command = EliminarPattern,
                     Tag = StringResources.lblEliminar,
-                }
-                );
+                });
             this.MenuItems.Add(
                 new HamburgerMenuIconItem()
                 {
-                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Update},
-                    Label = StringResources.lblActualizar,
-                    //Command = ActualizarPattern,
-                    Tag = StringResources.lblActualizar,
-                }
-                );
+                    Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.ContentCopy},
+                    Label = "Copiar",
+                    Tag = "Copiar",
+                    Command = CopiarPattern
+                });
             }
 
         private void setMaterialRemover()

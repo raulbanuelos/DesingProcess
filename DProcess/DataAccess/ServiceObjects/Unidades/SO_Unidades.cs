@@ -29,7 +29,7 @@ namespace DataAccess.ServiceObjects.Unidades
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si se presenta algún error, retornamos un nulo.
                 return null;
@@ -57,7 +57,7 @@ namespace DataAccess.ServiceObjects.Unidades
                     return valor;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Retornamos un cero si ocurre algún error.
                 return 0;

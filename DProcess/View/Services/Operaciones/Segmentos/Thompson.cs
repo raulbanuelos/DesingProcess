@@ -27,7 +27,7 @@ namespace View.Services.Operaciones.Segmentos
         public string TextoHerramienta { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string TextoSyteline
         {
@@ -128,7 +128,7 @@ namespace View.Services.Operaciones.Segmentos
         /// Anillo que representa el plano ingresado por el usuario.
         /// </summary>
         public Anillo elPlano { get; set; }
-        #endregion 
+        #endregion
 
         #endregion
 
@@ -142,7 +142,7 @@ namespace View.Services.Operaciones.Segmentos
         /// <param name="elPlano">Anillo que representa el plano que ingresó el usuario.</param>
         public void CrearOperacion(Anillo ElAnilloProcesado, Anillo elPlano)
         {
-            //Asignamos el valor del anillor procesado al anillo de la operación.
+            //Asignamos el valor del anillo procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
             elPlano.D1.Valor = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
@@ -212,7 +212,7 @@ namespace View.Services.Operaciones.Segmentos
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
-            //Ejecutamos el méotodo para calcular los tiempos estándar.
+            //Ejecutamos el método para calcular los tiempos estándar.
             CalcularTiemposEstandar();
         }
 
@@ -226,7 +226,7 @@ namespace View.Services.Operaciones.Segmentos
             double gapMedida = Math.Round((gapMinInch + gapMaxInch) / 2,3);
 
             double d1 = Module.ConvertTo(EnumEx.GetEnumDescription(DataManager.TipoDato.Distance), elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
-            
+
             List<Herramental> bushingAndDisco = DataManager.GetBushingAndDiscoThompsonSegmentos(gapMedida,d1);
 
             Herramental bushing = bushingAndDisco[0];
@@ -254,7 +254,7 @@ namespace View.Services.Operaciones.Segmentos
         }
 
         /// <summary>
-        /// Método en el cual se calculan los tiempos estandar.
+        /// Método en el cuál se calculan los tiempos estándar.
         /// </summary>
         public void CalcularTiemposEstandar()
         {
@@ -270,12 +270,12 @@ namespace View.Services.Operaciones.Segmentos
 
                 if (centroTrabajo510.Alertas.Count > 0)
                 {
-                    AlertasOperacion.Add("Error en calculo de tiempos estándar");
+                    AlertasOperacion.Add("Error en cálculo de tiempos estándar");
                     AlertasOperacion.CopyTo(centroTrabajo510.Alertas.ToArray(), 0);
                 }
                 else
                 {
-                    NotasOperacion.Add("Tiempos estándar celculados correctamente");
+                    NotasOperacion.Add("Tiempos estándar calculados correctamente");
                 }
             }
             catch (Exception er)
@@ -305,7 +305,7 @@ namespace View.Services.Operaciones.Segmentos
         {
             return NombreOperacion;
         }
-        #endregion 
+        #endregion
 
         #endregion
 

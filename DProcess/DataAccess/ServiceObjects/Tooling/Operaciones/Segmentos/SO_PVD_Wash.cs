@@ -22,7 +22,8 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                 {
                     var listaMesas = (from a in Conexion.CAT_MESA_PVD_WASH
                                       where a.MIN_IDEAL_AVAILABLE <= d1 && a.MAX_IDEAL_AVAILABLE >= d1
-                                      select a).ToList();
+                                      orderby a.NO_MESA ascending
+                                      select a).Take(1).ToList();
 
                     return listaMesas;
                 }
@@ -128,7 +129,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -167,7 +168,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return manga_wash.ID_MANGA_PVD_WASH;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -205,7 +206,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -234,7 +235,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;

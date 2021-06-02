@@ -21,7 +21,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return version;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return string.Empty;
             }

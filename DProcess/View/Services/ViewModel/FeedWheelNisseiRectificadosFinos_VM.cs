@@ -13,7 +13,7 @@ namespace View.Services.ViewModel
     public class FeedWheelNisseiRectificadosFinos_VM : INotifyPropertyChanged
     {
         #region Attributtes
-        DialogService dialog;
+        //DialogService dialog;
         #endregion
 
         #region INotifyPropertyChanged Métodos

@@ -209,7 +209,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return user.Usuario;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa una cadena vacía.
                 return string.Empty;
@@ -288,7 +288,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception r)
+            catch (Exception)
             {
                 //Si hay error, se regresa 0.
                 return 0;

@@ -45,7 +45,7 @@ namespace View.Services
         public bool Auditoria()
         {
             double freeGap = PieceReal * 24.4;
-            double rise,bRequerido,pattSMRadioRequerido,pattSMRadioCalculado;
+            double rise,bRequerido,pattSMRadioRequerido;
 
             rise = _pattSMOD > _bdia ? Math.Round(((PieceReal * _FactorK * 64) - 0.005),3) : Math.Round(((PieceReal * _FactorK * 64) + 0.005),3);
             bRequerido = Math.Round(((_bdia) * 25.4) / 2, 4);

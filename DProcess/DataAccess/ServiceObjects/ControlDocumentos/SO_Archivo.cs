@@ -14,6 +14,38 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
     public class SO_Archivo
     {
         #region Methods
+
+        public IList GetArchivo(int idMin, int idMax)
+        {
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    Conexion.Database.CommandTimeout = 1200;
+                    //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
+                    var Lista = (from a in Conexion.TBL_ARCHIVO
+                                 join v in Conexion.TBL_VERSION on a.ID_VERSION equals v.ID_VERSION
+                                 where a.ID_ARCHIVO >= idMin && a.ID_ARCHIVO <= idMax
+                                 select new
+                                 {
+                                     a.ID_ARCHIVO,
+                                     ID_VERSION = v.ID_VERSION,
+                                     a.ARCHIVO,
+                                     a.EXT,
+                                     a.NOMBRE_ARCHIVO
+                                 }).ToList();
+                    //se retorna la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay algún error, se retorna un nulo.
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método para obtener los registros de la tabla TBL_archivos.
         /// </summary>
@@ -25,6 +57,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Establecemos la conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
+                    Conexion.Database.CommandTimeout = 1200;
                     //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
                     var Lista = (from a in Conexion.TBL_ARCHIVO
                                  join v in Conexion.TBL_VERSION on a.ID_VERSION equals v.ID_VERSION
@@ -40,7 +73,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception)
+            catch (Exception )
             {
                 //Si hay algún error, se retorna un nulo.
                 return null;
@@ -72,7 +105,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="codigoValidacion"></param>
         /// <returns></returns>
@@ -238,7 +271,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si hay error, retorna nulo
                 return null;
@@ -269,7 +302,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay algún error, retornamos nulo.
                 return null;
@@ -309,7 +342,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     //return datos.Tables.Count;
                     return 1;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return 0;
                 }

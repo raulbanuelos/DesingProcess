@@ -70,7 +70,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si hay error regresa nulo
                 return null;
@@ -101,7 +101,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa nulo
                 return null;
@@ -137,7 +137,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresamos cero
                 return 0;
@@ -199,7 +199,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si hay error regresamos cero
                 return 0;
@@ -285,7 +285,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return id;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si hay error regresamos cero
                 return 0;

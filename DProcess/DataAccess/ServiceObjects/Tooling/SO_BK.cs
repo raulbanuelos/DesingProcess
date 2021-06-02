@@ -169,7 +169,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error, retornamos un nulo.
                 return null;
@@ -534,7 +534,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -638,7 +638,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     }                 
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return null;
             }
@@ -818,7 +818,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -1107,7 +1107,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -1287,7 +1287,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -1335,7 +1335,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error retornamos nulo.
                 return null;

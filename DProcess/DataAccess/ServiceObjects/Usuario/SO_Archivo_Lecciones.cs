@@ -35,42 +35,56 @@ namespace DataAccess.ServiceObjects.Usuario
             }
         }
 
+        public IList GetArchivoLecciones()
+        {
+            try
+            {
+                using (var conexion = new EntitiesUsuario())
+                {
+                    var lista = (from a in conexion.TBL_ARCHIVO_LECCIONES
+                                 select a).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception er)
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Método que inserta un archivo a la base de datos
         /// se insertan mediante un procedimiento almacenado.
         /// </summary>
         /// <returns></returns>
-        public Task<int> InsertarArchivoLecciones(byte[] archivo, string ext, string nombre,int id_leccion)
+        public int InsertarArchivoLecciones(byte[] archivo, string ext, string nombre,int id_leccion)
         {
-            return Task.Run(() =>
+            try
             {
-                try
-                {
-                    DataSet datos = null;
-                    //Se crea conexion a la BD.
-                    Desing_SQL conexion = new Desing_SQL();
+                DataSet datos = null;
+                //Se crea conexion a la BD.
+                Desing_SQL conexion = new Desing_SQL();
 
-                    //Se inicializa un diccionario que contiene propiedades de tipo string y un objeto.
-                    Dictionary<string, object> parametros = new Dictionary<string, object>();
+                //Se inicializa un diccionario que contiene propiedades de tipo string y un objeto.
+                Dictionary<string, object> parametros = new Dictionary<string, object>();
 
-                    //se agregan el nombre y el objeto de los parámetros.
-                    parametros.Add("id_lecciones_aprendidas", id_leccion);
-                    parametros.Add("archivo", archivo);
-                    parametros.Add("ext", ext);
-                    parametros.Add("nombre", nombre);
+                //se agregan el nombre y el objeto de los parámetros.
+                parametros.Add("id_lecciones_aprendidas", id_leccion);
+                parametros.Add("archivo", archivo);
+                parametros.Add("ext", ext);
+                parametros.Add("nombre", nombre);
 
 
-                    //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
-                    datos = conexion.EjecutarStoredProcedure("SP_GRAL_Set_Archivo", parametros);
+                //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
+                datos = conexion.EjecutarStoredProcedure("SP_GRAL_Set_Archivo", parametros);
 
-                    //Retorna el número de elementos en la tabla.
-                    return 1;
-                }
-                catch (Exception e)
-                {
-                    return 0;
-                }
-           });
+                //Retorna el número de elementos en la tabla.
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         /// <summary>

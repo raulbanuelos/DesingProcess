@@ -9,8 +9,8 @@ namespace View.Services.TiempoEstandar.Fundicion
     public class CentroTrabajo020 : BaseCentroTrabajo, ICentroTrabajo
     {
         #region Atributtes
-        private string especMaterial;
-        private double mouting;
+        //private string especMaterial;
+        //private double mouting;
         #endregion
 
         #region Propiedades

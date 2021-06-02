@@ -133,7 +133,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -170,7 +170,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -219,7 +219,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     }
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -252,7 +252,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -284,7 +284,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -316,7 +316,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -390,7 +390,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si encuentra error devuelve cero.
                 return 0; ;
@@ -455,7 +455,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -499,7 +499,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er) 
+            catch (Exception) 
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -535,7 +535,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -669,7 +669,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -788,7 +788,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -955,7 +955,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -1033,7 +1033,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Premaquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;

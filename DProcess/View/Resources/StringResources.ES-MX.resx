@@ -1439,7 +1439,7 @@
     <value>Dimensiones</value>
   </data>
   <data name="lblEncaminamiento" xml:space="preserve">
-    <value>Encaminamiento</value>
+    <value>Ver flujo</value>
   </data>
   <data name="lblFechaPedido" xml:space="preserve">
     <value>Fecha del pedido</value>

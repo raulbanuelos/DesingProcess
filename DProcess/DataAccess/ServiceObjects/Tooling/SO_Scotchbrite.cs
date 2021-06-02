@@ -38,7 +38,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error retornamos nulo.
                 return null;
@@ -74,7 +74,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error retornamos nulo.
                 return null;
@@ -119,7 +119,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error retornamos nulo.
                 return null;

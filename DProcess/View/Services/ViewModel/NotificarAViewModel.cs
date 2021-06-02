@@ -270,20 +270,25 @@ namespace View.Services.ViewModel
             }
         }
 
+        public string Origen { get; set; }
+        public int IdArchivo { get; set; }
+
         #endregion
 
         #region Constructor
 
-        public NotificarAViewModel(Usuario UsuarioLogeado, string body, ObservableCollection<Archivo> archivos, List<objUsuario> listaANotificar, string title)
+        public NotificarAViewModel(Usuario UsuarioLogeado, string body, ObservableCollection<Archivo> archivos, List<objUsuario> listaANotificar, string title, string origen,int idArchivo)
         {
             Title = title;
             IsEnableEditor = true;
             User = UsuarioLogeado;
             ListaArchivos = archivos;
+            Origen = origen;
+            IdArchivo = idArchivo;
 
 
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
-            
+
             //Si la listaANotificar es decir los usuarios a los que se van a mandar los correos tiene 1 registro
             if (listaANotificar.Count == 1)
             {
@@ -292,7 +297,7 @@ namespace View.Services.ViewModel
             }
             else
             {
-                //Sino se imprime "Buenos días a todos / todas" cuando se tiene mas de 1 
+                //Sino se imprime "Buenos días a todos / todas" cuando se tiene mas de 1
                 BodyEmail = "<BR>" + definirSaludo() + " " + "a todos / a todas;" + "<BR><BR>" + body + "<br><br>" + definirPieDeCorreo();
 
             }
@@ -314,7 +319,7 @@ namespace View.Services.ViewModel
                         listuser.IsSelected = true;
                     }
                 }
-            }            
+            }
         }
 
         #endregion
@@ -467,163 +472,186 @@ namespace View.Services.ViewModel
         {
             if (await validar())
             {
-                // Inicializamos los servicios
-                ServiceEmail SO_Email = new ServiceEmail();
-                DialogService dialog = new DialogService();
+                ServiceEmail soEmail = new ServiceEmail();
 
-                //Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
-                ProgressDialogController AsyncProgress;
+                string recipients = "";
 
-                // Se declara vector de tamaño elementos ListaUsuarioANotificar + 1
-                int l = ListaUsuarioANotificar.Count;
-                string[] usuarios = new string[l + 1];
-                int c = 0;
-
-                // Se itera la lista y se agregan a la lista a notificar
-                foreach (objUsuario usuario in ListaUsuarioANotificar)
+                foreach (var item in ListaUsuarioANotificar)
                 {
-                    usuarios[c] = usuario.Correo;
-                    c++;
+                    recipients += item.Correo + ",";
                 }
 
-                // Se agrega al vector el usuario logueado para ser notificado                
-                usuarios[c] = User.Correo;
+                recipients += User.Correo + ",";
+                DataManager.InsertSolicitudCorreo(Title, BodyEmail, recipients, Origen, IdArchivo);
 
-                // Vector con archivos adjuntados
-                string[] archivos = new string[ListaArchivos.Count];
-                int i = 0;
-
-                foreach (var item in ListaArchivos)
-                {
-                    archivos[i] = item.ruta;
-                    i++;
-                }
-                IsEnableEditor = false;
-
-                //Ejecutamos el método para enviar un mensaje de espera mientras se lee el archivo.
-                AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEnviandoCorreo, "");
-
-                DO_PathMail respuesta = await SO_Email.SendEmailWithAttachment(User.Pathnsf, usuarios, Title, BodyEmail, archivos);
-
-                //Ejecutamos el método para cerrar el mensaje de espera.
-                await AsyncProgress.CloseAsync();
-
-                IsEnableEditor = true;
-
-                DialogService dialogService = new DialogService();
-
-                // Se oculta editor de texto
-                IsEnableEditor = false;
-
-                if (respuesta.respuesta)
-                {
-                    await dialogService.SendMessage(StringResources.ttlAlerta, respuesta.rutamail);
-                }
-                else
-                {
-                    if (respuesta.rutamail == StringResources.msgDeseasConfigCorreo)
-                    {
-                        //Configuramos las opciones del mesaje de pregunta.
-                        MetroDialogSettings settings = new MetroDialogSettings();
-                        settings.AffirmativeButtonText = StringResources.lblYes;
-                        settings.NegativeButtonText = StringResources.lblNo;
-
-                        //Preguntamos al usuario si lo quiere configurar en estos momentos.
-                        MessageDialogResult resultMSG = await dialog.SendMessage(StringResources.ttlAtencion, StringResources.msgConfiguracionCorreo, settings, MessageDialogStyle.AffirmativeAndNegative, "Servicio de Correo");
-
-                        //Verificamos la respuesta del usuario, si es afirmativa iniciamos el proceso de configuración.
-                        if (resultMSG == MessageDialogResult.Affirmative)
-                        {
-                            settings = new MetroDialogSettings();
-                            settings.AffirmativeButtonText = StringResources.ttlOkEntiendo;
-
-                            await dialog.SendMessage(User.Nombre + StringResources.msgParaTuInf, StringResources.msgProcesoConfiguracion);
-
-                            ProgressDialogController AsyncProgressConfigEmail;
-
-                            AsyncProgressConfigEmail = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento + User.Nombre + "...", StringResources.msgEstamosConfigurando);
-
-                            ConfigEmailViewModel configEmail = new ConfigEmailViewModel(User);
-
-                            // Se reciben valores de las 2 propiedades del objeto
-                            DO_PathMail respuestaConfigEmail = await configEmail.setEmail();
-
-                            await AsyncProgressConfigEmail.CloseAsync();
-
-                            if (respuestaConfigEmail.respuesta)
-                            {
-                                // Actualizamos el path de usuario en la misma sesión
-                                User.Pathnsf = respuestaConfigEmail.rutamail;
-
-                                // M
-                                await dialog.SendMessage(StringResources.msgPerfecto + User.Nombre, StringResources.msgCuentaConfigurada);
-
-                                //enviarCorreo();
-                                l = ListaUsuarioANotificar.Count;
-                                usuarios = new string[l + 1];
-                                c = 0;
-
-                                // Se itera la lista y se agregan a la lista a notificar
-                                foreach (objUsuario usuario in ListaUsuarioANotificar)
-                                {
-                                    usuarios[c] = usuario.Correo;
-                                    c++;
-                                }
-
-                                // Se agrega al vector el usuario logueado para ser notificado                
-                                usuarios[c] = User.Correo;
-
-                                // Vector con archivos adjuntados
-                                archivos = new string[ListaArchivos.Count];
-                                i = 0;
-
-                                foreach (var item in ListaArchivos)
-                                {
-                                    archivos[i] = item.ruta;
-                                    i++;
-                                }
-                                IsEnableEditor = false;
-
-                                //Ejecutamos el método para enviar un mensaje de espera mientras se lee el archivo.
-                                AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEnviandoCorreo, "");
-
-                                respuesta = await SO_Email.SendEmailWithAttachment(User.Pathnsf, usuarios, Title, BodyEmail, archivos);
-
-                                //Ejecutamos el método para cerrar el mensaje de espera.
-                                await AsyncProgress.CloseAsync();
-
-                                IsEnableEditor = true;
-
-                                dialogService = new DialogService();
-
-                                // Se oculta editor de texto
-                                IsEnableEditor = false;
-
-                                if (respuesta.respuesta)
-                                {
-                                    await dialogService.SendMessage(StringResources.ttlAlerta, respuesta.rutamail);
-                                }
-                            }
-                            else
-                            {
-                                await dialog.SendMessage(StringResources.ttlOcurrioError, StringResources.msgErrorVincular);
-                            }
-                        }
-                    }
-                }
-
-                // Se muestra editor de texto
-                IsEnableEditor = true;
-
-                //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                 var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-                //Verificamos que la pantalla sea diferente de nulo.
                 if (window != null)
                 {
                     //Cerramos la pantalla
                     window.Close();
                 }
+
+                //// Inicializamos los servicios
+                //ServiceEmail SO_Email = new ServiceEmail();
+                //DialogService dialog = new DialogService();
+
+                ////Declaramos un objeto de tipo ProgressDialogController, el cual servirá para recibir el resultado el mensaje progress.
+                //ProgressDialogController AsyncProgress;
+
+                //// Se declara vector de tamaño elementos ListaUsuarioANotificar + 1
+                //int l = ListaUsuarioANotificar.Count;
+                //string[] usuarios = new string[l + 1];
+                //int c = 0;
+
+                //// Se itera la lista y se agregan a la lista a notificar
+                //foreach (objUsuario usuario in ListaUsuarioANotificar)
+                //{
+                //    usuarios[c] = usuario.Correo;
+                //    c++;
+                //}
+
+                //// Se agrega al vector el usuario logueado para ser notificado
+                //usuarios[c] = User.Correo;
+
+                //// Vector con archivos adjuntados
+                //string[] archivos = new string[ListaArchivos.Count];
+                //int i = 0;
+
+                //foreach (var item in ListaArchivos)
+                //{
+                //    archivos[i] = item.ruta;
+                //    i++;
+                //}
+                //IsEnableEditor = false;
+
+                ////Ejecutamos el método para enviar un mensaje de espera mientras se lee el archivo.
+                //AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEnviandoCorreo, "");
+
+                ////DO_PathMail respuesta = await SO_Email.SendEmailWithAttachment(User.Pathnsf, usuarios, Title, BodyEmail, archivos);
+                //DO_PathMail respuesta = new DO_PathMail();
+                //respuesta.respuesta= SO_Email.SendEmailLotusCustom(User.Pathnsf, usuarios, Title, BodyEmail);
+
+                ////Ejecutamos el método para cerrar el mensaje de espera.
+                //await AsyncProgress.CloseAsync();
+
+                //IsEnableEditor = true;
+
+                //DialogService dialogService = new DialogService();
+
+                //// Se oculta editor de texto
+                //IsEnableEditor = false;
+
+                //if (respuesta.respuesta)
+                //{
+                //    await dialogService.SendMessage(StringResources.ttlAlerta, respuesta.rutamail);
+                //}
+                //else
+                //{
+                //    if (respuesta.rutamail == StringResources.msgDeseasConfigCorreo)
+                //    {
+                //        //Configuramos las opciones del mesaje de pregunta.
+                //        MetroDialogSettings settings = new MetroDialogSettings();
+                //        settings.AffirmativeButtonText = StringResources.lblYes;
+                //        settings.NegativeButtonText = StringResources.lblNo;
+
+                //        //Preguntamos al usuario si lo quiere configurar en estos momentos.
+                //        MessageDialogResult resultMSG = await dialog.SendMessage(StringResources.ttlAtencion, StringResources.msgConfiguracionCorreo, settings, MessageDialogStyle.AffirmativeAndNegative, "Servicio de Correo");
+
+                //        //Verificamos la respuesta del usuario, si es afirmativa iniciamos el proceso de configuración.
+                //        if (resultMSG == MessageDialogResult.Affirmative)
+                //        {
+                //            settings = new MetroDialogSettings();
+                //            settings.AffirmativeButtonText = StringResources.ttlOkEntiendo;
+
+                //            await dialog.SendMessage(User.Nombre + StringResources.msgParaTuInf, StringResources.msgProcesoConfiguracion);
+
+                //            ProgressDialogController AsyncProgressConfigEmail;
+
+                //            AsyncProgressConfigEmail = await dialog.SendProgressAsync(StringResources.ttlEspereUnMomento + User.Nombre + "...", StringResources.msgEstamosConfigurando);
+
+                //            ConfigEmailViewModel configEmail = new ConfigEmailViewModel(User);
+
+                //            // Se reciben valores de las 2 propiedades del objeto
+                //            DO_PathMail respuestaConfigEmail = await configEmail.setEmail();
+
+                //            await AsyncProgressConfigEmail.CloseAsync();
+
+                //            if (respuestaConfigEmail.respuesta)
+                //            {
+                //                // Actualizamos el path de usuario en la misma sesión
+                //                User.Pathnsf = respuestaConfigEmail.rutamail;
+
+                //                // M
+                //                await dialog.SendMessage(StringResources.msgPerfecto + User.Nombre, StringResources.msgCuentaConfigurada);
+
+                //                //enviarCorreo();
+                //                l = ListaUsuarioANotificar.Count;
+                //                usuarios = new string[l + 1];
+                //                c = 0;
+
+                //                // Se itera la lista y se agregan a la lista a notificar
+                //                foreach (objUsuario usuario in ListaUsuarioANotificar)
+                //                {
+                //                    usuarios[c] = usuario.Correo;
+                //                    c++;
+                //                }
+
+                //                // Se agrega al vector el usuario logueado para ser notificado
+                //                usuarios[c] = User.Correo;
+
+                //                // Vector con archivos adjuntados
+                //                archivos = new string[ListaArchivos.Count];
+                //                i = 0;
+
+                //                foreach (var item in ListaArchivos)
+                //                {
+                //                    archivos[i] = item.ruta;
+                //                    i++;
+                //                }
+                //                IsEnableEditor = false;
+
+                //                //Ejecutamos el método para enviar un mensaje de espera mientras se lee el archivo.
+                //                AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEnviandoCorreo, "");
+
+                //                //respuesta = await SO_Email.SendEmailWithAttachment(User.Pathnsf, usuarios, Title, BodyEmail, archivos);
+                //                respuesta.respuesta =  SO_Email.SendEmailLotusCustom(User.Pathnsf, usuarios, Title, BodyEmail, archivos);
+
+                //                //Ejecutamos el método para cerrar el mensaje de espera.
+                //                await AsyncProgress.CloseAsync();
+
+                //                IsEnableEditor = true;
+
+                //                dialogService = new DialogService();
+
+                //                // Se oculta editor de texto
+                //                IsEnableEditor = false;
+
+                //                if (respuesta.respuesta)
+                //                {
+                //                    await dialogService.SendMessage(StringResources.ttlAlerta, respuesta.rutamail);
+                //                }
+                //            }
+                //            else
+                //            {
+                //                await dialog.SendMessage(StringResources.ttlOcurrioError, StringResources.msgErrorVincular);
+                //            }
+                //        }
+                //    }
+                //}
+
+                //// Se muestra editor de texto
+                //IsEnableEditor = true;
+
+                ////Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
+                //var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                ////Verificamos que la pantalla sea diferente de nulo.
+                //if (window != null)
+                //{
+                //    //Cerramos la pantalla
+                //    window.Close();
+                //}
             }
         }
 

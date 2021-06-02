@@ -78,7 +78,6 @@ namespace DataAccess.ServiceObjects.Usuario
                     TBL_USERS_DETAILS objdetail = Conexion.TBL_USERS_DETAILS.Where(x => x.ID_USUARIO == usuario).FirstOrDefault();
 
                     // Asignamos valores
-                    objdetail.ID_USUARIO = usuario;
                     objdetail.TEMPORAL_PASSWORD = temporalpassword;
 
                     // Guardamos los cambios
@@ -88,12 +87,11 @@ namespace DataAccess.ServiceObjects.Usuario
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
             }
-            
         }
 
         /// <summary>
@@ -129,7 +127,7 @@ namespace DataAccess.ServiceObjects.Usuario
                     return objdetail.ID_USERS_DETAILS;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay un error, retornamos 0
                 return 0;
@@ -158,7 +156,7 @@ namespace DataAccess.ServiceObjects.Usuario
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;

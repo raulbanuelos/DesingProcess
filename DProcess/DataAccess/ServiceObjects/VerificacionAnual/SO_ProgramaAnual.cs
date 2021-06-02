@@ -35,7 +35,7 @@ namespace DataAccess.ServiceObjects.VerificacionAnual
                 // Retorna el número de elementos en la tabla
                 return Datos;
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retorna la tabla vacía
                 return null;
@@ -67,7 +67,7 @@ namespace DataAccess.ServiceObjects.VerificacionAnual
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos null
                 return 0;
@@ -106,7 +106,7 @@ namespace DataAccess.ServiceObjects.VerificacionAnual
                     return prog_anual.ID_PROGRAMA_ANUAL; 
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -144,7 +144,7 @@ namespace DataAccess.ServiceObjects.VerificacionAnual
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -173,7 +173,7 @@ namespace DataAccess.ServiceObjects.VerificacionAnual
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;

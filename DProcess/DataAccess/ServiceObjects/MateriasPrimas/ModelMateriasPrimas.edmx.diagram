@@ -4,35 +4,36 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="98867543662149a2873b42151dde59c9" Name="Diagram1" ZoomLevel="79">
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Cliente" Width="1.5" PointX="0.875" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Pattern2" Width="1.5" PointX="3.625" PointY="0.5" IsExpanded="true" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Cliente" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima" Width="2.25" PointX="0.5" PointY="1.375" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.cuffs" Width="1.5" PointX="6" PointY="0.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.material" Width="1.5" PointX="11" PointY="0.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Esp_MP_Anillos" Width="1.5" PointX="15.75" PointY="1.25" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Coating" Width="2.625" PointX="11.125" PointY="5.375" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.castings_widths" Width="2.875" PointX="19.875" PointY="1" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo" Width="1.5" PointX="6" PointY="6.125" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO" Width="2.375" PointX="14" PointY="5.5" />
+      <Diagram DiagramId="98867543662149a2873b42151dde59c9" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.FactorContraccion" Width="1.5" PointX="5.625" PointY="1.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.FactorContraccionLB" Width="1.5" PointX="5.625" PointY="4" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.material" Width="1.5" PointX="3.375" PointY="2.625" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_FactorContraccion_material" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_FactorContraccionLB_material" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ACEROS" Width="1.5" PointX="5.625" PointY="19" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO" Width="1.5" PointX="5.625" PointY="7.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" Width="1.5" PointX="5.625" PointY="16.25" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Pattern2" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Esp_MP_Anillos" Width="1.5" PointX="5.625" PointY="11.625" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_ID_MATERIAL" />
         <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.patt_actualizaciones" Width="1.5" PointX="5.875" PointY="14.375" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_patt_actualizaciones_Pattern2" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosCL" Width="1.5" PointX="8.25" PointY="0.75" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosHD" Width="1.5" PointX="6" PointY="3.125" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" Width="1.5" PointX="13" PointY="2.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.cuffs" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingWidth" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosCL" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosHD" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Cliente" Width="1.5" PointX="6.125" PointY="23.125" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.CriteriosSegmentos_" Width="1.5" PointX="10.375" PointY="3.75" />
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Cliente" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.castings_widths" Width="1.5" PointX="12.75" PointY="9.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Coating" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo" Width="1.5" PointX="12.75" PointY="6.875" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima" Width="1.5" PointX="12.75" PointY="3.875" />
         <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ACEROS" Width="2.75" PointX="10" PointY="7.25" />
-        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_ID_MATERIAL" ManuallyRouted="false" >
-        </AssociationConnector>
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingDia" Width="1.5" PointX="0.875" PointY="6.25" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingWidth" Width="1.5" PointX="8.125" PointY="6.125" />
-        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.CriteriosSegmentos_" Width="1.5" PointX="8" PointY="8.5" />
-      </Diagram>
+        <AssociationConnector Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingDia" Width="1.5" PointX="0.75" PointY="6.75" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

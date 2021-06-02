@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>dataaccessclave.pfx</AssemblyOriginatorKeyFile>
@@ -231,6 +231,12 @@
     <Compile Include="ServiceObjects\MateriasPrimas\Esp_MP_Anillos.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\FactorContraccion.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\MateriasPrimas\FactorContraccionLB.cs">
+      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\material.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
@@ -259,9 +265,6 @@
     <Compile Include="ServiceObjects\MateriasPrimas\Pattern2.cs">
       <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
     </Compile>
-    <Compile Include="ServiceObjects\MateriasPrimas\patt_actualizaciones.cs">
-      <DependentUpon>ModelMateriasPrimas.tt</DependentUpon>
-    </Compile>
     <Compile Include="ServiceObjects\MateriasPrimas\SO_CatMateriaPrimaAceros.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cliente.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Coating.cs" />
@@ -269,6 +272,7 @@
     <Compile Include="ServiceObjects\MateriasPrimas\SO_CriteriosSegmentos_.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Cuffs.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_Especificaciones.cs" />
+    <Compile Include="ServiceObjects\MateriasPrimas\SO_FactoresContraccion.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_MateriaPrimaRolado.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_MotingWidth.cs" />
     <Compile Include="ServiceObjects\MateriasPrimas\SO_MoutingDia.cs" />
@@ -807,6 +811,7 @@
     <Compile Include="ServiceObjects\Usuario\SO_LeccionesCentroTrabajo.cs" />
     <Compile Include="ServiceObjects\Usuario\SO_LeccionesTipoCambio.cs" />
     <Compile Include="ServiceObjects\Usuario\SO_Motivo_Cambio.cs" />
+    <Compile Include="ServiceObjects\Usuario\SO_SolicitudCorreo.cs" />
     <Compile Include="ServiceObjects\Usuario\SO_TipoCambio.cs" />
     <Compile Include="ServiceObjects\Usuario\SO_UserDetails.cs" />
     <Compile Include="ServiceObjects\Usuario\SO_Usuario.cs" />
@@ -817,6 +822,9 @@
       <DependentUpon>ModelUsuario.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Usuario\TBL_LECCIONES_APRENDIDAS.cs">
+      <DependentUpon>ModelUsuario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceObjects\Usuario\TBL_SOLICITUD_CORREO.cs">
       <DependentUpon>ModelUsuario.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceObjects\Usuario\TBL_TIPOCAMBIO.cs">
@@ -1028,7 +1036,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

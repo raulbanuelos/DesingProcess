@@ -253,7 +253,7 @@ namespace View.Services.ViewModel
                 NotifyChange("MenuOptionItems");
             }
         }
-       
+
         #endregion
 
         #region Constructors
@@ -270,7 +270,7 @@ namespace View.Services.ViewModel
             {
                 BttnEnabled = true;
             }
-            CreateMenuItems();           
+            CreateMenuItems();
         }
 
         #endregion
@@ -457,7 +457,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => irBloquear());
             }
         }
-        
+
         /// <summary>
         /// Comando para abrir la ventana de Validación tipo documento
         /// </summary>
@@ -569,7 +569,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private void irRecursos()
         {
@@ -666,7 +666,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método que muestra la ventana de todos los documentos 
+        /// Método que muestra la ventana de todos los documentos
         /// </summary>
         private void irBusquedaDocumento()
         {
@@ -730,12 +730,12 @@ namespace View.Services.ViewModel
         private void initControlDocumentos()
         {
             ListaTipoDocumento = DataManagerControlDocumentos.GetTipo();
-        
+
             if (ListaTipoDocumento.Count > 0)
             {
                 SelectedTipoDocumento = ListaTipoDocumento[0];
             }
-            GetDataGrid(string.Empty);       
+            GetDataGrid(string.Empty);
         }
 
         /// <summary>
@@ -847,7 +847,7 @@ namespace View.Services.ViewModel
                 }
                 else
                 {
-                    //El usuario no tiene documentos sin verisón 
+                    //El usuario no tiene documentos sin verisón
 
                     //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
                     MetroDialogSettings setting = new MetroDialogSettings();
@@ -1058,17 +1058,17 @@ namespace View.Services.ViewModel
         private void initSnack()
         {
             int num_validar,num_aprobados,pendientes_liberar,documentos_vencidos;
-            
+
             //id_rol=2 mostrar todos los snackbar
-            //id_rol=3 solo mostrar pendientes por corregir 
-           
+            //id_rol=3 solo mostrar pendientes por corregir
+
             //Si el usuaruio es administador del CIT, puede visualizar todos los avisos
             if (Module.UsuarioIsRol(usuario.Roles, 2)) {
 
                 //Método para obtener todos los documentos que están pendientes por validar
                 num_validar = DataManagerControlDocumentos.GetDocumentosValidar(usuario.NombreUsuario,"").Count;
 
-                //Método para obetener los documentos que tiene pendientes  por corregir del usuario. 
+                //Método para obetener los documentos que tiene pendientes  por corregir del usuario.
                 num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario,"").Count;
 
                 //Método para obtener todos los documentos que están aprobados pero están pendientes por liberar
@@ -1129,9 +1129,9 @@ namespace View.Services.ViewModel
             //Si el usuario es dueño del documento
             if (Module.UsuarioIsRol(usuario.Roles, 3))
             {
-                //Método para obetener los documentos que tiene pendientes  por corregir del usuario. 
+                //Método para obetener los documentos que tiene pendientes  por corregir del usuario.
                 num_pendientes = DataManagerControlDocumentos.GetDocumentos_PendientesCorregir(usuario.NombreUsuario,"").Count;
-                //Método para obetener los documentos que tiene pendientes  por liberar del usuario. 
+                //Método para obetener los documentos que tiene pendientes  por liberar del usuario.
                 pendientes_liberar = DataManagerControlDocumentos.GetPendientes_Liberar(usuario.NombreUsuario).Count;
                  //Método para obtener los documentos vencidos de un usuario
                 documentos_vencidos = DataManagerControlDocumentos.GetDocumentos_Vencidos(usuario.NombreUsuario).Count;
@@ -1157,7 +1157,7 @@ namespace View.Services.ViewModel
                     EnabledPendientes_Liberar = false;
                     PendientesLiberar = string.Empty;
                 }
-            }     
+            }
         }
 
         /// <summary>
@@ -1286,7 +1286,7 @@ namespace View.Services.ViewModel
                         Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.History },
                         Label = StringResources.lblVerHistorial,
                         Command = IrHistorial,
-                        Tag = StringResources.lblVerHistorial,                    
+                        Tag = StringResources.lblVerHistorial,
                     }
                     );
                 //Ver historial sin filtrar

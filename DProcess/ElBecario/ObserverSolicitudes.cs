@@ -16,6 +16,7 @@ namespace ElBecario
     public class ObserverSolicitudes
     {
         Usuario User;
+
         #region Constructor
         public ObserverSolicitudes(Usuario _User)
         {
@@ -75,7 +76,6 @@ namespace ElBecario
                         iniciarRechazo(idSolicitud, changedEntity.ID_VERSION, changedEntity.COMENTARIO);
                     }
                 }
-
             }
         }
 
@@ -168,13 +168,11 @@ namespace ElBecario
             body += "</HTML>";
 
             //Ejecutamos el método para notificar por correo
-            bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body);
+            bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body, "CONTROL_DOCUMENTOS",0);
+            //bool respuesta = SO_Email.SendEmailOutlook(correos, title, body, new List<string>());
+            Console.WriteLine("El correo se envió perron!!");
 
             return respuesta;
-
-            Console.WriteLine("El correo se envió perron!!");
-            //System.Threading.Thread.Sleep(3000);
-            return true;
         }
 
         private bool rechazar(Documento objDocumento)
@@ -227,6 +225,7 @@ namespace ElBecario
             if(objDocumento.id_tipo_documento == 2 || objDocumento.id_tipo_documento == 1002 || objDocumento.id_tipo_documento == 1004 || objDocumento.id_tipo_documento == 1015)
             {
                 Console.WriteLine("Este documento SI va sellado. id tipo documento= " + objDocumento.id_tipo_documento);
+
                 if (await sellar(idVersion))
                 {
                     if (liberar(objDocumento, objVersion))
@@ -240,10 +239,9 @@ namespace ElBecario
                             DataManagerControlDocumentos.deleteSolicitudControlDocumentos(idSolicitud);
 
                             Console.WriteLine("Listo Campeón!!, este documento fué liberado exitosamente, Juntos somos Invensibles.");
-                            //System.Threading.Thread.Sleep(2000);
+                            System.Threading.Thread.Sleep(2000);
                             Console.WriteLine("Arriba el Ame!.");
                             Console.WriteLine("Cualquier cosa estoy al pendiente y te aviso ok. Tu sigue durmiendo.");
-                            
                         }
                         else
                         {
@@ -454,7 +452,8 @@ namespace ElBecario
             body += "</body>";
             body += "</HTML>";
 
-            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
+            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body, "CONTROL_DOCUMENTOS", 0);
+            //bool respuesta = serviceMail.SendEmailOutlook(correos, title, body, new List<string>());
 
             return respuesta;
         }
@@ -525,7 +524,8 @@ namespace ElBecario
             body += "</HTML>";
 
             //Ejecutamos el método para notificar por correo
-            bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body);
+            bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body, "CONTROL_DOCUMENTOS",0);
+            //bool respuesta = SO_Email.SendEmailOutlook(correos, title, body, new List<string>());
 
             return respuesta;
         }
@@ -607,7 +607,7 @@ namespace ElBecario
                     //obetemos el id de la versión anterior
                     int last_id = DataManagerControlDocumentos.GetID_LastVersion(objDocumento.id_documento, objVersion.id_version);
 
-                    //Creamos un objeto para la versión anterior 
+                    //Creamos un objeto para la versión anterior
                     Model.ControlDocumentos.Version lastVersion = new Model.ControlDocumentos.Version();
 
                     //asigamos el id y el estatus obsoleto
@@ -780,7 +780,7 @@ namespace ElBecario
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="bytes"></param>
         /// <param name="baseFont"></param>
@@ -832,7 +832,7 @@ namespace ElBecario
                         AddWaterMarkText2(dc, watermarkText, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 6), Convert.ToInt32(realPageSize.Bottom + 245));
                         AddWaterMarkText2(dc, waterMarkText2, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 12), Convert.ToInt32(realPageSize.Bottom + 160));
                         AddWaterMarkText2(dc, waterMarkText4, baseFont, 6, 90, BaseColor.BLACK, Convert.ToInt32(realPageSize.Left + 18), Convert.ToInt32(realPageSize.Bottom + 160));
-                        
+
                     }
                     stamper.Close();
                 }
@@ -841,7 +841,7 @@ namespace ElBecario
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pdfData"></param>
         /// <param name="watermarkText"></param>

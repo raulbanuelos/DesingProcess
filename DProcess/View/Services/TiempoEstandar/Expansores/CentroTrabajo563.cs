@@ -93,7 +93,7 @@ namespace View.Services.TiempoEstandar.Expansores
         public CentroTrabajo563()
         {
             CentroTrabajo = "563";
-            FactorLabor = 0.247402;
+            FactorLabor = 0.3365;
             PropiedadesRequeridadas = new List<Propiedad>();
             PropiedadesRequeridasBool = new List<PropiedadBool>();
             PropiedadesRequeridasCadena = new List<PropiedadCadena>();

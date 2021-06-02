@@ -167,7 +167,7 @@ namespace View.Services.Operaciones.Segmentos
             TextoProceso += "NOTA:" + Environment.NewLine;
             TextoProceso += "MANEJAR EL MATERIAL CON GUANTES LIMPIOS DE NITRILO O LATEX" + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
-            TextoProceso += "MONTAR LOS MANDRILES EN LA MESA DE 18 POSICIONES (MESA " + noMesa + ")" + Environment.NewLine;
+            TextoProceso += "MONTAR LOS MANDRILES EN LA MESA DE " + noMesa + " POSICIONES " + Environment.NewLine;
             TextoProceso += " " + Environment.NewLine;
             TextoProceso += "ESPESOR PVD " + minPDV + " - " + maxPVD + " mm" + Environment.NewLine;
             TextoProceso += "DUREZA DE " + dataPVD.DurezaMax + " - " + dataPVD.DurezaMax + " " + "HV" + Environment.NewLine;

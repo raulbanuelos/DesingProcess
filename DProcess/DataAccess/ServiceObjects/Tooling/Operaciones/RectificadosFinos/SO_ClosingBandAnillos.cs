@@ -38,7 +38,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Rectificados_Finos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error retornamos nulo
                 return null;
@@ -75,7 +75,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Rectificados_Finos
                     return closingbandanillos.ID_ClosingBandAnillo;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -110,7 +110,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Rectificados_Finos
                     return Conexion.SaveChanges();                    
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -139,7 +139,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Rectificados_Finos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;

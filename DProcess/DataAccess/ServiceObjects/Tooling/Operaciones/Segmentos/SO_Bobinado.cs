@@ -85,7 +85,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -132,7 +132,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return upper_roll.ID_BOBINADO_UPPER_ROLL;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay un error retornamos 0
                 return 0;
@@ -178,7 +178,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -208,7 +208,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                 }
 
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -293,7 +293,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos null
                 return null;
@@ -342,7 +342,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return lower_roll.ID_BOBINADO_LOWER_ROLL;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -390,7 +390,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -419,7 +419,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay errror retornamos 0
                 return 0;
@@ -460,7 +460,6 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                                               }).ToList();
 
                     return listaHerramentales;
-
                 }
             }
             catch (Exception)
@@ -499,7 +498,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -538,7 +537,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return tarjet_roll.ID_BOBINADO_TARGET_ROLL;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -576,7 +575,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -605,7 +604,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -693,7 +692,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -740,7 +739,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return center_wafer.ID_BOBONADO_CENTER_WAFER;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -783,10 +782,10 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     Conexion.Entry(center_wafer).State = System.Data.Entity.EntityState.Modified;
 
                     // Retornamos datos afectados
-                    return Conexion.SaveChanges();                    
+                    return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -815,10 +814,10 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
-                return 0;            
+                return 0;
             }
         }
     }

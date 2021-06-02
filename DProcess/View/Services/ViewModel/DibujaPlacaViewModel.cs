@@ -6,8 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 
-
-
 namespace View.Services.ViewModel
 {
     public class DibujaPlacaViewModel
@@ -28,7 +26,7 @@ namespace View.Services.ViewModel
             Excel.Application xlApp = new Excel.Application();
             Excel.Workbook xlWorkBook;
             Excel.Worksheet xlWorkSheet;
-            Excel.Range range;
+            //Excel.Range range;
 
             xlApp = new Excel.Application();
             xlWorkBook = xlApp.Workbooks.Open(@"d:\csharp-Excel.xls", 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);

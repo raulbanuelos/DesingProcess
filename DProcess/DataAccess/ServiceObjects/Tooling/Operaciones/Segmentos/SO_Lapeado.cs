@@ -75,7 +75,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -114,7 +114,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return manga_lapeado.ID_MANGA_LAPEADO_SEGMENTOS;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -152,7 +152,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -181,7 +181,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -257,7 +257,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -296,7 +296,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Rubber_Lapeado.ID_RUBBER_LAPEADO_SEGMENTOS;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -334,7 +334,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();                   
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -363,7 +363,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;

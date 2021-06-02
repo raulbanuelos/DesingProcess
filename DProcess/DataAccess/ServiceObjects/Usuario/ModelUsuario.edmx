@@ -88,6 +88,20 @@
           <Property Name="REPORTADO_POR" Type="varchar" MaxLength="200" />
           <Property Name="SOLICITUD_DE_TRABAJO_INGENIERIA" Type="varchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="TBL_SOLICITUD_CORREO">
+          <Key>
+            <PropertyRef Name="ID_SOLICITUD_CORREO" />
+          </Key>
+          <Property Name="ID_SOLICITUD_CORREO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FECHA_SOLICITUD" Type="datetime" />
+          <Property Name="TITLE" Type="varchar" MaxLength="200" />
+          <Property Name="BODY" Type="varchar(max)" />
+          <Property Name="RECIPIENTS" Type="varchar(max)" />
+          <Property Name="BAN_EJECUTADA" Type="bit" />
+          <Property Name="FECHA_EJECUTADA" Type="datetime" />
+          <Property Name="ORIGEN" Type="varchar" MaxLength="100" />
+          <Property Name="ID_ARCHIVO" Type="int" />
+        </EntityType>
         <EntityType Name="TBL_TIPOCAMBIO">
           <Key>
             <PropertyRef Name="ID_TIPOCAMBIO" />
@@ -297,6 +311,7 @@
           <EntitySet Name="TBL_ARCHIVO_LECCIONES" EntityType="Self.TBL_ARCHIVO_LECCIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_BITACORA_INGRESO" EntityType="Self.TBL_BITACORA_INGRESO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_LECCIONES_APRENDIDAS" EntityType="Self.TBL_LECCIONES_APRENDIDAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_SOLICITUD_CORREO" EntityType="Self.TBL_SOLICITUD_CORREO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TIPOCAMBIO" EntityType="Self.TBL_TIPOCAMBIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_USERS_DETAILS" EntityType="Self.TBL_USERS_DETAILS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" EntityType="Self.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Schema="dbo" store:Type="Tables" />
@@ -435,6 +450,7 @@
             <End Role="TBL_LECCIONES_APRENDIDAS" EntitySet="TBL_LECCIONES_APRENDIDAS" />
             <End Role="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" EntitySet="TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
           </AssociationSet>
+          <EntitySet Name="TBL_SOLICITUD_CORREO" EntityType="DataAccess.ServiceObjects.Usuario.TBL_SOLICITUD_CORREO" />
           </EntityContainer>
         <EntityType Name="Usuarios">
           <Key>
@@ -727,6 +743,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_SOLICITUD_CORREO">
+          <Key>
+            <PropertyRef Name="ID_SOLICITUD_CORREO" />
+          </Key>
+          <Property Name="ID_SOLICITUD_CORREO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FECHA_SOLICITUD" Type="DateTime" Precision="3" />
+          <Property Name="TITLE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BODY" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RECIPIENTS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BAN_EJECUTADA" Type="Boolean" />
+          <Property Name="FECHA_EJECUTADA" Type="DateTime" Precision="3" />
+          <Property Name="ORIGEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ID_ARCHIVO" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -883,6 +913,21 @@
                 <ScalarProperty Name="ID_MOTIVO_CAMBIO" ColumnName="ID_MOTIVO_CAMBIO" />
                 <ScalarProperty Name="ID_LECCION_APRENDIDA" ColumnName="ID_LECCION_APRENDIDA" />
                 <ScalarProperty Name="ID_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" ColumnName="ID_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SOLICITUD_CORREO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.Usuario.TBL_SOLICITUD_CORREO">
+              <MappingFragment StoreEntitySet="TBL_SOLICITUD_CORREO">
+                <ScalarProperty Name="ID_ARCHIVO" ColumnName="ID_ARCHIVO" />
+                <ScalarProperty Name="ORIGEN" ColumnName="ORIGEN" />
+                <ScalarProperty Name="FECHA_EJECUTADA" ColumnName="FECHA_EJECUTADA" />
+                <ScalarProperty Name="BAN_EJECUTADA" ColumnName="BAN_EJECUTADA" />
+                <ScalarProperty Name="RECIPIENTS" ColumnName="RECIPIENTS" />
+                <ScalarProperty Name="BODY" ColumnName="BODY" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+                <ScalarProperty Name="ID_SOLICITUD_CORREO" ColumnName="ID_SOLICITUD_CORREO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

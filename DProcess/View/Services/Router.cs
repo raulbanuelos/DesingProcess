@@ -22,7 +22,7 @@ namespace View.Services
         #endregion
 
         /// <summary>
-        /// Método que calculo las operaciones para generar una placa modelo
+        ///
         /// </summary>
         /// <param name="elAnillo"></param>
         /// <returns></returns>
@@ -37,7 +37,7 @@ namespace View.Services
         {
             ObservableCollection<IOperacion> ListaOperaciones = new ObservableCollection<IOperacion>();
 
-            //Ejemplo componente RF10U-255
+            //Example part number RF10U-255
             ListaOperaciones.Add(new FirstRoughGrind());
             ListaOperaciones.Add(new Splitter());
             ListaOperaciones.Add(new SecondRoughGrind());
@@ -56,15 +56,14 @@ namespace View.Services
         }
 
         /// <summary>
-		/// Método que calcula las operaciones para el material Hierro Gris.
+		/// Calculate operations material Iron Grey.
 		/// </summary>
-		/// <param name="elAnillo">Plano del anillo esperado.</param>
-		/// <returns>Colección que representa las operaciones que se necesitan para fabricar el anillo.</returns>
+		/// <param name="elAnillo"></param>
+		/// <returns></returns>
 		public static ObservableCollection<IOperacion> CalcularHierroGris(Anillo elAnillo)
         {
             _ElAnillo = elAnillo;
 
-            //Obtenemos algunos valores que utilizaremos en el método.
             double h1 = Module.GetValorPropiedad("h1", elAnillo.PerfilLateral.Propiedades);
             double h1Tol = Module.GetValorPropiedad("h1 Tol", elAnillo.PerfilLateral.Propiedades);
             double h1Min = h1 - h1Tol;
@@ -75,7 +74,6 @@ namespace View.Services
             double s1Max = Module.GetValorPropiedadMax("s1", elAnillo.PerfilPuntas.Propiedades, true);
             rangoGap = s1Max - s1Min;
 
-            //Inicializamos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
             ListaOperaciones = new ObservableCollection<IOperacion>();
 
             //Agregamos las operaciones necesarias. Se sigue el diagrama de flujo del archivo de excel ubicado en resprutas\RrrrUUUUUULLL\Diagrama de flujo Router.xlsx
@@ -112,8 +110,8 @@ namespace View.Services
             {
                 ListaOperaciones.Add(new AutoFinTurn(elAnillo));
                 ListaOperaciones.Add(new DegreaseRings(elAnillo));
-                
-                if (Module.HasPropiedad("CromoMin", elAnillo.PerfilOD.Propiedades)) // <--Si tiene Cromo
+
+                if (Module.HasPropiedad("CromoMin", elAnillo.PerfilOD.Propiedades)) // <--If has chrome
                 {
                     ListaOperaciones.Add(new ChromeOD(elAnillo));
                     ListaOperaciones.Add(new GapSizer(elAnillo));
@@ -134,7 +132,7 @@ namespace View.Services
                     ListaOperaciones.Add(new Pick(elAnillo));
                     ListaOperaciones.Add(new IDBrush(elAnillo));
                 }
-                else // <--Si tiene Moly
+                else // <--If has Moly
                 {
                     ListaOperaciones.Add(new Molibdenum(elAnillo));
                     ListaOperaciones.Add(new Diskus(elAnillo));
@@ -187,16 +185,14 @@ namespace View.Services
             OperacionesFinalesGasolina();
 
             asignarNumeroOperacion();
-            
-            //Retornamos la lista generada.
+
             return ListaOperaciones;
         }
 
         public static ObservableCollection<IOperacion> CalcularAceroRolado(Anillo elAnillo)
-        {            
+        {
             _ElAnillo = elAnillo;
 
-            //Declaramos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
             ListaOperaciones = new ObservableCollection<IOperacion>();
 
             ListaOperaciones.Add(new CoilRings(elAnillo));
@@ -215,12 +211,12 @@ namespace View.Services
             OperacionesFinalesGasolina();
 
             asignarNumeroOperacion();
-            
+
             return ListaOperaciones;
         }
-        
+
         /// <summary>
-        /// Ruta Segmentos PVD
+        /// Route Rails PVD
         /// </summary>
         /// <param name="elAnillo"></param>
         /// <returns></returns>
@@ -228,16 +224,14 @@ namespace View.Services
         {
             _ElAnillo = elAnillo;
 
-            //Declaramos una lista observable la cual guardará las operaciones y será la que retornemos en el método.
             ListaOperaciones = new ObservableCollection<IOperacion>();
 
             int opcion = 0;
 
-            //Verificamos las opciones que van a tener.
             //if (Module.HasPropiedad("ODCoatingNitrideMax", elAnillo.PerfilOD.Propiedades) || Module.HasPropiedad("ODCoatingNitrideMin", elAnillo.PerfilOD.Propiedades))
-            //    opcion = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 1 : 2;
+            //    Option = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 1 : 2;
             //else
-            //    opcion = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 3 : 4;
+            //    Option = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 3 : 4;
             if (Module.HasPropiedadOptional("ESPEC_NITRURADO", elAnillo.PerfilOD.PropiedadesOpcionales))
                 opcion = Module.HasNorma("O.D BRUSH", elAnillo.ListaNormas) ? 1 : 2;
             else
@@ -245,7 +239,7 @@ namespace View.Services
 
             if (opcion == 1)
             {
-                //Listar operaciones Opción 1.
+                //Option 1
                 ListaOperaciones.Add(new Bobinado(elAnillo));
                 ListaOperaciones.Add(new DesengraseBobinado(elAnillo));
                 ListaOperaciones.Add(new Nitrurado(elAnillo));
@@ -253,12 +247,12 @@ namespace View.Services
                 ListaOperaciones.Add(new PVDCoatingDRYBlast(elAnillo));
                 ListaOperaciones.Add(new PVDCoatingRail(elAnillo));
                 ListaOperaciones.Add(new Scotchbrite(elAnillo));
+                ListaOperaciones.Add(new Pavonado(elAnillo));
                 ListaOperaciones.Add(new Thompson(elAnillo));
                 ListaOperaciones.Add(new Lapeado(elAnillo));
                 ListaOperaciones.Add(new DesengraseLapeado(elAnillo));
                 ListaOperaciones.Add(new Scotchbrite(elAnillo));
                 ListaOperaciones.Add(new DesengraseLapeado(elAnillo));
-                ListaOperaciones.Add(new Pavonado(elAnillo));
                 ListaOperaciones.Add(new InspeccionGap(elAnillo));
                 ListaOperaciones.Add(new Operaciones.Segmentos.InspeccionFinal(elAnillo));
             }
@@ -266,7 +260,7 @@ namespace View.Services
             {
                 if (opcion == 2)
                 {
-                    //Listar operaciones Opción 2.
+                    //Option 2
                     ListaOperaciones.Add(new Bobinado(elAnillo));
                     ListaOperaciones.Add(new DesengraseBobinado(elAnillo));
                     ListaOperaciones.Add(new Nitrurado(elAnillo));
@@ -284,26 +278,26 @@ namespace View.Services
                 {
                     if (opcion == 3)
                     {
-                        //Listar operaciones Opción 3.
+                        //Option 3
                         ListaOperaciones.Add(new Bobinado(elAnillo));
                         ListaOperaciones.Add(new DesengraseBobinado(elAnillo));
                         ListaOperaciones.Add(new PVDCoatingWash(elAnillo));
                         ListaOperaciones.Add(new PVDCoatingDRYBlast(elAnillo));
                         ListaOperaciones.Add(new PVDCoatingRail(elAnillo));
                         ListaOperaciones.Add(new Scotchbrite(elAnillo));
+                        ListaOperaciones.Add(new Pavonado(elAnillo));
                         ListaOperaciones.Add(new Thompson(elAnillo));
                         ListaOperaciones.Add(new Lapeado(elAnillo));
                         ListaOperaciones.Add(new DesengraseLapeado(elAnillo));
                         ListaOperaciones.Add(new InspeccionGap(elAnillo));
                         ListaOperaciones.Add(new TroqueladoPunta(elAnillo));
-                        ListaOperaciones.Add(new Pavonado(elAnillo));
                         ListaOperaciones.Add(new Operaciones.Segmentos.InspeccionFinal(elAnillo));
                     }
                     else
                     {
                         if (opcion == 4)
                         {
-                            //Listar operaciones Opción 4.
+                            //Option 4
                             ListaOperaciones.Add(new Bobinado(elAnillo));
                             ListaOperaciones.Add(new DesengraseBobinado(elAnillo));
                             ListaOperaciones.Add(new PVDCoatingWash(elAnillo));
@@ -320,7 +314,6 @@ namespace View.Services
                             ListaOperaciones.Add(new Operaciones.Segmentos.InspeccionFinal(elAnillo));
                         }
                     }
-                    
                 }
             }
 
@@ -344,10 +337,9 @@ namespace View.Services
         {
             if (!_ElAnillo.Treatment.Equals("NONE") && !_ElAnillo.Treatment.Equals(string.Empty))
                 ListaOperaciones.Add(new Phosphate(_ElAnillo));
-            
             if (Module.GetValorPropiedadBool("LASSER ENGRAVE", _ElAnillo.PerfilLateral.PropiedadesBool))
                 ListaOperaciones.Add(new LasserEngrave(_ElAnillo));
-                
+
             ListaOperaciones.Add(new Operaciones.Gasolina.Inspeccion.InspeccionFinal(_ElAnillo));
 
             if (rangoGap < 0.008)

@@ -4,15 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frames"
-        xmlns:usercontrols="clr-namespace:Frames.UserControl"   
+        xmlns:usercontrols="clr-namespace:Frames.UserControl"
         mc:Ignorable="d"
-        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         WindowStartupLocation="CenterScreen"
         Title="Documentos Mahle AGU" Height="900" Width="1200"
-        WindowStyle="None"
+        WindowStyle="SingleBorderWindow"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" WindowState="Maximized">
-
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"></RowDefinition>
@@ -29,22 +32,23 @@
         </Grid.ColumnDefinitions>
 
         <materialDesign:ColorZone Grid.Column="1" Grid.Row="0" Mode="PrimaryMid" Height="5">
-
         </materialDesign:ColorZone>
 
         <materialDesign:ColorZone Grid.Column="1" Grid.Row="1" Mode="Standard">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="300"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-
-                <Image Grid.Column="1" Source="/Frames;component/Images/iconMahle1.png">
-
-                </Image>
+                <Image Grid.Column="2" Source="/Frames;component/Images/iconMahle1.png"></Image>
+                <Button Visibility="{Binding Path=DataContext.BoolIconBack, RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Converter={StaticResource BoolToVis}}" Grid.Column="0" Background="Transparent" Height="100" BorderBrush="Transparent" Cursor="Hand" Command="{Binding BackZero}">
+                    <StackPanel>
+                        <Image Width="64" Grid.Column="0" Source="/Frames;component/Images/icon_back.png" HorizontalAlignment="Left"></Image>
+                    </StackPanel>
+                </Button>
             </Grid>
         </materialDesign:ColorZone>
-
         <TextBox Name="txt_busqueda" materialDesign:HintAssist.Hint="Buscar" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="20"
                  Grid.Column="1" Grid.Row="2" Margin="5,5,5,5" Text="{Binding Search}">
             <i:Interaction.Triggers>
@@ -54,12 +58,9 @@
                                     CommandParameter="{Binding ElementName=txt_busqueda, Path=Text}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-
         </TextBox>
-
         <Grid Grid.Column="1" Grid.Row="3" Margin="1">
             <UserControl Content="{Binding Pagina}">
-
             </UserControl>
         </Grid>
     </Grid>

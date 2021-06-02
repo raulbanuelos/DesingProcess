@@ -11,7 +11,7 @@ namespace View.Services.TiempoEstandar.Expansores
         #region Atributos 
         private double pzsXrollo;
         private double AcP;
-        private bool _tipo;
+        //private bool _tipo;
         #endregion
 
         #region Propiedades

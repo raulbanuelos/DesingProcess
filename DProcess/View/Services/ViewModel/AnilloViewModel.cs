@@ -54,14 +54,28 @@ namespace View.Services.ViewModel
             get { return _NotaColorSelected; }
             set { _NotaColorSelected = value; NotifyChange("NotaColorSelected"); }
         }
-        
+
+        private bool _banFreeGap;
+        public bool banFreeGap
+        {
+            get
+            {
+                return _banFreeGap;
+            }
+            set
+            {
+                _banFreeGap = value;
+                NotifyChange("banFreeGap");
+            }
+        }
+
         private double _WidthFranjaSelected;
         public double WidthFranjaSelected
         {
             get { return _WidthFranjaSelected; }
             set { _WidthFranjaSelected = value; NotifyChange("WidthFranjaSelected"); }
         }
-        
+
         public ObservableCollection<UbicacionPintura> ListaUbicaciones { get; set; }
 
         private UbicacionPintura _UbicacionSelected;
@@ -70,7 +84,7 @@ namespace View.Services.ViewModel
             get { return _UbicacionSelected; }
             set { _UbicacionSelected = value; NotifyChange("UbicacionSelected"); }
         }
-        
+
         public ObservableCollection<string> ListaColores { get; set; }
 
         private string _ColorSelected;
@@ -79,7 +93,7 @@ namespace View.Services.ViewModel
             get { return _ColorSelected; }
             set { _ColorSelected = value; NotifyChange("ColorSelected"); }
         }
-        
+
         public ObservableCollection<string> ListaEspecificacionesMateriaPrima { get; set; }
 
         private ObservableCollection<IOperacion> _ListaOperacionesOpcionales;
@@ -95,14 +109,14 @@ namespace View.Services.ViewModel
             get { return _OperacionAntesAddOperacion; }
             set { _OperacionAntesAddOperacion = value; NotifyChange("OperacionAntesAddOperacion"); }
         }
-        
+
         private IOperacion _OperacionSeleccionadaOpcional;
         public IOperacion OperacionSeleccionadaOpcional
         {
             get { return _OperacionSeleccionadaOpcional; }
             set { _OperacionSeleccionadaOpcional = value; NotifyChange("OperacionSeleccionadaOpcional"); }
         }
-        
+
         private ObservableCollection<MateriaPrimaRolado> _ListaIronRawMaterial;
         public ObservableCollection<MateriaPrimaRolado> ListaIronRawMaterial
         {
@@ -116,7 +130,7 @@ namespace View.Services.ViewModel
             get { return _ListaIronRailRawMaterial; }
             set { _ListaIronRailRawMaterial = value; }
         }
-        
+
         public ObservableCollection<Cliente> ListaClientes { get; set; }
 
         public ObservableCollection<string> ListaTreatment { get; set; }
@@ -148,7 +162,7 @@ namespace View.Services.ViewModel
             get { return propiedadesOptionalOD; }
             set { propiedadesOptionalOD = value; NotifyChange("PropiedadesOptionalOD"); }
         }
-        
+
         private ObservableCollection<NumericEntry> propiedadesPuntas;
         public ObservableCollection<NumericEntry> PropiedadesPuntas
         {
@@ -176,7 +190,7 @@ namespace View.Services.ViewModel
             get { return  propiedadesOptionalPuntas; }
             set {  propiedadesOptionalPuntas = value; NotifyChange("PropiedadesOptionalPuntas"); }
         }
-        
+
         private ObservableCollection<NumericEntry> propiedadesID;
         public ObservableCollection<NumericEntry> PropiedadesID
         {
@@ -204,7 +218,7 @@ namespace View.Services.ViewModel
             get { return propiedadesOptionalID; }
             set { propiedadesOptionalID = value; NotifyChange("PropiedadesOptionalID"); }
         }
-        
+
         private ObservableCollection<NumericEntry> propiedadesLateral;
         public ObservableCollection<NumericEntry> PropiedadesLateral
         {
@@ -232,7 +246,7 @@ namespace View.Services.ViewModel
             get { return propiedadesOptionalLateral; }
             set { propiedadesOptionalLateral = value; NotifyChange("PropiedadesOptionalLateral"); }
         }
-        
+
         private ObservableCollection<StackPanel> panelPropiedadesOD;
         public ObservableCollection<StackPanel> PanelPropiedadesOD
         {
@@ -260,7 +274,7 @@ namespace View.Services.ViewModel
             get { return panelPropiedadesOpcionalesOD; }
             set { panelPropiedadesOpcionalesOD = value; NotifyChange("PanelPropiedadesOpcionalesOD"); }
         }
-        
+
         private ObservableCollection<StackPanel> panelPropiedadesPuntas;
         public ObservableCollection<StackPanel> PanelPropiedadesPuntas
         {
@@ -288,7 +302,7 @@ namespace View.Services.ViewModel
             get { return panelPropiedadesOpcionalesPuntas; }
             set { panelPropiedadesOpcionalesPuntas = value; NotifyChange("PanelPropiedadesOpcionalesPuntas"); }
         }
-        
+
         private ObservableCollection<StackPanel> panelPropiedadesID;
         public ObservableCollection<StackPanel> PanelPropiedadesID
         {
@@ -316,7 +330,7 @@ namespace View.Services.ViewModel
             get { return panelPropiedadesOpcionalesID; }
             set { panelPropiedadesOpcionalesID = value; NotifyChange("PanelPropiedadesOpcionalesID"); }
         }
-        
+
         private ObservableCollection<StackPanel> panelPropiedadesLateral;
         public ObservableCollection<StackPanel> PanelPropiedadesLateral
         {
@@ -344,7 +358,7 @@ namespace View.Services.ViewModel
             get { return panelPropiedadesOpcionalesLateral; }
             set { panelPropiedadesOpcionalesLateral = value; NotifyChange("PanelPropiedadesOpcionalesLateral"); }
         }
-        
+
         private HamburgerMenuItemCollection _menuItems;
         public HamburgerMenuItemCollection MenuItems
         {
@@ -397,7 +411,7 @@ namespace View.Services.ViewModel
             get { return _PerfilSeleccionadoOD; }
             set { _PerfilSeleccionadoOD = value; NotifyChange("PerfilSeleccionadoOD"); }
         }
-        
+
         private ObservableCollection<Perfil> _AllPerfilesID;
         public ObservableCollection<Perfil> AllPerfilesID
         {
@@ -411,7 +425,7 @@ namespace View.Services.ViewModel
             get { return _PerfilSeleccionadoID; }
             set { _PerfilSeleccionadoID = value; NotifyChange("_PerfilSeleccionadoID"); }
         }
-        
+
         private ObservableCollection<Perfil> _AllPerfilesLateral;
         public ObservableCollection<Perfil> AllPerfilesLateral
         {
@@ -425,7 +439,7 @@ namespace View.Services.ViewModel
             get { return _PerfilSeleccionadoLateral; }
             set { _PerfilSeleccionadoLateral = value; NotifyChange("PerfilSeleccionadoLateral"); }
         }
-        
+
         private ObservableCollection<Perfil> _AllPerfilesPuntas;
         public ObservableCollection<Perfil> AllPerfilesPuntas
         {
@@ -452,7 +466,7 @@ namespace View.Services.ViewModel
             get { return _ComponenteSeleccionado; }
             set { _ComponenteSeleccionado = value; NotifyChange("ComponenteSeleccionado"); }
         }
-        
+
         private Perfil _PerfilSeleccionadoPuntas;
         public Perfil PerfilSeleccionadoPuntas
         {
@@ -496,7 +510,7 @@ namespace View.Services.ViewModel
             get { return _IsNormasOpen; }
             set { _IsNormasOpen = value; NotifyChange("IsNormasOpen"); }
         }
-        
+
         #endregion
 
         #region Propiedades del Modelo Anillo
@@ -998,7 +1012,7 @@ namespace View.Services.ViewModel
                 ModelAnillo.FranjasPintura = value;
                 NotifyChange("FranjasPintura");
             }
-        } //Falta agregar la tabla para ir guardando los datos	
+        } //Falta agregar la tabla para ir guardando los datos
         #endregion
 
         #region Events INotifyPropertyChanged
@@ -1038,7 +1052,7 @@ namespace View.Services.ViewModel
             PropiedadesCadenaID = new ObservableCollection<StringEntry>();
             PropiedadesBoolID = new ObservableCollection<BoolEntry>();
             PropiedadesOptionalID = new ObservableCollection<OptionalEntry>();
-            
+
             PropiedadesLateral = new ObservableCollection<NumericEntry>();
             PropiedadesCadenaLateral = new ObservableCollection<StringEntry>();
             PropiedadesBoolLateral = new ObservableCollection<BoolEntry>();
@@ -1073,7 +1087,7 @@ namespace View.Services.ViewModel
 
             ListaUbicaciones = DataManager.GetUbicacionesSegmentos();
             FranjasPintura = new ObservableCollection<PinturaAnillo>();
-            
+
         }
 
         /// <summary>
@@ -1143,7 +1157,7 @@ namespace View.Services.ViewModel
                 return new RelayCommand(o => buscarCasting());
             }
         }
-        
+
         public ICommand CalculateDimensions {
             get {
                 return new RelayCommand(o => calculateDimensions());
@@ -1413,9 +1427,23 @@ namespace View.Services.ViewModel
                 return new RelayCommand(param => buscarComponente((string)param));
             }
         }
+
+        public ICommand HideUnhideFreeGap
+        {
+            get
+            {
+                return new RelayCommand(param => hideUnhidePanelFreeGap());
+            }
+        }
         #endregion
 
         #region Methods
+
+        private void hideUnhidePanelFreeGap() {
+            string tipoMaterial = DataManager.GetTipoMaterial(EspecificacionMaterialSeleccionada);
+
+            banFreeGap = tipoMaterial == "ACERO INOXIDABLE" || tipoMaterial == "ACERO AL CARBON" ? false : true;
+        }
 
         private void buscarComponente(string parametro)
         {
@@ -1433,7 +1461,6 @@ namespace View.Services.ViewModel
                     ListaComponentes.Add(item);
                 }
             }
-                
         }
 
         private void calculateFreeGap()
@@ -1447,9 +1474,9 @@ namespace View.Services.ViewModel
         private void calculateDimensions()
         {
             WCalculateDimensions frm = new WCalculateDimensions();
-            
+
             CalculateDimensionsViewModel viewmodel = new CalculateDimensionsViewModel();
-            
+
             frm.DataContext = viewmodel;
 
             frm.ShowDialog();
@@ -1480,7 +1507,7 @@ namespace View.Services.ViewModel
 
             if (IsPackageOpen)
             {
-                CondicionesDeEmpaque = DataManager.GetCondicionesEmpaqueSegmentos(Module.ConvertTo(ModelAnillo.D1.TipoDato, ModelAnillo.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), ModelAnillo.D1.Valor), Module.ConvertTo(ModelAnillo.H1.TipoDato, ModelAnillo.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), ModelAnillo.H1.Valor));   
+                CondicionesDeEmpaque = DataManager.GetCondicionesEmpaqueSegmentos(Module.ConvertTo(ModelAnillo.D1.TipoDato, ModelAnillo.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), ModelAnillo.D1.Valor), Module.ConvertTo(ModelAnillo.H1.TipoDato, ModelAnillo.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), ModelAnillo.H1.Valor));
             }
         }
 
@@ -1554,7 +1581,7 @@ namespace View.Services.ViewModel
 
             //cliente = new Cliente { NombreCliente = "MAHLE", IdCliente = 12 };
 
-            ////Terminamos de simular el anillo 
+            ////Terminamos de simular el anillo
             #endregion
 
             #region Simulacion Anillo ACERO AL CARBON (ROLADOS)
@@ -1618,7 +1645,6 @@ namespace View.Services.ViewModel
                     if (banCalcularOperaciones)
                         Operaciones = Router.CalcularHierroGris(ModelAnillo);
 
-
                     if (MaterialBase.Codigo.Equals("CODIFICAR"))
                     {
                         MetroDialogSettings setting = new MetroDialogSettings();
@@ -1626,7 +1652,7 @@ namespace View.Services.ViewModel
                         setting.NegativeButtonText = "NO";
                         dialogService = new DialogService();
 
-                        MessageDialogResult result = await dialogService.SendMessage("Atención", "No se encontró ninguna placa modelo para el componente ingresado  ¿Desea generar una placa modelo nueva?", setting, MessageDialogStyle.AffirmativeAndNegative, "Desing Process");
+                        MessageDialogResult result = await dialogService.SendMessage("Atención", "No se encontró ninguna placa modelo para el componente ingresado ¿Desea generar una placa modelo nueva?", setting, MessageDialogStyle.AffirmativeAndNegative, "Desing Process");
 
                         switch (result)
                         {
@@ -1706,7 +1732,7 @@ namespace View.Services.ViewModel
                         //Obtenemos la ventana actual para mandar un mensaje de capturar la especificación del perfil
                         var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-                        //Formulario para ingresar el número de copias, 
+                        //Formulario para ingresar el número de copias,
                         string _especPerfil = await window.ShowInputAsync(StringResources.lblAlertas, "Por favor ingrese la especificación del perfil del anillo.", null);
 
                         ModelAnillo.PropiedadesCadenaAdquiridasProceso = new ObservableCollection<PropiedadCadena>();
@@ -1770,7 +1796,7 @@ namespace View.Services.ViewModel
                             return;
                         }
                     }
-                } 
+                }
             }
             else
             {
@@ -1798,13 +1824,13 @@ namespace View.Services.ViewModel
                                 espesorRadialMP = mpSeleccionada.ESP_RADIAL;
                             }
                         }
-                        
+
                         if (banCalcularOperaciones)
                             Operaciones = Router.CalcularAceroSegmentosPVD(ModelAnillo);
                     }
                 }
             }
-            
+
             anilloProcesado.Activo = ModelAnillo.Activo;
             anilloProcesado.cliente = ModelAnillo.cliente;
             anilloProcesado.Codigo = ModelAnillo.Codigo;
@@ -1830,7 +1856,7 @@ namespace View.Services.ViewModel
             anilloProcesado.TensionTol = ModelAnillo.TensionTol;
             anilloProcesado.TipoAnillo = ModelAnillo.TipoAnillo;
             anilloProcesado.FreeGap = ModelAnillo.FreeGap;
-            
+
             #region Cálculo de Operaciones
             bool ban = true;
             Anillo aProcesado = new Anillo();
@@ -1957,7 +1983,7 @@ namespace View.Services.ViewModel
                 {
                     PropiedadOptional propiedadEspec = PerfilOD.PropiedadesOpcionales.Where(o => o.lblTitle == "ESPEC_PVD").FirstOrDefault();
                     DO_DataPVD dataPVD = DataManager.GetDataPVD(propiedadEspec.ElementSelected.ValorCadena);
-                    ModelAnillo.Caratula += "PVD " + dataPVD.NoReceta + "       " + dataPVD.ThicknessMin + " - " + dataPVD.ThicknessMax + Environment.NewLine;
+                    ModelAnillo.Caratula += "PVD MIP 230" + "       " + dataPVD.ThicknessMin + " - " + dataPVD.ThicknessMax + Environment.NewLine;
                 }
 
                 ModelAnillo.Caratula += "NOTA:" + Environment.NewLine;
@@ -1968,8 +1994,7 @@ namespace View.Services.ViewModel
                 ModelAnillo.Caratula += "DIM ALAMBRE  " + espesorRadialMP + " X " + espesorAxialMP + Environment.NewLine;
                 ModelAnillo.Caratula += "ACERO 10% CROMO" + Environment.NewLine;
                 ModelAnillo.Caratula += "" + Environment.NewLine;
-                
-                 
+
                 #endregion
 
             }else if(clasificacionProducto == "Gasolina" && MaterialBase.TipoDeMaterial == "ACERO AL CARBON")
@@ -1977,11 +2002,11 @@ namespace View.Services.ViewModel
                 Propiedad h1Min = Module.GetPropiedad("h1 Min", PerfilLateral.Propiedades);
                 h1Min.Valor = Module.ConvertTo(h1Min.TipoDato, h1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Min.Valor);
                 h1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
-                
+
                 Propiedad h1Max = Module.GetPropiedad("h1 Max", PerfilLateral.Propiedades);
                 h1Max.Valor = Module.ConvertTo(h1Max.TipoDato, h1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), h1Max.Valor);
                 h1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
-                
+
                 Propiedad a1Min = Module.GetPropiedad("a1 Min", PerfilID.Propiedades);
                 a1Min.Valor = Module.ConvertTo(a1Min.TipoDato, a1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Min.Valor);
                 a1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
@@ -1989,7 +2014,7 @@ namespace View.Services.ViewModel
                 Propiedad a1Max = Module.GetPropiedad("a1 Max", PerfilID.Propiedades);
                 a1Max.Valor = Module.ConvertTo(a1Max.TipoDato, a1Max.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), a1Max.Valor);
                 a1Max.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
-                
+
                 Propiedad s1Min = Module.GetPropiedad("s1 Min", PerfilPuntas.Propiedades);
                 s1Min.Valor = Module.ConvertTo(s1Min.TipoDato, s1Min.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), s1Min.Valor);
                 s1Min.Unidad = EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch);
@@ -2021,7 +2046,11 @@ namespace View.Services.ViewModel
             ModelAnillo.Caratula += "*IDENTIFICACION" + Environment.NewLine;
             ModelAnillo.Caratula += "CLIENTE: " + cliente.NombreCliente + Environment.NewLine;
             ModelAnillo.Caratula += "PTE. CLTE. " + CustomerPartNumber + " REV. " + CustomerRevisionLevel + "" + Environment.NewLine;
-            ModelAnillo.Caratula += "MEDIDA " + Module.ConvertTo(D1.TipoDato, D1.Unidad,EnumEx.GetEnumDescription(UnidadDistance.Inch), D1.Valor) + " X " + Module.ConvertTo(H1.TipoDato,H1.Unidad,EnumEx.GetEnumDescription(UnidadDistance.Inch),  H1.Valor) + Environment.NewLine;
+
+            if (clasificacionProducto != "Segmento")
+            {
+                ModelAnillo.Caratula += "MEDIDA " + Module.ConvertTo(D1.TipoDato, D1.Unidad, EnumEx.GetEnumDescription(UnidadDistance.Inch), D1.Valor) + " X " + Module.ConvertTo(H1.TipoDato, H1.Unidad, EnumEx.GetEnumDescription(UnidadDistance.Inch), H1.Valor) + Environment.NewLine;
+            }
             ModelAnillo.Caratula += "" + Environment.NewLine;
             ModelAnillo.Caratula += "REVISADO " + User.Nombre + " " + User.ApellidoPaterno + Environment.NewLine;
             ModelAnillo.Caratula += "        " + Module.GetDate() + Environment.NewLine;
@@ -2031,7 +2060,6 @@ namespace View.Services.ViewModel
 
             await Controller.CloseAsync();
             await dialogService.SendMessage(Resources.StringResources.ttlDone, Resources.StringResources.msgRoutingReady);
-
 
         }
 
@@ -2048,13 +2076,13 @@ namespace View.Services.ViewModel
                 return "Segmento";
 
             return "No disponible";
-           
+
         }
 
         private void calcularDimenciones(int nCortesWith)
         {
             int nPasosNISSEI = Operaciones.Where(x => x.NombreOperacion == "FINISH GRIND (NISSEI)").ToList().Count;
-            
+
             int[] cortesXPaso = Module.GetCortesByPaso(nCortesWith, nPasosNISSEI);
 
             double sum = 0.0;
@@ -2156,7 +2184,7 @@ namespace View.Services.ViewModel
                             num0006--;
                         }
                     }
-                } 
+                }
             }
 
             if (num0004 > 0)
@@ -2336,7 +2364,7 @@ namespace View.Services.ViewModel
             #endregion
 
             #region Calculo de Diámetro
-            
+
             i = Operaciones.Count - 1;
             c = 0;
             SubjectDiametro subjectDiametro = new SubjectDiametro();
@@ -2425,7 +2453,7 @@ namespace View.Services.ViewModel
 
             //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
             MessageDialogResult result;
-            
+
             result = banUnidadDefinida ? await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgSeleccionaFormato, setting, MessageDialogStyle.AffirmativeAndNegative) : MessageDialogResult.Negative;
 
             //Para cada resultado realizamos una acción.
@@ -2641,7 +2669,7 @@ namespace View.Services.ViewModel
 
             return CollectionPanel;
         }
-        
+
         private ObservableCollection<StackPanel> SetNumericEntryToStackPanel(ObservableCollection<NumericEntry> CollectionNumeric, ObservableCollection<Propiedad> CollectionPropiedades)
         {
             //Declaramos la colección que será la que retornemos en el método.
@@ -2664,7 +2692,7 @@ namespace View.Services.ViewModel
                     c += 1;
                 }
             }
-            
+
             //Retornamos la colección creada.
             return CollectionPanel;
         }
@@ -2679,7 +2707,7 @@ namespace View.Services.ViewModel
             WSelectComponent wSelectComponente = new WSelectComponent();
             wSelectComponente.DataContext = this;
             wSelectComponente.ShowDialog();
-            
+
             if (wSelectComponente.DialogResult.HasValue && wSelectComponente.DialogResult.Value)
             {
                 if (ComponenteSeleccionado != null)
@@ -2753,7 +2781,7 @@ namespace View.Services.ViewModel
                     NotifyChange("PerfilID");
                     NotifyChange("PerfilLateral");
                     NotifyChange("PerfilPuntas");
-                    
+
                     ArquetipoRing arquetipoRing = DataManager.GetArquetipoRing(Codigo);
 
                     D1 = arquetipoRing.D1;
@@ -2865,7 +2893,7 @@ namespace View.Services.ViewModel
                 else
                 {
                     //No se seleccionó ningun componente.
-                } 
+                }
             }
         }
 
@@ -2906,7 +2934,7 @@ namespace View.Services.ViewModel
                     DataManager.UpdateArquetipoPropiedadesOpcionales(Codigo, propiedad.idPropiedadOpcional, propiedad.ElementSelected.ValorCadena);
                 }
                 #endregion
-                
+
                 #region Update Propiedades Perfil ID
                 foreach (Propiedad propiedad in PerfilID.Propiedades)
                 {
@@ -3104,7 +3132,7 @@ namespace View.Services.ViewModel
             await dialogService.SendMessage(Resources.StringResources.ttlDone, "Componente Guardado");
 
         }
-        
+
         /// <summary>
         /// Método que asigna el iten a la propiedad correspondiente.
         /// </summary>
@@ -3177,7 +3205,7 @@ namespace View.Services.ViewModel
                 }
                 c += 1;
             }
-            
+
 
             c = 0;
             while (c < PerfilLateral.Propiedades.Count && !ban)
@@ -3424,15 +3452,15 @@ namespace View.Services.ViewModel
             ModelAnillo.HardnessMin.Nombre = "HardnessMin";
             ModelAnillo.HardnessMin.TipoDato = tipodatodureza;
             ModelAnillo.HardnessMin.Unidad = unidaddureza;
-            ModelAnillo.HardnessMin.DescripcionCorta = "Hardness Min";
-            ModelAnillo.HardnessMin.DescripcionLarga = "Dureza mínima";
+            ModelAnillo.HardnessMin.DescripcionCorta = "Hardness Min MP";
+            ModelAnillo.HardnessMin.DescripcionLarga = "Dureza mínima de Materia Prima";
             HardnessMin = ModelAnillo.HardnessMin;
 
             ModelAnillo.HardnessMax.Nombre = "HardnessMax";
             ModelAnillo.HardnessMax.TipoDato = tipodatodureza;
             ModelAnillo.HardnessMax.Unidad = unidaddureza;
-            ModelAnillo.HardnessMax.DescripcionCorta = "Hardness Max";
-            ModelAnillo.HardnessMax.DescripcionLarga = "Dureza máxima";
+            ModelAnillo.HardnessMax.DescripcionCorta = "Hardness Max MP";
+            ModelAnillo.HardnessMax.DescripcionLarga = "Dureza máxima de Materia Prima";
             HardnessMax = ModelAnillo.HardnessMax;
 
             ModelAnillo.Mass.Nombre = "MassAnillo";
@@ -3448,11 +3476,11 @@ namespace View.Services.ViewModel
         /// </summary>
         private void viewRoute()
         {
-            GenerarPDF.Traveler(ModelAnillo);    
+            GenerarPDF.Traveler(ModelAnillo);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private void viewRouting()
         {
@@ -3474,7 +3502,6 @@ namespace View.Services.ViewModel
             {
                 //Enviar mensaje de no existen operaciones.
             }
-            
         }
 
         /// <summary>
@@ -3551,7 +3578,6 @@ namespace View.Services.ViewModel
                     Command = CalcularRuta,
                     Tag = StringResources.lblCorrer,
                 });
-            
             //Boton para ver las operaciones de la ruta en pdf
             this.MenuItems.Add(
                 new HamburgerMenuIconItem()
@@ -3606,7 +3632,7 @@ namespace View.Services.ViewModel
                     Tag = "Calculate free gap",
                 });
         }
-        
+
         private void setMaterialRemover()
         {
             int c = 0;
@@ -3633,12 +3659,12 @@ namespace View.Services.ViewModel
 
             createRing.DataContext = this;
             createRing.ShowDialog();
-            
+
             PerfilOD = PerfilSeleccionadoOD;
             PerfilID = PerfilSeleccionadoID;
             PerfilLateral = PerfilSeleccionadoLateral;
             PerfilPuntas = PerfilSeleccionadoPuntas;
-            
+
             PerfilOD.Propiedades = DataManager.GetAllPropiedadesByPerfil(PerfilOD.idPerfil,IsMilimeter);
             PerfilOD.PropiedadesCadena = DataManager.GetAllPropiedadesCadenaByPerfil(PerfilOD.idPerfil);
             PerfilOD.PropiedadesBool = DataManager.GetallPropiedadesBoolByPerfil(PerfilOD.idPerfil);
@@ -3767,7 +3793,7 @@ namespace View.Services.ViewModel
             }
             PanelPropiedadesBoolLateral = SetBoolEntryToStackPanel(PropiedadesBoolLateral, PerfilLateral.PropiedadesBool);
             #endregion
-              
+
             #region Puntas
             foreach (PropiedadBool propiedad in PerfilPuntas.PropiedadesBool)
             {
@@ -3778,11 +3804,11 @@ namespace View.Services.ViewModel
 
                 PropiedadesBoolPuntas.Add(boolEntry);
             }
-            PanelPropiedadesBoolPuntas = SetBoolEntryToStackPanel(PropiedadesBoolPuntas, PerfilPuntas.PropiedadesBool); 
+            PanelPropiedadesBoolPuntas = SetBoolEntryToStackPanel(PropiedadesBoolPuntas, PerfilPuntas.PropiedadesBool);
             #endregion
 
         }
-        
+
         private void createTextEntry()
         {
             #region OD
@@ -3835,10 +3861,10 @@ namespace View.Services.ViewModel
 
                 PropiedadesCadenaPuntas.Add(textEntry);
             }
-            PanelPropiedadesCadenaPuntas = SetStringEntryToStackPanel(PropiedadesCadenaPuntas, PerfilPuntas.PropiedadesCadena); 
+            PanelPropiedadesCadenaPuntas = SetStringEntryToStackPanel(PropiedadesCadenaPuntas, PerfilPuntas.PropiedadesCadena);
             #endregion
         }
-        
+
         private void createNumericEntry()
         {
             #region OD
@@ -3890,7 +3916,7 @@ namespace View.Services.ViewModel
 
                 PropiedadesPuntas.Add(numeric);
             }
-            PanelPropiedadesPuntas = SetNumericEntryToStackPanel(PropiedadesPuntas, PerfilPuntas.Propiedades); 
+            PanelPropiedadesPuntas = SetNumericEntryToStackPanel(PropiedadesPuntas, PerfilPuntas.Propiedades);
             #endregion
         }
 

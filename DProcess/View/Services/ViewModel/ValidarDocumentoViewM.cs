@@ -23,6 +23,8 @@ namespace View.Services.ViewModel
     {
         #region Attributes
         private Usuario _usuarioLogueado;
+        //string ipServidor = "10.16.44.242";
+        string ipServidor = "10.16.44.168";
         #endregion
 
         #region Propiedades
@@ -249,7 +251,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Comando para cambiar estatus 
+        /// Comando para cambiar estatus
         /// </summary>
         public ICommand Unchecked
         {
@@ -302,7 +304,7 @@ namespace View.Services.ViewModel
                     Process.Start(filename);
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);
             }
@@ -576,14 +578,14 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="codigoDocumento"></param>
         /// <param name="noVersion"></param>
         /// <param name="idVersion"></param>
         /// <param name="emailUsuario"></param>
         /// <returns></returns>
-        private bool enviarCorreoAprobarRechazar(string codigoDocumento, string noVersion, int idVersion, string idUsuarioAutorizo, string idUsuarioDueno, string[] files)
+        private bool enviarCorreoAprobarRechazar(string codigoDocumento, string noVersion, int idVersion, string idUsuarioAutorizo, string idUsuarioDueno)
         {
             string email = DataManagerControlDocumentos.GetCorreoUsuario(idUsuarioAutorizo);
 
@@ -601,9 +603,9 @@ namespace View.Services.ViewModel
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">El usuario <b>" + usuarioDueno.Nombre + " " + usuarioDueno.ApellidoPaterno + "</b> a dado de alta una nueva versión del documento <b>" + codigoDocumento + "</b> versión <b> " + noVersion + ".0" + " </b> para lo cual requiero su autorización para poderlo liberar en el sistema </font> </li>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">El documento esta adjunto a este correo. </font> </li>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> APROBAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://10.16.44.242:3000/api/aprobardocumento/id:" + idVersion + " \">Aprobar</a></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> APROBAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://" + ipServidor + ":3000/api/aprobardocumento/id:" + idVersion + " \">Aprobar</a></li>";
             body += "<br/><br/>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> RECHAZAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://10.16.44.242:3000/api/viewnoaprobar/id:" + idVersion + " \">No Aprobar</a> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> RECHAZAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://" + ipServidor + ":3000/api/viewnoaprobar/id:" + idVersion + " \">No Aprobar</a> </li>";
             body += "<br/>";
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
@@ -629,7 +631,15 @@ namespace View.Services.ViewModel
 
             recepents = Module.EliminarCorreosDuplicados(recepents);
 
-            return serviceEmail.SendEmailLotusCustom(_usuarioLogueado.Pathnsf, recepents, "Control de documentos -  Solicitud de aprobación de documento: " + codigoDocumento, body, files);
+            return serviceEmail.SendEmailLotusCustom(_usuarioLogueado.Pathnsf, recepents, "Control de documentos -  Solicitud de aprobación de documento: " + codigoDocumento, body, "CONTROL_DOCUMENTOS", idVersion);
+
+            //List<string> attachments = new List<string>();
+
+            //foreach (var item in files)
+            //{
+            //    attachments.Add(item);
+            //}
+            //return serviceEmail.SendEmailOutlook(recepents, "Control de documentos -  Solicitud de aprobación de documento: " + codigoDocumento, body, attachments);
         }
 
         /// <summary>
@@ -684,7 +694,7 @@ namespace View.Services.ViewModel
                     Process.Start(filename);
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorAbrir);
             }
@@ -811,7 +821,7 @@ namespace View.Services.ViewModel
             body += "</body>";
             body += "</HTML>";
 
-            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
+            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body, "CONTROL_DOCUMENTOS", 0);
             return respuesta;
 
         }
@@ -878,16 +888,14 @@ namespace View.Services.ViewModel
             body += "<ul>";
             body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> Para notificar que " + tipo_documento + " con el número <b> " + SelectedDocumento.nombre + "</b> versión <b> " + SelectedDocumento.version.no_version + ".0" + " </b> ha sido rechazado por los siguientes motivos: </font> </li>";
             body += "<br/>";
-            body += "<br/>";
-
             foreach (var item in ListaErroresSeleccionados)
             {
                 body += "<li><font font=\"verdana\" size=\"3\" color=\"black\"> <b>" + item.DESCRIPCION_ERROR + "</b></font></li>";
             }
 
             body += "</ul>";
+            body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Su documento se encuentra dentro de la plataforma diseño del proceso en la sección<b>Pendientes por corregir</b></font> </p>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Cualquier duda quedo a sus órdenes</font> </p>";
-            body += "<br/>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">Este correo se ha generado automáticamente, por favor no responda.</font> </p>";
             body += "<br/>";
             body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
@@ -903,7 +911,7 @@ namespace View.Services.ViewModel
             body += "</body>";
             body += "</HTML>";
 
-            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
+            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body, "CONTROL_DOCUMENTOS",0);
             return respuesta;
         }
 

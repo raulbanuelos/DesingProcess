@@ -1,0 +1,101 @@
+﻿<Controls:MetroWindow x:Class="View.Forms.RawMaterial.FactorContraccion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Forms.RawMaterial"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" ResizeMode="NoResize" BorderThickness="2" BorderBrush="Blue"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="Factores de contracción" Height="540" Width="400">
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="210"></RowDefinition>
+            <RowDefinition Height="250"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Material:</TextBlock>
+            <ComboBox  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Width="200" Cursor="Hand"
+                       ItemsSource="{Binding ListaEspecificacionesMateriaPrima}" SelectedItem="{Binding MaterialSelected}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction
+									Command="{Binding CalcularFactores}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" IsChecked="{Binding IsLB}">LB</CheckBox>
+        </StackPanel>
+        <GroupBox Grid.Row="1" Margin="5" Header="Factores">
+            <Grid ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170"></ColumnDefinition>
+                    <ColumnDefinition Width="85"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">%</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Diámetro exterior mayor B:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Text="{Binding FactorContraccion.DIA_EXT_MAYOR, StringFormat={}{0:0.00000}}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FactorContraccion.ExtB, StringFormat={}{0:0.00000}}"></TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">Diámetro exterior menor:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Text="{Binding FactorContraccion.DIA_EXT_MENOR,StringFormat={}{0:0.00000}}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FactorContraccion.ExtMenor, StringFormat={}{0:0.00000}}"></TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Width:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Text="{Binding FactorContraccion.F_WIDTH, StringFormat={}{0:0.00000}}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FactorContraccion.Width_M, StringFormat={}{0:0.00000}}"></TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right">Thickness:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Text="{Binding FactorContraccion.F_THICKNESS, StringFormat={}{0:0.00000}}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FactorContraccion.Thickness_M, StringFormat={}{0:0.00000}}"></TextBlock>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Margin="5" Header="Casting">
+            <Grid ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170"></ColumnDefinition>
+                    <ColumnDefinition Width="85"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap">Dim. Aprox. de casting</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap">Dim. de Pattern</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Dimensión B del modelo (OLD):</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Text="{Binding SelectedPattern.B_Dia.Valor, StringFormat={}{0:0.00000}}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FactorContraccion.C_OLD, StringFormat={}{0:0.00000}}"></TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">Diámetro exterior menor (OSD):</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Text="{Binding SelectedPattern.patt_sm_od.Valor, StringFormat={}{0:0.00000}}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FactorContraccion.C_OSD, StringFormat={}{0:0.00000}}"></TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Width:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Text="{Binding SelectedPattern.diametro.Valor, StringFormat={}{0:0.00000}}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FactorContraccion.C_WIDTH, StringFormat={}{0:0.00000}}"></TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right">Thickness:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Text="{Binding SelectedPattern.patt_thickness.Valor,StringFormat={}{0:0.00000}}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FactorContraccion.C_THICKNESS, StringFormat={}{0:0.00000}}"></TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right">Throw:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Text="{Binding Throw, StringFormat={}{0:0.00000}}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FactorContraccion.C_THROW, StringFormat={}{0:0.00000}}"></TextBlock>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Controls:MetroWindow>

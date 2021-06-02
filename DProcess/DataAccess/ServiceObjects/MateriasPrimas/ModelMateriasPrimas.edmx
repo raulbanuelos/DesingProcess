@@ -146,8 +146,8 @@
           <Property Name="largo" Type="float" />
           <Property Name="peso" Type="float" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RGP2-PBA.dbo.Esp_MP_Anillos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Esp_MP_Anillos">
           <Key>
             <PropertyRef Name="id_material" />
@@ -166,6 +166,26 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="Ref10" Type="varchar" MaxLength="50" />
           <Property Name="Ref11" Type="varchar" MaxLength="50" />
           <Property Name="Ref12" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FactorContraccion">
+          <Key>
+            <PropertyRef Name="Material" />
+          </Key>
+          <Property Name="Material" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="fDiametroExtMayorB" Type="float" />
+          <Property Name="fDiametroExtMenor" Type="float" />
+          <Property Name="fWidth" Type="float" />
+          <Property Name="fThickness" Type="float" />
+        </EntityType>
+        <EntityType Name="FactorContraccionLB">
+          <Key>
+            <PropertyRef Name="Material" />
+          </Key>
+          <Property Name="Material" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="fDiametroExtMayorB" Type="float" />
+          <Property Name="fDiametroExtMenor" Type="float" />
+          <Property Name="fWidth" Type="float" />
+          <Property Name="fThickness" Type="float" />
         </EntityType>
         <EntityType Name="material">
           <Key>
@@ -199,18 +219,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="Width_Max" Type="float" />
           <Property Name="Detalle" Type="char" MaxLength="10" />
           <Property Name="Altura_Gate" Type="float" />
-        </EntityType>
-        <EntityType Name="patt_actualizaciones">
-          <Key>
-            <PropertyRef Name="id_patt_actualizaciones" />
-          </Key>
-          <Property Name="codigo_patt" Type="char" MaxLength="12" Nullable="false" />
-          <Property Name="consec_fabr" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="fecha" Type="varchar" MaxLength="50" />
-          <Property Name="nivel" Type="char" MaxLength="2" />
-          <Property Name="actualizaciones" Type="varchar" MaxLength="1000" />
-          <Property Name="observaciones" Type="varchar" MaxLength="1000" />
-          <Property Name="id_patt_actualizaciones" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Pattern2">
           <Key>
@@ -356,6 +364,34 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FactorContraccion_material">
+          <End Role="material" Type="Self.material" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FactorContraccion" Type="Self.FactorContraccion" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FactorContraccion">
+              <PropertyRef Name="Material" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FactorContraccionLB_material">
+          <End Role="material" Type="Self.material" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FactorContraccionLB" Type="Self.FactorContraccionLB" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FactorContraccionLB">
+              <PropertyRef Name="Material" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ID_MATERIAL">
           <End Role="material" Type="Self.material" Multiplicity="0..1" />
           <End Role="CAT_MATERIA_PRIMA_ACEROS" Type="Self.CAT_MATERIA_PRIMA_ACEROS" Multiplicity="*" />
@@ -365,20 +401,6 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
             </Principal>
             <Dependent Role="CAT_MATERIA_PRIMA_ACEROS">
               <PropertyRef Name="ID_MATERIAL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_patt_actualizaciones_Pattern2">
-          <End Role="Pattern2" Type="Self.Pattern2" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="patt_actualizaciones" Type="Self.patt_actualizaciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pattern2">
-              <PropertyRef Name="codigo" />
-            </Principal>
-            <Dependent Role="patt_actualizaciones">
-              <PropertyRef Name="codigo_patt" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -415,10 +437,11 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <EntitySet Name="Compensacion_Piece" EntityType="Self.Compensacion_Piece" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriteriosSegmentos_" EntityType="Self.CriteriosSegmentos_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cuffs" EntityType="Self.cuffs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactorContraccion" EntityType="Self.FactorContraccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactorContraccionLB" EntityType="Self.FactorContraccionLB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="material" EntityType="Self.material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MoutingDia" EntityType="Self.MoutingDia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MoutingWidth" EntityType="Self.MoutingWidth" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="patt_actualizaciones" EntityType="Self.patt_actualizaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pattern2" EntityType="Self.Pattern2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Anillo" EntityType="Self.Tipo_Anillo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Materia_Prima" EntityType="Self.Tipo_Materia_Prima" Schema="dbo" store:Type="Tables" />
@@ -458,13 +481,17 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
             <End Role="material" EntitySet="material" />
             <End Role="Esp_MP_Anillos" EntitySet="Esp_MP_Anillos" />
           </AssociationSet>
+          <AssociationSet Name="FK_FactorContraccion_material" Association="Self.FK_FactorContraccion_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="FactorContraccion" EntitySet="FactorContraccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FactorContraccionLB_material" Association="Self.FK_FactorContraccionLB_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="FactorContraccionLB" EntitySet="FactorContraccionLB" />
+          </AssociationSet>
           <AssociationSet Name="FK_ID_MATERIAL" Association="Self.FK_ID_MATERIAL">
             <End Role="material" EntitySet="material" />
             <End Role="CAT_MATERIA_PRIMA_ACEROS" EntitySet="CAT_MATERIA_PRIMA_ACEROS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_patt_actualizaciones_Pattern2" Association="Self.FK_patt_actualizaciones_Pattern2">
-            <End Role="Pattern2" EntitySet="Pattern2" />
-            <End Role="patt_actualizaciones" EntitySet="patt_actualizaciones" />
           </AssociationSet>
           <AssociationSet Name="FK_Pattern2_Cliente" Association="Self.FK_Pattern2_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -479,19 +506,170 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataAccess.ServiceObjects.MateriasPrimas" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Cliente">
+        <EntityContainer Name="EntitiesMateriaPrima" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FactorContraccion" EntityType="DataAccess.ServiceObjects.MateriasPrimas.FactorContraccion" />
+          <EntitySet Name="FactorContraccionLB" EntityType="DataAccess.ServiceObjects.MateriasPrimas.FactorContraccionLB" />
+          <EntitySet Name="material" EntityType="DataAccess.ServiceObjects.MateriasPrimas.material" />
+          <AssociationSet Name="FK_FactorContraccion_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_FactorContraccion_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="FactorContraccion" EntitySet="FactorContraccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FactorContraccionLB_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_FactorContraccionLB_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="FactorContraccionLB" EntitySet="FactorContraccionLB" />
+          </AssociationSet>
+          <EntitySet Name="CAT_MATERIA_PRIMA_ACEROS" EntityType="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ACEROS" />
+          <EntitySet Name="CAT_MATERIA_PRIMA_ROLADO" EntityType="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO" />
+          <EntitySet Name="Compensacion_Piece" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" />
+          <EntitySet Name="Pattern2" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Pattern2" />
+          <EntitySet Name="Esp_MP_Anillos" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Esp_MP_Anillos" />
+          <AssociationSet Name="FK_ID_MATERIAL" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_ID_MATERIAL">
+            <End Role="material" EntitySet="material" />
+            <End Role="CAT_MATERIA_PRIMA_ACEROS" EntitySet="CAT_MATERIA_PRIMA_ACEROS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAT_MATERIA_PRIMA_ROLADO_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="CAT_MATERIA_PRIMA_ROLADO" EntitySet="CAT_MATERIA_PRIMA_ROLADO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compensacion_Piece_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="Compensacion_Piece" EntitySet="Compensacion_Piece" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Esp_MP_Anillos_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="Esp_MP_Anillos" EntitySet="Esp_MP_Anillos" />
+          </AssociationSet>
+          <EntitySet Name="cuffs" EntityType="DataAccess.ServiceObjects.MateriasPrimas.cuffs" />
+          <EntitySet Name="MoutingWidth" EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingWidth" />
+          <EntitySet Name="TubosCL" EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosCL" />
+          <EntitySet Name="TubosHD" EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosHD" />
+          <EntitySet Name="Cliente" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Cliente" />
+          <EntitySet Name="CriteriosSegmentos_" EntityType="DataAccess.ServiceObjects.MateriasPrimas.CriteriosSegmentos_" />
+          <AssociationSet Name="FK_Pattern2_Cliente" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pattern2" EntitySet="Pattern2" />
+          </AssociationSet>
+          <EntitySet Name="castings_widths" EntityType="DataAccess.ServiceObjects.MateriasPrimas.castings_widths" />
+          <EntitySet Name="Coating" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Coating" />
+          <EntitySet Name="Tipo_Anillo" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo" />
+          <EntitySet Name="Tipo_Materia_Prima" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima" />
+          <AssociationSet Name="FK_Compensacion_Piece_Tipo_Anillo" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo">
+            <End Role="Tipo_Anillo" EntitySet="Tipo_Anillo" />
+            <End Role="Compensacion_Piece" EntitySet="Compensacion_Piece" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pattern2_Tipo_Materia_Prima" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima">
+            <End Role="Tipo_Materia_Prima" EntitySet="Tipo_Materia_Prima" />
+            <End Role="Pattern2" EntitySet="Pattern2" />
+          </AssociationSet>
+          <EntitySet Name="MoutingDia" EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingDia" />
+          </EntityContainer>
+        <EntityType Name="FactorContraccion">
           <Key>
-            <PropertyRef Name="id_cliente" />
+            <PropertyRef Name="Material" />
           </Key>
-          <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Cliente1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Pattern2" Relationship="Self.FK_Pattern2_Cliente" FromRole="Cliente" ToRole="Pattern2" />
+          <Property Name="Material" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="fDiametroExtMayorB" Type="Double" />
+          <Property Name="fDiametroExtMenor" Type="Double" />
+          <Property Name="fWidth" Type="Double" />
+          <Property Name="fThickness" Type="Double" />
+          <NavigationProperty Name="material1" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_FactorContraccion_material" FromRole="FactorContraccion" ToRole="material" />
+        </EntityType>
+        <EntityType Name="FactorContraccionLB">
+          <Key>
+            <PropertyRef Name="Material" />
+          </Key>
+          <Property Name="Material" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="fDiametroExtMayorB" Type="Double" />
+          <Property Name="fDiametroExtMenor" Type="Double" />
+          <Property Name="fWidth" Type="Double" />
+          <Property Name="fThickness" Type="Double" />
+          <NavigationProperty Name="material1" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_FactorContraccionLB_material" FromRole="FactorContraccionLB" ToRole="material" />
+        </EntityType>
+        <EntityType Name="material">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Recomendado" Type="Boolean" />
+          <NavigationProperty Name="FactorContraccion" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_FactorContraccion_material" FromRole="material" ToRole="FactorContraccion" />
+          <NavigationProperty Name="FactorContraccionLB" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_FactorContraccionLB_material" FromRole="material" ToRole="FactorContraccionLB" />
+          <NavigationProperty Name="CAT_MATERIA_PRIMA_ACEROS" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_ID_MATERIAL" FromRole="material" ToRole="CAT_MATERIA_PRIMA_ACEROS" />
+          <NavigationProperty Name="CAT_MATERIA_PRIMA_ROLADO" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material" FromRole="material" ToRole="CAT_MATERIA_PRIMA_ROLADO" />
+          <NavigationProperty Name="Compensacion_Piece" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material" FromRole="material" ToRole="Compensacion_Piece" />
+          <NavigationProperty Name="Esp_MP_Anillos" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" FromRole="material" ToRole="Esp_MP_Anillos" />
+        </EntityType>
+        <Association Name="FK_FactorContraccion_material">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.FactorContraccion" Role="FactorContraccion" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FactorContraccion">
+              <PropertyRef Name="Material" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FactorContraccionLB_material">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.FactorContraccionLB" Role="FactorContraccionLB" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FactorContraccionLB">
+              <PropertyRef Name="Material" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CAT_MATERIA_PRIMA_ACEROS">
+          <Key>
+            <PropertyRef Name="CODIGO" />
+          </Key>
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="ID_MATERIAL" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="ESP_AXIAL" Type="Double" />
+          <Property Name="ESP_RADIAL" Type="Double" />
+          <Property Name="PROVEEDOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PROVEEDOR2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_ID_MATERIAL" FromRole="CAT_MATERIA_PRIMA_ACEROS" ToRole="material" />
+        </EntityType>
+        <EntityType Name="CAT_MATERIA_PRIMA_ROLADO">
+          <Key>
+            <PropertyRef Name="ID_MATERIA_PRIMA_ROLADO" />
+          </Key>
+          <Property Name="ID_MATERIA_PRIMA_ROLADO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="ID_ESPECIFICACION" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WIDTH" Type="Double" Nullable="false" />
+          <Property Name="GROOVE" Type="Double" Nullable="false" />
+          <Property Name="THICKNESS" Type="Double" Nullable="false" />
+          <Property Name="UBICACION" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ESPEC_PERFIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material" FromRole="CAT_MATERIA_PRIMA_ROLADO" ToRole="material" />
+        </EntityType>
+        <EntityType Name="Compensacion_Piece">
+          <Key>
+            <PropertyRef Name="IdCompensacionPiece" />
+          </Key>
+          <Property Name="IdCompensacionPiece" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMaterial" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="IdTipoAnillo" Type="Int32" />
+          <Property Name="Compensacion" Type="Double" />
+          <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material" FromRole="Compensacion_Piece" ToRole="material" />
+          <NavigationProperty Name="Tipo_Anillo" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo" FromRole="Compensacion_Piece" ToRole="Tipo_Anillo" />
         </EntityType>
         <EntityType Name="Pattern2">
           <Key>
             <PropertyRef Name="codigo" />
           </Key>
-          <Property Name="codigo" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="false" />
           <Property Name="MEDIDA" Type="Double" />
           <Property Name="DIAMETRO" Type="Double" />
           <Property Name="CUSTOMER" Type="Int32" />
@@ -538,115 +716,8 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="Plato" Type="Double" />
           <Property Name="Detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Diseno" Type="Boolean" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK_Pattern2_Cliente" FromRole="Pattern2" ToRole="Cliente" />
+          <NavigationProperty Name="Cliente" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Cliente" FromRole="Pattern2" ToRole="Cliente" />
           <NavigationProperty Name="Tipo_Materia_Prima" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima" FromRole="Pattern2" ToRole="Tipo_Materia_Prima" />
-          <NavigationProperty Name="patt_actualizaciones" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_patt_actualizaciones_Pattern2" FromRole="Pattern2" ToRole="patt_actualizaciones" />
-        </EntityType>
-        <Association Name="FK_Pattern2_Cliente">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
-          <End Role="Pattern2" Type="Self.Pattern2" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="id_cliente" />
-            </Principal>
-            <Dependent Role="Pattern2">
-              <PropertyRef Name="CUSTOMER" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="EntitiesMateriaPrima" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
-          <EntitySet Name="Pattern2" EntityType="Self.Pattern2" />
-          <AssociationSet Name="FK_Pattern2_Cliente" Association="Self.FK_Pattern2_Cliente">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="Pattern2" EntitySet="Pattern2" />
-          </AssociationSet>
-          <EntitySet Name="Tipo_Materia_Prima" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima" />
-          <AssociationSet Name="FK_Pattern2_Tipo_Materia_Prima" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima">
-            <End Role="Tipo_Materia_Prima" EntitySet="Tipo_Materia_Prima" />
-            <End Role="Pattern2" EntitySet="Pattern2" />
-          </AssociationSet>
-          <EntitySet Name="cuffs" EntityType="DataAccess.ServiceObjects.MateriasPrimas.cuffs" />
-          <EntitySet Name="material" EntityType="DataAccess.ServiceObjects.MateriasPrimas.material" />
-          <EntitySet Name="Esp_MP_Anillos" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Esp_MP_Anillos" />
-          <AssociationSet Name="FK_Esp_MP_Anillos_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material">
-            <End Role="material" EntitySet="material" />
-            <End Role="Esp_MP_Anillos" EntitySet="Esp_MP_Anillos" />
-          </AssociationSet>
-          <EntitySet Name="Coating" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Coating" />
-          <EntitySet Name="castings_widths" EntityType="DataAccess.ServiceObjects.MateriasPrimas.castings_widths" />
-          <EntitySet Name="Tipo_Anillo" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo" />
-          <EntitySet Name="CAT_MATERIA_PRIMA_ROLADO" EntityType="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO" />
-          <AssociationSet Name="FK_CAT_MATERIA_PRIMA_ROLADO_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material">
-            <End Role="material" EntitySet="material" />
-            <End Role="CAT_MATERIA_PRIMA_ROLADO" EntitySet="CAT_MATERIA_PRIMA_ROLADO" />
-          </AssociationSet>
-          <EntitySet Name="patt_actualizaciones" EntityType="DataAccess.ServiceObjects.MateriasPrimas.patt_actualizaciones" />
-          <AssociationSet Name="FK_patt_actualizaciones_Pattern2" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_patt_actualizaciones_Pattern2">
-            <End Role="Pattern2" EntitySet="Pattern2" />
-            <End Role="patt_actualizaciones" EntitySet="patt_actualizaciones" />
-          </AssociationSet>
-          <EntitySet Name="TubosCL" EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosCL" />
-          <EntitySet Name="TubosHD" EntityType="DataAccess.ServiceObjects.MateriasPrimas.TubosHD" />
-          <EntitySet Name="Compensacion_Piece" EntityType="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" />
-          <AssociationSet Name="FK_Compensacion_Piece_material" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material">
-            <End Role="material" EntitySet="material" />
-            <End Role="Compensacion_Piece" EntitySet="Compensacion_Piece" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Compensacion_Piece_Tipo_Anillo" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo">
-            <End Role="Tipo_Anillo" EntitySet="Tipo_Anillo" />
-            <End Role="Compensacion_Piece" EntitySet="Compensacion_Piece" />
-          </AssociationSet>
-          <EntitySet Name="CAT_MATERIA_PRIMA_ACEROS" EntityType="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ACEROS" />
-          <AssociationSet Name="FK_ID_MATERIAL" Association="DataAccess.ServiceObjects.MateriasPrimas.FK_ID_MATERIAL">
-            <End Role="material" EntitySet="material" />
-            <End Role="CAT_MATERIA_PRIMA_ACEROS" EntitySet="CAT_MATERIA_PRIMA_ACEROS" />
-          </AssociationSet>
-          <EntitySet Name="MoutingDia" EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingDia" />
-          <EntitySet Name="MoutingWidth" EntityType="DataAccess.ServiceObjects.MateriasPrimas.MoutingWidth" />
-          <EntitySet Name="CriteriosSegmentos_" EntityType="DataAccess.ServiceObjects.MateriasPrimas.CriteriosSegmentos_" />
-        </EntityContainer>
-        <EntityType Name="Tipo_Materia_Prima">
-          <Key>
-            <PropertyRef Name="id_tipo_mp" />
-          </Key>
-          <Property Name="id_tipo_mp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="materia_prima" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Pattern2" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima" FromRole="Tipo_Materia_Prima" ToRole="Pattern2" />
-        </EntityType>
-        <Association Name="FK_Pattern2_Tipo_Materia_Prima">
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima" Role="Tipo_Materia_Prima" Multiplicity="0..1" />
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Pattern2" Role="Pattern2" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tipo_Materia_Prima">
-              <PropertyRef Name="id_tipo_mp" />
-            </Principal>
-            <Dependent Role="Pattern2">
-              <PropertyRef Name="TIPO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="cuffs">
-          <Key>
-            <PropertyRef Name="no_cuff" />
-          </Key>
-          <Property Name="no_cuff" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="dia_ext" Type="Double" />
-          <Property Name="dia_int" Type="Double" />
-          <Property Name="largo" Type="Double" />
-          <Property Name="peso" Type="Double" />
-        </EntityType>
-        <EntityType Name="material">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
-          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Recomendado" Type="Boolean" />
-          <NavigationProperty Name="Esp_MP_Anillos" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" FromRole="material" ToRole="Esp_MP_Anillos" />
-          <NavigationProperty Name="CAT_MATERIA_PRIMA_ROLADO" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material" FromRole="material" ToRole="CAT_MATERIA_PRIMA_ROLADO" />
-          <NavigationProperty Name="Compensacion_Piece" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material" FromRole="material" ToRole="Compensacion_Piece" />
-          <NavigationProperty Name="CAT_MATERIA_PRIMA_ACEROS" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_ID_MATERIAL" FromRole="material" ToRole="CAT_MATERIA_PRIMA_ACEROS" />
         </EntityType>
         <EntityType Name="Esp_MP_Anillos">
           <Key>
@@ -668,6 +739,44 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="Ref12" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Esp_MP_Anillos_material" FromRole="Esp_MP_Anillos" ToRole="material" />
         </EntityType>
+        <Association Name="FK_ID_MATERIAL">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ACEROS" Role="CAT_MATERIA_PRIMA_ACEROS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CAT_MATERIA_PRIMA_ACEROS">
+              <PropertyRef Name="ID_MATERIAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAT_MATERIA_PRIMA_ROLADO_material">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="1" />
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO" Role="CAT_MATERIA_PRIMA_ROLADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CAT_MATERIA_PRIMA_ROLADO">
+              <PropertyRef Name="ID_ESPECIFICACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compensacion_Piece_material">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" Role="Compensacion_Piece" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Compensacion_Piece">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Esp_MP_Anillos_material">
           <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -682,88 +791,26 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Coating">
+        <EntityType Name="cuffs">
           <Key>
-            <PropertyRef Name="ident" />
+            <PropertyRef Name="no_cuff" />
           </Key>
-          <Property Name="ident" Type="Int32" Nullable="false" />
-          <Property Name="NombreCoating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="no_cuff" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="dia_ext" Type="Double" />
+          <Property Name="dia_int" Type="Double" />
+          <Property Name="largo" Type="Double" />
+          <Property Name="peso" Type="Double" />
         </EntityType>
-        <EntityType Name="castings_widths">
+        <EntityType Name="MoutingWidth">
           <Key>
-            <PropertyRef Name="Codigo" />
+            <PropertyRef Name="Id_MountingWidth" />
           </Key>
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="Nominal_Ring_Width_min" Type="Double" />
-          <Property Name="Nominal_Ring_Width_max" Type="Double" />
-          <Property Name="Minimum_casting_width" Type="Double" />
-          <Property Name="ideal_casting_Width" Type="Double" />
-          <Property Name="tipo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Id_MountingWidth" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Width_Min" Type="Double" />
+          <Property Name="Width_Max" Type="Double" />
+          <Property Name="Detalle" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Altura_Gate" Type="Double" />
         </EntityType>
-        <EntityType Name="Tipo_Anillo">
-          <Key>
-            <PropertyRef Name="Id_Tipo" />
-          </Key>
-          <Property Name="Id_Tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Recubrimiento" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
-          <Property Name="Diseno" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Compensacion_Piece" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo" FromRole="Tipo_Anillo" ToRole="Compensacion_Piece" />
-        </EntityType>
-        <EntityType Name="CAT_MATERIA_PRIMA_ROLADO">
-          <Key>
-            <PropertyRef Name="ID_MATERIA_PRIMA_ROLADO" />
-          </Key>
-          <Property Name="ID_MATERIA_PRIMA_ROLADO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="ID_ESPECIFICACION" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="UM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WIDTH" Type="Double" Nullable="false" />
-          <Property Name="GROOVE" Type="Double" Nullable="false" />
-          <Property Name="THICKNESS" Type="Double" Nullable="false" />
-          <Property Name="UBICACION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ESPEC_PERFIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_CAT_MATERIA_PRIMA_ROLADO_material" FromRole="CAT_MATERIA_PRIMA_ROLADO" ToRole="material" />
-        </EntityType>
-        <Association Name="FK_CAT_MATERIA_PRIMA_ROLADO_material">
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="1" />
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO" Role="CAT_MATERIA_PRIMA_ROLADO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="material">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="CAT_MATERIA_PRIMA_ROLADO">
-              <PropertyRef Name="ID_ESPECIFICACION" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="patt_actualizaciones">
-          <Key>
-            <PropertyRef Name="id_patt_actualizaciones" />
-          </Key>
-          <Property Name="codigo_patt" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="false" />
-          <Property Name="consec_fabr" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="fecha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="nivel" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="actualizaciones" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="observaciones" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="id_patt_actualizaciones" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Pattern2" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_patt_actualizaciones_Pattern2" FromRole="patt_actualizaciones" ToRole="Pattern2" />
-        </EntityType>
-        <Association Name="FK_patt_actualizaciones_Pattern2">
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Pattern2" Role="Pattern2" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.patt_actualizaciones" Role="patt_actualizaciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pattern2">
-              <PropertyRef Name="codigo" />
-            </Principal>
-            <Dependent Role="patt_actualizaciones">
-              <PropertyRef Name="codigo_patt" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="TubosCL">
           <Key>
             <PropertyRef Name="Tubo" />
@@ -786,93 +833,13 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="Molde" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RPM" Type="Int32" />
         </EntityType>
-        <EntityType Name="Compensacion_Piece">
+        <EntityType Name="Cliente">
           <Key>
-            <PropertyRef Name="IdCompensacionPiece" />
+            <PropertyRef Name="id_cliente" />
           </Key>
-          <Property Name="IdCompensacionPiece" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdMaterial" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
-          <Property Name="IdTipoAnillo" Type="Int32" />
-          <Property Name="Compensacion" Type="Double" />
-          <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_material" FromRole="Compensacion_Piece" ToRole="material" />
-          <NavigationProperty Name="Tipo_Anillo" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo" FromRole="Compensacion_Piece" ToRole="Tipo_Anillo" />
-        </EntityType>
-        <Association Name="FK_Compensacion_Piece_material">
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" Role="Compensacion_Piece" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="material">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Compensacion_Piece">
-              <PropertyRef Name="IdMaterial" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Compensacion_Piece_Tipo_Anillo">
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo" Role="Tipo_Anillo" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" Role="Compensacion_Piece" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tipo_Anillo">
-              <PropertyRef Name="Id_Tipo" />
-            </Principal>
-            <Dependent Role="Compensacion_Piece">
-              <PropertyRef Name="IdTipoAnillo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="CAT_MATERIA_PRIMA_ACEROS">
-          <Key>
-            <PropertyRef Name="CODIGO" />
-          </Key>
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="ID_MATERIAL" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
-          <Property Name="ESP_AXIAL" Type="Double" />
-          <Property Name="ESP_RADIAL" Type="Double" />
-          <Property Name="PROVEEDOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PROVEEDOR2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="material" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_ID_MATERIAL" FromRole="CAT_MATERIA_PRIMA_ACEROS" ToRole="material" />
-        </EntityType>
-        <Association Name="FK_ID_MATERIAL">
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.material" Role="material" Multiplicity="0..1" />
-          <End Type="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ACEROS" Role="CAT_MATERIA_PRIMA_ACEROS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="material">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="CAT_MATERIA_PRIMA_ACEROS">
-              <PropertyRef Name="ID_MATERIAL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="MoutingDia">
-          <Key>
-            <PropertyRef Name="Id_MountingDia" />
-          </Key>
-          <Property Name="Id_MountingDia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Plato" Type="Double" />
-          <Property Name="Dia_B_min" Type="Double" />
-          <Property Name="Dia_B_max" Type="Double" />
-          <Property Name="No_impresiones" Type="Int32" />
-          <Property Name="Gate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Medios_Circulos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Boton" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Conos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ord" Type="Int32" />
-        </EntityType>
-        <EntityType Name="MoutingWidth">
-          <Key>
-            <PropertyRef Name="Id_MountingWidth" />
-          </Key>
-          <Property Name="Id_MountingWidth" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Width_Min" Type="Double" />
-          <Property Name="Width_Max" Type="Double" />
-          <Property Name="Detalle" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="Altura_Gate" Type="Double" />
+          <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cliente1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pattern2" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Cliente" FromRole="Cliente" ToRole="Pattern2" />
         </EntityType>
         <EntityType Name="CriteriosSegmentos_">
           <Key>
@@ -946,89 +913,120 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
           <Property Name="CromoIntCollarMin" Type="Double" />
           <Property Name="CromoIntCollarMax" Type="Double" />
         </EntityType>
-      </Schema>
+        <Association Name="FK_Pattern2_Cliente">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Cliente" Role="Cliente" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Pattern2" Role="Pattern2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Pattern2">
+              <PropertyRef Name="CUSTOMER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="castings_widths">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Nominal_Ring_Width_min" Type="Double" />
+          <Property Name="Nominal_Ring_Width_max" Type="Double" />
+          <Property Name="Minimum_casting_width" Type="Double" />
+          <Property Name="ideal_casting_Width" Type="Double" />
+          <Property Name="tipo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Coating">
+          <Key>
+            <PropertyRef Name="ident" />
+          </Key>
+          <Property Name="ident" Type="Int32" Nullable="false" />
+          <Property Name="NombreCoating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tipo_Anillo">
+          <Key>
+            <PropertyRef Name="Id_Tipo" />
+          </Key>
+          <Property Name="Id_Tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Recubrimiento" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Diseno" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Compensacion_Piece" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Compensacion_Piece_Tipo_Anillo" FromRole="Tipo_Anillo" ToRole="Compensacion_Piece" />
+        </EntityType>
+        <EntityType Name="Tipo_Materia_Prima">
+          <Key>
+            <PropertyRef Name="id_tipo_mp" />
+          </Key>
+          <Property Name="id_tipo_mp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="materia_prima" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pattern2" Relationship="DataAccess.ServiceObjects.MateriasPrimas.FK_Pattern2_Tipo_Materia_Prima" FromRole="Tipo_Materia_Prima" ToRole="Pattern2" />
+        </EntityType>
+        <Association Name="FK_Compensacion_Piece_Tipo_Anillo">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo" Role="Tipo_Anillo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece" Role="Compensacion_Piece" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Anillo">
+              <PropertyRef Name="Id_Tipo" />
+            </Principal>
+            <Dependent Role="Compensacion_Piece">
+              <PropertyRef Name="IdTipoAnillo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pattern2_Tipo_Materia_Prima">
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima" Role="Tipo_Materia_Prima" Multiplicity="0..1" />
+          <End Type="DataAccess.ServiceObjects.MateriasPrimas.Pattern2" Role="Pattern2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Materia_Prima">
+              <PropertyRef Name="id_tipo_mp" />
+            </Principal>
+            <Dependent Role="Pattern2">
+              <PropertyRef Name="TIPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MoutingDia">
+          <Key>
+            <PropertyRef Name="Id_MountingDia" />
+          </Key>
+          <Property Name="Id_MountingDia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Plato" Type="Double" />
+          <Property Name="Dia_B_min" Type="Double" />
+          <Property Name="Dia_B_max" Type="Double" />
+          <Property Name="No_impresiones" Type="Int32" />
+          <Property Name="Gate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Medios_Circulos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Boton" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Conos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ord" Type="Int32" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DataAccessServiceObjectsMateriasPrimasStoreContainer" CdmEntityContainer="EntitiesMateriaPrima">
-          <EntitySetMapping Name="Cliente">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Cliente">
-              <MappingFragment StoreEntitySet="Cliente">
-                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
-                <ScalarProperty Name="Cliente1" ColumnName="Cliente" />
+          <EntitySetMapping Name="FactorContraccion">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.FactorContraccion">
+              <MappingFragment StoreEntitySet="FactorContraccion">
+                <ScalarProperty Name="fThickness" ColumnName="fThickness" />
+                <ScalarProperty Name="fWidth" ColumnName="fWidth" />
+                <ScalarProperty Name="fDiametroExtMenor" ColumnName="fDiametroExtMenor" />
+                <ScalarProperty Name="fDiametroExtMayorB" ColumnName="fDiametroExtMayorB" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Pattern2">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Pattern2">
-              <MappingFragment StoreEntitySet="Pattern2">
-                <ScalarProperty Name="codigo" ColumnName="codigo" />
-                <ScalarProperty Name="MEDIDA" ColumnName="MEDIDA" />
-                <ScalarProperty Name="DIAMETRO" ColumnName="DIAMETRO" />
-                <ScalarProperty Name="CUSTOMER" ColumnName="CUSTOMER" />
-                <ScalarProperty Name="MOUNTING" ColumnName="MOUNTING" />
-                <ScalarProperty Name="ON_14_RD_GATE" ColumnName="ON_14_RD_GATE" />
-                <ScalarProperty Name="BUTTON" ColumnName="BUTTON" />
-                <ScalarProperty Name="CONE" ColumnName="CONE" />
-                <ScalarProperty Name="M_CIRCLE" ColumnName="M_CIRCLE" />
-                <ScalarProperty Name="RING_WTH_min" ColumnName="RING_WTH_min" />
-                <ScalarProperty Name="RING_WTH_max" ColumnName="RING_WTH_max" />
-                <ScalarProperty Name="DATE_ORDERED" ColumnName="DATE_ORDERED" />
-                <ScalarProperty Name="B_DIA" ColumnName="B_DIA" />
-                <ScalarProperty Name="FIN_DIA" ColumnName="FIN_DIA" />
-                <ScalarProperty Name="TURN_ALLOW" ColumnName="TURN_ALLOW" />
-                <ScalarProperty Name="CSTG_SM_OD" ColumnName="CSTG_SM_OD" />
-                <ScalarProperty Name="SHRINK_ALLOW" ColumnName="SHRINK_ALLOW" />
-                <ScalarProperty Name="PATT_SM_OD" ColumnName="PATT_SM_OD" />
-                <ScalarProperty Name="PIECE_IN_PATT" ColumnName="PIECE_IN_PATT" />
-                <ScalarProperty Name="BORE_ALLOW" ColumnName="BORE_ALLOW" />
-                <ScalarProperty Name="PATT_SM_ID" ColumnName="PATT_SM_ID" />
-                <ScalarProperty Name="PATT_THICKNESS" ColumnName="PATT_THICKNESS" />
-                <ScalarProperty Name="JOINT" ColumnName="JOINT" />
-                <ScalarProperty Name="NICK" ColumnName="NICK" />
-                <ScalarProperty Name="NICK_DRAF" ColumnName="NICK_DRAF" />
-                <ScalarProperty Name="NICK_DEPTH" ColumnName="NICK_DEPTH" />
-                <ScalarProperty Name="SIDE_RELIEF" ColumnName="SIDE_RELIEF" />
-                <ScalarProperty Name="CAM" ColumnName="CAM" />
-                <ScalarProperty Name="CAM_ROLL" ColumnName="CAM_ROLL" />
-                <ScalarProperty Name="RISE" ColumnName="RISE" />
-                <ScalarProperty Name="OD" ColumnName="OD" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="DIFF" ColumnName="DIFF" />
-                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
-                <ScalarProperty Name="mounted" ColumnName="mounted" />
-                <ScalarProperty Name="ordered" ColumnName="ordered" />
-                <ScalarProperty Name="checked" ColumnName="checked" />
-                <ScalarProperty Name="date_checked" ColumnName="date_checked" />
-                <ScalarProperty Name="esp_inst" ColumnName="esp_inst" />
-                <ScalarProperty Name="factor_k" ColumnName="factor_k" />
-                <ScalarProperty Name="rise_built" ColumnName="rise_built" />
-                <ScalarProperty Name="ring_th_min" ColumnName="ring_th_min" />
-                <ScalarProperty Name="ring_th_max" ColumnName="ring_th_max" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="Plato" ColumnName="Plato" />
-                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
-                <ScalarProperty Name="Diseno" ColumnName="Diseno" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tipo_Materia_Prima">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima">
-              <MappingFragment StoreEntitySet="Tipo_Materia_Prima">
-                <ScalarProperty Name="materia_prima" ColumnName="materia_prima" />
-                <ScalarProperty Name="id_tipo_mp" ColumnName="id_tipo_mp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cuffs">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.cuffs">
-              <MappingFragment StoreEntitySet="cuffs">
-                <ScalarProperty Name="peso" ColumnName="peso" />
-                <ScalarProperty Name="largo" ColumnName="largo" />
-                <ScalarProperty Name="dia_int" ColumnName="dia_int" />
-                <ScalarProperty Name="dia_ext" ColumnName="dia_ext" />
-                <ScalarProperty Name="no_cuff" ColumnName="no_cuff" />
+          <EntitySetMapping Name="FactorContraccionLB">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.FactorContraccionLB">
+              <MappingFragment StoreEntitySet="FactorContraccionLB">
+                <ScalarProperty Name="fThickness" ColumnName="fThickness" />
+                <ScalarProperty Name="fWidth" ColumnName="fWidth" />
+                <ScalarProperty Name="fDiametroExtMenor" ColumnName="fDiametroExtMenor" />
+                <ScalarProperty Name="fDiametroExtMayorB" ColumnName="fDiametroExtMayorB" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1038,6 +1036,96 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
                 <ScalarProperty Name="Recomendado" ColumnName="Recomendado" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_MATERIA_PRIMA_ACEROS">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ACEROS">
+              <MappingFragment StoreEntitySet="CAT_MATERIA_PRIMA_ACEROS">
+                <ScalarProperty Name="PROVEEDOR2" ColumnName="PROVEEDOR2" />
+                <ScalarProperty Name="PROVEEDOR" ColumnName="PROVEEDOR" />
+                <ScalarProperty Name="ESP_RADIAL" ColumnName="ESP_RADIAL" />
+                <ScalarProperty Name="ESP_AXIAL" ColumnName="ESP_AXIAL" />
+                <ScalarProperty Name="ID_MATERIAL" ColumnName="ID_MATERIAL" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_MATERIA_PRIMA_ROLADO">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO">
+              <MappingFragment StoreEntitySet="CAT_MATERIA_PRIMA_ROLADO">
+                <ScalarProperty Name="ESPEC_PERFIL" ColumnName="ESPEC_PERFIL" />
+                <ScalarProperty Name="UBICACION" ColumnName="UBICACION" />
+                <ScalarProperty Name="THICKNESS" ColumnName="THICKNESS" />
+                <ScalarProperty Name="GROOVE" ColumnName="GROOVE" />
+                <ScalarProperty Name="WIDTH" ColumnName="WIDTH" />
+                <ScalarProperty Name="UM" ColumnName="UM" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ID_ESPECIFICACION" ColumnName="ID_ESPECIFICACION" />
+                <ScalarProperty Name="ID_MATERIA_PRIMA_ROLADO" ColumnName="ID_MATERIA_PRIMA_ROLADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compensacion_Piece">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece">
+              <MappingFragment StoreEntitySet="Compensacion_Piece">
+                <ScalarProperty Name="Compensacion" ColumnName="Compensacion" />
+                <ScalarProperty Name="IdTipoAnillo" ColumnName="IdTipoAnillo" />
+                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
+                <ScalarProperty Name="IdCompensacionPiece" ColumnName="IdCompensacionPiece" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pattern2">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Pattern2">
+              <MappingFragment StoreEntitySet="Pattern2">
+                <ScalarProperty Name="Diseno" ColumnName="Diseno" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="Plato" ColumnName="Plato" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="ring_th_max" ColumnName="ring_th_max" />
+                <ScalarProperty Name="ring_th_min" ColumnName="ring_th_min" />
+                <ScalarProperty Name="rise_built" ColumnName="rise_built" />
+                <ScalarProperty Name="factor_k" ColumnName="factor_k" />
+                <ScalarProperty Name="esp_inst" ColumnName="esp_inst" />
+                <ScalarProperty Name="date_checked" ColumnName="date_checked" />
+                <ScalarProperty Name="checked" ColumnName="checked" />
+                <ScalarProperty Name="ordered" ColumnName="ordered" />
+                <ScalarProperty Name="mounted" ColumnName="mounted" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="DIFF" ColumnName="DIFF" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OD" ColumnName="OD" />
+                <ScalarProperty Name="RISE" ColumnName="RISE" />
+                <ScalarProperty Name="CAM_ROLL" ColumnName="CAM_ROLL" />
+                <ScalarProperty Name="CAM" ColumnName="CAM" />
+                <ScalarProperty Name="SIDE_RELIEF" ColumnName="SIDE_RELIEF" />
+                <ScalarProperty Name="NICK_DEPTH" ColumnName="NICK_DEPTH" />
+                <ScalarProperty Name="NICK_DRAF" ColumnName="NICK_DRAF" />
+                <ScalarProperty Name="NICK" ColumnName="NICK" />
+                <ScalarProperty Name="JOINT" ColumnName="JOINT" />
+                <ScalarProperty Name="PATT_THICKNESS" ColumnName="PATT_THICKNESS" />
+                <ScalarProperty Name="PATT_SM_ID" ColumnName="PATT_SM_ID" />
+                <ScalarProperty Name="BORE_ALLOW" ColumnName="BORE_ALLOW" />
+                <ScalarProperty Name="PIECE_IN_PATT" ColumnName="PIECE_IN_PATT" />
+                <ScalarProperty Name="PATT_SM_OD" ColumnName="PATT_SM_OD" />
+                <ScalarProperty Name="SHRINK_ALLOW" ColumnName="SHRINK_ALLOW" />
+                <ScalarProperty Name="CSTG_SM_OD" ColumnName="CSTG_SM_OD" />
+                <ScalarProperty Name="TURN_ALLOW" ColumnName="TURN_ALLOW" />
+                <ScalarProperty Name="FIN_DIA" ColumnName="FIN_DIA" />
+                <ScalarProperty Name="B_DIA" ColumnName="B_DIA" />
+                <ScalarProperty Name="DATE_ORDERED" ColumnName="DATE_ORDERED" />
+                <ScalarProperty Name="RING_WTH_max" ColumnName="RING_WTH_max" />
+                <ScalarProperty Name="RING_WTH_min" ColumnName="RING_WTH_min" />
+                <ScalarProperty Name="M_CIRCLE" ColumnName="M_CIRCLE" />
+                <ScalarProperty Name="CONE" ColumnName="CONE" />
+                <ScalarProperty Name="BUTTON" ColumnName="BUTTON" />
+                <ScalarProperty Name="ON_14_RD_GATE" ColumnName="ON_14_RD_GATE" />
+                <ScalarProperty Name="MOUNTING" ColumnName="MOUNTING" />
+                <ScalarProperty Name="CUSTOMER" ColumnName="CUSTOMER" />
+                <ScalarProperty Name="DIAMETRO" ColumnName="DIAMETRO" />
+                <ScalarProperty Name="MEDIDA" ColumnName="MEDIDA" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1061,61 +1149,25 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Coating">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Coating">
-              <MappingFragment StoreEntitySet="Coating">
-                <ScalarProperty Name="NombreCoating" ColumnName="NombreCoating" />
-                <ScalarProperty Name="ident" ColumnName="ident" />
+          <EntitySetMapping Name="cuffs">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.cuffs">
+              <MappingFragment StoreEntitySet="cuffs">
+                <ScalarProperty Name="peso" ColumnName="peso" />
+                <ScalarProperty Name="largo" ColumnName="largo" />
+                <ScalarProperty Name="dia_int" ColumnName="dia_int" />
+                <ScalarProperty Name="dia_ext" ColumnName="dia_ext" />
+                <ScalarProperty Name="no_cuff" ColumnName="no_cuff" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="castings_widths">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.castings_widths">
-              <MappingFragment StoreEntitySet="castings_widths">
-                <ScalarProperty Name="tipo" ColumnName="tipo" />
-                <ScalarProperty Name="ideal_casting_Width" ColumnName="ideal_casting_Width" />
-                <ScalarProperty Name="Minimum_casting_width" ColumnName="Minimum_casting_width" />
-                <ScalarProperty Name="Nominal_Ring_Width_max" ColumnName="Nominal_Ring_Width_max" />
-                <ScalarProperty Name="Nominal_Ring_Width_min" ColumnName="Nominal_Ring_Width_min" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tipo_Anillo">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo">
-              <MappingFragment StoreEntitySet="Tipo_Anillo">
-                <ScalarProperty Name="Diseno" ColumnName="Diseno" />
-                <ScalarProperty Name="Recubrimiento" ColumnName="Recubrimiento" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="Id_Tipo" ColumnName="Id_Tipo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CAT_MATERIA_PRIMA_ROLADO">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ROLADO">
-              <MappingFragment StoreEntitySet="CAT_MATERIA_PRIMA_ROLADO">
-                <ScalarProperty Name="ESPEC_PERFIL" ColumnName="ESPEC_PERFIL" />
-                <ScalarProperty Name="UBICACION" ColumnName="UBICACION" />
-                <ScalarProperty Name="THICKNESS" ColumnName="THICKNESS" />
-                <ScalarProperty Name="GROOVE" ColumnName="GROOVE" />
-                <ScalarProperty Name="WIDTH" ColumnName="WIDTH" />
-                <ScalarProperty Name="UM" ColumnName="UM" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="ID_ESPECIFICACION" ColumnName="ID_ESPECIFICACION" />
-                <ScalarProperty Name="ID_MATERIA_PRIMA_ROLADO" ColumnName="ID_MATERIA_PRIMA_ROLADO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="patt_actualizaciones">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.patt_actualizaciones">
-              <MappingFragment StoreEntitySet="patt_actualizaciones">
-                <ScalarProperty Name="id_patt_actualizaciones" ColumnName="id_patt_actualizaciones" />
-                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
-                <ScalarProperty Name="actualizaciones" ColumnName="actualizaciones" />
-                <ScalarProperty Name="nivel" ColumnName="nivel" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="consec_fabr" ColumnName="consec_fabr" />
-                <ScalarProperty Name="codigo_patt" ColumnName="codigo_patt" />
+          <EntitySetMapping Name="MoutingWidth">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.MoutingWidth">
+              <MappingFragment StoreEntitySet="MoutingWidth">
+                <ScalarProperty Name="Altura_Gate" ColumnName="Altura_Gate" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="Width_Max" ColumnName="Width_Max" />
+                <ScalarProperty Name="Width_Min" ColumnName="Width_Min" />
+                <ScalarProperty Name="Id_MountingWidth" ColumnName="Id_MountingWidth" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1143,52 +1195,11 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Compensacion_Piece">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Compensacion_Piece">
-              <MappingFragment StoreEntitySet="Compensacion_Piece">
-                <ScalarProperty Name="Compensacion" ColumnName="Compensacion" />
-                <ScalarProperty Name="IdTipoAnillo" ColumnName="IdTipoAnillo" />
-                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
-                <ScalarProperty Name="IdCompensacionPiece" ColumnName="IdCompensacionPiece" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CAT_MATERIA_PRIMA_ACEROS">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.CAT_MATERIA_PRIMA_ACEROS">
-              <MappingFragment StoreEntitySet="CAT_MATERIA_PRIMA_ACEROS">
-                <ScalarProperty Name="PROVEEDOR2" ColumnName="PROVEEDOR2" />
-                <ScalarProperty Name="PROVEEDOR" ColumnName="PROVEEDOR" />
-                <ScalarProperty Name="ESP_RADIAL" ColumnName="ESP_RADIAL" />
-                <ScalarProperty Name="ESP_AXIAL" ColumnName="ESP_AXIAL" />
-                <ScalarProperty Name="ID_MATERIAL" ColumnName="ID_MATERIAL" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MoutingDia">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.MoutingDia">
-              <MappingFragment StoreEntitySet="MoutingDia">
-                <ScalarProperty Name="ord" ColumnName="ord" />
-                <ScalarProperty Name="Conos" ColumnName="Conos" />
-                <ScalarProperty Name="Boton" ColumnName="Boton" />
-                <ScalarProperty Name="Medios_Circulos" ColumnName="Medios_Circulos" />
-                <ScalarProperty Name="Gate" ColumnName="Gate" />
-                <ScalarProperty Name="No_impresiones" ColumnName="No_impresiones" />
-                <ScalarProperty Name="Dia_B_max" ColumnName="Dia_B_max" />
-                <ScalarProperty Name="Dia_B_min" ColumnName="Dia_B_min" />
-                <ScalarProperty Name="Plato" ColumnName="Plato" />
-                <ScalarProperty Name="Id_MountingDia" ColumnName="Id_MountingDia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MoutingWidth">
-            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.MoutingWidth">
-              <MappingFragment StoreEntitySet="MoutingWidth">
-                <ScalarProperty Name="Altura_Gate" ColumnName="Altura_Gate" />
-                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
-                <ScalarProperty Name="Width_Max" ColumnName="Width_Max" />
-                <ScalarProperty Name="Width_Min" ColumnName="Width_Min" />
-                <ScalarProperty Name="Id_MountingWidth" ColumnName="Id_MountingWidth" />
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="Cliente1" ColumnName="Cliente" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1262,6 +1273,60 @@ advertencia 6002: La tabla o vista 'RGP2-PBA.dbo.Esp_MP_Anillos' no tiene defini
                 <ScalarProperty Name="MPAxialWidthMaxPVD" ColumnName="MPAxialWidthMaxPVD" />
                 <ScalarProperty Name="MPAxialWidthMinPVD" ColumnName="MPAxialWidthMinPVD" />
                 <ScalarProperty Name="ID_CRITERIO_SEGMENTO" ColumnName="ID_CRITERIO_SEGMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="castings_widths">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.castings_widths">
+              <MappingFragment StoreEntitySet="castings_widths">
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="ideal_casting_Width" ColumnName="ideal_casting_Width" />
+                <ScalarProperty Name="Minimum_casting_width" ColumnName="Minimum_casting_width" />
+                <ScalarProperty Name="Nominal_Ring_Width_max" ColumnName="Nominal_Ring_Width_max" />
+                <ScalarProperty Name="Nominal_Ring_Width_min" ColumnName="Nominal_Ring_Width_min" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coating">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Coating">
+              <MappingFragment StoreEntitySet="Coating">
+                <ScalarProperty Name="NombreCoating" ColumnName="NombreCoating" />
+                <ScalarProperty Name="ident" ColumnName="ident" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Anillo">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Anillo">
+              <MappingFragment StoreEntitySet="Tipo_Anillo">
+                <ScalarProperty Name="Diseno" ColumnName="Diseno" />
+                <ScalarProperty Name="Recubrimiento" ColumnName="Recubrimiento" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Id_Tipo" ColumnName="Id_Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Materia_Prima">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.Tipo_Materia_Prima">
+              <MappingFragment StoreEntitySet="Tipo_Materia_Prima">
+                <ScalarProperty Name="materia_prima" ColumnName="materia_prima" />
+                <ScalarProperty Name="id_tipo_mp" ColumnName="id_tipo_mp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoutingDia">
+            <EntityTypeMapping TypeName="DataAccess.ServiceObjects.MateriasPrimas.MoutingDia">
+              <MappingFragment StoreEntitySet="MoutingDia">
+                <ScalarProperty Name="ord" ColumnName="ord" />
+                <ScalarProperty Name="Conos" ColumnName="Conos" />
+                <ScalarProperty Name="Boton" ColumnName="Boton" />
+                <ScalarProperty Name="Medios_Circulos" ColumnName="Medios_Circulos" />
+                <ScalarProperty Name="Gate" ColumnName="Gate" />
+                <ScalarProperty Name="No_impresiones" ColumnName="No_impresiones" />
+                <ScalarProperty Name="Dia_B_max" ColumnName="Dia_B_max" />
+                <ScalarProperty Name="Dia_B_min" ColumnName="Dia_B_min" />
+                <ScalarProperty Name="Plato" ColumnName="Plato" />
+                <ScalarProperty Name="Id_MountingDia" ColumnName="Id_MountingDia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

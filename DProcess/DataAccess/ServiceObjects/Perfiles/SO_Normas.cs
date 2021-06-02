@@ -23,7 +23,7 @@ namespace DataAccess.ServiceObjects.Perfiles
 
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return null;
             }

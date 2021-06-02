@@ -192,7 +192,7 @@ namespace DataAccess.ServiceObjects.Usuario
                     return obj.ID_LECCIONES_APRENDIDAS;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //si existe eroror regresemos 0
                 return 0;

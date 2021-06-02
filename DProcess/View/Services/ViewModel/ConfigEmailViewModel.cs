@@ -59,7 +59,7 @@ namespace View.Services.ViewModel
 
                 while (c < paths.Count && !respuesta.respuesta)
                 {
-                    respuesta.respuesta = SO_Email.SendEmailLotusCustom(paths[c], users, "Diseño del Proceso : Correo electrónico de prueba", bodyTest);
+                    respuesta.respuesta = SO_Email.SendEmailLotusCustom(paths[c], users, "Diseño del Proceso : Correo electrónico de prueba", bodyTest,"CONFIG_EMAIL", 0);
                     goodPath = respuesta.respuesta ? paths[c] : string.Empty;
                     c++;
                 }
@@ -72,7 +72,7 @@ namespace View.Services.ViewModel
 
                     while (c < paths.Count && !respuesta.respuesta)
                     {
-                        respuesta.respuesta = SO_Email.SendEmailLotusCustom(paths[c], users, "Diseño del Proceso : Correo electrónico de prueba", bodyTest);
+                        respuesta.respuesta = SO_Email.SendEmailLotusCustom(paths[c], users, "Diseño del Proceso : Correo electrónico de prueba", bodyTest, "CONFIG_EMAIL", 0);
                         goodPath = respuesta.respuesta ? paths[c] : string.Empty;
                         c++;
                     }

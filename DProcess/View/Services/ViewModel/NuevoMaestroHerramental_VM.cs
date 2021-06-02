@@ -268,7 +268,7 @@ namespace View.Services.ViewModel
             //Obtenemos la ventana actual
             var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
-            //Formulario para ingresar el número de copias, 
+            //Formulario para ingresar el número de copias,
             string noPlano = await window.ShowInputAsync("Ingresa el dato requerido", "Por favor ingresa el número de plano:", null);
 
             if (noPlano != null)
@@ -280,7 +280,7 @@ namespace View.Services.ViewModel
                     ListaPlano = DataManager.GetPlano_Herramental();
                     await dialog.SendMessage(StringResources.ttlAtencion, "El plano fué guardado con éxito!");
                 }
-                    
+
                 else
                     await dialog.SendMessage(StringResources.ttlAtencion, "Oooppss!! ocurió un error, por favor intenta de nuevo.");
             }
@@ -299,7 +299,7 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = StringResources.lblYes;
             setting.NegativeButtonText = StringResources.lblNo;
 
-            //Si el herramental tiene controlador 
+            //Si el herramental tiene controlador
             if (Controlador != null)
             {
                 //Valida que los campos esten completos
@@ -479,7 +479,7 @@ namespace View.Services.ViewModel
                     //si todos los campos no estan llenos
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
             }
-        } 
+        }
 
         /// <summary>
         /// Método que guarda la información del Maestro Herramnetal.
@@ -581,9 +581,9 @@ namespace View.Services.ViewModel
                     //Se obtiene el objeto dependiendo del id asignado.
                     Controlador =(IControlTooling) ctx.GetObject(objetoXML);
                     //Inicializa el controlador.
-                    Controlador.Inicializa();                  
+                    Controlador.Inicializa();
                 }
-                catch (Exception er)
+                catch (Exception)
                 {
                     //si hay error, o no encuentra el objeto muestra un mensaje en pantalla
                     await dialog.SendMessage("Información", "");
@@ -611,10 +611,10 @@ namespace View.Services.ViewModel
                     //Carga los campos del herramental.
                     Controlador.InicializaCampos(codigo);
                 }
-                catch (Exception er)
+                catch (Exception)
                 {
                     //si hay error, o no encuentra el objeto muestra un mensaje en pantalla
-                    await dialog.SendMessage("Información", "");
+                    await dialog.SendMessage("Información", "No se encontró el controlador, favor de notificar al administrador del sistema");
                 }
             }
         }
@@ -629,7 +629,7 @@ namespace View.Services.ViewModel
             setting.AffirmativeButtonText = StringResources.lblYes;
             setting.NegativeButtonText = StringResources.lblNo;
 
-            //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.            
+            //Ejecutamos el método para mostrar el mensaje con la información que el usuario capturó.El resultado lo asignamos a una variable local.
             MessageDialogResult result = await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblConfirmDeleteRecord, setting, MessageDialogStyle.AffirmativeAndNegative);
             //Si el resultado es verdadero
             if (result == MessageDialogResult.Affirmative)
@@ -711,7 +711,7 @@ namespace View.Services.ViewModel
             //Obtiene las propiedades del herramental
             MaestroHerramental ObjHerramental = DataManager.GetPropiedadesHerramental(MHerramental.Codigo);
 
-            //Asignamos las propiedades 
+            //Asignamos las propiedades
             bandCambios = true;
             BttnEliminar = true;
             EnabledCombo = false;

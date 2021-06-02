@@ -30,7 +30,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
 
                 throw;
@@ -64,7 +64,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa nulo
                 return null;

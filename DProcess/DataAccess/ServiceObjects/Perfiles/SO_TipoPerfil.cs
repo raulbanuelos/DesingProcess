@@ -28,7 +28,7 @@ namespace DataAccess.ServiceObjects.Perfiles
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error, retornamos un nulo.
                 return null;

@@ -87,7 +87,7 @@ namespace View.Services.ViewModel
         {
             get
             {
-                return _ListaCentrosDeTrabajoSeleccionados; 
+                return _ListaCentrosDeTrabajoSeleccionados;
             }
             set
             {
@@ -383,7 +383,7 @@ namespace View.Services.ViewModel
             ListaNivelesDeCambio = DataManagerControlDocumentos.GetNivelesDeCambio();
             ListaUsuarios = DataManagerControlDocumentos.GetUsuarios();
 
-            //Inicializamos las listas para poder guardar datos 
+            //Inicializamos las listas para poder guardar datos
             ListaCentrosDeTrabajoSeleccionados = new ObservableCollection<CentrosTrabajo>();
             ListaNivelesDeCambioSeleccionados = new ObservableCollection<TIPOCAMBIO>();
             ListaCambiosDescripcionSimilar = new ObservableCollection<DatosCambioLeccionAprendida>();
@@ -400,7 +400,7 @@ namespace View.Services.ViewModel
             FechaUltimoCambio = DataManagerControlDocumentos.Get_DateTime();
             FechaActualizacion = DataManagerControlDocumentos.Get_DateTime();
 
-            //Obtenemos le valor de VariosComponentes para saber cual método de guardar utilizaremos 
+            //Obtenemos le valor de VariosComponentes para saber cual método de guardar utilizaremos
             InsertarVariosComponentes = VariosComponentes;
             IsNotifyEmail = true;
         }
@@ -745,7 +745,7 @@ namespace View.Services.ViewModel
                 InformacionDescripcion Form = new InformacionDescripcion();
                 Form.DataContext = this;
                 Form.ShowDialog();
-            }   
+            }
         }
 
         /// <summary>
@@ -847,7 +847,7 @@ namespace View.Services.ViewModel
 
             //Inicializamos los servicios de metrodialog
             MetroDialogSettings settings = new MetroDialogSettings();
-            
+
             //Declaramos las posibles respuestas del metrodialog
             settings.AffirmativeButtonText = StringResources.lblYes;
             settings.NegativeButtonText = StringResources.lblNo;
@@ -870,7 +870,7 @@ namespace View.Services.ViewModel
                     string filename = dlg.FileName;
 
                     //Verificamos que no se encuentre abierto el archivo,si el archivo no esta entra en la condicion para agregar el archivo
-                    if (!Module.IsFileInUse(filename)) 
+                    if (!Module.IsFileInUse(filename))
                     {
                         //Mandamos un mensaje de espera mientras se inserta el archivo a la lista de documentos
                         AsyncProgress = await dialog.SendProgressAsync(StringResources.msgEspera, StringResources.msgInsertando);
@@ -885,31 +885,31 @@ namespace View.Services.ViewModel
                         {
                             case ".doc":
                                 Archivo.rutaIcono = @"/Images/w.png";
-                                
+
                                 break;
                             case ".docx":
                                 Archivo.rutaIcono = @"/Images/w.png";
-                                
+
                                 break;
                             case ".pdf":
                                 Archivo.rutaIcono = @"/Images/p.png";
-                                
+
                                 break;
                             case ".xls":
                                 Archivo.rutaIcono = @"/Images/E.jpg";
-                                
+
                                 break;
                             case ".xlsx":
                                 Archivo.rutaIcono = @"/Images/E.jpg";
-                                
+
                                 break;
                             case "ppt":
                                 Archivo.rutaIcono = @"/Images/PP.png";
-                                
+
                                 break;
                                 //todos los archivos que no tengan alguna de las extenciones antes mencionadas entraran aqui y se les pondra una imagen general
                             default:
-                                Archivo.rutaIcono = @"/Images/I.png";                                
+                                Archivo.rutaIcono = @"/Images/I.png";
                                 break;
                         }
                         //Agregamos el archivo a la lista, SOLO SE AGREGA LOCALMENTE, AUN NO LO INSERTAMOS EN LA BASE DE DATOS
@@ -963,7 +963,7 @@ namespace View.Services.ViewModel
         /// Método para eliminar un archivo de  las lecciones aprendidas.
         /// </summary>
         /// <param name="item"></param>
-        /// 
+        ///
         private async void eliminarItem(Archivo_LeccionesAprendidas item)
         {
             //Incializamos los servicios de dialog.
@@ -1017,7 +1017,7 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Método para guardar los datos de la leccion aprendida en la base de datos
         /// </summary>
-        public async void GuardarDatosLeccion()
+        public void GuardarDatosLeccion()
         {
             DialogService dialog = new DialogService();
             bool Guardar = GuardarInformacion();
@@ -1078,11 +1078,11 @@ namespace View.Services.ViewModel
                             ObjArc.EXT = item.EXT;
 
                             //Mandamos llamar el metodo que inserta todos los documentos que se hayan adjuntado
-                            int i = await DataManagerControlDocumentos.SetArchivo_Lecciones(ObjArc.ARCHIVO, ObjArc.EXT, ObjArc.NOMBRE_ARCHIVO, ObjArc.ID_LECCIONES_APRENDIDAS);
+                            int i = DataManagerControlDocumentos.SetArchivo_Lecciones(ObjArc.ARCHIVO, ObjArc.EXT, ObjArc.NOMBRE_ARCHIVO, ObjArc.ID_LECCIONES_APRENDIDAS);
                         }
 
                         //Mandamos un mensaje de que se guardaron todos los datos correctamente
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertoExitoLeccion);
+                        dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertoExitoLeccion);
 
                         //Verificamos si está activada la casilla de Notificar vía correo.
                         if (IsNotifyEmail)
@@ -1109,6 +1109,7 @@ namespace View.Services.ViewModel
                                 file.ruta = archivoLeccion.rutaArchivo;
                                 file.nombre = archivoLeccion.NOMBRE_ARCHIVO;
                                 file.ext = archivoLeccion.EXT;
+                                file.archivo = File.ReadAllBytes(file.ruta);
 
                                 //Si el archivo tiene extensión pdf
                                 if (file.ext == ".pdf")
@@ -1134,7 +1135,7 @@ namespace View.Services.ViewModel
                                         else
                                         {
                                             file.rutaIcono = @"/Images/file.png";
-                                        }                                        
+                                        }
                                     }
                                 }
 
@@ -1187,11 +1188,11 @@ namespace View.Services.ViewModel
 
                             string title = "Diseño del proceso ha concluido la solicitud de cambio del componente: " + Componente;
 
-                            NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, listaDocumentoA, listaUsuarios, title);
+                            NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, listaDocumentoA, listaUsuarios, title, "LECCIONES_APRENDIDAS",Id_Leccion_Aprendida_Insertada);
                             WNotificarA ventanaCorreo = new WNotificarA();
                             ventanaCorreo.DataContext = vmNotificar;
                             ventanaCorreo.ShowDialog();
-                            
+
                         }
 
                         //Cerramos la ventana
@@ -1199,14 +1200,14 @@ namespace View.Services.ViewModel
 
                         if (window != null)
                         {
-                            //cerramos la ventana 
+                            //cerramos la ventana
                             window.Close();
                         }
                     }
                     else
                     {
                         //Si ocurrio un error al insertar la leccion aprendida se notificara al usuario
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
+                        dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
                     }
                 }
                 else
@@ -1262,13 +1263,13 @@ namespace View.Services.ViewModel
                             ObjArc.ID_LECCIONES_APRENDIDAS = SetLeccion;
 
                             //insertamos los archivos
-                            int i = await DataManagerControlDocumentos.SetArchivo_Lecciones(ObjArc.ARCHIVO, ObjArc.EXT, ObjArc.NOMBRE_ARCHIVO, ObjArc.ID_LECCIONES_APRENDIDAS);
+                            int i = DataManagerControlDocumentos.SetArchivo_Lecciones(ObjArc.ARCHIVO, ObjArc.EXT, ObjArc.NOMBRE_ARCHIVO, ObjArc.ID_LECCIONES_APRENDIDAS);
                         }
                     }
                     //verificamos que la leccion aprendida se haya insertado correctamente
                     if (SetLeccion !=0 )
                     {
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertoExitoLeccion);
+                         dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgInsertoExitoLeccion);
 
                         //Verificamos si está activada la casilla de Notificar vía correo.
                         if (IsNotifyEmail)
@@ -1365,7 +1366,7 @@ namespace View.Services.ViewModel
                                 }
                                 c++;
                             }
-                            
+
                             string nivelCambio = string.Empty;
                             c = 0;
                             while (c < ListaNivelesDeCambioSeleccionados.Count)
@@ -1381,7 +1382,7 @@ namespace View.Services.ViewModel
                                 }
                                 c++;
                             }
-                            
+
                             body = "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para informar que se ha realizado la solicitud de trabajo. A continuación se detalla la información:</P>";
                             body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>Componentes:</STRONG> " + componentes + "</P>";
                             body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>No. de Solicitud:</STRONG> " + SolicitudTrabajoIng + "</P>";
@@ -1395,7 +1396,7 @@ namespace View.Services.ViewModel
 
                             string title = "Diseño del proceso ha concluido la solicitud de cambio de los componentes: " + componentes;
 
-                            NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, listaDocumentoA, listaUsuarios, title);
+                            NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, listaDocumentoA, listaUsuarios, title, "LECCIONES_APRENDIDAS", 0);
                             WNotificarA ventanaCorreo = new WNotificarA();
                             ventanaCorreo.DataContext = vmNotificar;
                             ventanaCorreo.ShowDialog();
@@ -1407,22 +1408,22 @@ namespace View.Services.ViewModel
 
                         if (window != null)
                         {
-                            //cerramos la ventana 
+                            //cerramos la ventana
                             window.Close();
                         }
                     }
                     else
                     {
-                        //si hubo un error se manda el mensaje 
-                        await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
+                        //si hubo un error se manda el mensaje
+                         dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgError);
                     }
                 }
             }
             else
             {
                 //si faltan datos por capturar se manda el mensaje
-                await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
-            }        
+                 dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
+            }
         }
 
         /// <summary>
@@ -1445,7 +1446,7 @@ namespace View.Services.ViewModel
                     datos.Fecha_Ultimo_Cambio = _FechaUltimoCambio;
                     ListaCambiosDescripcionSimilar.Add(datos);
                 }
-                //obtenemos la ventana actual 
+                //obtenemos la ventana actual
                 var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
                 //cerramos la ventana actual
@@ -1477,7 +1478,7 @@ namespace View.Services.ViewModel
             {
                 if (ListaNivelesDeCambio.Count > 0 && !string.IsNullOrEmpty(_DescripcionProblema))
                 {
-                    //obtenemos la ventana actual 
+                    //obtenemos la ventana actual
                     var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
                     //cerramos la ventana actual
@@ -1509,7 +1510,7 @@ namespace View.Services.ViewModel
                 {
                     if (ListaNivelesDeCambio.Count > 0 && !string.IsNullOrEmpty(_DescripcionProblema))
                     {
-                        //obtenemos la ventana actual 
+                        //obtenemos la ventana actual
                         var frm = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
 
                         //cerramos la ventana actual
@@ -1561,7 +1562,7 @@ namespace View.Services.ViewModel
                 }
             }
         }
-        
+
         /// <summary>
         /// Método que agrega varios componentes con la misma descripción
         /// </summary>
@@ -1677,7 +1678,7 @@ namespace View.Services.ViewModel
         /// <returns></returns>
         public bool PaginaCambios()
         {
-            if (!string.IsNullOrEmpty(_DescripcionProblema) && _FechaActualizacion != null && _FechaUltimoCambio != null) 
+            if (!string.IsNullOrEmpty(_DescripcionProblema) && _FechaActualizacion != null && _FechaUltimoCambio != null)
             {
                 return true;
             }

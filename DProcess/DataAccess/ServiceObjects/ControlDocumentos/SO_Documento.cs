@@ -104,7 +104,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Se establece conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
-                    //Se  crea un objeto de tipo documento, el cual se va agregar a la tabla 
+                    //Se  crea un objeto de tipo documento, el cual se va agregar a la tabla
                     TBL_DOCUMENTO obj = new TBL_DOCUMENTO();
 
                     //Se asiganan los valores.
@@ -125,7 +125,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return obj.ID_DOCUMENTO;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;
@@ -168,7 +168,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si encuentra error devuelve cero.
                 return 0;
@@ -222,7 +222,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
                     //Se obtiene el objeto que se va a eliminar.
-                    TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault(); 
+                    TBL_DOCUMENTO obj = Conexion.TBL_DOCUMENTO.Where(x => x.ID_DOCUMENTO == id_documento).FirstOrDefault();
 
                     //Se estable el estado de registro a eliminado.
                     Conexion.Entry(obj).State = EntityState.Deleted;
@@ -231,7 +231,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si hay error, se regresa 0.
                 return 0;
@@ -239,7 +239,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que busca el documento de acuerdo al nombre o descripcón 
+        /// Método que busca el documento de acuerdo al nombre o descripción
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
@@ -248,7 +248,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
             try
             {
                 //Incializamos la conexión a través de EntityControlDocumentos.
-
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
                     //Realizamos la consulta para obtener todos los registros,donde el nombre o la descripción  del documento debe de contener la palabra recibida.
@@ -258,7 +257,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si se generó algún error, retornamos un nulo.
                 return null;
@@ -333,7 +332,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     }
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si existe algún error, se regresa nulo.
                 return null;
@@ -371,12 +370,17 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                         v.No_VERSION,
                                         v.ID_VERSION,
                                         v.NO_COPIAS,
-                                        DESCRIPCION = v.DESCRIPCION,
+                                        DESCRIPCION = v.DESCRIPCION.ToUpper(),
                                         b.NOMBRE_DEPARTAMENTO,
                                         d.FECHA_EMISION,
                                         t.TIPO_DOCUMENTO,
-                                        USUARIO_AUTORIZO= u.Nombre + " " + u.APaterno + " " + u.AMaterno,
-                                        USUARIO_ELABORO=us.Nombre + " " + us.APaterno + " " + us.AMaterno,
+                                        ID_TIPO_DOCUMENTO = t.ID_TIPO_DOCUMENTO,
+                                        USUARIO_AUTORIZO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
+                                        USUARIO_ELABORO =us.Nombre + " " + us.APaterno + " " + us.AMaterno,
+                                        NOMBRE_AUTORIZO = u.Nombre,
+                                        APELLIDO_AUTORIZO = u.APaterno,
+                                        NOMBRE_ELABORO = us.Nombre,
+                                        APELLIDO_ELABORO = us.APaterno
                                     }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
 
                         return Lista;
@@ -400,20 +404,24 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                          v.No_VERSION,
                                          v.ID_VERSION,
                                          v.NO_COPIAS,
-                                         DESCRIPCION = v.DESCRIPCION,
+                                         DESCRIPCION = v.DESCRIPCION.ToUpper(),
                                          b.NOMBRE_DEPARTAMENTO,
                                          d.FECHA_EMISION,
                                          t.TIPO_DOCUMENTO,
                                          USUARIO_AUTORIZO = u.Nombre + " " + u.APaterno + " " + u.AMaterno,
                                          USUARIO_ELABORO = us.Nombre + " " + us.APaterno + " " + us.AMaterno,
-                                         v.FECHA_VERSION
+                                         v.FECHA_VERSION,
+                                         NOMBRE_AUTORIZO = u.Nombre,
+                                         APELLIDO_AUTORIZO = u.APaterno,
+                                         NOMBRE_ELABORO = us.Nombre,
+                                         APELLIDO_ELABORO = us.APaterno
                                      }).OrderBy(x => x.ID_DOCUMENTO).Distinct().ToList();
 
                         return Lista;
                     }
                 }
 
-            }catch(Exception er)
+            }catch(Exception)
             {
                 return null;
             }
@@ -452,7 +460,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error, retorna nulo.
                 return null;
@@ -468,7 +476,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         {
             string lastNumber;
             try
-            { 
+            {
                 //Establecemos la conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
@@ -486,8 +494,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     {
                         //se le asigna al nombre el primer número.
                         lastNumber = string.Concat(nombre, "-0001");
-                        
-                        //Validamos que el número no sea repetido. Si es asi, asignamos el siguiente hasta que no se repita.
+
+                        //Validamos que el número no sea repetido. Si es así, asignamos el siguiente hasta que no se repita.
                         while (ExistDocumento(lastNumber))
                         {
                             string resultString = string.Empty;
@@ -523,7 +531,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                             resultString = num;
                         }
 
-                        //Sumamos uno al número 
+                        //Sumamos uno al número
                         int number = Int32.Parse(resultString);
                        number++;
 
@@ -559,7 +567,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Establecemos la conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
-                    //Realizamos la consulta para obtener los documentos que se encuentran pendientes del usario
+                    //Realizamos la consulta para obtener los documentos que se encuentran pendientes del usuario
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
                                  join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
                                  join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
@@ -600,7 +608,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 {
                     //Se realiza la consulta para obtener el archivo y el tipo de acuerdo al documento requerido.
                     var Lista = (from d in Conexion.TBL_DOCUMENTO
-                                 where d.ID_DOCUMENTO == id_documento 
+                                 where d.ID_DOCUMENTO == id_documento
                                  select new
                                  {
                                      d.NOMBRE
@@ -609,7 +617,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error, retorna nulo.
                 return null;
@@ -680,7 +688,6 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      d.FECHA_EMISION,
                                      d.FECHA_CREACION,
                                      d.FECHA_ACTUALIZACION,
-                                     
                                  }).ToList();
 
                     //Retornamos el resutado.
@@ -738,12 +745,12 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error, se regresa nulo
                 return null;
             }
-        }     
+        }
 
         /// <summary>
         /// Método que modifica el estatus del documento
@@ -771,7 +778,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si encuentra error devuelve cero.
                 return 0;
@@ -855,7 +862,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
-       
+
         /// <summary>
         /// Método para obtener todos los documentos aprobados pendientes por liberar
         /// si recibe un parametro lo filtra
@@ -982,7 +989,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método para insertar documentos desde un archivo excel 
+        /// Método para insertar documentos desde un archivo excel
         /// </summary>
         /// <param name="id_tipo_documento"></param>
         /// <param name="id_dep"></param>
@@ -999,7 +1006,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //Se establece conexión a la BD.
                 using (var Conexion = new EntitiesControlDocumentos())
                 {
-                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla 
+                    //Se  crea un objeto de tipo usuarios, el cual se va agregar a la tabla
                     TBL_DOCUMENTO obj = new TBL_DOCUMENTO();
 
                     //Se asiganan los valores.
@@ -1021,7 +1028,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return obj.ID_DOCUMENTO;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;
@@ -1060,7 +1067,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error retornamos nulo
                 return null;
@@ -1099,7 +1106,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error retornamos nulo
                 return null;
@@ -1142,11 +1149,11 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      dep.NOMBRE_DEPARTAMENTO,
                                      c.PERIODO_ANIOS_ACTUALIZACION
                                  }).ToList();
-                    //Retorna la lista 
+                    //Retorna la lista
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error regresa nulo
                 return null;
@@ -1154,7 +1161,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
-        /// Método que devuelve la fecha del servidor 
+        /// Método que devuelve la fecha del servidor
         /// </summary>
         /// <returns></returns>
         public DateTime Get_DateTime()
@@ -1176,7 +1183,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                 return dt;
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return DateTime.Now;
             }
@@ -1228,7 +1235,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                      join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
                                      join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
                                      join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
-                                     where DbFunctions.TruncateTime(h.FECHA) >= fecha_inicio && DbFunctions.TruncateTime(h.FECHA) <= fecha_fin && 
+                                     where DbFunctions.TruncateTime(h.FECHA) >= fecha_inicio && DbFunctions.TruncateTime(h.FECHA) <= fecha_fin &&
                                      h.DESCRIPCION.Contains(descripcion) && t.ID_TIPO_DOCUMENTO == id_tipo && dep.ID_DEPARTAMENTO == id_departamento
                                      select new
                                      {
@@ -1261,32 +1268,32 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                              h.DESCRIPCION
                                          }).OrderBy(x => x.FechaHistorial).ToList();
                         //Retornamos la lista.
-                            return Lista;                      
+                            return Lista;
                     }
                     //Si el id_tipo no es cero, se busca por tipo y estatus.
                     else
                     {
-                            //Se realiza la consulta y se asigna a una variable.
-                            var Lista = (from h in Conexion.TBL_HISTORIAL_VERSION
-                                         join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
-                                         join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
-                                         join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
-                                         where DbFunctions.TruncateTime(h.FECHA) >= fecha_inicio && DbFunctions.TruncateTime(h.FECHA) <= fecha_fin && h.DESCRIPCION.Contains(descripcion) && t.ID_TIPO_DOCUMENTO == id_tipo
-                                         select new
-                                         {
-                                             d.NOMBRE,
-                                             h.NO_VERSION,
-                                             t.TIPO_DOCUMENTO,
-                                             dep.NOMBRE_DEPARTAMENTO,
-                                             FechaHistorial = h.FECHA,
-                                             h.DESCRIPCION
-                                         }).OrderBy(x => x.FechaHistorial).ToList();
+                        //Se realiza la consulta y se asigna a una variable.
+                        var Lista = (from h in Conexion.TBL_HISTORIAL_VERSION
+                                        join d in Conexion.TBL_DOCUMENTO on h.NOMBRE_DOCUMENTO equals d.NOMBRE
+                                        join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                        join dep in Conexion.TBL_DEPARTAMENTO on d.ID_DEPARTAMENTO equals dep.ID_DEPARTAMENTO
+                                        where DbFunctions.TruncateTime(h.FECHA) >= fecha_inicio && DbFunctions.TruncateTime(h.FECHA) <= fecha_fin && h.DESCRIPCION.Contains(descripcion) && t.ID_TIPO_DOCUMENTO == id_tipo
+                                        select new
+                                        {
+                                            d.NOMBRE,
+                                            h.NO_VERSION,
+                                            t.TIPO_DOCUMENTO,
+                                            dep.NOMBRE_DEPARTAMENTO,
+                                            FechaHistorial = h.FECHA,
+                                            h.DESCRIPCION
+                                        }).OrderBy(x => x.FechaHistorial).ToList();
                         //Retornamos la lista.
-                            return Lista;
-                    }                  
+                        return Lista;
+                    }
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error retorna nulo.
                 return null;
@@ -1326,7 +1333,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 //se ejecuta el procedimiento y se mandan los parámetros añadidos anteriormente.
                 datos = conexion.EjecutarStoredProcedure("SP_CIT_Get_HistorialCantidad", parametros);
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error, retorna la tabla vacía.
                 return datos;
@@ -1405,7 +1412,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join b in conexion.TBL_VERSION on a.ID_DOCUMENTO equals b.ID_DOCUMENTO
                                  join d in conexion.Usuarios on b.ID_USUARIO_ELABORO equals d.Usuario
                                  join c in conexion.TBL_ESTATUS_VERSION on b.ID_ESTATUS_VERSION equals c.ID_ESTATUS_VERSION
-                                 where b.ID_USUARIO_ELABORO == IdUsuario && 
+                                 where b.ID_USUARIO_ELABORO == IdUsuario &&
                                  a.NOMBRE.Contains(DocumentoBuscar) &&
                                  b.ID_ESTATUS_VERSION != 1 &&
                                  b.ID_ESTATUS_VERSION != 2
@@ -1445,7 +1452,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  join b in conexion.TBL_VERSION on a.ID_DOCUMENTO equals b.ID_DOCUMENTO
                                  join c in conexion.TBL_ARCHIVO on b.ID_VERSION equals c.ID_VERSION
                                  where b.ID_ESTATUS_VERSION == 2 && b.ID_VERSION == IdVersion
-                                 orderby a.NOMBRE                                
+                                 orderby a.NOMBRE
                                  select new
                                  {
                                      a.NOMBRE,

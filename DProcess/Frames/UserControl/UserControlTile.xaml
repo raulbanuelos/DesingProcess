@@ -1,12 +1,16 @@
 ﻿<UserControl x:Class="Frames.UserControl.UserControlTile"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Frames.UserControl"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             mc:Ignorable="d" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+             mc:Ignorable="d" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
     <Grid Background="{StaticResource FondoInicio}">
 
         <Grid.ColumnDefinitions>
@@ -19,9 +23,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Column="0" Grid.Row="0">
-
             <StackPanel DockPanel.Dock="Left" Width="15"></StackPanel>
-
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Orientation="Vertical" Margin="0,15,15,0">
                 <StackPanel Orientation="Horizontal">
                     <Ellipse Height="80" Width="80">
@@ -34,8 +36,6 @@
                         <Label Content="{Binding ApellidoPaterno}" FontSize="16" Foreground="White" HorizontalAlignment="Right" Margin="0,0,15,0"></Label>
                     </StackPanel>
                 </StackPanel>
-
-
                 <!--<Image Source="{Binding Details.PathPhoto}" Width="50" Height="50"></Image>-->
                 <!--<materialDesign:Chip Content="{Binding NombreCompleto}">
                     <materialDesign:Chip.Icon>
@@ -62,7 +62,7 @@
                 </Grid.RowDefinitions>
 
                 <!--Procedimientos-->
-                <Controls:Tile Background="#00879D" TiltFactor="2" Title="Procedimientos" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="0" Cursor="Hand" Command="{Binding IrRouting}">
+                <Controls:Tile Background="#00879D" TiltFactor="2" Name="crlProcedimientoEspecifico"  Title="PROCEDIMIENTO ESPECIFICO" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="0" Cursor="Hand" Command="{Binding FiltrarPorTipo}" CommandParameter="{Binding ElementName=crlProcedimientoEspecifico, Path=Title}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
@@ -86,7 +86,7 @@
                 </Controls:Tile>
 
                 <!--Formatos-->
-                <Controls:Tile Command="{Binding IrTooling}" TiltFactor="2" Background="#01A300" Title="Formatos" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Cursor="Hand">
+                <Controls:Tile TiltFactor="2" Background="#01A300" Name="clrFormatosEspecificos" Title="FORMATO ESPECIFICO" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Cursor="Hand" Command="{Binding FiltrarPorTipo}" CommandParameter="{Binding ElementName=clrFormatosEspecificos, Path=Title}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
@@ -110,7 +110,7 @@
                 </Controls:Tile>
 
                 <!--Ayudas visuales-->
-                <Controls:Tile TiltFactor="2" Background="#0B5AC3" Title="Ayudas visuales" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="0" Cursor="Hand" Command="{Binding IrRawMaterial}">
+                <Controls:Tile TiltFactor="2" Name="crlAyudaVisual" Background="#0B5AC3" Title="AYUDA VISUAL" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="0" Cursor="Hand" Command="{Binding FiltrarPorTipo}" CommandParameter="{Binding ElementName=crlAyudaVisual, Path=Title}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
@@ -134,7 +134,7 @@
                 </Controls:Tile>
 
                 <!--HOE-->
-                <Controls:Tile TiltFactor="2" Background="#DA522C" Title="HOE" Width="Auto" Height="Auto" Grid.Column="0" Command="{Binding IrStandarTime}" Grid.Row="1" Cursor="Hand">
+                <Controls:Tile TiltFactor="2" Background="#DA522C" Name="clrHOE" Title="HOJA DE OPERACIÓN ESTÁNDAR" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="1" Cursor="Hand" Command="{Binding FiltrarPorTipo}" CommandParameter="{Binding ElementName=clrHOE, Path=Title}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
@@ -158,7 +158,7 @@
                 </Controls:Tile>
 
                 <!--JES-->
-                <Controls:Tile TiltFactor="2" Background="#00556A" Title="JES" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="1" Cursor="Hand">
+                <Controls:Tile TiltFactor="2" Background="#00556A" Name="clrJES" Title="JES" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="1" Cursor="Hand" Command="{Binding FiltrarPorTipo}" CommandParameter="{Binding ElementName=clrJES, Path=Title}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
@@ -182,13 +182,13 @@
                 </Controls:Tile>
 
                 <!--HII-->
-                <Controls:Tile Command="{Binding IrControlDocumentos}" Background="#91009B" TiltFactor="2" Title="HII"  Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="1" Cursor="Hand" RenderTransformOrigin="0.5,0.5">
+                <Controls:Tile Background="#91009B" TiltFactor="2" Title="HOJA DE INSTRUCCIÓN DE INSPECCIÓN" Name="clrHII"  Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="1" Cursor="Hand" RenderTransformOrigin="0.5,0.5" Command="{Binding FiltrarPorTipo}" CommandParameter="{Binding ElementName=clrHII, Path=Title}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
-                                    <StackPanel Orientation="Vertical" Width="100" Height="100">
-                                        <iconPacks:PackIconModern Kind="PageSearch"  Width="100" Height="100" />
+                                    <StackPanel Orientation="Vertical" Width="80" Height="80">
+                                        <iconPacks:PackIconModern Kind="PageSearch"  Width="70" Height="70" />
                                     </StackPanel>
                                 </Setter.Value>
                             </Setter>
@@ -206,13 +206,37 @@
                 </Controls:Tile>
 
                 <!--MIE-->
-                <Controls:Tile Background="#6CB71D" TiltFactor="2" Title="MIE" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="2" Cursor="Hand" Command="{Binding IrDataBase}">
+                <Controls:Tile Background="#6CB71D" TiltFactor="2" Title="METODO DE INSPECCION ESTANDARIZADO" Name="clrMIE" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="2" Cursor="Hand" Command="{Binding FiltrarPorTipo}" CommandParameter="{Binding ElementName=clrMIE, Path=Title}">
+                    <Controls:Tile.Style>
+                        <Style TargetType="Controls:Tile">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <StackPanel Orientation="Vertical" Width="80" Height="80">
+                                        <iconPacks:PackIconModern Kind="Eye" Width="80" Height="80" />
+                                    </StackPanel>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock Text="Ver Método de Inspección Estandarizado" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Controls:Tile.Style>
+                </Controls:Tile>
+
+                <!--OHSAS-->
+                <Controls:Tile Background="#A200AB" TiltFactor="2" Title="OHSAS" Name="clrOHSAS" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="2" Cursor="Hand" Command="{Binding FiltrarPorTipo}" CommandParameter="{Binding ElementName=clrOHSAS, Path=Title}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <StackPanel Orientation="Vertical" Width="100" Height="100">
-                                        <iconPacks:PackIconModern Kind="Eye" Width="100" Height="100" />
+                                        <iconPacks:PackIconFontAwesome Kind="UserShieldSolid"  Width="100" Height="100" />
                                     </StackPanel>
                                 </Setter.Value>
                             </Setter>
@@ -220,7 +244,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="Ver Metodo de Inspección Estandarizado" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Text="Ver documentos relacionados a OHSAS" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -229,18 +253,14 @@
                     </Controls:Tile.Style>
                 </Controls:Tile>
 
-                <!--User--><!--
-                <Controls:Tile Command="{Binding IrUser}"  Background="#A200AB" TiltFactor="2" Title="{x:Static local:StringResources.ttlUser}" Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilUserProfile}">
+                <!--ISO 14001-->
+                <Controls:Tile Background="#5F3BBC" TiltFactor="2" Title="ISO-14001" Name="clrISO" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}" Command="{Binding FiltrarPorTipo}" CommandParameter="{Binding ElementName=clrISO, Path=Title}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
                                 <Setter.Value>
-                                    <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
-                                            <Rectangle.OpacityMask>
-                                                <VisualBrush Visual="{StaticResource appbar_user}" Stretch="Fill" />
-                                            </Rectangle.OpacityMask>
-                                        </Rectangle>
+                                    <StackPanel Orientation="Vertical" Width="100" Height="100">
+                                        <iconPacks:PackIconFontAwesome Kind="EnviraBrands"  Width="100" Height="100" />
                                     </StackPanel>
                                 </Setter.Value>
                             </Setter>
@@ -248,7 +268,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlUsuariosAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Text="Ver documentos relacionados a ISO-14001" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -257,36 +277,85 @@
                     </Controls:Tile.Style>
                 </Controls:Tile>
 
-                --><!--Lecciones Aprendidas--><!--
-                <Controls:Tile Command="{Binding IrLeccion}" Background="#5F3BBC" TiltFactor="2" Title="{x:Static local:StringResources.ttlLessons}" Width="Auto" Height="Auto" Grid.Column="2" Grid.Row="2" Cursor="Hand" IsEnabled="{Binding PerfilHelp}">
-                    <Controls:Tile.Style>
-                        <Style TargetType="Controls:Tile">
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <StackPanel Orientation="Vertical">
-                                        <Rectangle Width="90" Height="90" Fill="White">
-                                            <Rectangle.OpacityMask>
-                                                <VisualBrush Visual="{StaticResource appbar_journal}" Stretch="Fill" />
-                                            </Rectangle.OpacityMask>
-                                        </Rectangle>
-                                    </StackPanel>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <TextBlock Text="{x:Static local:StringResources.ttlLeccionesAprendidasAux}" TextWrapping="Wrap" Width="121" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Controls:Tile.Style>
-                </Controls:Tile>
+                <!--<Border Height="150" Width="350" Grid.Column="0" Grid.Row="3" BorderThickness="1" CornerRadius="5" Background="#F2F4F4">
+                    <Grid ShowGridLines="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="75"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="20,0">
+                            <Image Height="25" Width="25" Source="/Images/icon_version.png"></Image>
+                            <TextBlock Text="{Binding version.no_version}" FontSize="18" FontWeight="Bold" Foreground="#212121" Margin="5,0">
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="0" Grid.Row="1" Width="350" HorizontalAlignment="Left" Orientation="Horizontal">
+                            <Image Width="60" Height="60" Source="{Binding PathIcon}" Margin="10,5,5,10"></Image>
+                            <Grid Margin="0,5,0,0" ShowGridLines="True" Width="270">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="270">
+                                    </ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15"></RowDefinition>
+                                    <RowDefinition Height="15"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
 
-                --><!--DashBoard--><!--
-                <Controls:Tile Command="{Binding IrDashboard}" Background="Orange" TiltFactor="2" Title="{x:Static local:StringResources.ttlDashboard}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="3" Cursor="Hand" IsEnabled="{Binding PerfilAdministrador}">
+                                <Grid Grid.Column="0" Grid.Row="0" ShowGridLines="False">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="180"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="75"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding nombre}" FontSize="14" Foreground="#212121" FontWeight="Bold" HorizontalAlignment="Left"></TextBlock>
+                                    <TextBlock Grid.Column="2" Text="{Binding version.fecha_version,StringFormat={}{0:yyyy-MM-dd}}" FontSize="14" Foreground="#212121" FontWeight="Bold" HorizontalAlignment="Right"></TextBlock>
+                                    -->
+                <!--<TextBlock Grid.Column="0" Text="W-3571-TSINGEPRO-0007-es" FontSize="12" Foreground="#212121" FontWeight="Bold" HorizontalAlignment="Left"></TextBlock>
+                                    <TextBlock Grid.Column="2" Text="2021-04-30" FontSize="12" Foreground="#212121" FontWeight="Bold" HorizontalAlignment="Right"></TextBlock>-->
+                <!--
+                                </Grid>
+                                <StackPanel Grid.Column="0" Grid.Row="1">
+
+                                </StackPanel>
+                                <StackPanel Grid.Column="0" Grid.Row="2">
+                                    <TextBlock Text="{Binding descripcion}" FontWeight="Medium" FontSize="14" TextWrapping="Wrap"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Grid.Column="0" Grid.Row="2">
+                            <Grid ShowGridLines="False">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="85"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="22,0">
+                                        <Image Height="25" Width="25" Source="/Images/user_create.png"></Image>
+                                        <TextBlock Text="{Binding UsuarioAbr}" FontWeight="SemiBold" Foreground="#757575" VerticalAlignment="Center" Margin="4,0,0,0"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="24,2">
+                                        <Image Height="20" Width="20" Source="/Images/user_checked.png"></Image>
+                                        <TextBlock Text="{Binding UsuarioAproboAbr}" FontWeight="SemiBold" Foreground="#757575" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <Button Command="{Binding Path=DataContext.VerArchivo,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding version.id_version}" Width="60" Height="60" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,3">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Image Source="{Binding Path=PathDownload}" Width="24" Height="24" Visibility="{Binding Path=DataContext.BoolImageDownload, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Converter={StaticResource BoolToVis}}" ></Image>
+                                            <Image Width="24" Height="24" gif:ImageBehavior.AnimatedSource="{Binding Path=PathDownload}" Visibility="{Binding Path=DataContext.BoolGifDownload, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Converter={StaticResource BoolToVis}}"></Image>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>-->
+                <!--DashBoard-->
+                <!--<Controls:Tile Command="{Binding IrDashboard}" Background="Orange" TiltFactor="2" Title="{x:Static local:StringResources.ttlDashboard}" Width="Auto" Height="Auto" Grid.Column="0" Grid.Row="3" Cursor="Hand" IsEnabled="{Binding PerfilAdministrador}">
                     <Controls:Tile.Style>
                         <Style TargetType="Controls:Tile">
                             <Setter Property="Content">
@@ -313,7 +382,6 @@
                     </Controls:Tile.Style>
                 </Controls:Tile>-->
             </Grid>
-
         </DockPanel>
     </Grid>
 </UserControl>

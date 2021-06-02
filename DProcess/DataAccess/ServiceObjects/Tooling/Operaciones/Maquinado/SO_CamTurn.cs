@@ -114,7 +114,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
 
                 return null;
@@ -150,7 +150,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
 
                 return null;
@@ -327,7 +327,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
 
                 return null;
@@ -362,7 +362,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                 datos = conexion.EjecutarStoredProcedure("SelectCamDetail", parametros);
 
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //si hay error, retorna cero.
                 return datos;
@@ -407,7 +407,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error, regresa nulo.
                 return null;
@@ -643,7 +643,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Maquinado
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
 
                 return null;

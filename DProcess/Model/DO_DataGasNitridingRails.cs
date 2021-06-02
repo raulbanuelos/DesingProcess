@@ -15,5 +15,6 @@ namespace Model
         public double DurezaMax { get; set; }
         public string Receta { get; set; }
         public string WhiteLayer { get; set; }
+        public double DHP { get; set; }
     }
 }

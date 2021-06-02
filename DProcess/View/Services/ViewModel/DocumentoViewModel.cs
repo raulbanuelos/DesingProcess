@@ -23,6 +23,7 @@ using System.Drawing;
 using Gma.QrCodeNet.Encoding;
 using Gma.QrCodeNet.Encoding.Windows.Render;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace View.Services.ViewModel
 {
@@ -39,6 +40,8 @@ namespace View.Services.ViewModel
         Archivo ArchivoTemporal;
         string codeValidation = string.Empty;
         Archivo archivoFirmado;
+        //string ipServidor = "10.16.44.242";
+        string ipServidor = "10.16.44.168";
 
         #endregion
 
@@ -406,7 +409,6 @@ namespace View.Services.ViewModel
                 _selectedItem = value;
                 NotifyChange("SelectedItem");
             }
-
         }
 
         private DO_Grupos model;
@@ -643,7 +645,7 @@ namespace View.Services.ViewModel
                 NotifyChange("visibilitylabelsuscripcion");
             }
         }
-        
+
         private bool _ActivarSuscripcion;
         public bool ActivarSuscripcion
         {
@@ -887,9 +889,9 @@ namespace View.Services.ViewModel
         /// <param name="ModelUsuario"></param>
         public DocumentoViewModel(Documento selectedDocumento, bool band, Usuario ModelUsuario)
         {
-            //Variables auxiliar guarda la información para cuando se genera una versión nueva 
+            //Variables auxiliar guarda la información para cuando se genera una versión nueva
             User = ModelUsuario;
-            //Inicializa los combobox 
+            //Inicializa los combobox
             Inicializar();
 
             #region Cargar Usuarios a Notificar
@@ -962,10 +964,10 @@ namespace View.Services.ViewModel
                         }
                     }
                 }
-            } 
+            }
             #endregion
 
-            //Asiganmos los valores para que se muestren 
+            //Asiganmos los valores para que se muestren
             Nombre = selectedDocumento.nombre;
             Version = selectedDocumento.version.no_version;
             Fecha = selectedDocumento.fecha_actualizacion;
@@ -989,10 +991,10 @@ namespace View.Services.ViewModel
             EnabledEliminar = false;
             IsEnabled = false;
             BttnArchivos = false;
-            
+
             //Si es ventana para generar una nueva versión, band = true
             BttnVersion = band;
-            
+
             //si band contiene true, significa que el documento esta liberado, caso contrario es por que esta en pendiente por corregir
             if (band == true)
             {
@@ -1074,7 +1076,7 @@ namespace View.Services.ViewModel
             {
                 Archivo objArchivo = new Archivo();
 
-                //Asiganmos los valores para que se muestren 
+                //Asiganmos los valores para que se muestren
                 objArchivo.nombre = item.nombre;
                 objArchivo.id_archivo = item.version.archivo.id_archivo;
                 objArchivo.archivo = item.version.archivo.archivo;
@@ -1096,7 +1098,7 @@ namespace View.Services.ViewModel
             // Asignamos a la variable, si el usuario ya está inscrito o no al documento
             bool inscrito = DataManagerControlDocumentos.Get_RegisrosSuscritos(User.NombreUsuario, id_documento);
 
-            // Validamos 
+            // Validamos
             if (inscrito == true)
             {
                 // Si ya está inscrito, el botón inicia seleccionado
@@ -1106,7 +1108,7 @@ namespace View.Services.ViewModel
             {
                 // Si no está suscrito, el botón permanece deseleccionado
                 _ActivarSuscripcion = false;
-            }                          
+            }
         }
 
         /// <summary>
@@ -1163,7 +1165,7 @@ namespace View.Services.ViewModel
             }
 
 
-            //Inicializa los combobox 
+            //Inicializa los combobox
             Inicializar();
             IsEnabled = false;
             EnabledEliminar = false;
@@ -1182,7 +1184,7 @@ namespace View.Services.ViewModel
                 IsEnabled = true;
             }
 
-            //Asiganmos los valores para que se muestren 
+            //Asiganmos los valores para que se muestren
             Nombre = selectedDocumento.nombre;
             User = ModelUsuario;
             Version = selectedDocumento.version.no_version;
@@ -1338,7 +1340,7 @@ namespace View.Services.ViewModel
             //Método que obtiene los archivos de un documento y de la versión
             Lista = DataManagerControlDocumentos.GetArchivos(id_documento, idVersion);
 
-            //Iteramos la lista 
+            //Iteramos la lista
             foreach (var item in Lista)
             {
                 Archivo objArchivo = new Archivo();
@@ -1364,7 +1366,7 @@ namespace View.Services.ViewModel
 
             archivoFirmado = DataManagerControlDocumentos.GetDocumentoFirmado(selectedDocumento.version.id_version);
 
-            //establecemos el tipo de ventana para saber que opciones del menú se van a mostrar        
+            //establecemos el tipo de ventana para saber que opciones del menú se van a mostrar
             VentanaProcedencia = "PendienteLiberar";
             //mandamos llamar el método que construye el menú
             CreateMenuItems(VentanaProcedencia);
@@ -1552,7 +1554,7 @@ namespace View.Services.ViewModel
         /// <summary>
         /// Comando para liberar un documento
         /// </summary>
-        /// 
+        ///
         public ICommand LiberarDocumento
         {
             get
@@ -1586,7 +1588,7 @@ namespace View.Services.ViewModel
 
         /// <summary>
         /// Comando para sellar electronicamente un documento las copias.
-        /// 
+        ///
         /// </summary>
         public ICommand SellarDocumento
         {
@@ -1954,7 +1956,7 @@ namespace View.Services.ViewModel
                 mensaje = StringResources.msgCorrectFile;
                 return 1;
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 mensaje = StringResources.msgOcurrioError;
                 return 3;
@@ -2222,7 +2224,7 @@ namespace View.Services.ViewModel
                 mensaje = StringResources.msgCorrectFile;
                 return 1;
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 mensaje = StringResources.msgOcurrioError;
                 ListaDocumentos.Clear();
@@ -2292,7 +2294,7 @@ namespace View.Services.ViewModel
                             }
 
                             bool ValidacionNumeracion = true;
-                            //Evaluamos la numeración de las hojas                        
+                            //Evaluamos la numeración de las hojas
                             string Numeracion = Convert.ToString(sheet.Range["HOJAS"].Value);
 
                             if (Numeracion != "Hoja " + i + " de " + ExcelWork.Sheets.Count)
@@ -2473,7 +2475,7 @@ namespace View.Services.ViewModel
                 mensaje = StringResources.msgCorrectFile;
                 return 1;
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 mensaje = StringResources.msgOcurrioError;
                 return 3;
@@ -2540,7 +2542,7 @@ namespace View.Services.ViewModel
                             }
 
                             bool ValidacionNumeracion = true;
-                            //Evaluamos la numeración de las hojas 
+                            //Evaluamos la numeración de las hojas
                             string Numeracion = Convert.ToString(sheet.Range["NUMERACION"].Value);
 
                             if (Numeracion != "Hoja:(" + i + "/" + ExcelWork.Sheets.Count + ")")
@@ -2685,7 +2687,7 @@ namespace View.Services.ViewModel
                 mensaje = StringResources.msgCorrectFile;
                 return 1;
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 mensaje = StringResources.msgOcurrioError;
                 return 3;
@@ -2938,7 +2940,6 @@ namespace View.Services.ViewModel
                                 else
                                 {
                                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgNombreDescripcionNoIgual);
-
                                 }
                             }
                             else
@@ -2980,7 +2981,7 @@ namespace View.Services.ViewModel
                                                 //Inicializamos los servicios de dialog
                                                 DialogService dialogService = new DialogService();
 
-                                                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal. 
+                                                //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendra el mensaje modal.
                                                 MetroDialogSettings setting = new MetroDialogSettings();
                                                 setting.AffirmativeButtonText = StringResources.lblVertical;
                                                 setting.NegativeButtonText = StringResources.lblHorizontal;
@@ -3305,7 +3306,7 @@ namespace View.Services.ViewModel
                 //Si tiene una versión anterior
                 if (last_id != 0)
                 {
-                    //Elimina los documentos de la lista 
+                    //Elimina los documentos de la lista
                     foreach (var item in ListaDocumentos)
                     {
                         //Manda a la función para eliminar los archivos
@@ -3313,7 +3314,7 @@ namespace View.Services.ViewModel
                     }
 
                     Model.ControlDocumentos.Version objVersion = new Model.ControlDocumentos.Version();
-                    //Se asigna el id 
+                    //Se asigna el id
                     objVersion.id_version = idVersion;
                     objVersion.no_version = version;
 
@@ -3325,7 +3326,7 @@ namespace View.Services.ViewModel
 
                     if (delete_version != 0)
                     {
-                        //Creamos un objeto para la versión anterior 
+                        //Creamos un objeto para la versión anterior
                         Model.ControlDocumentos.Version lastVersion = new Model.ControlDocumentos.Version();
 
                         //asigamos el id de la version anterior, cambiamos el estatus a liberado
@@ -3436,7 +3437,7 @@ namespace View.Services.ViewModel
                         //Se crea el objeto de tipo archivo
                         Archivo obj = new Archivo();
 
-                        // Si fue seleccionado un documento 
+                        // Si fue seleccionado un documento
                         if (result == true)
                         {
                             try
@@ -3620,7 +3621,7 @@ namespace View.Services.ViewModel
                                             }
                                             else
                                             {
-                                                //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar                                                                                           
+                                                //si se llegara a insertar un tipo de archivo que no corresponde se manda un mensaje indicando que tipo de archivo se debe adjuntar
                                                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgSoloExcel);
                                                 //se borra de la lista temporal
                                                 ListaDocumentos.Clear();
@@ -3698,7 +3699,7 @@ namespace View.Services.ViewModel
                                 //mostramos la ventana para poder seleccionar el archivo
                                 Nullable<bool> result = dlg.ShowDialog();
 
-                                // Si fue seleccionado un documento 
+                                // Si fue seleccionado un documento
                                 if (result == true)
                                 {
                                     try
@@ -3744,7 +3745,7 @@ namespace View.Services.ViewModel
                                                     ArchivoTemporal.ruta = @"/Images/w.png";
                                                 }
                                             }
-                                            //despues de que el usuario haya seleccionado el archivo a insertar 
+                                            //despues de que el usuario haya seleccionado el archivo a insertar
                                             //consultamos de que tipo es el archivo
                                             if (id_tipo == 1003 || id_tipo == 1005 || id_tipo == 1006 || id_tipo == 1012 || id_tipo == 1013 || id_tipo == 1014 || id_tipo == 1011)
                                             {
@@ -3967,7 +3968,7 @@ namespace View.Services.ViewModel
                     //Ejecutamos el método que obtiene las versiones de un documentos que no están liberadas u obsoletas
                     ObservableCollection<Model.ControlDocumentos.Version> ListaEstatus = DataManagerControlDocumentos.GetStatus_Version(id_documento);
 
-                    //Si el documento no tiene versiones pendientes 
+                    //Si el documento no tiene versiones pendientes
                     if (ListaEstatus.Count == 0)
                     {
                         //Obtiene la últuma version del documento.
@@ -4008,7 +4009,7 @@ namespace View.Services.ViewModel
                             obj.no_version = item.no_version;
                             obj.estatus = item.estatus;
                         }
-                        //Muestra mensaje 
+                        //Muestra mensaje
                         await dialog.SendMessage(StringResources.msgErrorCrearVersion, StringResources.msgNumeroVersion + " " + obj.no_version + " " + " " + StringResources.msgEstado + " " + obj.estatus);
                     }
                 }
@@ -4065,11 +4066,11 @@ namespace View.Services.ViewModel
             }
             else
             {
-                //Formulario para ingresar el número de copias, 
+                //Formulario para ingresar el número de copias,
                 //string num_copias = await window.ShowInputAsync(StringResources.msgIngNumeroCopias, StringResources.msgNumeroCopias, null);
                 string num_copias = "0";
                 //Comprueba que el número de copias sea diferente de nulo y sólo contenga números.
-                if (num_copias != null) 
+                if (num_copias != null)
                 {
                     if (Regex.IsMatch(num_copias, @"^\d+$"))
                     {
@@ -4230,7 +4231,7 @@ namespace View.Services.ViewModel
                                     //obetemos el id de la versión anterior
                                     int last_id = DataManagerControlDocumentos.GetID_LastVersion(id_documento, idVersion);
 
-                                    //Creamos un objeto para la versión anterior 
+                                    //Creamos un objeto para la versión anterior
                                     Model.ControlDocumentos.Version lastVersion = new Model.ControlDocumentos.Version();
 
                                     //asigamos el id y el estatus obsoleto
@@ -4430,7 +4431,7 @@ namespace View.Services.ViewModel
             body += "</body>";
             body += "</HTML>";
 
-            bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body);
+            bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body, "CONTROL_DOCUMENTOS",0);
 
             return respuesta;
         }
@@ -4570,7 +4571,7 @@ namespace View.Services.ViewModel
             body += "</body>";
             body += "</HTML>";
 
-            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
+            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body, "CONTROL_DOCUMENTOS",0);
 
             return respuesta;
         }
@@ -4660,7 +4661,7 @@ namespace View.Services.ViewModel
             body += "</body>";
             body += "</HTML>";
 
-            bool respuesta = Correo.SendEmailLotusCustom(path, CorreosUsuarios, title, body);
+            bool respuesta = Correo.SendEmailLotusCustom(path, CorreosUsuarios, title, body, "CONTROL_DOCUMENTOS",0);
 
             return respuesta;
         }
@@ -4763,7 +4764,7 @@ namespace View.Services.ViewModel
             body += "</HTML>";
 
             //Ejecutamos el método para notificar por correo
-            bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body);
+            bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body, "CONTROL_DOCUMENTOS", 0);
 
             return respuesta;
         }
@@ -4891,6 +4892,9 @@ namespace View.Services.ViewModel
 
                                                 //Ejecutamos el método para guardar la versión. El resultado lo guardamos en una variable local.
                                                 int id_version = DataManagerControlDocumentos.SetVersion(objVersion, obj.nombre);
+
+                                                DataManagerControlDocumentos.InsertHistorialVersion(id_version, NombreUsuarioElaboro, obj.nombre, objVersion.no_version, "Se cambia el estatus a: APROBADO, PENDIENTE POR LIBERAR");
+
                                                 UnirTodosIntegrantes(id_version);
 
                                                 //Actualizamos el código generado en la tabla TBL_VERSION.
@@ -4934,17 +4938,17 @@ namespace View.Services.ViewModel
                                                             if (TipoDocumento == "FORMATO DEL SISTEMA")
                                                             {
                                                                 ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(id_version);
-                                                                string[] files = new string[archivosTem.Count];
-                                                                int c = 0;
-                                                                foreach (var item2 in archivosTem)
-                                                                {
-                                                                    string pathTemp = GetPathTempFile(item2);
-                                                                    File.WriteAllBytes(pathTemp, item2.archivo);
-                                                                    files[c] = pathTemp;
-                                                                    c++;
-                                                                }
+                                                                //string[] files = new string[archivosTem.Count];
+                                                                //int c = 0;
+                                                                //foreach (var item2 in archivosTem)
+                                                                //{
+                                                                //    string pathTemp = GetPathTempFile(item2);
+                                                                //    File.WriteAllBytes(pathTemp, item2.archivo);
+                                                                //    files[c] = pathTemp;
+                                                                //    c++;
+                                                                //}
 
-                                                                bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(_selectedDocumento.nombre, objVersion.no_version, objVersion.id_version,objVersion.id_usuario_autorizo,files);
+                                                                bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(_selectedDocumento.nombre, objVersion.no_version, objVersion.id_version,objVersion.id_usuario_autorizo);
                                                             }
                                                         }
                                                     }
@@ -4980,7 +4984,7 @@ namespace View.Services.ViewModel
                                         }
                                         else
                                         {
-                                            // si existen archivos similares 
+                                            // si existen archivos similares
                                             VerDocumentosSimilares(ListDocSimilares);
                                         }
                                     }
@@ -5049,7 +5053,7 @@ namespace View.Services.ViewModel
 
                                                 DataManagerControlDocumentos.UpdateCodeValidation(id_version, codeValidation);
 
-                                                //si se realizo guardo la versión 
+                                                //si se realizo guardo la versión
                                                 if (id_version != 0)
                                                 {
                                                     bool banOk = true;
@@ -5092,10 +5096,10 @@ namespace View.Services.ViewModel
                                                                     c++;
                                                                 }
 
-                                                                bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(_selectedDocumento.nombre, objVersion.no_version, objVersion.id_version, objVersion.id_usuario_autorizo, files);
+                                                                bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(_selectedDocumento.nombre, objVersion.no_version, objVersion.id_version, objVersion.id_usuario_autorizo);
                                                             }
                                                         }
-                                                        
+
                                                     }
 
                                                     //Asignamos el valor de Guardar a la etiqueta del botón.
@@ -5132,13 +5136,13 @@ namespace View.Services.ViewModel
                                         }
                                         else
                                         {
-                                            //si existen documentos similares 
+                                            //si existen documentos similares
                                             VerDocumentosSimilares(ListDocSimilares);
                                         }
                                     }
                                     else
                                     {
-                                        //si existen documentos iguales. 
+                                        //si existen documentos iguales.
                                         VerDocumentosSimilares(ListDocIguales);
                                     }
                                 }
@@ -5266,7 +5270,7 @@ namespace View.Services.ViewModel
                 body += "</body>";
                 body += "</HTML>";
 
-                bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body);
+                bool respuesta = SO_Email.SendEmailLotusCustom(path, correos, title, body, "CONTROL_DOCUMENTOS", 0);
 
                 return respuesta;
             }
@@ -5385,7 +5389,7 @@ namespace View.Services.ViewModel
             }
             return r;
         }
-        
+
         private void SaveSignedFile()
         {
             string path = @"\\agufileserv2\ingenieria\resprutas\NUEVO SOFTWARE RUTAS\DocumentosFirmados";
@@ -5436,7 +5440,7 @@ namespace View.Services.ViewModel
 
             if (!Directory.Exists(path))
                 System.IO.Directory.CreateDirectory(path);
-            
+
             path = path + nombre + "_" + version + SignedFile.ext;
 
             File.WriteAllBytes(path, SignedFile.archivo);
@@ -5550,7 +5554,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="bytes"></param>
         /// <param name="baseFont"></param>
@@ -5606,7 +5610,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pdfData"></param>
         /// <param name="watermarkText"></param>
@@ -5761,7 +5765,7 @@ namespace View.Services.ViewModel
                                                     objArchivo.ext = item.ext;
                                                     objArchivo.nombre = string.Concat(nombre, version);
 
-                                                    //si el archivo no existe 
+                                                    //si el archivo no existe
                                                     if (item.id_archivo == 0)
                                                     {
                                                         //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
@@ -5797,7 +5801,7 @@ namespace View.Services.ViewModel
                                     }
                                     else
                                     {
-                                        //Entramos a este else si el documento tiene mas versiones y se cuenta con registro de ellas. Aqui solo se modifican los datos de la 
+                                        //Entramos a este else si el documento tiene mas versiones y se cuenta con registro de ellas. Aqui solo se modifican los datos de la
                                         //tabla de version en la base de datos
 
                                         //mandamos llamar el metodo que modifica los datos de la version
@@ -5817,7 +5821,7 @@ namespace View.Services.ViewModel
                                                 objArchivo.ext = item.ext;
                                                 objArchivo.nombre = string.Concat(nombre, version);
 
-                                                //si el archivo no existe 
+                                                //si el archivo no existe
                                                 if (item.id_archivo == 0)
                                                 {
                                                     //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
@@ -5862,7 +5866,7 @@ namespace View.Services.ViewModel
                         }
                         else
                         {
-                            //Mandamos mensaje de que el usuario autorizo no puede ser SISTEMA  
+                            //Mandamos mensaje de que el usuario autorizo no puede ser SISTEMA
                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.lblUsuarioPermitido);
                         }
                         //cierre
@@ -5909,7 +5913,7 @@ namespace View.Services.ViewModel
                 // Declaramos nueva lista, para asignarle el total de registros por id_documento
                 ListaUsuariosSuscritosParaEliminar = DataManagerControlDocumentos.Get_UserSuscripDoc(id_documento);
                 // Mandamos llamar el constructor que recibe como parámetro  la lista anterior
-                vmUsuarios = new UsuariosViewModel(ListaUsuariosSuscritosParaEliminar, auxUsuario, auxUsuario_Autorizo);            
+                vmUsuarios = new UsuariosViewModel(ListaUsuariosSuscritosParaEliminar, auxUsuario, auxUsuario_Autorizo);
                 FrmListaUsuarios frmListaUsuarios = new FrmListaUsuarios();
                 frmListaUsuarios.DataContext = vmUsuarios;
 
@@ -5919,7 +5923,7 @@ namespace View.Services.ViewModel
                 if (vmUsuarios.ListaUsuariosCorreo.Where(x => x.IsSelected).ToList().Count > 0)
                 {
                     Documento objDoc_Eliminado = new Documento();
-                    //Elimina los documentos de la lista 
+                    //Elimina los documentos de la lista
                     foreach (var item in ListaDocumentos)
                     {
                         objDoc_Eliminado.version.archivo.archivo = item.archivo;
@@ -6238,7 +6242,7 @@ namespace View.Services.ViewModel
 
         /// <summary>
         /// Método para cerrar la pantalla
-        /// </summary>       
+        /// </summary>
         private async void CerrarVentana()
         {
             DialogService dialog = new DialogService();
@@ -6505,7 +6509,7 @@ namespace View.Services.ViewModel
                             Command = DownLoadFileScanned,
                             Tag = "Descargar documento firmado"
                         });
-                    
+
                     break;
 
                 case "DocumentoLiberado":
@@ -6719,7 +6723,7 @@ namespace View.Services.ViewModel
                                             objArchivo.ext = item.ext;
                                             objArchivo.nombre = string.Concat(nombre, version);
 
-                                            //si el archivo no existe 
+                                            //si el archivo no existe
                                             if (item.id_archivo == 0)
                                             {
                                                 //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
@@ -6741,16 +6745,16 @@ namespace View.Services.ViewModel
                                         {
                                             string idUsuarioAutorizo = DataManagerControlDocumentos.GetVersion(idVersion).id_usuario_autorizo;
 
-                                            ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(idVersion);
-                                            string[] files = new string[archivosTem.Count];
-                                            int c = 0;
-                                            foreach (var item in archivosTem)
-                                            {
-                                                string pathTemp = GetPathTempFile(item);
-                                                File.WriteAllBytes(pathTemp, item.archivo);
-                                                files[c] = pathTemp;
-                                                c++;
-                                            }
+                                            //ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(idVersion);
+                                            //string[] files = new string[archivosTem.Count];
+                                            //int c = 0;
+                                            //foreach (var item in archivosTem)
+                                            //{
+                                            //    string pathTemp = GetPathTempFile(item);
+                                            //    File.WriteAllBytes(pathTemp, item.archivo);
+                                            //    files[c] = pathTemp;
+                                            //    c++;
+                                            //}
 
                                             if (!User.Details.IsAvailableEmail || !File.Exists(User.Pathnsf))
                                             {
@@ -6774,7 +6778,7 @@ namespace View.Services.ViewModel
                                                 {
                                                     // Actualizamos el path de usuario en la misma sesión
                                                     User.Pathnsf = respuestaConfigEmail.rutamail;
-                                                    
+
                                                     await dialog.SendProgressAsync(StringResources.msgPerfecto + User.Nombre, StringResources.msgCuentaConfigurada);
                                                 }
                                                 else
@@ -6784,12 +6788,12 @@ namespace View.Services.ViewModel
                                             }
                                             else
                                             {
-                                                bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(nombre, version, idVersion, idUsuarioAutorizo, files);
+                                                bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(nombre, version, idVersion, idUsuarioAutorizo);
                                             }
-                                            
+
                                             await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
                                         }
-                                            
+
 
                                         CerrarVentanaActual();
                                     }
@@ -6805,7 +6809,7 @@ namespace View.Services.ViewModel
                             }
                             else
                             {
-                                //Entramos a este else si el documento tiene mas versiones y se cuenta con registro de ellas.Aqui solo se modifican los datos de la 
+                                //Entramos a este else si el documento tiene mas versiones y se cuenta con registro de ellas.Aqui solo se modifican los datos de la
                                 //tabla de version en la base de datos
                                 int update_version = modificaVersion("FORMATO DEL SISTEMA");
 
@@ -6824,7 +6828,7 @@ namespace View.Services.ViewModel
                                         objArchivo.ext = item.ext;
                                         objArchivo.nombre = string.Concat(nombre, version);
 
-                                        //si el archivo no existe 
+                                        //si el archivo no existe
                                         if (item.id_archivo == 0)
                                         {
                                             //Ejecutamos el método para guardar el documento iterado, el resultado lo guardamos en una variable local.
@@ -6848,16 +6852,16 @@ namespace View.Services.ViewModel
 
                                         string idUsuarioAutorizo = DataManagerControlDocumentos.GetVersion(idVersion).id_usuario_autorizo;
 
-                                        ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(idVersion);
-                                        string[] files = new string[archivosTem.Count];
-                                        int c = 0;
-                                        foreach (var item in archivosTem)
-                                        {
-                                            string pathTemp = GetPathTempFile(item);
-                                            File.WriteAllBytes(pathTemp, item.archivo);
-                                            files[c] = pathTemp;
-                                            c++;
-                                        }
+                                        //ObservableCollection<Archivo> archivosTem = DataManagerControlDocumentos.GetArchivos(idVersion);
+                                        //string[] files = new string[archivosTem.Count];
+                                        //int c = 0;
+                                        //foreach (var item in archivosTem)
+                                        //{
+                                        //    string pathTemp = GetPathTempFile(item);
+                                        //    File.WriteAllBytes(pathTemp, item.archivo);
+                                        //    files[c] = pathTemp;
+                                        //    c++;
+                                        //}
 
                                         if (!User.Details.IsAvailableEmail || !File.Exists(User.Pathnsf))
                                         {
@@ -6892,12 +6896,12 @@ namespace View.Services.ViewModel
                                         }
                                         else
                                         {
-                                            bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(nombre, version, idVersion, idUsuarioAutorizo, files);
+                                            bool confirmacionEnviarCorreo = enviarCorreoAprobarRechazar(nombre, version, idVersion, idUsuarioAutorizo);
                                         }
 
                                         await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgCambiosRealizados);
                                     }
-                                        
+
 
                                     //Obtenemos la pantalla actual, y casteamos para que se tome como tipo MetroWindow.
                                     var window = Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
@@ -6937,17 +6941,19 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="codigoDocumento"></param>
         /// <param name="noVersion"></param>
         /// <param name="idVersion"></param>
         /// <param name="emailUsuario"></param>
         /// <returns></returns>
-        private bool enviarCorreoAprobarRechazar(string codigoDocumento, string noVersion, int idVersion, string idUsuarioAutorizo, string[] files)
+        private bool enviarCorreoAprobarRechazar(string codigoDocumento, string noVersion, int idVersion, string idUsuarioAutorizo)
         {
             string email = DataManagerControlDocumentos.GetCorreoUsuario(idUsuarioAutorizo);
-            
+            Model.ControlDocumentos.Version version = DataManagerControlDocumentos.GetVersion(idVersion);
+            Usuario usuarioCreo = DataManager.GetUsuario(version.id_usuario);
+
             ServiceEmail serviceEmail = new ServiceEmail();
             string body;
             body = "<HTML>";
@@ -6958,11 +6964,11 @@ namespace View.Services.ViewModel
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\">" + definirSaludo() + "</font> </p>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
             body += "<ul>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">He dado de alta una nueva versión del documento <b>" + codigoDocumento + "</b> versión <b> " + noVersion + ".0" + " </b> para lo cual requiero su autorización para poderlo liberar en el sistema </font> </li>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">El documento esta adjunto a este correo. </font> </li>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> APROBAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://10.16.44.242:3000/api/aprobardocumento/id:" + idVersion + " \">Aprobar</a></li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para notificar que el usuario <b>" + usuarioCreo.Nombre + " " + usuarioCreo.ApellidoPaterno + " </b> ha dado de alta una nueva versión del documento <b>" + codigoDocumento + "</b> versión <b> " + noVersion + ".0" + " </b> para lo cual requiero su autorización para poderlo liberar en el sistema </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">El documento está adjunto a este correo. </font> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> APROBAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://" + ipServidor + ":3000/api/aprobardocumento/id:" + idVersion + " \">Aprobar</a></li>";
             body += "<br/><br/>";
-            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> RECHAZAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://10.16.44.242:3000/api/viewnoaprobar/id:" + idVersion + " \">No Aprobar</a> </li>";
+            body += "<li><font font=\"verdana\" size=\"3\" color=\"black\">Para <b> RECHAZAR</b> el documento favor de dar click en el siguiente link:</font> <a href=\"http://" + ipServidor + ":3000/api/viewnoaprobar/id:" + idVersion + " \">No Aprobar</a> </li>";
             body += "<br/>";
             body += "</ul>";
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
@@ -6970,15 +6976,14 @@ namespace View.Services.ViewModel
             body += "<p><font font=\"verdana\" size=\"3\" color=\"black\"></font> </p>";
             body += "<br/>";
             body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Saludos / Kind regards</font> </p>";
-            body += "<ul>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Nombre + " " + User.ApellidoPaterno + "</font> </li>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></li>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </li>";
-            body += "<li></li>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </li>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </li>";
-            body += "<li><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </li>";
-            body += "</ul>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Nombre + " " + User.ApellidoPaterno + "</font> </p>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">MAHLE Componentes de Motor de México, S. de R.L. de C.V.</font></p>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Engineering (ENG)</font> </p>";
+            body += "<p></p>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Km. 0.3 Carr. Maravillas-Jesús María , 20900 Aguascalientes, Mexico</font> </p>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">Teléfono: +52 449 910 8200-82 90, Fax: +52 449 910 8200 - 267</font> </p>";
+            body += "<p><font font=\"default Sans Serif\" size=\"3\" color=\"black\">" + User.Correo + ",</font> <a href=\"http://www.mx.mahle.com\">http://www.mx.mahle.com</a>  </p>";
+
             body += "</body>";
             body += "</HTML>";
 
@@ -6988,7 +6993,15 @@ namespace View.Services.ViewModel
 
             recepents = Module.EliminarCorreosDuplicados(recepents);
 
-            return serviceEmail.SendEmailLotusCustom(User.Pathnsf, recepents, "Control de documentos -  Solicitud de aprobación de documento: " + codigoDocumento, body, files);
+            return serviceEmail.SendEmailLotusCustom(User.Pathnsf, recepents, "Control de documentos -  Solicitud de aprobación de documento: " + codigoDocumento, body, "CONTROL_DOCUMENTOS", idVersion);
+
+            //List<string> attachments = new List<string>();
+
+            //foreach (var item in files)
+            //{
+            //    attachments.Add(item);
+            //}
+            //return serviceEmail.SendEmailOutlook(recepents, "Control de documentos -  Solicitud de aprobación de documento: " + codigoDocumento, body, attachments);
         }
 
         /// <summary>
@@ -7248,11 +7261,11 @@ namespace View.Services.ViewModel
             DataManagerControlDocumentos.EliminarRegistroVersion(ID_VERSION);
 
             ObservableCollection<DO_INTEGRANTES_GRUPO> listaFinal = new ObservableCollection<DO_INTEGRANTES_GRUPO>();
-            
+
             foreach (var Grupo in ListaGrupos.Where(x => x.IsSelected).ToList())
             {
                 ListaIntegrantes_Grupo = DataManagerControlDocumentos.GetAllIntegrantesGrupo(Grupo.idgrupo);
-                
+
                 foreach (var Integrante in ListaIntegrantes_Grupo)
                 {
                     int r = listaFinal.Where(x => x.idusuariointegrante == Integrante.idusuariointegrante).ToList().Count;
@@ -7262,7 +7275,7 @@ namespace View.Services.ViewModel
                     }
                 }
             }
-            
+
             foreach (var Usuario in ListaUsuariosCorreo.Where(x => x.IsSelected).ToList())
             {
                 int r = listaFinal.Where(x => x.idusuariointegrante == Usuario.usuario).ToList().Count;
@@ -7394,9 +7407,9 @@ namespace View.Services.ViewModel
         /// </summary>
         public void _DeseleccionarTodosUsuarios()
         {
-            
+
             ObservableCollection<objUsuario> Aux = new ObservableCollection<objUsuario>();
-            
+
             foreach (var usuario in ListaUsuariosCorreo)
             {
                 usuario.IsSelected = false;
@@ -7414,7 +7427,7 @@ namespace View.Services.ViewModel
         #endregion
 
         /// <summary>
-        /// Método para mostrar mensaje de alerta cuando no hay usuarios seleccionados 
+        /// Método para mostrar mensaje de alerta cuando no hay usuarios seleccionados
         /// </summary>
         public void RecorrerListas()
         {

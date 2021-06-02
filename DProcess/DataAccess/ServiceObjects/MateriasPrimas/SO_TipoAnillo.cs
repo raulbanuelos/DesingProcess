@@ -33,7 +33,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -65,7 +65,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;

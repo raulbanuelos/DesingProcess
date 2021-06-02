@@ -241,7 +241,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                 return dt;
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return null;
             }

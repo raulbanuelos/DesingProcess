@@ -12,7 +12,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
     public class SO_Material
     {
         #region Atributtes
-        private string SP_RGP_GET_ALEANTES_MATERIAPRIMA = "SP_RGP_GET_ALEANTES_MATERIAPRIMA"; 
+        private string SP_RGP_GET_ALEANTES_MATERIAPRIMA = "SP_RGP_GET_ALEANTES_MATERIAPRIMA";
         #endregion
 
         #region Propiedades
@@ -93,7 +93,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error, retornamos un nulo.
                 return null;
@@ -164,7 +164,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre algún error retornamos un nulo.
                 return null;
@@ -321,7 +321,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si ocurre un error, retornamos un nulo.
                 return null;

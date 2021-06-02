@@ -27,7 +27,7 @@ namespace View.Services.ViewModel
     public class UsuarioViewModel : INotifyPropertyChanged
     {
         #region Atributtes
-        public Usuario ModelUsuario; 
+        public Usuario ModelUsuario;
         #endregion
 
         #region Propiedades de Usuario
@@ -318,7 +318,7 @@ namespace View.Services.ViewModel
         public UsuarioViewModel(Usuario modelUsuario, Page pagina)
         {
             ModelUsuario = modelUsuario;
-            
+
             this.pagina = pagina;
 
             //initNotifications();
@@ -414,7 +414,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ICommand IrControlDocumentos
         {
@@ -623,7 +623,7 @@ namespace View.Services.ViewModel
             //pantallaPattern.DataContext = context;
             //Pagina = pantallaPattern;
 
-            MateriasPrimas Form = new MateriasPrimas();            
+            MateriasPrimas Form = new MateriasPrimas();
             Form.DataContext = this;
             Pagina = Form;
         }
@@ -670,7 +670,7 @@ namespace View.Services.ViewModel
 
             return d.Hour <= 11 ? "Buenos días;" : "Buenas tardes;";
         }
-        
+
         private void initNotifications()
         {
             SqlTableDependency<DO_Notification> tableDependency;
@@ -691,7 +691,7 @@ namespace View.Services.ViewModel
             }
 
         }
-         
+
         /// <summary>
         /// Notificaciones para cuando se crea o corrigue un documento
         /// </summary>
@@ -751,7 +751,7 @@ namespace View.Services.ViewModel
                         noti = NotificationType.Error;
                     else
                         noti = NotificationType.Information;
-                    
+
                     var notificationManager = new NotificationManager();
                     notificationManager.Show(
                         new NotificationContent
@@ -769,7 +769,7 @@ namespace View.Services.ViewModel
             Exception ex = e.Error;
             throw ex;
         }
-        
+
         #endregion
     }
 }

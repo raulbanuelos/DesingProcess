@@ -89,9 +89,9 @@ namespace View.Services.TiempoEstandar.Gasolina.Maquinado
         }
         #endregion
 
-        private double d1;
-        private double h1;
-        private int origen;
+        //private double d1;
+        //private double h1;
+        //private int origen;
 
         #endregion
 

@@ -30,7 +30,7 @@ namespace View.Services.ViewModel
 
         #region Propiedades
         public Usuario user;
-        public objUsuario usuario;
+        //public objUsuario usuario;
         Encriptacion encriptar = new Encriptacion();
 
         private string _usuario;
@@ -270,7 +270,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="parametro"></param>
         public void changedPass(object parametro)
@@ -280,7 +280,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="parametro"></param>
         public void changedNewPass(object parametro)
@@ -290,7 +290,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="parametro"></param>
         public void changedConfirmPass(object parametro)

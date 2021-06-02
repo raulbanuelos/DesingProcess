@@ -1,8 +1,8 @@
 ﻿<Page x:Class="View.Forms.RawMaterial.PPattern"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:View.Forms.RawMaterial"
       xmlns:core="clr-namespace:HamburgerMenuApp.Core;assembly=HamburgerMenuApp.Core"
       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -73,7 +73,6 @@
                 <Grid Grid.Row="0">
                     <StackPanel Orientation="Horizontal" Margin="50,10,10,10">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="1">
-
                             <TextBox materialDesign:HintAssist.Hint="CÓDIGO" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding Codigo}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                             <TextBox materialDesign:HintAssist.Hint="DIAMETER" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding medida.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                             <TextBox materialDesign:HintAssist.Hint="WIDTH" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" Text="{Binding diametro.Valor}"  Height="60"  TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
@@ -141,7 +140,7 @@
                             </StackPanel>
                             <StackPanel VerticalAlignment="Bottom">
                                 <TextBox materialDesign:HintAssist.Hint="ESPECIAL INSTRUCTIONS" AcceptsReturn="True"
-                                 FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" 
+                                 FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left"
                                  Text="{Binding esp_inst.Valor}"  Height="180"  TextWrapping="Wrap"
                                  Width="500" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                 </TextBox>
@@ -149,14 +148,11 @@
                         </StackPanel>
                     </StackPanel>
                 </Grid>
-
-
             </StackPanel>
 
-            
             <DataGrid Grid.Row="1" ItemsSource="{Binding Path=ListaPattern}" x:Name="dataGrid"
-                                      ScrollViewer.CanContentScroll="True" 
-                                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                      ScrollViewer.CanContentScroll="True"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                       AutoGenerateColumns="False" SelectedItem="{Binding SelectedPattern,Mode=TwoWay}"
                       CanUserAddRows="False" IsReadOnly="False">
@@ -224,11 +220,8 @@
                                             Header="Diseño"
                                             Binding="{Binding diseno.Valor}"
                                             />
-
                 </DataGrid.Columns>
-
             </DataGrid>
         </Grid>
     </controls:HamburgerMenu>
-
 </Page>

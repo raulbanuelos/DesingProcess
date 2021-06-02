@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Threading.Tasks;
 using Model;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
@@ -13,7 +8,7 @@ namespace View.Services.ViewModel
 {
     public class BarrelLapAnillos_VM : INotifyPropertyChanged
     {
-        #region INotifyPropertyChanged Métodos
+        #region INotifyPropertyChanged Methods
         void NotifyChange(params string[] ids)
         {
             if (PropertyChanged != null)
@@ -26,7 +21,7 @@ namespace View.Services.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        #region Propiedades
+        #region Properties
         private DataTable _ListaHerramentalesBarrelLapAnillo;
         public DataTable ListaHerramentalesBarrelLapAnillo
         {
@@ -77,7 +72,7 @@ namespace View.Services.ViewModel
         }
         #endregion
 
-        #region Comandos
+        #region Commands
 
         public ICommand BusquedaBarrel
         {
@@ -89,20 +84,19 @@ namespace View.Services.ViewModel
 
         #endregion
 
-        #region Construcor
+        #region Constructor
         public BarrelLapAnillos_VM()
         {
             Busqueda(string.Empty);
         }
         #endregion
 
-        #region Métodos
+        #region Methods
         public void Busqueda(string TextoBuscar)
         {
             ObservableCollection<Herramental> aux = new ObservableCollection<Herramental>();
             ListaHerramentalesBarrelLapAnillo = DataManager.GetALLBarrelLapAnillos_(TextoBuscar, out aux);
         }
         #endregion
-
     }
 }

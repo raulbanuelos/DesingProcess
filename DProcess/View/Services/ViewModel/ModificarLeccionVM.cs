@@ -389,7 +389,7 @@ namespace View.Services.ViewModel
 
                 //Si no tiene motivo registrado se le asigna un N/A
                 MotivoCambio = string.IsNullOrEmpty(MotivoCambio) ? "N/A" : MotivoCambio;
-                
+
                 //Obtenemos todos los tipos de cambio
                 ListaNivelesDeCambio = DataManagerControlDocumentos.GetNivelesDeCambio();
 
@@ -694,7 +694,7 @@ namespace View.Services.ViewModel
                     {
                         foreach (var item in ListaDocumentos)
                         {
-                            int e = await DataManagerControlDocumentos.SetArchivo_Lecciones(item.ARCHIVO, item.EXT, item.NOMBRE_ARCHIVO, id_leccion);
+                            int e = DataManagerControlDocumentos.SetArchivo_Lecciones(item.ARCHIVO, item.EXT, item.NOMBRE_ARCHIVO, id_leccion);
                         }
                     }
 
@@ -720,7 +720,7 @@ namespace View.Services.ViewModel
                 else
                 {
                     await service.SendMessage(StringResources.ttlAlerta, StringResources.msgFillFlields);
-                }                       
+                }
             }
         }
 

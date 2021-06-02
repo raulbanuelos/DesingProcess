@@ -297,7 +297,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return obj.ID_COIL_CENTER_GUIDE;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa cero
                 return 0;
@@ -552,7 +552,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return obj.ID_COIL_ENTRANCE_GUIDE;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa cero
                 return 0;
@@ -2363,7 +2363,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error retorna nulo
                 return null;

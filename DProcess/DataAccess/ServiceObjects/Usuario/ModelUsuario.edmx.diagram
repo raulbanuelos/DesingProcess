@@ -30,6 +30,7 @@
         <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO" Width="1.5" PointX="10.625" PointY="11.25" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_CAT_MOTIVO_CAMBIO" />
         <AssociationConnector Association="DataAccess.ServiceObjects.Usuario.FK_TR_LECCIONES_APRENDIDAS_MOTIVO_CAMBIO_TBL_LECCIONES_APRENDIDAS" />
+        <EntityTypeShape EntityType="DataAccess.ServiceObjects.Usuario.TBL_SOLICITUD_CORREO" Width="1.5" PointX="11.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

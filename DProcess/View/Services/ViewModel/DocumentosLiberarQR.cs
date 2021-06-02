@@ -288,7 +288,6 @@ namespace View.Services.ViewModel
             {
                 // Vuelve a cargar la lista cuando no se quiere liberar documento
                 inicampo(string.Empty);
-                
             }
         }
 
@@ -367,7 +366,7 @@ namespace View.Services.ViewModel
             body += "</body>";
             body += "</HTML>";
 
-            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body);
+            bool respuesta = serviceMail.SendEmailLotusCustom(path, correos, title, body, "CONTROL_DOCUMENTOS", documento.version.id_version);
 
             return respuesta;
 

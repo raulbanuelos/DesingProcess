@@ -21,7 +21,7 @@ namespace DataAccess.ServiceObjects.Perfiles
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
 
                 throw;

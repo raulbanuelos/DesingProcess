@@ -75,7 +75,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                 }
 
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay un error se retorna el string vacío.
                 return string.Empty;

@@ -177,7 +177,7 @@ namespace View.Services.ViewModel
         }
 
         /// <summary>
-        /// Método para guardar text de passwordBox 
+        /// Método para guardar text de passwordBox
         /// </summary>
         public ICommand PasswordChanged1
         {
@@ -211,7 +211,7 @@ namespace View.Services.ViewModel
                 {
                     // Asignamos el valor de la constraseña random
                     _contraseña = this.GenerarPasswordAleatoria();
-                    
+
                     if (_contraseña.Length >= 6 )
                     {
                         //Declaramos un objeto con el cual se realiza la encriptación
@@ -227,7 +227,7 @@ namespace View.Services.ViewModel
                         objUsuario.password = encriptar.encript(_contraseña);
                         objUsuario.Correo = Correo;
                         objUsuario.Pathnsf = "";
-                        
+
                         //datos por default
                         objUsuario.usql = "´©³¶´¦³";
                         objUsuario.psql = "´‰“sqrr";
@@ -309,7 +309,7 @@ namespace View.Services.ViewModel
                                         _usuario.PerfilRawMaterial = true;
                                         _usuario.PerfilStandarTime = true;
                                         _usuario.PerfilTooling = true;
-                                        _usuario.PerfilRGP = true;   
+                                        _usuario.PerfilRGP = true;
                                     }
                                     //si el usuario tiene rol de administrador del sistema
                                     if (Module.UsuarioIsRol(_usuario.Roles, 1))
@@ -349,7 +349,7 @@ namespace View.Services.ViewModel
 
                                     // Declaramos lista vacía para el parámetro
                                     ObservableCollection<Archivo> ListaVacia = new ObservableCollection<Archivo>();
-                                
+
                                     // Declaramos el objeto
                                     Usuario UserCreated = new Usuario();
 
@@ -377,7 +377,7 @@ namespace View.Services.ViewModel
                                     body += "<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;En dicha carpeta se encuentra un archivo llamado View.exe. Favor de ejecutarlo.</P>";
 
                                     // Abrimos ventana para notificar
-                                    NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, ListaVacia, ListaUserCreated, title);
+                                    NotificarAViewModel vmNotificar = new NotificarAViewModel(User, body, ListaVacia, ListaUserCreated, title, "ALTA_USUARIO", 0);
                                     WNotificarA ventanaCorreo = new WNotificarA();
                                     ventanaCorreo.DataContext = vmNotificar;
                                     ventanaCorreo.ShowDialog();
@@ -443,7 +443,7 @@ namespace View.Services.ViewModel
                 {
                     aux++;
                 }
-                   
+
             }
 
             if (aux == 0)
@@ -460,7 +460,7 @@ namespace View.Services.ViewModel
         {
             Random random = new Random();
 
-            string caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";        
+            string caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             int longitud = caracteres.Length;
             char letra;
             int longitudContrasenia = 7;

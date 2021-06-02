@@ -226,7 +226,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return obj.ID_VERSION;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;
@@ -458,7 +458,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
 
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hubo algún error retornamos una cadena vacía.
                 return 0;
@@ -518,7 +518,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return version;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
 
                 return 0;
@@ -619,7 +619,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return version;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error, se regresa nulo
                 return null;
@@ -652,7 +652,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si encuentra error devuelve cero.
                 return 0;
@@ -694,7 +694,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 }
 
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error, se regresa nulo
                 return null;
@@ -786,7 +786,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 }
 
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error, se regresa nulo
                 return null;

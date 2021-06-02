@@ -117,14 +117,14 @@ namespace View.Services.ViewModel
             // Insertamos el objeto a la lista
             ListaDoc.Add(documento);
 
-            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario, body, ListaDoc, new List<objUsuario>(), "Listado de Verificación Anual " + DateTime.Now.Year);
+            NotificarAViewModel vwnotifa = new NotificarAViewModel(ModelUsuario, body, ListaDoc, new List<objUsuario>(), "Listado de Verificación Anual " + DateTime.Now.Year,"VERIFICACION_ANUAL", 0);
 
             notificara.DataContext = vwnotifa;
             notificara.ShowDialog();
         }
 
         /// <summary>
-        /// Método para adjuntar el documento de herramental para subir 
+        /// Método para adjuntar el documento de herramental para subir
         /// </summary>
         /// <param name="nombrearchivo"></param>
         public async void adjuntararchivoherramentales()
@@ -248,7 +248,7 @@ namespace View.Services.ViewModel
                     // Agregamos el registro completo leído
                     ListaRegistros.Add(Objeto);
 
-                    // Contador 
+                    // Contador
                     iRow++;
                 }
 
@@ -286,7 +286,7 @@ namespace View.Services.ViewModel
                 string nombre = "ProgramaVerificación";
                 string extension = ".xlsx";
 
-                // Asignamos el nombre del documento al crear  
+                // Asignamos el nombre del documento al crear
                 nombreArchivoSalida = nombre + extension;
 
                 // Declaramos el uso de librería para abrir el explorador de archivos
@@ -324,7 +324,7 @@ namespace View.Services.ViewModel
 
                     // Títulos en negritas y letra 12
                     estilo.Font.Bold = true;
-                    estilo.Font.FontSize = 12;                                        
+                    estilo.Font.FontSize = 12;
 
                     // Aplicamos estilo a las celdas
                     sl.SetCellStyle("A1", estilo);
@@ -357,7 +357,7 @@ namespace View.Services.ViewModel
                             sl.SetCellValue("B" + cont, "'" + item.codigo_herramental);
                         else
                             sl.SetCellValue("B" + cont, item.codigo_herramental);
-                        
+
                         sl.SetCellValue("C" + cont, item.descripcion);
 
                         // Incrementamos contador
@@ -367,7 +367,7 @@ namespace View.Services.ViewModel
                     // Guardamos como..., ponemos la ruta concatenada con el nombre del archivo
                     sl.SaveAs(rutaArchivo);
 
-                    // Mensaje cuando termina el proceso               
+                    // Mensaje cuando termina el proceso
                     await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgHerramentalrevisar);
 
                     // Se manda llamar el método que abre la ventana para notificar
@@ -384,7 +384,7 @@ namespace View.Services.ViewModel
                     }
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si algo sale mal, mandamos este mensaje
                 await dialog.SendMessage(StringResources.ttlAlerta, StringResources.msgErrorexportar);

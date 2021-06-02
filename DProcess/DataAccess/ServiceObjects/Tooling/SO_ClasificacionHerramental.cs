@@ -163,7 +163,7 @@ namespace DataAccess.ServiceObjects.Tooling
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si se generó algún error, retornamos un nulo.
                 return null;

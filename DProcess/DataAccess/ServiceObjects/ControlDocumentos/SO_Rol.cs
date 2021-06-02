@@ -76,7 +76,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return rol.ID_ROL;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;
@@ -213,7 +213,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return rol.ID_ROL_USUARIOS;
                 }
             }
-            catch (Exception er)
+            catch (Exception )
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;

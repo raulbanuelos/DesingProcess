@@ -246,7 +246,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;

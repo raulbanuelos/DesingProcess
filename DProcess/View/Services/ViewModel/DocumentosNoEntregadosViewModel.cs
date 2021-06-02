@@ -73,7 +73,7 @@ namespace View.Services.ViewModel
             usuario = ModelUsuario;
         }
         #endregion
-        
+
         #region Comandos
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace View.Services.ViewModel
                             body += "</body>";
                             body += "</HTML>";
 
-                            Resultado = serviceEmail.SendEmailLotusCustom(usuario.Pathnsf, correos, "Documento rechazado - " + documentoRezadado.NombreDocumento, body);                            
+                            Resultado = serviceEmail.SendEmailLotusCustom(usuario.Pathnsf, correos, "Documento rechazado - " + documentoRezadado.NombreDocumento, body, "CONTROL_DOCUMENTOS", 0);
                         }
                     }
 

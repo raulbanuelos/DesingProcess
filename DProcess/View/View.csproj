@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SQLite.3.13.0\build\net45\SQLite.props" Condition="Exists('..\packages\SQLite.3.13.0\build\net45\SQLite.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -35,8 +36,8 @@
     <SuiteName>Diseño del proceso</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>15</ApplicationRevision>
-    <ApplicationVersion>4.5.1.%2a</ApplicationVersion>
+    <ApplicationRevision>20</ApplicationRevision>
+    <ApplicationVersion>4.6.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -81,7 +82,7 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>firmadoview.pfx</AssemblyOriginatorKeyFile>
@@ -120,7 +121,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="HamburgerMenuApp.Core">
-      <HintPath>..\..\..\..\..\Contacts\Desktop\HamburgerMenuApp.Core.dll</HintPath>
+      <HintPath>..\..\..\code-samples\MahAppsMetroHamburgerMenu\HamburgerMenuApp.Core\bin\Debug\HamburgerMenuApp.Core.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
@@ -284,7 +285,7 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Z:\Nicole Rosas\Librerias\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+      <HintPath>W:\Nicole Rosas\Librerias\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -482,6 +483,12 @@
     </Compile>
     <Compile Include="Forms\RawMaterial\CatMateriaPrimaRolado.xaml.cs">
       <DependentUpon>CatMateriaPrimaRolado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RawMaterial\FactorContraccion.xaml.cs">
+      <DependentUpon>FactorContraccion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RawMaterial\frmNewFactorContraccion.xaml.cs">
+      <DependentUpon>frmNewFactorContraccion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\RawMaterial\frmSelectIronRailsRawMaterial.xaml.cs">
       <DependentUpon>frmSelectIronRailsRawMaterial.xaml</DependentUpon>
@@ -848,6 +855,9 @@
     </Compile>
     <Compile Include="Forms\User\PUser.xaml.cs">
       <DependentUpon>PUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Login100Years.xaml.cs">
+      <DependentUpon>Login100Years.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\StringResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1221,6 +1231,7 @@
     <Compile Include="Services\ViewModel\External_GR_3P_1VM.cs" />
     <Compile Include="Services\ViewModel\External_GR_3P_2VM.cs" />
     <Compile Include="Services\ViewModel\External_GR_3P_3VM.cs" />
+    <Compile Include="Services\ViewModel\FactorContraccionViewModel.cs" />
     <Compile Include="Services\ViewModel\FeedWheelNisseiRectificadosFinos_VM.cs" />
     <Compile Include="Services\ViewModel\FO_ItemViewModel.cs" />
     <Compile Include="Services\ViewModel\FrontRearAnillosVM.cs" />
@@ -1296,6 +1307,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Images\mahle100yearclean.png" />
+    <Content Include="intro100Years.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -1322,7 +1337,14 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Images\mahle100years.png" />
+    <Resource Include="Images\100yearsmahle.jpg" />
+    <Resource Include="Images\mahle100YearsEnd.png" />
+    <Content Include="SharedPreferencesBD.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="View_ClaveTemporal.pfx" />
+    <Resource Include="Images\Backgroud100Years.PNG" />
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -1551,6 +1573,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\RawMaterial\CatMateriaPrimaRolado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RawMaterial\FactorContraccion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RawMaterial\frmNewFactorContraccion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2042,6 +2072,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Login100Years.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2080,7 +2114,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 y x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -2125,7 +2159,7 @@
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
-      <VersionMinor>5</VersionMinor>
+      <VersionMinor>8</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
@@ -2135,6 +2169,24 @@
       <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Outlook">
+      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
@@ -2177,7 +2229,9 @@
     <Resource Include="Images\I.png" />
     <Resource Include="Images\MahleRight.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Videos\" />
+  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0-ci1798\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0-ci1798\build\MaterialDesignThemes.targets')" />
@@ -2186,6 +2240,7 @@
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MaterialDesignThemes.3.2.0-ci1798\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.3.2.0-ci1798\build\MaterialDesignThemes.targets'))" />
+    <Error Condition="!Exists('..\packages\SQLite.3.13.0\build\net45\SQLite.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLite.3.13.0\build\net45\SQLite.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

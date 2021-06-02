@@ -382,11 +382,11 @@ namespace Model
 
                     double hardnessMinValor = (double)tipo.GetProperty("HardnessMinValor").GetValue(item, null);
                     string hardnessMinUnidad = (string)tipo.GetProperty("HardnessMinUnidad").GetValue(item, null);
-                    arquetipoRing.HardnessMin = new Propiedad { Nombre = "HardnessMin", Valor = hardnessMinValor, Unidad = hardnessMinUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Dureza), DescripcionCorta = "Hardness Min" };
+                    arquetipoRing.HardnessMin = new Propiedad { Nombre = "HardnessMin", Valor = hardnessMinValor, Unidad = hardnessMinUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Dureza), DescripcionCorta = "Hardness Min MP" };
 
                     double hardnessMaxValor = (double)tipo.GetProperty("HardnessMaxValor").GetValue(item, null);
                     string hardnessMaxUnidad = (string)tipo.GetProperty("HardnessMaxUnidad").GetValue(item, null);
-                    arquetipoRing.HardnessMax = new Propiedad { Nombre = "HardnessMax", Valor = hardnessMaxValor, Unidad = hardnessMaxUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Dureza), DescripcionCorta = "Hardness Max" };
+                    arquetipoRing.HardnessMax = new Propiedad { Nombre = "HardnessMax", Valor = hardnessMaxValor, Unidad = hardnessMaxUnidad, TipoDato = EnumEx.GetEnumDescription(TipoDato.Dureza), DescripcionCorta = "Hardness Max MP" };
 
                     arquetipoRing.EspecMaterialBase = (string)tipo.GetProperty("EspecMaterialBase").GetValue(item, null);
 
@@ -997,7 +997,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public static ObservableCollection<Material> GetAllMaterial()
@@ -1041,7 +1041,7 @@ namespace Model
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public static ObservableCollection<FO_Item> GetAllTipoMateriaPrima()
@@ -1283,7 +1283,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -1740,7 +1740,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Obtiene la información de Spacer Splitter 
+        /// Obtiene la información de Spacer Splitter
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
@@ -1825,8 +1825,8 @@ namespace Model
         }
 
         /*ChuckSplitter
-            * 
-            * 
+            *
+            *
         */
         /// <summary>
         /// Método que obtiene el herramental Chuck de la operación Splitter.
@@ -2233,8 +2233,8 @@ namespace Model
         }
 
         /*CutterSplitter
-            * 
-            * 
+            *
+            *
             */
         /// <summary>
         /// Método que obtiene todos los registros de Cutter Splitter
@@ -2335,7 +2335,7 @@ namespace Model
             //Ejecutamos el método
             return ServiceSplitter.SetCutter(obj.Codigo, obj.Propiedades[0].Valor);
         }
-        
+
         /// <summary>
         /// Método que actualiza un resgitro de  herramental cutter de la operacion splitter casting
         /// </summary>
@@ -2346,7 +2346,7 @@ namespace Model
             //Inicializamos los servicios de Splitter.
             SO_SplitterCasting ServiceSplitter = new SO_SplitterCasting();
 
-            //Ejecutamos el método 
+            //Ejecutamos el método
             return ServiceSplitter.UpdateCutter(obj.idHerramental, obj.Codigo, obj.Propiedades[0].Valor);
         }
 
@@ -2550,7 +2550,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Obtiene la información de Spacer Splitter 
+        /// Obtiene la información de Spacer Splitter
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
@@ -3009,7 +3009,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="herramental"></param>
         /// <returns></returns>
@@ -3022,7 +3022,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -3257,7 +3257,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="idH"></param>
         /// <returns></returns>
@@ -4348,7 +4348,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Método que obtiene la información de un herramental Cam Bk. 
+        /// Método que obtiene la información de un herramental Cam Bk.
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns></returns>
@@ -5351,7 +5351,7 @@ namespace Model
         }
 
         /* Collar
-            *  * 
+            *  *
             * */
 
         /// <summary>
@@ -5678,7 +5678,7 @@ namespace Model
 
             double cri_min = d1 + GetCriterio("SIMBushingMin");
             double cri_max = d1 + GetCriterio("SIMBushingMax");
-            
+
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
             IList informacionBD = ServiceSim.GetBushingSim(cri_min, cri_max);
 
@@ -5912,7 +5912,7 @@ namespace Model
 
             double pusher_min = diamBush - GetCriterio("SIMPusherMin");
             double pusher_max = diamBush - GetCriterio("SIMPusherMax");
-            
+
             //Ejecutamos el método para obtener la información, el resultado lo guardamos en una variable anónima.
             IList informacionBD = ServiceSim.GetPusher(pusher_min, pusher_max);
 
@@ -7908,7 +7908,7 @@ namespace Model
         /// <returns></returns>
         public static int SetCOIL_FEED_ROLLER(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetCOIL_FEED_ROLLER(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.dimD, obj.wire_width_min, obj.wire_width_max);
@@ -7920,7 +7920,7 @@ namespace Model
         /// <param name="obj"></param>
         public static int UpdateCOIL_FEED_ROLLER(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateCOIL_FEED_ROLLER(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.dimD, obj.wire_width_min, obj.wire_width_max);
@@ -7933,7 +7933,7 @@ namespace Model
         /// <returns></returns>
         public static int DeleteCOIL_FEED_ROLLER(int idH)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteCOIL_FEED_ROLLER(idH);
@@ -8186,7 +8186,7 @@ namespace Model
                 }
             }
             return herramental;
-        } 
+        }
         #endregion
 
         #region CENTER GUIDE
@@ -8197,7 +8197,7 @@ namespace Model
         /// <returns></returns>
         public static int SetCOIL_CENTER_GUIDE(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetCOIL_CENTER_GUIDE(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
@@ -8210,7 +8210,7 @@ namespace Model
         /// <returns></returns>
         public static int UpdateCOIL_CENTER_GUIDE(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateCOIL_CENTER_GUIDE(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
@@ -8223,7 +8223,7 @@ namespace Model
         /// <returns></returns>
         public static int DeleteCOIL_CENTER_GUIDE(int id)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteCOIL_CENTER_GUIDE(id);
@@ -8305,7 +8305,7 @@ namespace Model
 
             if (idealCenterGuide.DescripcionGeneral == "GUIA CENTRAL SIN CODIFICAR")
                 idealCenterGuide.Plano =  "2487- 011- 00- 3";
-            
+
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Center_Guide");
         }
@@ -8487,7 +8487,7 @@ namespace Model
         /// <returns></returns>
         public static int SetCOIL_ENTRANCE_GUIDE(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetCOIL_ENTRANCE_GUIDE(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
@@ -8500,7 +8500,7 @@ namespace Model
         /// <returns></returns>
         public static int UpdateCOIL_ENTRANCE_GUIDE(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateCOIL_ENTRANCE_GUIDE(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
@@ -8513,7 +8513,7 @@ namespace Model
         /// <returns></returns>
         public static int DeleteCOIL_ENTRANCE_GUIDE(int id)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteCOIL_ENTRANCE_GUIDE(id);
@@ -8595,7 +8595,7 @@ namespace Model
 
             if (idealCenterGuide.DescripcionGeneral == "GUIA DE ENTRADA SIN CODIFICAR")
                 idealCenterGuide.Plano = "2487- 013- 00- 3";
-            
+
             //Retornamos el resultado de ejecutar el método ConverToObservableCollectionHerramental_DataSet, enviandole como parámetro la lista resultante.
             return ConverToObservableCollectionHerramental_DataSet(ListaResultante, "Center_Guide");
         }
@@ -8777,7 +8777,7 @@ namespace Model
         /// <returns></returns>
         public static int SetExit_GUIDE(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetExit_GUIDE(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
@@ -8790,7 +8790,7 @@ namespace Model
         /// <returns></returns>
         public static int UpdateExit_GUIDE(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateCOIL_CENTER_GUIDE(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max, obj.radial_wire_min, obj.radial_wire_max);
@@ -8803,7 +8803,7 @@ namespace Model
         /// <returns></returns>
         public static int DeleteExit_GUIDE(int id)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteExit_GUIDE(id);
@@ -8830,7 +8830,7 @@ namespace Model
             //si la lista es diferente de nulo
             if (informacionBD != null)
             {
-                //Iteramo sla lista 
+                //Iteramo sla lista
                 foreach (var item in informacionBD)
                 {
                     //Obetenemos el tipo
@@ -8848,7 +8848,7 @@ namespace Model
                     propCode.Nombre = "Detalle";
                     idealHerramental.PropiedadesCadena.Add(propCode);
 
-                    //Dimensiones 
+                    //Dimensiones
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
@@ -8904,7 +8904,7 @@ namespace Model
             //si la lista es diferente de nulo
             if (informacionBD != null)
             {
-                //Iteramo sla lista 
+                //Iteramo sla lista
                 foreach (var item in informacionBD)
                 {
                     //Obetenemos el tipo
@@ -8922,7 +8922,7 @@ namespace Model
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
-                    //Dimensiones 
+                    //Dimensiones
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
@@ -9009,7 +9009,7 @@ namespace Model
                     propCode.Valor = (string)tipo.GetProperty("DETALLE").GetValue(item, null);
                     herramental.PropiedadesCadena.Add(propCode);
 
-                    //Dimensiones 
+                    //Dimensiones
                     Propiedad propiedadDimA = new Propiedad();
                     propiedadDimA.Unidad = "Milimeters (mm)";
                     propiedadDimA.Valor = (double)tipo.GetProperty("DIMA").GetValue(item, null);
@@ -9065,7 +9065,7 @@ namespace Model
         /// <returns></returns>
         public static int SetExternal_GR_1P(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetExternal_GR_1P(obj.codigo, obj.code, obj.dimB, obj.wire_width_min, obj.wire_width_max);
@@ -9078,7 +9078,7 @@ namespace Model
         /// <returns></returns>
         public static int UpdateExternal_GR_1P(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateExternal_GR_1P(obj.ID, obj.codigo, obj.code, obj.dimB, obj.wire_width_min, obj.wire_width_max);
@@ -9091,7 +9091,7 @@ namespace Model
         /// <returns></returns>
         public static int DeleteExternal_GR_1P(int id)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteExternal_GR_1P(id);
@@ -9287,7 +9287,7 @@ namespace Model
         /// <returns></returns>
         public static int SetInternal_GR_1P(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetInternal_GR_1P(obj.codigo, obj.code, obj.dimB, obj.wire_width_min, obj.wire_width_max);
@@ -9300,7 +9300,7 @@ namespace Model
         /// <returns></returns>
         public static int UpdateInternal_GR_1P(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateInternal_GR_1P(obj.ID, obj.codigo, obj.code, obj.dimB, obj.wire_width_min, obj.wire_width_max);
@@ -9313,7 +9313,7 @@ namespace Model
         /// <returns></returns>
         public static int DeleteInternal_GR_1P(int id)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteInternal_GR_1P(id);
@@ -9509,7 +9509,7 @@ namespace Model
         /// <returns></returns>
         public static int SetExternal_GR_3P_1(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetExternal_GR_3P_1(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
@@ -9522,7 +9522,7 @@ namespace Model
         /// <returns></returns>
         public static int UpdateExternal_GR_3P_1(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateExternal_GR_3P_1(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
@@ -9535,7 +9535,7 @@ namespace Model
         /// <returns></returns>
         public static int DeleteExternal_GR_3P_1(int id)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteExternal_GR_3P_1(id);
@@ -9768,7 +9768,7 @@ namespace Model
         /// <returns></returns>
         public static int SetExternal_GR_3P_2(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetExternal_GR_3P_2(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
@@ -9781,7 +9781,7 @@ namespace Model
         /// <returns></returns>
         public static int UpdateExternal_GR_3P_2(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateExternal_GR_3P_2(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
@@ -9794,7 +9794,7 @@ namespace Model
         /// <returns></returns>
         public static int DeleteExternal_GR_3P_2(int id)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteExternal_GR_3P_2(id);
@@ -10026,7 +10026,7 @@ namespace Model
         /// <returns></returns>
         public static int SetExternal_GR_3P_3(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetExternal_GR_3P_3(obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
@@ -10039,7 +10039,7 @@ namespace Model
         /// <returns></returns>
         public static int UpdateExternal_GR_3P_3(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateExternal_GR_3P_3(obj.ID, obj.codigo, obj.code, obj.dimA, obj.dimB, obj.dimC, obj.wire_width_min, obj.wire_width_max);
@@ -10052,14 +10052,14 @@ namespace Model
         /// <returns></returns>
         public static int DeleteExternal_GR_3P_3(int id)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteExternal_GR_3P_3(id);
         }
 
         /// <summary>
-        /// Obtiene las propiedades de un registro de la tabla EXTERNAL_GR_3P_3, de acuerdo al width del alambre 
+        /// Obtiene las propiedades de un registro de la tabla EXTERNAL_GR_3P_3, de acuerdo al width del alambre
         /// </summary>
         /// <param name="widthAlambre">Milímetros</param>
         /// <returns></returns>
@@ -10286,7 +10286,7 @@ namespace Model
         /// <returns></returns>
         public static int SetSHIM_OF_THE_CUT_SYSTEM(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.SetSHIM_OF_THE_CUT_SYSTEM(obj.codigo, obj.code, obj.dimA, obj.wire_width_min, obj.wire_width_max);
@@ -10299,7 +10299,7 @@ namespace Model
         /// <returns></returns>
         public static int UpdateSHIM_OF_THE_CUT_SYSTEM(Coil obj)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.UpdateSHIM_OF_THE_CUT_SYSTEM(obj.ID, obj.codigo, obj.code, obj.dimA, obj.wire_width_min, obj.wire_width_max);
@@ -10312,7 +10312,7 @@ namespace Model
         /// <returns></returns>
         public static int DeleteSHIM_OF_THE_CUT_SYSTEM(int id)
         {
-            //Inicializamos los servicios de coil 
+            //Inicializamos los servicios de coil
             SO_COIL ServiceCoil = new SO_COIL();
             //Eejcutamos el método y retornamos el resultado
             return ServiceCoil.DeleteSHIM_OF_THE_CUT_SYSTEM(id);
@@ -10491,7 +10491,7 @@ namespace Model
                 }
             }
             return herramental;
-        } 
+        }
         #endregion
 
         /// <summary>
@@ -10622,7 +10622,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public static DataTable GetAllNisseiRectificadosFinos(string TextoBuscar)
@@ -10797,7 +10797,7 @@ namespace Model
         #region GuillotinaEngrave_
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public static DataTable GetAllGuillotinaEngrave_(string TextoBuscar)
@@ -10885,7 +10885,7 @@ namespace Model
                     Herramental herramental = new Herramental();
 
                     herramental = ReadInformacionHerramentalEncontrado(informacionBD, (string)tipo.GetProperty("Codigo").GetValue(item, null));
-                    
+
                     herramental.Codigo = (string)tipo.GetProperty("Codigo").GetValue(item, null);
                     herramental.idHerramental = (int)tipo.GetProperty("IdGuillotinaEngrave").GetValue(item, null);
                     herramental.Cantidad = (int)tipo.GetProperty("CantidadUtilizar").GetValue(item, null);
@@ -12044,7 +12044,7 @@ namespace Model
 
         public static Herramental GetTargetRollBobinadoSegmentos(double h1, double d1)
         {
-            double medidaA = h1 + 0.002;
+            double medidaA = Math.Round(h1 + 0.002,3);
             double medidaB = 0;
             if (d1 >= 2 && d1 <= 2.5)
                 medidaB = 0.562;
@@ -12359,7 +12359,7 @@ namespace Model
             // Si la lista es diferente a nulo
             if (informacionDB != null)
             {
-                // Iteramos la lista    
+                // Iteramos la lista
                 foreach (var item in informacionDB)
                 {
                     // Obtenemos el tipo
@@ -13664,6 +13664,14 @@ namespace Model
                     // Agregamos las propiedades
                     bushing.Propiedades.Add(propiedaddima);
 
+                    bushing.Encontrado = true;
+
+                    bushing.Cantidad = (int)tipo.GetProperty("CantidadUtilizar").GetValue(item, null);
+
+                    bushing.clasificacionHerramental = new ClasificacionHerramental();
+
+                    bushing.clasificacionHerramental.CantidadUtilizar = bushing.Cantidad;
+
                     listaBushing.Add(bushing);
 
                 }
@@ -13689,13 +13697,13 @@ namespace Model
                 Herramental bushingPropuesto = new Herramental();
                 bushingPropuesto.Codigo = "CODIFICAR";
                 bushingPropuesto.DescripcionGeneral = "BUSHING";
-                
+
                 Propiedad propiedaddima = new Propiedad();
-                
+
                 propiedaddima.Valor = Math.Round((bushingMin + bushingMax) / 2, 3);
 
                 bushingPropuesto.DescripcionRuta = "DIA. DEL BUJE          " + propiedaddima.Valor;
-                
+
                 bushingPropuesto.Propiedades.Add(propiedaddima);
 
                 listaBushingDisco.Add(bushingPropuesto);
@@ -13875,7 +13883,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Método que 
+        /// Método que
         /// </summary>
         /// <param name="dimA"></param>
         /// <returns></returns>
@@ -14069,7 +14077,7 @@ namespace Model
                     data.DurezaMax = (double)type.GetProperty("DUREZA_MAX").GetValue(item, null);
                     data.Receta = (string)type.GetProperty("RECETA").GetValue(item, null);
                     data.WhiteLayer = (string)type.GetProperty("WHITE_LAYER").GetValue(item, null);
-
+                    data.DHP = (double)type.GetProperty("DHP").GetValue(item, null);
                 }
             }
 
@@ -14221,7 +14229,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="Informacion"></param>
         /// <param name="codigo"></param>
@@ -14263,7 +14271,7 @@ namespace Model
                         PropertyInfo propiedadPlano = tipo.GetProperty("NO_PLANO");
                         if (propiedadPlano != null)
                             herramental.Plano = (string)tipo.GetProperty("NO_PLANO").GetValue(elemento, null);
-                        
+
                         herramental.Propiedades = new ObservableCollection<Propiedad>();
                     }
 
@@ -14323,7 +14331,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public static ObservableCollection<string> GetAllTreatment()
@@ -14389,7 +14397,7 @@ namespace Model
         /// <returns></returns>Lista obaservable con todos los datos de la  tabla Pattern2.
         public static ObservableCollection<Pattern> GetAllPattern(string busqueda)
         {
-            //Inicializamos los servicios de Pattern 
+            //Inicializamos los servicios de Pattern
             SO_Pattern ServicePattern = new SO_Pattern();
 
             //Se declara una lista de tipo ObservableCollection, la cúal se va a retornar.
@@ -14471,7 +14479,7 @@ namespace Model
                     Lista.Add(obj);
                 }
             }
-            //Devolvemos la lista 
+            //Devolvemos la lista
             return Lista;
 
         }
@@ -14995,6 +15003,59 @@ namespace Model
             return sumaAleantes;
         }
 
+        /// <summary>
+        /// Método que obtiene los factores de contracción de un material.
+        /// </summary>
+        /// <param name="especMaterial"></param>
+        /// <param name="isLB"></param>
+        /// <returns></returns>
+        public static DO_FactorContraccion GetFactoresContraccion(string especMaterial, bool isLB)
+        {
+            SO_FactoresContraccion serviceFactores = new SO_FactoresContraccion();
+
+            DataSet informacionBD = serviceFactores.GetFactores(especMaterial, isLB == true ? 1 : 0);
+
+            DO_FactorContraccion factor = new DO_FactorContraccion();
+
+            if (informacionBD != null)
+            {
+                if (informacionBD.Tables.Count > 0 && informacionBD.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow item in informacionBD.Tables[0].Rows)
+                    {
+                        factor = new DO_FactorContraccion();
+
+                        factor.DIA_EXT_MAYOR = Convert.ToDouble(item["DIA_EXT_MAYOR"]);
+                        factor.DIA_EXT_MENOR = Convert.ToDouble(item["DIA_EXT_MENOR"]);
+                        factor.F_THICKNESS = Convert.ToDouble(item["F_THICKNESS"]);
+                        factor.F_WIDTH = Convert.ToDouble(item["F_WIDTH"]);
+                        factor.Exists = true;
+                    }
+                }
+            }
+
+            return factor;
+        }
+
+        /// <summary>
+        /// Método para insertar los valores en la tabla FactoresContraccion
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="fDiametroExtMayorB"></param>
+        /// <param name="fDiametroExtMenor"></param>
+        /// <param name="fWidth"></param>
+        /// <param name="fThickness"></param>
+        /// <param name="isLB"></param>
+        /// <returns></returns>
+        public static int InsertFactorContraccion(string material, double fDiametroExtMayorB, double fDiametroExtMenor, double fWidth, double fThickness, bool isLB)
+        {
+            SO_FactoresContraccion serviceFactores = new SO_FactoresContraccion();
+
+            if (isLB)
+                return serviceFactores.InsertLB(material, fDiametroExtMayorB, fDiametroExtMenor, fWidth, fThickness);
+            else
+                return serviceFactores.Insert(material, fDiametroExtMayorB, fDiametroExtMenor, fWidth, fThickness);
+        }
         #endregion Pattern
 
         #region Cuffs
@@ -15026,7 +15087,7 @@ namespace Model
                     //Declaración del objeto de tipo Cuffs que contendrá la información de un registro.
                     Cuffs obj = new Cuffs();
 
-                    //Se asignan los valores 
+                    //Se asignan los valores
                     obj.no_cuff.Valor = (string)tipo.GetProperty("no_cuff").GetValue(item, null);
                     obj.dia_ext.Valor = (double)tipo.GetProperty("dia_ext").GetValue(item, null);
                     obj.dia_int.Valor = (double)tipo.GetProperty("dia_int").GetValue(item, null);
@@ -15037,7 +15098,7 @@ namespace Model
                     Lista.Add(obj);
                 }
             }
-            //Se retorna la lista 
+            //Se retorna la lista
             return Lista;
         }
 
@@ -15113,7 +15174,7 @@ namespace Model
 
                     //Declaración del objeto de tipo TubosCL que contendrá la información de un registro.
                     Tubos_CL obj = new Tubos_CL();
-                    //Se asignan los valores 
+                    //Se asignan los valores
                     obj.Tubo.Valor = (string)tipo.GetProperty("Tubo").GetValue(item, null);
                     obj.DiaExt.Valor = (double)tipo.GetProperty("DiaExt").GetValue(item, null);
                     obj.DiaInt.Valor = (double)tipo.GetProperty("DiaInt").GetValue(item, null);
@@ -15201,7 +15262,7 @@ namespace Model
 
                     //Declaración del objeto de tipo TubosHD que contendrá la información de un registro.
                     Tubos_HD obj = new Tubos_HD();
-                    //Se asignan los valores 
+                    //Se asignan los valores
                     obj.Tubo.Valor = (string)tipo.GetProperty("Tubo").GetValue(item, null);
                     obj.DiaExt.Valor = (double)tipo.GetProperty("DiaExt").GetValue(item, null);
                     obj.DiaInt.Valor = (double)tipo.GetProperty("DiaInt").GetValue(item, null);
@@ -15608,7 +15669,7 @@ namespace Model
 
         #region Materia Prima Rolado
 
-       
+
         /// <summary>
         /// Método que retorna la materia prima ideal a partir de los datos recibidos en los parámetros.
         /// </summary>
@@ -15707,7 +15768,6 @@ namespace Model
 
         #endregion
 
-
         #region Materia Prima Aceros
         public static ObservableCollection<MateriaPrimaAceros> GetAllMateriaPrimaAcero(string busqueda)
         {
@@ -15740,8 +15800,8 @@ namespace Model
             SO_CatMateriaPrimaAceros Service = new SO_CatMateriaPrimaAceros();
             return Service.UpdateCatMateriaPrimaAcero(data.Codigo, data.Especificacion, data.ESP_AXIAL, data.ESP_RADIAL, data.PROVEEDOR, data.PROVEEDOR2);
         }
-       
-        
+
+
         /// <summary>
         /// Método para actualizar un registro
         /// </summary>
@@ -15968,7 +16028,7 @@ namespace Model
                     obj.CromoIntCollarMax = (double)tipo.GetProperty("CromoIntCollarMax").GetValue(item, null);
                 }
             }
-            //Se retorna la lista 
+            //Se retorna la lista
             return obj;
         }
 
@@ -16357,7 +16417,7 @@ namespace Model
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        /// 
+        ///
         public static int DeletePrivilegiosUsuario(string usuario)
         {
             SO_Usuario ServiceUsuario = new SO_Usuario();
@@ -16428,6 +16488,34 @@ namespace Model
             return user;
         }
 
+        public static Usuario GetUserByCorreo(string correo)
+        {
+            SO_Usuario ServiceUsuario = new SO_Usuario();
+
+            Usuario user = new Usuario();
+
+            IList informacionBD = ServiceUsuario.GetUsuarioByCorreo(correo);
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type tipo = item.GetType();
+
+                    user.ApellidoMaterno = (string)tipo.GetProperty("AMaterno").GetValue(item, null);
+                    user.ApellidoPaterno = (string)tipo.GetProperty("APaterno").GetValue(item, null);
+                    user.Block = (bool)tipo.GetProperty("Bloqueado").GetValue(item, null);
+                    user.Correo = (string)tipo.GetProperty("Correo").GetValue(item, null);
+                    user.Nombre = (string)tipo.GetProperty("Nombre").GetValue(item, null);
+                    user.Pathnsf = (string)tipo.GetProperty("Pathnsf").GetValue(item, null);
+                    user.IdUsuario = (string)tipo.GetProperty("Usuario").GetValue(item, null);
+                    user.Details = GetUserDetails(user.IdUsuario);
+                }
+            }
+
+            return user;
+        }
+
         /// <summary>
         /// Método para ingresar un registro en la tabla TBL_BITACORA_INGRESO.
         /// </summary>
@@ -16472,6 +16560,20 @@ namespace Model
             SO_UserDetails userdetail = new SO_UserDetails();
 
             return userdetail.UpdateTemporalPassword(Usuario, TemporalPassword);
+        }
+
+        public static int SetTemporalPassword(string usuario, string password)
+        {
+            SO_Usuario serviceUsuario = new SO_Usuario();
+
+            if (serviceUsuario.UpdatePassword(usuario, password) > 0)
+            {
+                if (Update_TemporalPassword(usuario, true) > 0)
+                    return 1;
+                else
+                    return 0;
+            }else
+                return 0;
         }
         #endregion
 
@@ -17221,7 +17323,7 @@ namespace Model
                         }
                     }
 
-                    
+
 
                     ListaPropiedades.Add(propiedad);
                 }
@@ -17441,7 +17543,7 @@ namespace Model
                                 elemento.ValorCadena = (string)type1.GetProperty("VALOR").GetValue(opcion, null);
                                 elemento.Nombre = (string)type1.GetProperty("VALOR").GetValue(opcion, null);
                                 elemento.id = (int)type1.GetProperty("ID_OPCION_PROPIEDAD_OPCIONAL").GetValue(opcion, null);
-                                
+
                                 propiedadOpcional.ListaOpcional.Add(elemento);
 
                             }
@@ -17493,11 +17595,11 @@ namespace Model
                     }
 
                     propiedadOpcional.ElementSelected = propiedadOpcional.ListaOpcional.Where(o => o.ValorCadena == valorGuardado).FirstOrDefault();
-                   
+
                     ListaResultante.Add(propiedadOpcional);
                 }
             }
-            
+
 
             //PropiedadOptional pOptional = new PropiedadOptional();
             //ObservableCollection<FO_Item> lista = new ObservableCollection<FO_Item>();
@@ -17508,7 +17610,7 @@ namespace Model
             //pOptional.TipoPerfil = "PERFIL O.D.";
 
             //ListaResultante.Add(pOptional);
-            
+
             return ListaResultante;
         }
 
@@ -17843,7 +17945,7 @@ namespace Model
                     NumeroDecimal = Convert.ToDecimal((Convert.ToDecimal(Entero) * 1) + (Convert.ToDecimal(Numerador) / Convert.ToDecimal(Denominador)));
 
                 }
-                catch (Exception er)
+                catch (Exception)
                 {
                     return 0;
                 }
@@ -17951,6 +18053,54 @@ namespace Model
             return ServiceProgAnual.DeleteProgramaAnual(Id_Programa_Anual);
         }
 
+        #endregion
+
+        #region Solicitud Correo
+        public static int InsertSolicitudCorreo(string title, string body, string recipients, string origen, int idArchivo)
+        {
+            SO_SolicitudCorreo serviceSolicitudCorreo = new SO_SolicitudCorreo();
+
+            return serviceSolicitudCorreo.Insert(title, body, recipients, origen, idArchivo);
+        }
+
+        public static int SetEjecutadaSolicitudCorreo(int idSolicitudCorreo)
+        {
+            SO_SolicitudCorreo serviceSolicitudCorreo = new SO_SolicitudCorreo();
+
+            return serviceSolicitudCorreo.SetEjecutada(idSolicitudCorreo);
+        }
+
+        public static List<DO_SolicitudCorreo> GetSolicitudCorreoPendientes()
+        {
+            SO_SolicitudCorreo serviceSolicitudCorreo = new SO_SolicitudCorreo();
+
+            List<DO_SolicitudCorreo> listaResultante = new List<DO_SolicitudCorreo>();
+
+            IList informacionBD = serviceSolicitudCorreo.GetNoEjecutadas();
+
+            if (informacionBD != null)
+            {
+                foreach (var item in informacionBD)
+                {
+                    Type type = item.GetType();
+
+                    DO_SolicitudCorreo solicitud = new DO_SolicitudCorreo();
+                    solicitud.IdSolicitudCorreo = (int)type.GetProperty("ID_SOLICITUD_CORREO").GetValue(item, null);
+                    solicitud.FechaSolicitud = (DateTime)type.GetProperty("FECHA_SOLICITUD").GetValue(item, null);
+                    solicitud.Title = (string)type.GetProperty("TITLE").GetValue(item, null);
+                    solicitud.Body = (string)type.GetProperty("BODY").GetValue(item, null);
+                    solicitud.Recipients = (string)type.GetProperty("RECIPIENTS").GetValue(item, null);
+                    solicitud.banEjecutada = (bool)type.GetProperty("BAN_EJECUTADA").GetValue(item, null);
+                    solicitud.Origen = (string)type.GetProperty("ORIGEN").GetValue(item, null);
+                    solicitud.idArchivo = (int)type.GetProperty("ID_ARCHIVO").GetValue(item, null);
+
+                    listaResultante.Add(solicitud);
+
+                }
+            }
+
+            return listaResultante;
+        }
         #endregion
     }
 }

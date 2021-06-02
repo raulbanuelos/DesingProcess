@@ -138,7 +138,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error, retornamos cero.
                 return 0;
@@ -199,7 +199,7 @@ namespace DataAccess.ServiceObjects.MateriasPrimas
                     return lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si se generó algún error, retornamos un nulo.
                 return null;

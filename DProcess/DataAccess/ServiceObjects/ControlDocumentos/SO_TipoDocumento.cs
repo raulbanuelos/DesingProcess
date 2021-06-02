@@ -39,7 +39,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay algún error, se retorna un nulo.
                 return null;
@@ -82,7 +82,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return obj.ID_TIPO_DOCUMENTO;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;
@@ -122,7 +122,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges(); ;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //Si hay error regresa una cadena vacía.
                 return 0;
@@ -151,7 +151,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Si hay error, se regresa 0.
                 return 0;
@@ -205,7 +205,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return idTipoDocumento;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 return 0;
             }
@@ -260,7 +260,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                     return IdTipoDocumento;
                 }
             }
-            catch (Exception ER)
+            catch (Exception)
             {
                 //Si se genera un error retornamos un cero.
                 return 0;

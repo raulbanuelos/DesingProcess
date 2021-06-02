@@ -76,7 +76,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -115,7 +115,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Clamp_Plate.ID_CLAMP_PLATE;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay un error retornamos 0
                 return 0;
@@ -153,7 +153,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -182,7 +182,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -258,7 +258,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -297,7 +297,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return BackUP_Ring.ID_BACKUP_RING;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay un error retornamos 0
                 return 0;
@@ -335,7 +335,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -364,7 +364,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -440,7 +440,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -479,7 +479,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Plato_Empujador.ID_PLATO_EMPUJADOR;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //  Si hay un error retornamos 0
                 return 0;
@@ -517,7 +517,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -546,7 +546,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -621,7 +621,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -658,7 +658,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Tubo_Enrollador.ID_TUBO_ENROLLADOR;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay un error retornamos 0
                 return 0;
@@ -694,7 +694,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -723,7 +723,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -843,7 +843,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -882,7 +882,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return discos_thompson.ID_DISCO;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay un error retornamos 0
                 return 0;
@@ -920,7 +920,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -949,7 +949,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -1023,7 +1023,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Lista;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos nulo
                 return null;
@@ -1060,7 +1060,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return bushing_thompson.ID_BUSHING_THOMPSON;
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -1096,7 +1096,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;
@@ -1125,7 +1125,7 @@ namespace DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos
                     return Conexion.SaveChanges();
                 }
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 // Si hay error retornamos 0
                 return 0;

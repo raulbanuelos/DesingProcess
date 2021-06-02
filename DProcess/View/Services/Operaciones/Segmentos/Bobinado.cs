@@ -1,11 +1,7 @@
 ﻿using Model;
 using Model.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using View.Services.TiempoEstandar.Segmentos;
 
 namespace View.Services.Operaciones.Segmentos
@@ -149,12 +145,12 @@ namespace View.Services.Operaciones.Segmentos
             //Agregamos la materia prima.
             ListaMateriaPrima.Add(elPlano.MaterialBase);
 
-            //Asignamos el valor del anillor procesado al anillo de la operación.
+            //Asignamos el valor del anillo procesado al anillo de la operación.
             anilloProcesado = ElAnilloProcesado;
 
             thicknessMin = Module.GetValorPropiedadMin("a1", elPlano.PerfilID.Propiedades, true);
             thicknessMax = Module.GetValorPropiedadMax("a1", elPlano.PerfilID.Propiedades, true);
-            
+
             double diaBobinado = elPlano.D1.Valor;
 
             //double pesoAlambre = Math.Round((elPlano.D1.Valor)*(Math.PI) * (elPlano.H1.Valor) * (((thicknessMin + thicknessMax) / 2)) * (128.5),2);
@@ -166,22 +162,22 @@ namespace View.Services.Operaciones.Segmentos
 
             double d1Inch = Module.ConvertTo(elPlano.D1.TipoDato, elPlano.D1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
             double h1Inch = Module.ConvertTo(elPlano.H1.TipoDato, elPlano.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.H1.Valor);
-            
+
             double pesoAlambre =  Math.Round((d1Inch * Math.PI) * espesorAxialMP * espesorRadialMP * 128.5,4);
-            
+
             //Agregamos el texto con las instrucciones de la operación.
             TextoProceso = "*BOBINADO" + Environment.NewLine;
             TextoProceso += "LONG DE LA BOBINA 6.330 - 0.000 + 0.072" + Environment.NewLine;
             TextoProceso += "PULL - BACK 8%" + Environment.NewLine;
             TextoProceso += "VELOCIDAD 250 RPM +/- 25 RPM" + Environment.NewLine;
-            TextoProceso += "PRESION DEL ROLADOR SUPERIOR 15 - 45PSI" + Environment.NewLine;
-            TextoProceso += "DIA DE LA BOBINA  " + diaBobinado + " +- .004" + Environment.NewLine;
-            TextoProceso += "PESO ALAMBRE  " + pesoAlambre + Environment.NewLine;
+            TextoProceso += "PRESION DEL ROLADOR SUPERIOR 15 - 30PSI" + Environment.NewLine;
+            TextoProceso += "DIA DE LA BOBINA  " + d1Inch * .92 + " +- .004" + Environment.NewLine;
+            TextoProceso += "PESO ALAMBRE  " + pesoAlambre + " GRAMOS" +Environment.NewLine;
             TextoProceso += "ESPESOR 0.0169MAX. DEBIDO AL PROCESO" + Environment.NewLine;
             TextoProceso += "MEDIDA DEL ALAMBRE REF." + Environment.NewLine;
             TextoProceso += "" + espesorAxialMP + "	+/- 0.0003		"+ espesorRadialMP +"	+/-0.0017" + Environment.NewLine;
-            TextoProceso += "CODIGO ALMACEN: " + elPlano.MaterialBase.Codigo + Environment.NewLine;
-            
+            TextoProceso += "CODIGO ALMACEN: " + elPlano.MaterialBase.Codigo + " (10% CR)" + Environment.NewLine;
+
             if (Module.IsNormaSelected(elPlano.ListaNormas, "ES-349-1"))
             {
                 double separador = espesorAxialMP + .002;
@@ -196,10 +192,10 @@ namespace View.Services.Operaciones.Segmentos
                 double dish = Math.Round(senogrados * diaBobinado, 4);
                 TextoProceso += "DISH: " + dish + " MAX" + Environment.NewLine;
             }
-            
+
             TextoProceso += "APARENCIA: SIN GOLPES EN EL DIAMETRO" + Environment.NewLine;
             TextoProceso += "EXTERIOR" + Environment.NewLine;
-            
+
             //Ejecutamos el método para calculo de Herramentales.
             BuscarHerramentales();
 
@@ -215,7 +211,7 @@ namespace View.Services.Operaciones.Segmentos
 
             double d1Inch = Module.ConvertTo(elPlano.D1.TipoDato, elPlano.D1.Unidad,EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.D1.Valor);
             double h1Inch = Module.ConvertTo(elPlano.H1.TipoDato, elPlano.H1.Unidad, EnumEx.GetEnumDescription(DataManager.UnidadDistance.Inch), elPlano.H1.Valor);
-            
+
             ListaHerramentales.Add(DataManager.GetLowerRollBobinadoSegmentos(a1, d1Inch));
             ListaHerramentales.Add(DataManager.GetUpperRollBobinadoSegmentos(a1, d1Inch));
             ListaHerramentales.Add(DataManager.GetTargetRollBobinadoSegmentos(h1Inch, d1Inch));
