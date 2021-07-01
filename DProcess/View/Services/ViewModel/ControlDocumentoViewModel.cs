@@ -254,6 +254,7 @@ namespace View.Services.ViewModel
             }
         }
 
+
         #endregion
 
         #region Constructors
@@ -271,6 +272,8 @@ namespace View.Services.ViewModel
                 BttnEnabled = true;
             }
             CreateMenuItems();
+
+            checkStatusNodeServer();
         }
 
         #endregion
@@ -550,6 +553,24 @@ namespace View.Services.ViewModel
 
         #region Methods
 
+        private async void checkStatusNodeServer()
+        {
+            DialogService dialog1 = new DialogService();
+
+            ProgressDialogController AsyncProgressConfigEmail;
+
+            AsyncProgressConfigEmail = await dialog1.SendProgressAsync(StringResources.ttlAtencion, StringResources.ttlEspereUnMomento);
+
+            string url = System.Configuration.ConfigurationManager.AppSettings["URLNodeServer"];
+
+            bool banStatusNodeServer = await DataManager.GetStatusConetionNodeServer(url);
+
+            await AsyncProgressConfigEmail.CloseAsync();
+
+            if (!banStatusNodeServer)
+                await dialog1.SendMessage(StringResources.ttlAtencion, StringResources.lblModeReadOnly);
+        }
+
         private void uploadFileScanned()
         {
             DocumentoFirmadoViewModel context = new DocumentoFirmadoViewModel(usuario);
@@ -768,148 +789,167 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void irNuevoDocumento()
         {
-            Bloqueo obj = new Bloqueo();
-            DialogService dialogService = new DialogService();
-            bool isAdministratorCIT = Module.UsuarioIsRol(usuario.Roles, 2);
+            DialogService dialog1 = new DialogService();
 
-            //Método que obtiene un registro si se encuentra activo
-            obj = DataManagerControlDocumentos.GetBloqueo();
+            ProgressDialogController AsyncProgressConfigEmail;
 
-            //Si el sistema no está bloqueado
-            //2 es administrador del CIT, sólo los administradores pueden crear un documento cuando el sistema esté bloqueado
-            if (obj.id_bloqueo == 0 || Module.UsuarioIsRol(usuario.Roles, 2))
+            AsyncProgressConfigEmail = await dialog1.SendProgressAsync(StringResources.ttlAtencion, StringResources.ttlEspereUnMomento);
+
+            string url = System.Configuration.ConfigurationManager.AppSettings["URLNodeServer"];
+
+            bool banStatusNodeServer = await DataManager.GetStatusConetionNodeServer(url);
+
+            await AsyncProgressConfigEmail.CloseAsync();
+
+            if (banStatusNodeServer)
             {
-                //Obtenermos la cantidad de números de documentosque tiene el usuario sin versión.
-                int num_documentos = DataManagerControlDocumentos.GetDocumento_SinVersion(usuario.NombreUsuario).Count;
+                Bloqueo obj = new Bloqueo();
+                DialogService dialogService = new DialogService();
+                bool isAdministratorCIT = Module.UsuarioIsRol(usuario.Roles, 2);
 
-                //Si el número de documento es menor que cero
-                if (num_documentos > 0)
+                //Método que obtiene un registro si se encuentra activo
+                obj = DataManagerControlDocumentos.GetBloqueo();
+
+                //Si el sistema no está bloqueado
+                //2 es administrador del CIT, sólo los administradores pueden crear un documento cuando el sistema esté bloqueado
+                if (obj.id_bloqueo == 0 || Module.UsuarioIsRol(usuario.Roles, 2))
                 {
-                    //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
-                    MetroDialogSettings setting = new MetroDialogSettings();
-                    setting.NegativeButtonText = StringResources.msgCrearDocumento;
-                    setting.AffirmativeButtonText = StringResources.msgEditarDocumento;
+                    //Obtenermos la cantidad de números de documentosque tiene el usuario sin versión.
+                    int num_documentos = DataManagerControlDocumentos.GetDocumento_SinVersion(usuario.NombreUsuario).Count;
 
-                    MessageDialogResult result;
-
-                    if (isAdministratorCIT)
+                    //Si el número de documento es menor que cero
+                    if (num_documentos > 0)
                     {
-                        //Creamos la opción del botón para generar un número de documento de forma manual.
-                        setting.FirstAuxiliaryButtonText = StringResources.msgNumeroFijo;
+                        //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
+                        MetroDialogSettings setting = new MetroDialogSettings();
+                        setting.NegativeButtonText = StringResources.msgCrearDocumento;
+                        setting.AffirmativeButtonText = StringResources.msgEditarDocumento;
 
-                        //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                        result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoDisponible, setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
+                        MessageDialogResult result;
+
+                        if (isAdministratorCIT)
+                        {
+                            //Creamos la opción del botón para generar un número de documento de forma manual.
+                            setting.FirstAuxiliaryButtonText = StringResources.msgNumeroFijo;
+
+                            //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                            result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoDisponible, setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
+                        }
+                        else
+                            //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                            result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoDisponible, setting, MessageDialogStyle.AffirmativeAndNegative);
+
+                        switch (result)
+                        {
+                            case MessageDialogResult.Negative:
+                                //Ventana para generar un nuevo número de documento
+                                FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
+                                GeneradorViewModel Datacontext = new GeneradorViewModel { ModelUsuario = usuario };
+                                frmGenerador.DataContext = Datacontext;
+                                frmGenerador.ShowDialog();
+                                break;
+                            case MessageDialogResult.Affirmative:
+                                //Creamos un objeto de la ventana
+                                FrmDocumento frm = new FrmDocumento();
+                                DocumentoViewModel context = new DocumentoViewModel(usuario);
+                                frm.DataContext = context;
+                                //Mostramos la ventana
+                                frm.ShowDialog();
+                                break;
+                            case MessageDialogResult.FirstAuxiliary:
+                                //Mostramos la ventana para crear un documento con el número fijo.
+                                FrmCrear_Numero frmCrear = new FrmCrear_Numero();
+
+                                GeneradorViewModel generadorViewModel = new GeneradorViewModel { ModelUsuario = usuario };
+
+                                frmCrear.DataContext = generadorViewModel;
+
+                                frmCrear.DataContext = generadorViewModel;
+
+                                frmCrear.ShowDialog();
+
+                                break;
+
+                            case MessageDialogResult.SecondAuxiliary:
+                                break;
+                            default:
+                                break;
+                        }
+
+                        TextoBuscar = string.Empty;
+                        GetDataGrid(string.Empty);
+                        initSnack();
                     }
                     else
-                        //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                        result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoDisponible, setting, MessageDialogStyle.AffirmativeAndNegative);
-
-                    switch (result)
                     {
-                        case MessageDialogResult.Negative:
-                            //Ventana para generar un nuevo número de documento
-                            FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
-                            GeneradorViewModel Datacontext = new GeneradorViewModel { ModelUsuario = usuario };
-                            frmGenerador.DataContext = Datacontext;
-                            frmGenerador.ShowDialog();
-                            break;
-                        case MessageDialogResult.Affirmative:
-                            //Creamos un objeto de la ventana
-                            FrmDocumento frm = new FrmDocumento();
-                            DocumentoViewModel context = new DocumentoViewModel(usuario);
-                            frm.DataContext = context;
-                            //Mostramos la ventana
-                            frm.ShowDialog();
-                            break;
-                        case MessageDialogResult.FirstAuxiliary:
-                            //Mostramos la ventana para crear un documento con el número fijo.
-                            FrmCrear_Numero frmCrear = new FrmCrear_Numero();
+                        //El usuario no tiene documentos sin verisón
 
-                            GeneradorViewModel generadorViewModel = new GeneradorViewModel { ModelUsuario = usuario };
+                        //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
+                        MetroDialogSettings setting = new MetroDialogSettings();
+                        setting.AffirmativeButtonText = StringResources.msgCrearDocumento;
+                        setting.NegativeButtonText = StringResources.msgCancelar;
 
-                            frmCrear.DataContext = generadorViewModel;
+                        MessageDialogResult result;
 
-                            frmCrear.DataContext = generadorViewModel;
+                        if (isAdministratorCIT)
+                        {
+                            //Creamos la opción del botón para generar un número de documento de forma manual.
+                            setting.FirstAuxiliaryButtonText = StringResources.msgNumeroFijo;
 
-                            frmCrear.ShowDialog();
+                            //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                            result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoDisponible, setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
+                        }
+                        else
+                            //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
+                            result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgNumeroDocumentoDisp, setting, MessageDialogStyle.AffirmativeAndNegative);
 
-                            break;
+                        switch (result)
+                        {
+                            case MessageDialogResult.Negative:
+                                break;
+                            case MessageDialogResult.Affirmative:
+                                FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
 
-                        case MessageDialogResult.SecondAuxiliary:
-                            break;
-                        default:
-                            break;
+                                GeneradorViewModel context = new GeneradorViewModel { ModelUsuario = usuario };
+
+                                frmGenerador.DataContext = context;
+
+                                frmGenerador.ShowDialog();
+
+                                break;
+                            case MessageDialogResult.FirstAuxiliary:
+
+                                //Mostramos la ventana para crear un documento con el número fijo.
+                                FrmCrear_Numero frmCrear = new FrmCrear_Numero();
+
+                                GeneradorViewModel generadorViewModel = new GeneradorViewModel { ModelUsuario = usuario };
+
+                                frmCrear.DataContext = generadorViewModel;
+
+                                frmCrear.DataContext = generadorViewModel;
+
+                                frmCrear.ShowDialog();
+
+                                break;
+
+                            case MessageDialogResult.SecondAuxiliary:
+                                break;
+                            default:
+                                break;
+                        }
+                        initSnack();
                     }
-
-                    TextoBuscar = string.Empty;
-                    GetDataGrid(string.Empty);
-                    initSnack();
                 }
                 else
                 {
-                    //El usuario no tiene documentos sin verisón
-
-                    //Declaramos un objeto de tipo MetroDialogSettings al cual le asignamos las propiedades que contendrá el mensaje modal.
-                    MetroDialogSettings setting = new MetroDialogSettings();
-                    setting.AffirmativeButtonText = StringResources.msgCrearDocumento;
-                    setting.NegativeButtonText = StringResources.msgCancelar;
-
-                    MessageDialogResult result;
-
-                    if (isAdministratorCIT)
-                    {
-                        //Creamos la opción del botón para generar un número de documento de forma manual.
-                        setting.FirstAuxiliaryButtonText = StringResources.msgNumeroFijo;
-
-                        //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                        result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgDocumentoDisponible, setting, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary);
-                    }
-                    else
-                        //Ejecutamos el método para mostrar el mensaje. El resultado lo guardamos en una variable local.
-                        result = await dialogService.SendMessage(StringResources.ttlAlerta, StringResources.msgNumeroDocumentoDisp, setting, MessageDialogStyle.AffirmativeAndNegative);
-
-                    switch (result)
-                    {
-                        case MessageDialogResult.Negative:
-                            break;
-                        case MessageDialogResult.Affirmative:
-                            FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
-
-                            GeneradorViewModel context = new GeneradorViewModel { ModelUsuario = usuario };
-
-                            frmGenerador.DataContext = context;
-
-                            frmGenerador.ShowDialog();
-
-                            break;
-                        case MessageDialogResult.FirstAuxiliary:
-
-                            //Mostramos la ventana para crear un documento con el número fijo.
-                            FrmCrear_Numero frmCrear = new FrmCrear_Numero();
-
-                            GeneradorViewModel generadorViewModel = new GeneradorViewModel { ModelUsuario = usuario };
-
-                            frmCrear.DataContext = generadorViewModel;
-
-                            frmCrear.DataContext = generadorViewModel;
-
-                            frmCrear.ShowDialog();
-
-                            break;
-
-                        case MessageDialogResult.SecondAuxiliary:
-                            break;
-                        default:
-                            break;
-                    }
-                    initSnack();
+                    //Si el sistema está bloqueado
+                    DialogService dialog = new DialogService();
+                    await dialog.SendMessage(StringResources.msgSistemaBloqueado, obj.observaciones);
                 }
             }
             else
             {
-                //Si el sistema está bloqueado
-                DialogService dialog = new DialogService();
-                await dialog.SendMessage(StringResources.msgSistemaBloqueado, obj.observaciones);
+                await dialog1.SendMessage(StringResources.ttlAtencion, StringResources.lblModeReadOnly);
             }
         }
 
@@ -918,28 +958,47 @@ namespace View.Services.ViewModel
         /// </summary>
         private async void GenerarNumero()
         {
-            Bloqueo obj = new Bloqueo();
+            DialogService dialog1 = new DialogService();
 
-            //Método que obtiene un registro si se encuentra activo
-            obj = DataManagerControlDocumentos.GetBloqueo();
+            ProgressDialogController AsyncProgressConfigEmail;
 
-            //Si el sistema no está bloqueado
-            //O es administrador del CIT, sólo los administradores pueden generar un número cuando el sistema esté bloqueado
-            if (obj.id_bloqueo == 0 || Module.UsuarioIsRol(usuario.Roles, 2))
+            AsyncProgressConfigEmail = await dialog1.SendProgressAsync(StringResources.ttlAtencion, StringResources.ttlEspereUnMomento);
+
+            string url = System.Configuration.ConfigurationManager.AppSettings["URLNodeServer"];
+
+            bool banStatusNodeServer = await DataManager.GetStatusConetionNodeServer(url);
+
+            await AsyncProgressConfigEmail.CloseAsync();
+
+            if (banStatusNodeServer)
             {
-                FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
+                Bloqueo obj = new Bloqueo();
 
-                GeneradorViewModel context = new GeneradorViewModel { ModelUsuario = usuario };
+                //Método que obtiene un registro si se encuentra activo
+                obj = DataManagerControlDocumentos.GetBloqueo();
 
-                frmGenerador.DataContext = context;
+                //Si el sistema no está bloqueado
+                //O es administrador del CIT, sólo los administradores pueden generar un número cuando el sistema esté bloqueado
+                if (obj.id_bloqueo == 0 || Module.UsuarioIsRol(usuario.Roles, 2))
+                {
+                    FrmGenerador_Numero frmGenerador = new FrmGenerador_Numero();
 
-                frmGenerador.ShowDialog();
+                    GeneradorViewModel context = new GeneradorViewModel { ModelUsuario = usuario };
+
+                    frmGenerador.DataContext = context;
+
+                    frmGenerador.ShowDialog();
+                }
+                else
+                {
+                    //Si el sistema está bloqueado
+                    DialogService dialog = new DialogService();
+                    await dialog.SendMessage(StringResources.msgSistemaBloqueado, obj.observaciones);
+                }
             }
             else
             {
-                //Si el sistema está bloqueado
-                DialogService dialog = new DialogService();
-                await dialog.SendMessage(StringResources.msgSistemaBloqueado, obj.observaciones);
+                await dialog1.SendMessage(StringResources.ttlAtencion, StringResources.lblModeReadOnly);
             }
         }
 

@@ -53,7 +53,7 @@ namespace View.Forms.LogIn
             //Ejecutamos el método para enviar un mensaje de espera mientras se comprueban los datos.
             AsyncProgress = await dialog.SendProgressAsync("Espere...", "Verificando el estatus de la conexión");
 
-            string respuesta = await DataManager.GetStatusConection();
+            string respuesta = await DataManager.GetStatusConetionSQLServer();
 
             if (respuesta == "Error")
             {
@@ -71,7 +71,6 @@ namespace View.Forms.LogIn
 
             //Ejecutamos el método para cerrar el mensaje de espera.
             await AsyncProgress.CloseAsync();
-
         }
 
         async void Btn_ingresar_Click(object sender, RoutedEventArgs e)
@@ -117,7 +116,6 @@ namespace View.Forms.LogIn
                     }
                     else
                     {
-
                         SpeechSynthesizer _SS = new SpeechSynthesizer();
                         _SS.Volume = 100;
                         _SS.Rate = 1;
@@ -219,7 +217,7 @@ namespace View.Forms.LogIn
                             context = new DashboardViewModel(usuarioConectado);
                             context.ModelUsuario = usuarioConectado;
 
-                            //NOTA IMPORTANTE: Se hizo una redundancia al asignarle en la propiedad página su misma pantalla. Solo es por ser la primeva vez y tenernos en donde descanzar la primera pantalla.
+                            //NOTA IMPORTANTE: Se hizo una redundancia al asignarle en la propiedad página su misma pantalla. Solo es por ser la primera vez y tenernos en donde descanzar la primera pantalla.
                             context.Pagina = pDashBoard;
 
                             //Asignamos al DataContext de la PantallaHome el context creado anteriormente.

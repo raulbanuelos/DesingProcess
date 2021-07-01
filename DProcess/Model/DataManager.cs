@@ -26,6 +26,8 @@ using DataAccess.ServiceObjects.Tooling.Operaciones.Segmentos;
 using DataAccess.ServiceObjects.Tooling.Operaciones.Rectificados_Finos;
 using DataAccess.ServiceObjects.VerificacionAnual;
 using System.Reflection;
+using System.Net.Http;
+using System.Threading;
 
 namespace Model
 {
@@ -16231,7 +16233,7 @@ namespace Model
 
         #region Usuario
 
-        public static Task<String> GetStatusConection()
+        public static Task<String> GetStatusConetionSQLServer()
         {
             return Task.Run(() => {
                 SO_Usuario ServiceUsuario = new SO_Usuario();
@@ -16240,6 +16242,31 @@ namespace Model
 
                 return respuesta;
 
+            });
+        }
+
+        /// <summary>
+        /// Método para verificar la conexión hacia el servidor Node.
+        /// </summary>
+        /// <returns></returns>
+        public static Task<bool> GetStatusConetionNodeServer(string URL)
+        {
+            return Task.Run(()=>{
+                try
+                {
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri(URL);
+                    HttpResponseMessage response = client.GetAsync("/api/verificador").Result;
+
+                    Thread.Sleep(2000);
+
+                    return response.IsSuccessStatusCode ? true : false;
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(2000);
+                    return false;
+                }
             });
         }
 

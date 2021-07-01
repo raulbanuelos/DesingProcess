@@ -23,8 +23,7 @@ namespace View.Services.ViewModel
     {
         #region Attributes
         private Usuario _usuarioLogueado;
-        //string ipServidor = "10.16.44.242";
-        string ipServidor = "10.16.44.168";
+        string ipServidor ="";
         #endregion
 
         #region Propiedades
@@ -170,6 +169,7 @@ namespace View.Services.ViewModel
         /// <param name="usuarioLogueado"></param>
         public ValidarDocumentoViewM(Documento documento, Usuario usuarioLogueado)
         {
+            ipServidor = System.Configuration.ConfigurationManager.AppSettings["ipNodeServer"];
 
             _usuarioLogueado = usuarioLogueado;
             //Obtenemos la información del documento y de la versión

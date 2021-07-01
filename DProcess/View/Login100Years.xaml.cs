@@ -35,9 +35,39 @@ namespace View
     {
         public Login100Years()
         {
+            Thread ht1 = new Thread(new ThreadStart(checkConnection));
+            ht1.Start();
+
             InitializeComponent();
             cargarVideo();
             lblVersion.Content = StringResources.lblVersion + " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+            ht1.Join();
+        }
+
+        async void checkConnection()
+        {
+            string respuesta = await DataManager.GetStatusConetionSQLServer();
+
+            if (respuesta == "Error")
+            {
+                Uri resource = new Uri("/Images/circle_red.png", UriKind.Relative);
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    btn_ingresar.IsEnabled = false;
+                    imgEnLinea.Source = new BitmapImage(resource);
+                    lblEstatus.Content = "Offline";
+                }));
+            }
+            else
+            {
+                Uri resource = new Uri("/Images/circle_green.png", UriKind.Relative);
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    imgEnLinea.Source = new BitmapImage(resource);
+                    lblEstatus.Content = "on-Line";
+                }));
+            }
         }
 
         private void cargarVideo()
@@ -335,34 +365,41 @@ namespace View
 
         private async void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-            var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+            DialogService dialog1 = new DialogService();
+            ProgressDialogController AsyncProgressConfigEmail;
 
-            MetroDialogSettings settings = new MetroDialogSettings();
-            settings.AffirmativeButtonText = "Ok";
-            settings.NegativeButtonText = "Cancelar";
+            AsyncProgressConfigEmail = await dialog1.SendProgressAsync(StringResources.ttlAtencion, StringResources.ttlEspereUnMomento);
+            string url = System.Configuration.ConfigurationManager.AppSettings["URLNodeServer"];
+            bool respuestaNode = await DataManager.GetStatusConetionNodeServer(url);
 
-            string correo = await window.ShowInputAsync("Atención", "Por favor ingresa tu usuario ó tu correo", null);
-            Usuario user = new Usuario();
+            await AsyncProgressConfigEmail.CloseAsync();
 
-            if (!string.IsNullOrEmpty(correo))
+            if (!respuestaNode)
             {
-                Model.Encriptacion encrip = new Model.Encriptacion();
-                string usuarioEncriptado = encrip.encript(correo);
-
-                user = DataManager.GetUsuario(usuarioEncriptado);
-
                 DialogService dialog = new DialogService();
 
-                if (!string.IsNullOrEmpty(user.IdUsuario))
+                await dialog.SendMessage("Atención", "Por el momento el servicio no esta disponible, por favor intente más tarde ó contacte al administrador del sistema.");
+            }
+            else
+            {
+                var window = System.Windows.Application.Current.Windows.OfType<MetroWindow>().LastOrDefault();
+
+                MetroDialogSettings settings = new MetroDialogSettings();
+                settings.AffirmativeButtonText = "Ok";
+                settings.NegativeButtonText = "Cancelar";
+
+                string correo = await window.ShowInputAsync("Atención", "Por favor ingresa tu usuario ó tu correo", null);
+                Usuario user = new Usuario();
+
+                if (!string.IsNullOrEmpty(correo))
                 {
-                    if (iniciarProcesoRecuperarContrasena(user))
-                        await dialog.SendMessage("Atención", "En los próximos minutos recibira un correo con las instrucciones necesarias para recuperar su contraseña.");
-                    else
-                        await dialog.SendMessage("Atención", "Hubo un error, por favor intente mas tarde.");
-                }
-                else
-                {
-                    user = DataManager.GetUserByCorreo(correo);
+                    Model.Encriptacion encrip = new Model.Encriptacion();
+                    string usuarioEncriptado = encrip.encript(correo);
+
+                    user = DataManager.GetUsuario(usuarioEncriptado);
+
+                    DialogService dialog = new DialogService();
+
                     if (!string.IsNullOrEmpty(user.IdUsuario))
                     {
                         if (iniciarProcesoRecuperarContrasena(user))
@@ -371,7 +408,18 @@ namespace View
                             await dialog.SendMessage("Atención", "Hubo un error, por favor intente mas tarde.");
                     }
                     else
-                        await dialog.SendMessage("Atención", "No hay registros del usuario ó correo ingresado, por favor revisa los datos.");
+                    {
+                        user = DataManager.GetUserByCorreo(correo);
+                        if (!string.IsNullOrEmpty(user.IdUsuario))
+                        {
+                            if (iniciarProcesoRecuperarContrasena(user))
+                                await dialog.SendMessage("Atención", "En los próximos minutos recibira un correo con las instrucciones necesarias para recuperar su contraseña.");
+                            else
+                                await dialog.SendMessage("Atención", "Hubo un error, por favor intente mas tarde.");
+                        }
+                        else
+                            await dialog.SendMessage("Atención", "No hay registros del usuario ó correo ingresado, por favor revisa los datos.");
+                    }
                 }
             }
         }

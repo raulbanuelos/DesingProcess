@@ -82,6 +82,8 @@
         </Grid>
 
         <Image Source=".\Images\MahleRight.png" Canvas.Left="1219" Canvas.Top="703"></Image>
+        <Image x:Name="imgEnLinea" Canvas.Left="120" Canvas.Top="734" Width="25" Height="25"></Image>
+        <Label x:Name="lblEstatus" Canvas.Left="150" Canvas.Top="734"></Label>
 
         <Label x:Name="lblVersion" Content="" Canvas.Top="734" Width="191" Foreground="Black" Canvas.Left="2"/>
     </Canvas>

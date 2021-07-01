@@ -2313,4 +2313,8 @@ En un momento te llegará un correo electrónico confirmando su configuración.<
     <value>Solo se permite una página por hoja.</value>
     <comment>Only one page per sheet is allowed.</comment>
   </data>
+  <data name="lblModeReadOnly" xml:space="preserve">
+    <value>Por el momento el módulo de control de documentos está en modo solo consulta, no podrás realizar Altas/Actualizaciones de documentos.</value>
+    <comment>Etiqueta para notificar que el modulo de control de documentos esta en solo lectura.</comment>
+  </data>
 </root>

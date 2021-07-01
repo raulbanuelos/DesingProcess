@@ -2315,4 +2315,8 @@ In a moment you will receive an email confirming your configuration.</value>
     <value>Only one page per sheet is allowed.</value>
     <comment>Only one page per sheet is allowed.</comment>
   </data>
+  <data name="lblModeReadOnly" xml:space="preserve">
+    <value>At the moment the document control module is in query-only mode, you will not be able to perform Uploads/Document Updates.</value>
+    <comment>Etiqueta para notificar que el modulo de control de documentos esta en solo lectura.</comment>
+  </data>
 </root>

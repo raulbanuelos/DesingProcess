@@ -543,7 +543,8 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                                  select new
                                  {
                                      v.ID_VERSION,
-                                     v.No_VERSION
+                                     v.No_VERSION,
+                                     v.ID_ESTATUS_VERSION
                                  }).ToList();
                     //se retorna la lista
                     return Lista;

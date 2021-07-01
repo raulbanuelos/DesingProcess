@@ -10,7 +10,6 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d"
-      d:DesignHeight="300" d:DesignWidth="300"
       Title="ControlDocumento"
       Height="Auto" Width="Auto">
     <Page.Resources>
@@ -91,7 +90,7 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ComboBox>
-                        <StackPanel Width="439" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Width="Auto" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Label Content="Total:" FontSize="14" HorizontalAlignment="Center" Width="43"/>
                             <Label FontSize="14" FontWeight="Bold" Content="{Binding Lista.Count}"  HorizontalAlignment="Right" />
                         </StackPanel>

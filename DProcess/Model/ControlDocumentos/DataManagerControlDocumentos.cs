@@ -773,6 +773,42 @@ namespace Model.ControlDocumentos
             return Lista;
         }
 
+        public static Documento GetDocumento(string nombreDocumento)
+        {
+            //Se inicializan los servicios de Documento.
+            SO_Documento ServicioDocumento = new SO_Documento();
+
+            //Se crea un objeto de tipo documento
+            Documento documento = new Documento();
+
+            //Obtenemos la información de la BD.
+            IList informacionBD = ServicioDocumento.GetDocumento(nombreDocumento);
+
+            //Si la información es diferente de nulo
+            if (informacionBD != null)
+            {
+                //Iteramos la lista que se obtuvo
+                foreach (var item in informacionBD)
+                {
+                    //Obtenemos el tipo.
+                    System.Type tipo = item.GetType();
+
+                    //Asignamos los valores correspondientes.
+                    documento.id_documento = (int)tipo.GetProperty("ID_DOCUMENTO").GetValue(item, null);
+                    documento.id_tipo_documento = (int)tipo.GetProperty("ID_TIPO_DOCUMENTO").GetValue(item, null);
+                    documento.id_estatus = (int)tipo.GetProperty("ID_ESTATUS_DOCUMENTO").GetValue(item, null);
+                    documento.nombre = (string)tipo.GetProperty("NOMBRE").GetValue(item, null);
+                    documento.fecha_emision = (DateTime)tipo.GetProperty("FECHA_EMISION").GetValue(item, null);
+                    documento.fecha_creacion = (DateTime)tipo.GetProperty("FECHA_CREACION").GetValue(item, null);
+                    documento.fecha_actualizacion = (DateTime)tipo.GetProperty("FECHA_ACTUALIZACION").GetValue(item, null);
+                    documento.id_dep = (int)tipo.GetProperty("ID_DEPARTAMENTO").GetValue(item, null);
+                }
+            }
+
+            //Retornamos el objeto
+            return documento;
+        }
+
         /// <summary>
         /// Método que obtiene un registro de documentos
         /// </summary>
@@ -2661,6 +2697,7 @@ namespace Model.ControlDocumentos
                     //Asignamos los valores correspondientes.
                     obj.id_version = (int)tipo.GetProperty("ID_VERSION").GetValue(item, null);
                     obj.no_version = (string)tipo.GetProperty("No_VERSION").GetValue(item, null);
+                    obj.id_estatus_version = (int)tipo.GetProperty("ID_ESTATUS_VERSION").GetValue(item, null);
                     //Agregamos el objeto a la lista resultante.
                     Lista.Add(obj);
                 }

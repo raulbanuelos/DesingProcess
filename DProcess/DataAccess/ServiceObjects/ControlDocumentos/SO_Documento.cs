@@ -59,6 +59,48 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
         }
 
         /// <summary>
+        /// Método para obtener todos los registro de la tabla.
+        /// </summary>
+        /// <returns></returns>
+        public IList GetDocumento(string nombre)
+        {
+            try
+            {
+                //Establecemos la conexión a la BD.
+                using (var Conexion = new EntitiesControlDocumentos())
+                {
+                    //Realizamos la consulta y se guardan en una lista, para retornar el resultado.
+                    var Lista = (from d in Conexion.TBL_DOCUMENTO
+                                 join t in Conexion.TBL_TIPO_DOCUMENTO on d.ID_TIPO_DOCUMENTO equals t.ID_TIPO_DOCUMENTO
+                                 join e in Conexion.TBL_ESTATUS_DOCUMENTO on d.ID_ESTATUS_DOCUMENTO equals e.ID_ESTATUS_DOCUMENTO
+                                 join u in Conexion.Usuarios on d.ID_USUARIO equals u.Usuario
+                                 where d.NOMBRE == nombre
+                                 select new
+                                 {
+                                     d.ID_DOCUMENTO,
+                                     t.ID_TIPO_DOCUMENTO,
+                                     d.NOMBRE,
+                                     // d.DESCRIPCION,
+                                     //d.VERSION_ACTUAL,
+                                     d.FECHA_EMISION,
+                                     d.FECHA_CREACION,
+                                     d.FECHA_ACTUALIZACION,
+                                     e.ID_ESTATUS_DOCUMENTO,
+                                     d.ID_DEPARTAMENTO,
+                                     u.Usuario
+                                 }).ToList();
+                    //se retorna la lista
+                    return Lista;
+                }
+            }
+            catch (Exception)
+            {
+                //Si hay algún error, se retorna un nulo.
+                return null;
+            }
+        }
+
+        /// <summary>
         /// metodo que obtiene los documentos de un usuario
         /// </summary>
         /// <param name="id_usuario"></param>
