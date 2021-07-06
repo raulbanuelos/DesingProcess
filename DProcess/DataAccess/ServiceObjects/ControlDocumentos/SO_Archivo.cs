@@ -79,6 +79,7 @@ namespace DataAccess.ServiceObjects.ControlDocumentos
                 return null;
             }
         }
+
         /// <summary>
         /// Método que obtiene el archivo de un documento seleccionado
         /// </summary>

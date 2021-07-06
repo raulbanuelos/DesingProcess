@@ -49,7 +49,7 @@ using System.Windows;
 // Puede especificar todos los valores o usar los valores predeterminados de número de compilación y de revisión
 // mediante el carácter '*', como se muestra a continuación:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.7.0.20")]
-[assembly: AssemblyFileVersion("4.7.0.20")]
+[assembly: AssemblyVersion("4.7.1.21")]
+[assembly: AssemblyFileVersion("4.7.1.21")]
 [assembly: Guid("1ECB0307-E849-4DEA-9D7D-C6D546BBD281")]
 

@@ -14,9 +14,9 @@ namespace Example1
     {
         static void Main(string[] args)
         {
-            //saveFilesControlDocumentos();
+            saveFilesControlDocumentos();
             //saveFilesLeccionesAprendidas();
-            getPathFilesLearnedLessons();
+            //getPathFilesLearnedLessons();
             //IKernel kernel = new StandardKernel(new Bindings("Outlook"));
 
             //IMailSender mailSender = kernel.Get<IMailSender>();
